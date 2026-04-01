@@ -271,12 +271,12 @@ body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
   function afficherQuestion() {
     session = GAME.getSession();
 
-    // Relancer les animations cascade
+    // Relancer les animations cascade après que l'écran question est visible
     document.body.classList.remove('question-prete');
     void document.body.offsetWidth;
     setTimeout(function() {
       document.body.classList.add('question-prete');
-    }, 50);
+    }, 350);
 
     document.getElementById('personnageNom').textContent = etapeData.personnage;
     document.getElementById('questionTexte').textContent = questionData.texte;
@@ -443,12 +443,6 @@ body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
 
   function demarrerMusiqueEtLancerQuestion() {
     afficherQuestion();
-    // Déclencher la cascade après affichage
-    setTimeout(function() {
-      document.body.classList.remove('question-prete');
-      void document.body.offsetWidth;
-      document.body.classList.add('question-prete');
-    }, 50);
   }
 
   function demarrerMusique(idEtape) {
