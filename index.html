@@ -11,6 +11,26 @@
 </head>
 <body>
 
+<style id="vignette-respiration">
+@keyframes vigRespire {
+  0%,100% { opacity:0.2; }
+  50%      { opacity:0.95; }
+}
+.vignette-respiration {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(ellipse at center,
+    rgba(240,234,216,0.06) 20%,
+    transparent 55%,
+    rgba(0,0,0,0.9) 100%);
+  animation: vigRespire 3.5s ease-in-out infinite;
+  border-radius: 0;
+}
+</style>
+<div class="vignette-respiration"></div>
+
   <!-- ÉCRAN DE CHARGEMENT -->
   <div id="ecranChargement" style="
     position:fixed; top:0; left:0; width:100%; height:100%;
@@ -48,7 +68,13 @@
     <div class="parcours-choix">
 
       <button class="btn-parcours" onclick="choisirParcours('enfants')">
-        <div class="btn-point"></div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="9" r="5" stroke="#8a8070" stroke-width="1.1"/>
+          <path d="M9 8.5 Q10 7.5 11 8.5" stroke="#8a8070" stroke-width="1" stroke-linecap="round"/>
+          <path d="M13 8.5 Q14 7.5 15 8.5" stroke="#8a8070" stroke-width="1" stroke-linecap="round"/>
+          <path d="M10 11 Q12 12.5 14 11" stroke="#8a8070" stroke-width="1" stroke-linecap="round"/>
+          <path d="M6 22 C6 17 18 17 18 22" stroke="#8a8070" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>
         <div>
           <strong>Enfants</strong>
           <small>Moins de 10 ans</small>
@@ -56,7 +82,12 @@
       </button>
 
       <button class="btn-parcours" onclick="choisirParcours('famille')">
-        <div class="btn-point"></div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="9" cy="7" r="3" stroke="#8a8070" stroke-width="1.1"/>
+          <circle cx="16" cy="7" r="3" stroke="#8a8070" stroke-width="1.1"/>
+          <path d="M4 22 C4 17 14 17 14 22" stroke="#8a8070" stroke-width="1.1" stroke-linecap="round"/>
+          <path d="M12 22 C12 17 22 17 22 22" stroke="#8a8070" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>
         <div>
           <strong>Famille</strong>
           <small>Niveau intermédiaire</small>
@@ -64,7 +95,15 @@
       </button>
 
       <button class="btn-parcours pmr" onclick="choisirParcours('pmr')">
-        <div class="btn-point"></div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="14" cy="3.5" r="2" stroke="#8a8070" stroke-width="1.1"/>
+          <line x1="14" y1="5.5" x2="14" y2="11" stroke="#8a8070" stroke-width="1.1" stroke-linecap="round"/>
+          <path d="M9 11 L14 11 L16 16" stroke="#8a8070" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="9" y1="7" x2="9" y2="15" stroke="#8a8070" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="9" y1="15" x2="14" y2="15" stroke="#8a8070" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="10" cy="20" r="3.5" stroke="#8a8070" stroke-width="1.1"/>
+          <circle cx="17" cy="19" r="1.8" stroke="#8a8070" stroke-width="1"/>
+        </svg>
         <div>
           <strong>PMR</strong>
           <small>Parcours accessible</small>
@@ -86,13 +125,57 @@
     };
 
     function choisirParcours(mode) {
+      // Petit délai pour laisser le ripple s'afficher avant de changer de page
+      setTimeout(function() {
       localStorage.setItem('parcours', mode);
       localStorage.setItem('etape',    '0');
       localStorage.setItem('erreurs',  '0');
       localStorage.setItem('phase',    'commun');
-      window.location.href = 'enigme.html?etape=0';
+        window.location.href = 'enigme.html?etape=0';
+      }, 300);
     }
   </script>
 
+
+<style id="ripple-global">
+.ripple-dot {
+  position: fixed;
+  border-radius: 50%;
+  background: rgba(240, 234, 216, 0.25);
+  transform: scale(0);
+  pointer-events: none;
+  z-index: 99999;
+  animation: rippleGlobal 0.6s ease-out forwards;
+}
+@keyframes rippleGlobal {
+  from { transform: scale(0); opacity: 0.5; }
+  to   { transform: scale(6); opacity: 0; }
+}
+</style>
+<script>
+document.addEventListener('click', function(e) {
+  const dot = document.createElement('div');
+  dot.className = 'ripple-dot';
+  const size = 40;
+  dot.style.width  = size + 'px';
+  dot.style.height = size + 'px';
+  dot.style.left   = (e.clientX - size / 2) + 'px';
+  dot.style.top    = (e.clientY - size / 2) + 'px';
+  document.body.appendChild(dot);
+  dot.addEventListener('animationend', function() { dot.remove(); });
+});
+document.addEventListener('touchstart', function(e) {
+  const touch = e.touches[0];
+  const dot = document.createElement('div');
+  dot.className = 'ripple-dot';
+  const size = 40;
+  dot.style.width  = size + 'px';
+  dot.style.height = size + 'px';
+  dot.style.left   = (touch.clientX - size / 2) + 'px';
+  dot.style.top    = (touch.clientY - size / 2) + 'px';
+  document.body.appendChild(dot);
+  dot.addEventListener('animationend', function() { dot.remove(); });
+}, { passive: true });
+</script>
 </body>
 </html>

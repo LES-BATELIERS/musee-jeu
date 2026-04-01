@@ -25,5 +25,46 @@
       window.location.href = 'index.html';
     }
   </script>
+
+<style id="ripple-global">
+.ripple-dot {
+  position: fixed;
+  border-radius: 50%;
+  background: rgba(240, 234, 216, 0.25);
+  transform: scale(0);
+  pointer-events: none;
+  z-index: 99999;
+  animation: rippleGlobal 0.6s ease-out forwards;
+}
+@keyframes rippleGlobal {
+  from { transform: scale(0); opacity: 0.5; }
+  to   { transform: scale(6); opacity: 0; }
+}
+</style>
+<script>
+document.addEventListener('click', function(e) {
+  const dot = document.createElement('div');
+  dot.className = 'ripple-dot';
+  const size = 40;
+  dot.style.width  = size + 'px';
+  dot.style.height = size + 'px';
+  dot.style.left   = (e.clientX - size / 2) + 'px';
+  dot.style.top    = (e.clientY - size / 2) + 'px';
+  document.body.appendChild(dot);
+  dot.addEventListener('animationend', function() { dot.remove(); });
+});
+document.addEventListener('touchstart', function(e) {
+  const touch = e.touches[0];
+  const dot = document.createElement('div');
+  dot.className = 'ripple-dot';
+  const size = 40;
+  dot.style.width  = size + 'px';
+  dot.style.height = size + 'px';
+  dot.style.left   = (touch.clientX - size / 2) + 'px';
+  dot.style.top    = (touch.clientY - size / 2) + 'px';
+  document.body.appendChild(dot);
+  dot.addEventListener('animationend', function() { dot.remove(); });
+}, { passive: true });
+</script>
 </body>
 </html>

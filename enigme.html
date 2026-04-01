@@ -11,6 +11,26 @@
 </head>
 <body>
 
+<style id="vignette-respiration">
+@keyframes vigRespire {
+  0%,100% { opacity:0.2; }
+  50%      { opacity:0.95; }
+}
+.vignette-respiration {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(ellipse at center,
+    rgba(240,234,216,0.06) 20%,
+    transparent 55%,
+    rgba(0,0,0,0.9) 100%);
+  animation: vigRespire 3.5s ease-in-out infinite;
+  border-radius: 0;
+}
+</style>
+<div class="vignette-respiration"></div>
+
 <!-- ÉCRAN DE CHARGEMENT -->
 <div id="ecranChargement" style="
   position:fixed; top:0; left:0; width:100%; height:100%;
@@ -101,7 +121,6 @@
       <img src="img/logo.png" alt="Les Bateliers" class="logo-question">
       <div class="separateur-question"></div>
       <div class="personnage-nom" id="personnageNom"></div>
-      <div class="erreurs-compteur" id="erreursCompteur"></div>
       <p class="question-texte" id="questionTexte"></p>
       <div class="choix-liste" id="choixListe"></div>
     </div>
@@ -462,17 +481,49 @@
     }
   }
 
-  function majCompteurErreurs() {
-    session = GAME.getSession();
-    const restants = 2 - session.erreurs;
-    const el = document.getElementById('erreursCompteur');
-    if (restants <= 0) {
-      el.textContent = '';
-    } else {
-      el.textContent = '❤️'.repeat(restants);
-    }
-  }
+  function majCompteurErreurs() { /* supprimé — plus de compteur coeurs */ }
 
+</script>
+
+<style id="ripple-global">
+.ripple-dot {
+  position: fixed;
+  border-radius: 50%;
+  background: rgba(240, 234, 216, 0.25);
+  transform: scale(0);
+  pointer-events: none;
+  z-index: 99999;
+  animation: rippleGlobal 0.6s ease-out forwards;
+}
+@keyframes rippleGlobal {
+  from { transform: scale(0); opacity: 0.5; }
+  to   { transform: scale(6); opacity: 0; }
+}
+</style>
+<script>
+document.addEventListener('click', function(e) {
+  const dot = document.createElement('div');
+  dot.className = 'ripple-dot';
+  const size = 40;
+  dot.style.width  = size + 'px';
+  dot.style.height = size + 'px';
+  dot.style.left   = (e.clientX - size / 2) + 'px';
+  dot.style.top    = (e.clientY - size / 2) + 'px';
+  document.body.appendChild(dot);
+  dot.addEventListener('animationend', function() { dot.remove(); });
+});
+document.addEventListener('touchstart', function(e) {
+  const touch = e.touches[0];
+  const dot = document.createElement('div');
+  dot.className = 'ripple-dot';
+  const size = 40;
+  dot.style.width  = size + 'px';
+  dot.style.height = size + 'px';
+  dot.style.left   = (touch.clientX - size / 2) + 'px';
+  dot.style.top    = (touch.clientY - size / 2) + 'px';
+  document.body.appendChild(dot);
+  dot.addEventListener('animationend', function() { dot.remove(); });
+}, { passive: true });
 </script>
 </body>
 </html>
