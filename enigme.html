@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Bateliers — Jeu du Musée</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="jeu-container">
+
+  <!-- HEADER : logo + progression -->
+  <div class="jeu-header">
+      <div class="progression-bar" style="width:100%">
+      <div class="progression-fill" id="progressionFill"></div>
+    </div>
+    <div class="progression-label" id="progressionLabel">Progression : 0%</div>
+  </div>
+
+  <!-- ÉCRAN : VIDÉO -->
+  <div class="ecran" id="ecranVideo">
+    <div class="video-wrapper">
+      <iframe id="videoPlayer"
+        src=""
+        frameborder="0"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <button class="btn-suite" id="btnSuiteVideo" onclick="afficherQuestion()">
+      Voir la question ▶
+    </button>
+  </div>
+
+  <!-- ÉCRAN : QUESTION -->
+  <div class="ecran cache" id="ecranQuestion">
+    <div class="question-card">
+      <img src="img/logo.png" alt="Les Bateliers" class="logo-question">
+      <div class="separateur-question"></div>
+      <div class="personnage-nom" id="personnageNom"></div>
+      <div class="erreurs-compteur" id="erreursCompteur"></div>
+      <p class="question-texte" id="questionTexte"></p>
+      <div class="choix-liste" id="choixListe"></div>
+    </div>
+  </div>
+
+  <!-- ÉCRAN : FEEDBACK (bonne/mauvaise réponse) -->
+  <div class="ecran cache" id="ecranFeedback">
+    <div class="video-wrapper">
+      <iframe id="videoFeedback"
+        src=""
+        frameborder="0"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div id="messageFeedback" class="message-feedback"></div>
+    <button class="btn-suite cache" id="btnApresReponse" onclick="apresReponse()"></button>
+  </div>
+
+  <!-- ÉCRAN : INDICE (trouver le prochain QR) -->
+  <div class="ecran cache" id="ecranIndice">
+    <div class="indice-card">
+      <div class="indice-separateur"></div>
+      <h2>Bien joué !</h2>
+      <p id="indiceTexte"></p>
+    </div>
+  </div>
+
+  <!-- ÉCRAN : ERREUR ANTI-CHEAT -->
+  <div class="ecran cache" id="ecranCheat">
+    <div class="cheat-card">
+      <div style="font-size:3rem;">🚫</div>
+      <h2>Oups !</h2>
+      <p>Tu dois d'abord réussir l'étape précédente pour accéder ici.</p>
+      <button class="btn-suite" onclick="window.location.href='index.html'">
+        Retour à l'accueil
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script src="data/parcours.js"></script>
+<script src="js/game.js"></script>
+<script>
+
+  // ── Variables globales ──
+  let etapeData   = null;
+  let questionData = null;
+  let session     = null;
+  let bonneReponse = false;
+
+  // ── Musique de fond ──
+  const musique = new Audio('audio/(( DÉBUT )) JID x Kendrick Lamar x J. Cole Type Beat  Je Suis Perdu.mp3');
+  musique.loop        = true;
+  musique.volume      = 0.18; // -15db environ
+  musique.currentTime = 10;  // démarre à 10 secondes
+
+  // ── Initialisation au chargement ──
+  window.onload = function() {
+
+    session = GAME.getSession();
+
+    // Vider les mauvais choix mémorisés au chargement d'une nouvelle page
+    localStorage.removeItem('dejaTentes');
+
+    // Pas de parcours choisi → retour accueil
+    if (!session.parcours) {
+      window.location.href = 'index.html';
+      return;
+    }
+
+    // Récupérer l'ID de l'étape depuis l'URL (?etape=intro-guide)
+    const params  = new URLSearchParams(window.location.search);
+    const idEtape = params.get('etape');
+
+    // Anti-cheat : seulement si un ID est fourni ET différent de "0"
+    if (idEtape && idEtape !== '0' && !GAME.peutAcceder(idEtape)) {
+      afficherEcran('ecranCheat');
+      return;
+    }
+
+    // Charger l'étape
+    etapeData = GAME.getEtapeCourante();
+    if (!etapeData) {
+      window.location.href = 'victoire.html';
+      return;
+    }
+
+    questionData = GAME.getQuestion(etapeData, session);
+
+    // Mettre à jour la progression
+    const pct = GAME.getProgression();
+    document.getElementById('progressionFill').style.width = pct + '%';
+    document.getElementById('progressionLabel').textContent = 'Progression : ' + pct + '%';
+
+    // Charger la vidéo d'intro
+    if (etapeData.videoIntro) {
+      chargerVideo('videoPlayer', etapeData.videoIntro);
+      afficherEcran('ecranVideo');
+      // Démarrer la musique de fond
+      musique.play().catch(function() {
+        // Les navigateurs bloquent l'autoplay — on démarre au 1er clic
+        document.addEventListener('click', function demarrerMusique() {
+          musique.play();
+          document.removeEventListener('click', demarrerMusique);
+        });
+      });
+    } else {
+      // Pas de vidéo → aller direct à la question
+      afficherQuestion();
+    }
+  };
+
+  // ── Afficher la question ──
+  function afficherQuestion() {
+    session = GAME.getSession();
+
+    // Vider les mauvais choix si c'est la toute première affichage de cette étape
+    // (on ne vide pas si on revient après une mauvaise réponse — c'est voulu)
+    document.getElementById('personnageNom').textContent = etapeData.personnage;
+    document.getElementById('questionTexte').textContent = questionData.texte;
+
+    // Compteur d'erreurs
+    majCompteurErreurs();
+
+    // Générer les boutons de réponse
+    const liste = document.getElementById('choixListe');
+    liste.innerHTML = '';
+    const erreursActuelles = GAME.getSession().erreurs;
+    const dejaTentes = JSON.parse(localStorage.getItem('dejaTentes') || '[]');
+    questionData.choix.forEach(function(choix, index) {
+      const btn = document.createElement('button');
+      btn.className = 'btn-choix';
+      btn.textContent = choix;
+      // Griser les choix déjà tentés (mauvaises réponses précédentes)
+      if (dejaTentes.includes(index)) {
+        btn.disabled = true;
+        btn.style.opacity = '0.3';
+        btn.style.textDecoration = 'line-through';
+      } else {
+        btn.onclick = function() { verifierReponse(index); };
+      }
+      liste.appendChild(btn);
+    });
+
+    afficherEcran('ecranQuestion');
+  }
+
+  // ── Vérifier la réponse ──
+  function verifierReponse(indexChoisi) {
+
+    // Désactiver tous les boutons (évite double-clic)
+    document.querySelectorAll('.btn-choix').forEach(function(b) {
+      b.disabled = true;
+    });
+
+    if (indexChoisi === questionData.bonne) {
+      // ✅ BONNE RÉPONSE
+      bonneReponse = true;
+
+      if (etapeData.videoBonneReponse) {
+        chargerVideo('videoFeedback', etapeData.videoBonneReponse);
+        document.getElementById('messageFeedback').innerHTML =
+          '<span class="feedback-ok">✅ Bravo ! Bonne réponse !</span>';
+        document.getElementById('btnApresReponse').textContent = 'Continuer ▶';
+        document.getElementById('btnApresReponse').classList.remove('cache');
+        afficherEcran('ecranFeedback');
+      } else {
+        // Pas de vidéo de feedback → aller direct à l'indice
+        afficherIndice();
+      }
+
+    } else {
+      // ❌ MAUVAISE RÉPONSE
+      bonneReponse = false;
+      const nbErreurs = GAME.ajouterErreur();
+      session = GAME.getSession();
+      // Mémoriser ce mauvais choix pour le barrer au retour
+      const dejaTentes = JSON.parse(localStorage.getItem('dejaTentes') || '[]');
+      if (!dejaTentes.includes(indexChoisi)) dejaTentes.push(indexChoisi);
+      localStorage.setItem('dejaTentes', JSON.stringify(dejaTentes));
+
+      const indexVideo = Math.min(nbErreurs - 1, etapeData.videsMauvaisesReponses.length - 1);
+      const videoErreur = etapeData.videsMauvaisesReponses[indexVideo];
+
+      if (videoErreur) {
+        chargerVideo('videoFeedback', videoErreur);
+      }
+
+      if (nbErreurs >= 2) {
+        // 2 erreurs atteintes → on indique que c'est la dernière chance
+        // mais le joueur DOIT quand même cliquer la bonne réponse lui-même
+        document.getElementById('messageFeedback').innerHTML =
+          '<span class="feedback-erreur">❌ Encore raté ! Regarde bien et trouve la bonne réponse...</span>';
+        document.getElementById('btnApresReponse').textContent = 'Réessayer ▶';
+        bonneReponse = false; // Le joueur doit encore trouver la bonne réponse
+      } else {
+        document.getElementById('messageFeedback').innerHTML =
+          '<span class="feedback-erreur">❌ Pas tout à fait... Encore un essai !</span>';
+        document.getElementById('btnApresReponse').textContent = 'Réessayer ▶';
+      }
+
+      document.getElementById('btnApresReponse').classList.remove('cache');
+      afficherEcran('ecranFeedback');
+    }
+  }
+
+  // ── Après la vidéo de feedback ──
+  function apresReponse() {
+    if (bonneReponse) {
+      afficherIndice();
+    } else {
+      afficherQuestion();
+    }
+  }
+
+  // ── Afficher l'indice (prochain QR à trouver) ──
+  function afficherIndice() {
+    GAME.avancer();
+    session = GAME.getSession();
+    localStorage.removeItem('dejaTentes'); // Réinitialiser pour la prochaine étape
+
+    // Mettre à jour la barre de progression
+    const pct = GAME.getProgression();
+    document.getElementById('progressionFill').style.width = pct + '%';
+    document.getElementById('progressionLabel').textContent = 'Progression : ' + pct + '%';
+
+    let indice = etapeData.indice;
+    // Cas bifurcation
+    if (typeof indice === 'object') {
+      indice = session.parcours === 'pmr' ? indice.pmr : indice.classique;
+    }
+
+    document.getElementById('indiceTexte').textContent = indice || "Bravo, tu as terminé !";
+
+    // Arrêter la musique — étape réussie, joueur repart dans le musée
+    musique.pause();
+    musique.currentTime = 0;
+
+    // Vérifier si c'est la fin
+    const prochaineEtape = GAME.getEtapeCourante();
+    if (!prochaineEtape) {
+      setTimeout(function() {
+        window.location.href = 'victoire.html';
+      }, 3000);
+    }
+
+    afficherEcran('ecranIndice');
+  }
+
+  // ── Helpers ──
+  function afficherEcran(idEcran) {
+    document.querySelectorAll('.ecran').forEach(function(e) {
+      e.classList.add('cache');
+    });
+    document.getElementById(idEcran).classList.remove('cache');
+  }
+
+  function chargerVideo(idPlayer, url) {
+    // Convertir URL YouTube Shorts en embed
+    let embedUrl = url;
+    embedUrl = embedUrl.replace('youtube.com/shorts/', 'youtube.com/embed/');
+    embedUrl = embedUrl.replace('youtu.be/', 'youtube.com/embed/');
+    // Nettoyer les paramètres après ?
+    embedUrl = embedUrl.split('?')[0];
+    embedUrl += '?autoplay=1&rel=0&vq=hd1080';
+    document.getElementById(idPlayer).src = embedUrl;
+  }
+
+  function majCompteurErreurs() {
+    session = GAME.getSession();
+    const restants = 2 - session.erreurs;
+    const el = document.getElementById('erreursCompteur');
+    if (restants <= 0) {
+      el.textContent = '';
+    } else {
+      el.textContent = '❤️'.repeat(restants);
+    }
+  }
+
+</script>
+</body>
+</html>
