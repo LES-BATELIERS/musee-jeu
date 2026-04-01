@@ -17,11 +17,11 @@
   to   { opacity:1; transform:translateY(0); }
 }
 @keyframes cardAppear {
-  from { opacity:0; transform:translateY(20px); }
-  to   { opacity:1; transform:translateY(0); }
+  from { opacity:0; transform:perspective(800px) rotateX(25deg) translateY(30px); }
+  to   { opacity:1; transform:perspective(800px) rotateX(0deg)  translateY(0); }
 }
 .card-animate {
-  animation: cardAppear 0.5s ease forwards;
+  animation: cardAppear 1.3s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
 }
 @keyframes textReveal {
   from { opacity:0; letter-spacing:0.5em; }
