@@ -31,7 +31,7 @@
         allowfullscreen>
       </iframe>
     </div>
-    <button class="btn-suite" id="btnSuiteVideo" onclick="afficherQuestion()">
+    <button class="btn-suite" id="btnSuiteVideo" onclick="demarrerMusiqueEtLancerQuestion()">
       Voir la question ▶
     </button>
   </div>
@@ -151,8 +151,8 @@
     if (etapeData.videoIntro) {
       chargerVideo('videoPlayer', etapeData.videoIntro);
       afficherEcran('ecranVideo');
-      // Démarrer la musique de fond dès l'affichage de la vidéo
-      demarrerMusique(etapeData.id);
+      // Stocker l'id pour démarrer la musique au premier tap (règle mobile)
+      window._musiqueEtape = etapeData.id;
     } else {
       // Pas de vidéo → aller direct à la question
       afficherQuestion();
@@ -299,6 +299,15 @@
   }
 
   // ── Démarrer la musique selon l'étape ──
+  // ── Démarrer musique au tap (obligatoire sur mobile) ──
+  function demarrerMusiqueEtLancerQuestion() {
+    if (window._musiqueEtape) {
+      demarrerMusique(window._musiqueEtape);
+      window._musiqueEtape = null;
+    }
+    afficherQuestion();
+  }
+
   function demarrerMusique(idEtape) {
     const config = MUSIQUES[idEtape];
     if (!config) return;
