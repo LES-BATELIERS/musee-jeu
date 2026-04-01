@@ -20,6 +20,21 @@
   from { opacity:0; transform:translateY(10px); }
   to   { opacity:1; transform:translateY(0); }
 }
+/* Les éléments restent cachés jusqu'à ce que .pret soit ajouté au body */
+.anim-logo    { opacity:0; }
+.anim-sep     { opacity:0; }
+.anim-titre   { opacity:0; }
+.anim-sous    { opacity:0; }
+.anim-btn1    { opacity:0; }
+.anim-btn2    { opacity:0; }
+.anim-btn3    { opacity:0; }
+body.pret .anim-logo  { animation: fadeInUp  0.6s ease 0.0s both; }
+body.pret .anim-sep   { animation: fadeInUp  0.5s ease 0.3s both; }
+body.pret .anim-titre { animation: textReveal 0.9s ease 0.4s both; }
+body.pret .anim-sous  { animation: fadeInUp  0.5s ease 0.7s both; }
+body.pret .anim-btn1  { animation: fadeInUp  0.5s ease 0.9s both; }
+body.pret .anim-btn2  { animation: fadeInUp  0.5s ease 1.05s both; }
+body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
 </style>
 <style id="vignette-respiration">
 @keyframes vigRespire {
@@ -68,16 +83,16 @@
 
   <div class="accueil">
 
-    <img src="img/logo.png" alt="Les Bateliers" class="logo-musee" style="animation: fadeInUp 0.6s ease 0s both; opacity:0;">
+    <img src="img/logo.png" alt="Les Bateliers" class="logo-musee anim-logo">
 
-    <div class="separateur" style="animation: fadeInUp 0.5s ease 0.3s both; opacity:0;"></div>
+    <div class="separateur anim-sep"></div>
 
-    <h1 style="animation: textReveal 0.9s ease 0.4s both; opacity:0;">Nuit blanche</h1>
-    <p class="sous-titre" style="animation: fadeInUp 0.5s ease 0.7s both; opacity:0;">Choisissez votre parcours</p>
+    <h1 class="anim-titre">Nuit blanche</h1>
+    <p class="sous-titre anim-sous">Choisissez votre parcours</p>
 
     <div class="parcours-choix">
 
-      <button class="btn-parcours" style="animation: fadeInUp 0.5s ease 0.9s both; opacity:0;" onclick="choisirParcours('enfants')">
+      <button class="btn-parcours anim-btn1" onclick="choisirParcours('enfants')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="9" r="5" stroke="#8a8070" stroke-width="1.1"/>
           <path d="M9 8.5 Q10 7.5 11 8.5" stroke="#8a8070" stroke-width="1" stroke-linecap="round"/>
@@ -91,7 +106,7 @@
         </div>
       </button>
 
-      <button class="btn-parcours" style="animation: fadeInUp 0.5s ease 1.05s both; opacity:0;" onclick="choisirParcours('famille')">
+      <button class="btn-parcours" class="btn-parcours anim-btn2" onclick="choisirParcours('famille')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <circle cx="9" cy="7" r="3" stroke="#8a8070" stroke-width="1.1"/>
           <circle cx="16" cy="7" r="3" stroke="#8a8070" stroke-width="1.1"/>
@@ -104,7 +119,7 @@
         </div>
       </button>
 
-      <button class="btn-parcours pmr" style="animation: fadeInUp 0.5s ease 1.2s both; opacity:0;" onclick="choisirParcours('pmr')">
+      <button class="btn-parcours pmr anim-btn3" onclick="choisirParcours('pmr')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <circle cx="14" cy="3.5" r="2" stroke="#8a8070" stroke-width="1.1"/>
           <line x1="14" y1="5.5" x2="14" y2="11" stroke="#8a8070" stroke-width="1.1" stroke-linecap="round"/>
@@ -127,6 +142,10 @@
   <script src="data/parcours.js?v=1"></script>
   <script>
     window.onload = function() {
+      // Déclencher les animations dès que la page est prête
+      requestAnimationFrame(function() {
+        document.body.classList.add('pret');
+      });
       setTimeout(function() {
         const ec = document.getElementById('ecranChargement');
         ec.style.opacity = '0';
