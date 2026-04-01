@@ -20,11 +20,12 @@
   from { opacity:0; letter-spacing:0.5em; }
   to   { opacity:1; letter-spacing:0.05em; }
 }
-.cascade-1 { animation: fadeInUp 0.4s ease 0.05s both; opacity:0; }
-.cascade-2 { animation: fadeInUp 0.4s ease 0.2s  both; opacity:0; }
-.cascade-3 { animation: fadeInUp 0.4s ease 0.35s both; opacity:0; }
-.cascade-4 { animation: fadeInUp 0.4s ease 0.5s  both; opacity:0; }
-.cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; opacity:0; }
+.cascade-1, .cascade-2, .cascade-3, .cascade-4, .cascade-5 { opacity:0; }
+body.question-prete .cascade-1 { animation: fadeInUp 0.4s ease 0.05s both; }
+body.question-prete .cascade-2 { animation: fadeInUp 0.4s ease 0.2s  both; }
+body.question-prete .cascade-3 { animation: fadeInUp 0.4s ease 0.35s both; }
+body.question-prete .cascade-4 { animation: fadeInUp 0.4s ease 0.5s  both; }
+body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
 </style>
 <style id="vignette-respiration">
 @keyframes vigRespire {
@@ -270,12 +271,12 @@
   function afficherQuestion() {
     session = GAME.getSession();
 
-    // Relancer les animations cascade à chaque affichage
-    document.querySelectorAll('.cascade-1,.cascade-2,.cascade-3,.cascade-4,.cascade-5').forEach(function(el) {
-      el.style.animation = 'none';
-      void el.offsetWidth;
-      el.style.animation = '';
-    });
+    // Relancer les animations cascade
+    document.body.classList.remove('question-prete');
+    void document.body.offsetWidth;
+    setTimeout(function() {
+      document.body.classList.add('question-prete');
+    }, 50);
 
     document.getElementById('personnageNom').textContent = etapeData.personnage;
     document.getElementById('questionTexte').textContent = questionData.texte;
@@ -442,6 +443,12 @@
 
   function demarrerMusiqueEtLancerQuestion() {
     afficherQuestion();
+    // Déclencher la cascade après affichage
+    setTimeout(function() {
+      document.body.classList.remove('question-prete');
+      void document.body.offsetWidth;
+      document.body.classList.add('question-prete');
+    }, 50);
   }
 
   function demarrerMusique(idEtape) {
