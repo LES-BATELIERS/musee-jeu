@@ -34,6 +34,27 @@
   0%, 100% { opacity:0.2; transform:scale(0.8); }
   50%       { opacity:1;   transform:scale(1.2); }
 }
+@keyframes shake {
+  0%,100% { transform:translateX(0); }
+  20%     { transform:translateX(-8px); }
+  40%     { transform:translateX(8px); }
+  60%     { transform:translateX(-5px); }
+  80%     { transform:translateX(5px); }
+}
+@keyframes slideUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes flashErreur {
+  0%,100% { border-color:#1e1c18; }
+  40%     { border-color:#c89090; box-shadow:0 0 0 2px rgba(200,144,144,0.15); }
+}
+@keyframes flashOk {
+  0%,100% { border-color:#1e1c18; }
+  40%     { border-color:#a8c8a0; box-shadow:0 0 0 2px rgba(168,200,160,0.15); }
+}
+.anim-shake    { animation: shake 0.45s ease, flashErreur 0.8s ease; }
+.anim-slide-up { animation: slideUp 0.35s ease, flashOk 0.8s ease; }
 </style>
 
 <div class="jeu-container">
@@ -254,6 +275,17 @@
       b.disabled = true;
     });
 
+    // Colorer le bouton cliqué
+    const btnsClic = document.querySelectorAll('.btn-choix');
+    if (indexChoisi === questionData.bonne) {
+      btnsClic[indexChoisi].style.borderColor = '#a8c8a0';
+      btnsClic[indexChoisi].style.color = '#a8c8a0';
+    } else {
+      btnsClic[indexChoisi].style.borderColor = '#c89090';
+      btnsClic[indexChoisi].style.color = '#c89090';
+      btnsClic[indexChoisi].classList.add('anim-shake');
+    }
+
     if (indexChoisi === questionData.bonne) {
       // ✅ BONNE RÉPONSE
       bonneReponse = true;
@@ -265,6 +297,11 @@
         document.getElementById('btnApresReponse').textContent = 'Continuer ▶';
         document.getElementById('btnApresReponse').classList.remove('cache');
         afficherEcran('ecranFeedback');
+        // Animation bonne réponse
+        const feedback = document.getElementById('messageFeedback');
+        feedback.classList.remove('anim-shake', 'anim-slide-up');
+        void feedback.offsetWidth;
+        feedback.classList.add('anim-slide-up');
       } else {
         // Pas de vidéo de feedback → aller direct à l'indice
         afficherIndice();
@@ -302,6 +339,12 @@
 
       document.getElementById('btnApresReponse').classList.remove('cache');
       afficherEcran('ecranFeedback');
+      // Animation mauvaise réponse
+      const card = document.querySelector('#ecranFeedback .video-wrapper, #ecranFeedback');
+      const feedback = document.getElementById('messageFeedback');
+      feedback.classList.remove('anim-shake', 'anim-slide-up');
+      void feedback.offsetWidth; // reset animation
+      feedback.classList.add('anim-shake');
     }
   }
 
