@@ -21,8 +21,21 @@
     <div class="progression-label" id="progressionLabel">Progression : 0%</div>
   </div>
 
+  <!-- ÉCRAN : SPLASH (intro avant vidéo avec musique) -->
+  <div class="ecran cache" id="ecranSplash">
+    <div class="indice-card" style="min-height:340px; justify-content:center;">
+      <img src="img/logo.png" alt="Les Bateliers" class="logo-question">
+      <div class="separateur-question"></div>
+      <div class="personnage-nom" id="splashPersonnage"></div>
+      <p style="color:#8a8070; font-size:0.9rem; line-height:1.8;" id="splashMessage"></p>
+      <button class="btn-suite" id="btnSplash" onclick="lancerDepuisSplash()">
+        Découvrir ▶
+      </button>
+    </div>
+  </div>
+
   <!-- ÉCRAN : VIDÉO -->
-  <div class="ecran" id="ecranVideo">
+  <div class="ecran cache" id="ecranVideo">
     <div class="video-wrapper">
       <iframe id="videoPlayer"
         src=""
@@ -149,9 +162,17 @@
 
     // Charger la vidéo d'intro
     if (etapeData.videoIntro) {
-      chargerVideo('videoPlayer', etapeData.videoIntro);
-      afficherEcran('ecranVideo');
-      demarrerMusique(etapeData.id);
+      const configMusique = MUSIQUES[etapeData.id];
+      // Splash uniquement pour les étapes après le guide (pas l'intro)
+      if (configMusique && etapeData.id !== 'intro-guide') {
+        document.getElementById('splashPersonnage').textContent = etapeData.personnage;
+        document.getElementById('splashMessage').textContent = "Prépare-toi... une nouvelle rencontre t'attend.";
+        afficherEcran('ecranSplash');
+      } else {
+        chargerVideo('videoPlayer', etapeData.videoIntro);
+        afficherEcran('ecranVideo');
+        demarrerMusique(etapeData.id);
+      }
     } else {
       // Pas de vidéo → aller direct à la question
       afficherQuestion();
@@ -298,9 +319,14 @@
   }
 
   // ── Démarrer la musique selon l'étape ──
-  // ── Démarrer musique au tap (obligatoire sur mobile) ──
+  // ── Lancer depuis le splash (musique + vidéo au même tap) ──
+  function lancerDepuisSplash() {
+    demarrerMusique(etapeData.id);
+    chargerVideo('videoPlayer', etapeData.videoIntro);
+    afficherEcran('ecranVideo');
+  }
+
   function demarrerMusiqueEtLancerQuestion() {
-    // Musique déjà démarrée au premier tap — on lance juste la question
     afficherQuestion();
   }
 
