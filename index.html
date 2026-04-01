@@ -142,14 +142,15 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
   <script src="data/parcours.js?v=1"></script>
   <script>
     window.onload = function() {
-      // Déclencher les animations dès que la page est prête
-      requestAnimationFrame(function() {
-        document.body.classList.add('pret');
-      });
+      // 1. Écran de chargement disparaît après 1s
       setTimeout(function() {
         const ec = document.getElementById('ecranChargement');
         ec.style.opacity = '0';
-        setTimeout(function() { ec.style.display = 'none'; }, 800);
+        // 2. Déclencher les animations UNE FOIS le fondu terminé (800ms)
+        setTimeout(function() {
+          ec.style.display = 'none';
+          document.body.classList.add('pret');
+        }, 800);
       }, 1000);
     };
 
