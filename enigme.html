@@ -20,12 +20,7 @@
   from { opacity:0; letter-spacing:0.5em; }
   to   { opacity:1; letter-spacing:0.05em; }
 }
-.cascade-1, .cascade-2, .cascade-3, .cascade-4, .cascade-5 { opacity:0; }
-body.question-prete .cascade-1 { animation: fadeInUp 0.4s ease 0.05s both; }
-body.question-prete .cascade-2 { animation: fadeInUp 0.4s ease 0.2s  both; }
-body.question-prete .cascade-3 { animation: fadeInUp 0.4s ease 0.35s both; }
-body.question-prete .cascade-4 { animation: fadeInUp 0.4s ease 0.5s  both; }
-body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
+/* cascade gérée en JS pur */
 </style>
 <style id="vignette-respiration">
 @keyframes vigRespire {
@@ -271,7 +266,7 @@ body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
   function afficherQuestion() {
     session = GAME.getSession();
 
-    // Les éléments sont cachés, cascade déclenchée au clic utilisateur
+
 
     document.getElementById('personnageNom').textContent = etapeData.personnage;
     document.getElementById('questionTexte').textContent = questionData.texte;
@@ -389,12 +384,7 @@ body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
       afficherIndice();
     } else {
       afficherQuestion();
-      document.body.classList.remove('question-prete');
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          document.body.classList.add('question-prete');
-        });
-      });
+      lancerCascade();
     }
   }
 
@@ -443,14 +433,25 @@ body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
   }
 
   function demarrerMusiqueEtLancerQuestion() {
-    // 1. Afficher la page question (sans cascade)
     afficherQuestion();
-    // 2. Déclencher la cascade une fois la page visible
-    document.body.classList.remove('question-prete');
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        document.body.classList.add('question-prete');
-      });
+    lancerCascade();
+  }
+
+  function lancerCascade() {
+    var elements = document.querySelectorAll('.cascade-1, .cascade-2, .cascade-3, .cascade-4, .cascade-5');
+    var delais = [0, 150, 300, 450, 600];
+    elements.forEach(function(el, i) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(12px)';
+      el.style.transition = 'none';
+    });
+    elements.forEach(function(el, i) {
+      var delai = i < delais.length ? delais[i] : i * 150;
+      setTimeout(function() {
+        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, delai);
     });
   }
 
