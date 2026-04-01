@@ -11,6 +11,21 @@
 </head>
 <body>
 
+<style id="animations-globales">
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(10px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes textReveal {
+  from { opacity:0; letter-spacing:0.5em; }
+  to   { opacity:1; letter-spacing:0.05em; }
+}
+.cascade-1 { animation: fadeInUp 0.4s ease 0.05s both; opacity:0; }
+.cascade-2 { animation: fadeInUp 0.4s ease 0.2s  both; opacity:0; }
+.cascade-3 { animation: fadeInUp 0.4s ease 0.35s both; opacity:0; }
+.cascade-4 { animation: fadeInUp 0.4s ease 0.5s  both; opacity:0; }
+.cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; opacity:0; }
+</style>
 <style id="vignette-respiration">
 @keyframes vigRespire {
   0%,100% { opacity:0.15; }
@@ -255,8 +270,13 @@
   function afficherQuestion() {
     session = GAME.getSession();
 
-    // Vider les mauvais choix si c'est la toute première affichage de cette étape
-    // (on ne vide pas si on revient après une mauvaise réponse — c'est voulu)
+    // Relancer les animations cascade à chaque affichage
+    document.querySelectorAll('.cascade-1,.cascade-2,.cascade-3,.cascade-4,.cascade-5').forEach(function(el) {
+      el.style.animation = 'none';
+      void el.offsetWidth;
+      el.style.animation = '';
+    });
+
     document.getElementById('personnageNom').textContent = etapeData.personnage;
     document.getElementById('questionTexte').textContent = questionData.texte;
 
