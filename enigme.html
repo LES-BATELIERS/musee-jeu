@@ -148,20 +148,8 @@
     if (etapeData.videoIntro) {
       chargerVideo('videoPlayer', etapeData.videoIntro);
       afficherEcran('ecranVideo');
-      // Démarrer la musique de fond selon l'étape
-      const configMusique = MUSIQUES[etapeData.id];
-      if (configMusique) {
-        musique = new Audio(configMusique.fichier);
-        musique.loop   = true;
-        musique.volume = 0.18;
-        musique.currentTime = configMusique.debut;
-        musique.play().catch(function() {
-          document.addEventListener('click', function demarrerMusique() {
-            musique.play();
-            document.removeEventListener('click', demarrerMusique);
-          });
-        });
-      }
+      // Démarrer la musique de fond dès l'affichage de la vidéo
+      demarrerMusique(etapeData.id);
     } else {
       // Pas de vidéo → aller direct à la question
       afficherQuestion();
@@ -307,6 +295,25 @@
     afficherEcran('ecranIndice');
   }
 
+  // ── Démarrer la musique selon l'étape ──
+  function demarrerMusique(idEtape) {
+    const config = MUSIQUES[idEtape];
+    if (!config) return;
+    if (musique) { musique.pause(); musique = null; }
+    musique = new Audio(config.fichier);
+    musique.loop        = true;
+    musique.volume      = 0.18;
+    musique.currentTime = config.debut;
+    // Tentative immédiate
+    musique.play().catch(function() {
+      // Navigateur bloque → on attend le premier clic
+      document.addEventListener('click', function premierClic() {
+        if (musique) musique.play();
+        document.removeEventListener('click', premierClic);
+      });
+    });
+  }
+
   // ── Helpers ──
   function afficherEcran(idEcran) {
     document.querySelectorAll('.ecran').forEach(function(e) {
@@ -322,7 +329,7 @@
     embedUrl = embedUrl.replace('youtu.be/', 'youtube.com/embed/');
     // Nettoyer les paramètres après ?
     embedUrl = embedUrl.split('?')[0];
-    embedUrl += '?autoplay=1&rel=0&vq=hd1080';
+    embedUrl += '?autoplay=1&rel=0&vq=hd1080&playsinline=1';
     document.getElementById(idPlayer).src = embedUrl;
   }
 
