@@ -271,12 +271,7 @@ body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
   function afficherQuestion() {
     session = GAME.getSession();
 
-    // Relancer les animations cascade après que l'écran question est visible
-    document.body.classList.remove('question-prete');
-    void document.body.offsetWidth;
-    setTimeout(function() {
-      document.body.classList.add('question-prete');
-    }, 350);
+    // Les éléments sont cachés, cascade déclenchée au clic utilisateur
 
     document.getElementById('personnageNom').textContent = etapeData.personnage;
     document.getElementById('questionTexte').textContent = questionData.texte;
@@ -394,6 +389,12 @@ body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
       afficherIndice();
     } else {
       afficherQuestion();
+      document.body.classList.remove('question-prete');
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          document.body.classList.add('question-prete');
+        });
+      });
     }
   }
 
@@ -442,7 +443,15 @@ body.question-prete .cascade-5 { animation: fadeInUp 0.4s ease 0.65s both; }
   }
 
   function demarrerMusiqueEtLancerQuestion() {
+    // 1. Afficher la page question (sans cascade)
     afficherQuestion();
+    // 2. Déclencher la cascade une fois la page visible
+    document.body.classList.remove('question-prete');
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        document.body.classList.add('question-prete');
+      });
+    });
   }
 
   function demarrerMusique(idEtape) {
