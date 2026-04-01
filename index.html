@@ -11,6 +11,31 @@
 </head>
 <body>
 
+  <!-- ÉCRAN DE CHARGEMENT -->
+  <div id="ecranChargement" style="
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background:#0e0e0e;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap:1.5rem; z-index:9999;
+    transition: opacity 0.8s ease;">
+    <img src="img/logo.png" alt="Les Bateliers" style="width:200px; opacity:0.9;">
+    <div style="width:40px; height:1px; background:#3a3530;"></div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <div style="width:6px;height:6px;border-radius:50%;background:#8a8070;animation:pulse 1.2s ease-in-out infinite;"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#8a8070;animation:pulse 1.2s ease-in-out 0.4s infinite;"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#8a8070;animation:pulse 1.2s ease-in-out 0.8s infinite;"></div>
+    </div>
+    <div style="font-family:'Jost',sans-serif; font-size:0.7rem; color:#4a4540; letter-spacing:0.25em; text-transform:uppercase;">Chargement</div>
+  </div>
+
+  <style>
+  @keyframes pulse {
+    0%, 100% { opacity:0.2; transform:scale(0.8); }
+    50%       { opacity:1;   transform:scale(1.2); }
+  }
+  </style>
+
   <div class="accueil">
 
     <img src="img/logo.png" alt="Les Bateliers" class="logo-musee">
@@ -52,6 +77,14 @@
   <script src="js/game.js?v=1"></script>
   <script src="data/parcours.js?v=1"></script>
   <script>
+    window.onload = function() {
+      setTimeout(function() {
+        const ec = document.getElementById('ecranChargement');
+        ec.style.opacity = '0';
+        setTimeout(function() { ec.style.display = 'none'; }, 800);
+      }, 1000);
+    };
+
     function choisirParcours(mode) {
       localStorage.setItem('parcours', mode);
       localStorage.setItem('etape',    '0');
