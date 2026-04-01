@@ -1,0 +1,118 @@
+// ============================================================
+// GAME.JS — Logique du jeu musée
+// Gère : session joueur, progression, erreurs, anti-cheat
+// ============================================================
+
+const GAME = {
+
+  // --- Lire la session ---
+  getSession() {
+    return {
+      parcours: localStorage.getItem('parcours') || null,
+      etape:    parseInt(localStorage.getItem('etape') || '0'),
+      erreurs:  parseInt(localStorage.getItem('erreurs') || '0'),
+      phase:    localStorage.getItem('phase') || 'commun' // commun | classique | pmr
+    };
+  },
+
+  // --- Sauvegarder la session ---
+  saveSession(data) {
+    localStorage.setItem('parcours', data.parcours);
+    localStorage.setItem('etape',    data.etape);
+    localStorage.setItem('erreurs',  data.erreurs);
+    localStorage.setItem('phase',    data.phase);
+  },
+
+  // --- Réinitialiser ---
+  reset() {
+    localStorage.removeItem('parcours');
+    localStorage.removeItem('etape');
+    localStorage.removeItem('erreurs');
+    localStorage.removeItem('phase');
+  },
+
+  // --- Récupérer l'étape courante ---
+  getEtapeCourante() {
+    const s = this.getSession();
+    if (!s.parcours) return null;
+
+    let liste;
+    if (s.phase === 'commun')    liste = PARCOURS.commun;
+    if (s.phase === 'classique') liste = PARCOURS.classique;
+    if (s.phase === 'pmr')       liste = PARCOURS.pmr;
+
+    return liste ? liste[s.etape] : null;
+  },
+
+  // --- Vérifier anti-cheat ---
+  // Retourne true si le joueur a le droit d'accéder à cet ID d'étape
+  peutAcceder(idEtape) {
+    const etape = this.getEtapeCourante();
+    if (!etape) return false;
+    return etape.id === idEtape;
+  },
+
+  // --- Avancer à l'étape suivante ---
+  avancer() {
+    const s = this.getSession();
+    let liste;
+    if (s.phase === 'commun')    liste = PARCOURS.commun;
+    if (s.phase === 'classique') liste = PARCOURS.classique;
+    if (s.phase === 'pmr')       liste = PARCOURS.pmr;
+
+    const etapeActuelle = liste[s.etape];
+
+    // Cas bifurcation (Horloge 1759)
+    if (etapeActuelle && etapeActuelle.bifurcation) {
+      if (s.parcours === 'pmr') {
+        s.phase = 'pmr';
+      } else {
+        s.phase = 'classique';
+      }
+      s.etape = 0;
+    } else {
+      s.etape = s.etape + 1;
+    }
+
+    s.erreurs = 0;
+    this.saveSession(s);
+  },
+
+  // --- Enregistrer une erreur ---
+  ajouterErreur() {
+    const s = this.getSession();
+    s.erreurs = s.erreurs + 1;
+    this.saveSession(s);
+    return s.erreurs;
+  },
+
+  // --- Calcul progression (pour la barre d'avancement) ---
+  getProgression() {
+    const s = this.getSession();
+    const totalCommun    = PARCOURS.commun.length;
+    const totalClassique = PARCOURS.classique.length;
+    const totalPmr       = PARCOURS.pmr.length;
+    const total = totalCommun + (s.parcours === 'pmr' ? totalPmr : totalClassique);
+
+    let etapesPassees = 0;
+    if (s.phase === 'commun')    etapesPassees = s.etape;
+    if (s.phase === 'classique') etapesPassees = totalCommun + s.etape;
+    if (s.phase === 'pmr')       etapesPassees = totalCommun + s.etape;
+
+    return Math.round((etapesPassees / total) * 100);
+  },
+
+  // --- Récupérer la question selon le mode ---
+  getQuestion(etape, session) {
+    const q = etape.questions;
+    const niveau = session.parcours === 'enfants' ? 'enfant' : 'famille';
+
+    // Étape de bifurcation
+    if (etape.bifurcation) {
+      const variante = session.parcours === 'pmr' ? 'pmr' : 'classique';
+      return q[niveau][variante];
+    }
+
+    return q[niveau];
+  }
+};
