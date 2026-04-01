@@ -16,11 +16,18 @@
   from { opacity:0; transform:translateY(10px); }
   to   { opacity:1; transform:translateY(0); }
 }
+@keyframes cardAppear {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.card-animate {
+  animation: cardAppear 0.5s ease forwards;
+}
 @keyframes textReveal {
   from { opacity:0; letter-spacing:0.5em; }
   to   { opacity:1; letter-spacing:0.05em; }
 }
-/* cascade gérée en JS pur */
+
 </style>
 <style id="vignette-respiration">
 @keyframes vigRespire {
@@ -438,21 +445,10 @@
   }
 
   function lancerCascade() {
-    var elements = document.querySelectorAll('.cascade-1, .cascade-2, .cascade-3, .cascade-4, .cascade-5');
-    var delais = [0, 150, 300, 450, 600];
-    elements.forEach(function(el, i) {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(12px)';
-      el.style.transition = 'none';
-    });
-    elements.forEach(function(el, i) {
-      var delai = i < delais.length ? delais[i] : i * 150;
-      setTimeout(function() {
-        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      }, delai);
-    });
+    var carte = document.getElementById('ecranQuestion').querySelector('.question-card');
+    carte.classList.remove('card-animate');
+    void carte.offsetWidth; // reset
+    carte.classList.add('card-animate');
   }
 
   function demarrerMusique(idEtape) {
