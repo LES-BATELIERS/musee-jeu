@@ -151,8 +151,17 @@
     if (etapeData.videoIntro) {
       chargerVideo('videoPlayer', etapeData.videoIntro);
       afficherEcran('ecranVideo');
-      // Stocker l'id pour démarrer la musique au premier tap (règle mobile)
-      window._musiqueEtape = etapeData.id;
+      // Démarrer la musique au premier tap sur n'importe quel endroit de l'écran
+      const idEtape = etapeData.id;
+      document.addEventListener('touchstart', function premierTap() {
+        demarrerMusique(idEtape);
+        document.removeEventListener('touchstart', premierTap);
+      }, { once: true });
+      // Sur PC : au premier clic
+      document.addEventListener('click', function premierClic() {
+        demarrerMusique(idEtape);
+        document.removeEventListener('click', premierClic);
+      }, { once: true });
     } else {
       // Pas de vidéo → aller direct à la question
       afficherQuestion();
@@ -301,10 +310,7 @@
   // ── Démarrer la musique selon l'étape ──
   // ── Démarrer musique au tap (obligatoire sur mobile) ──
   function demarrerMusiqueEtLancerQuestion() {
-    if (window._musiqueEtape) {
-      demarrerMusique(window._musiqueEtape);
-      window._musiqueEtape = null;
-    }
+    // Musique déjà démarrée au premier tap — on lance juste la question
     afficherQuestion();
   }
 
