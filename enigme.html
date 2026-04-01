@@ -92,11 +92,19 @@
   let session     = null;
   let bonneReponse = false;
 
-  // ── Musique de fond ──
-  const musique = new Audio('audio/(( DÉBUT )) JID x Kendrick Lamar x J. Cole Type Beat  Je Suis Perdu.mp3');
-  musique.loop        = true;
-  musique.volume      = 0.18; // -15db environ
-  musique.currentTime = 10;  // démarre à 10 secondes
+  // ── Musiques de fond par étape ──
+  const MUSIQUES = {
+    'intro-guide': {
+      fichier: 'audio/(( DÉBUT )) JID x Kendrick Lamar x J. Cole Type Beat  Je Suis Perdu.mp3',
+      debut: 10
+    },
+    'perroquet': {
+      fichier: "audio/(( PERROQUET )) Sea Of Thieves Music - Season 17 Title Screen Theme - [Smugglers' Tide].mp3",
+      debut: 9
+    }
+  };
+
+  let musique = null; // musique active
 
   // ── Initialisation au chargement ──
   window.onload = function() {
@@ -140,14 +148,20 @@
     if (etapeData.videoIntro) {
       chargerVideo('videoPlayer', etapeData.videoIntro);
       afficherEcran('ecranVideo');
-      // Démarrer la musique de fond
-      musique.play().catch(function() {
-        // Les navigateurs bloquent l'autoplay — on démarre au 1er clic
-        document.addEventListener('click', function demarrerMusique() {
-          musique.play();
-          document.removeEventListener('click', demarrerMusique);
+      // Démarrer la musique de fond selon l'étape
+      const configMusique = MUSIQUES[etapeData.id];
+      if (configMusique) {
+        musique = new Audio(configMusique.fichier);
+        musique.loop   = true;
+        musique.volume = 0.18;
+        musique.currentTime = configMusique.debut;
+        musique.play().catch(function() {
+          document.addEventListener('click', function demarrerMusique() {
+            musique.play();
+            document.removeEventListener('click', demarrerMusique);
+          });
         });
-      });
+      }
     } else {
       // Pas de vidéo → aller direct à la question
       afficherQuestion();
@@ -277,8 +291,10 @@
     document.getElementById('indiceTexte').textContent = indice || "Bravo, tu as terminé !";
 
     // Arrêter la musique — étape réussie, joueur repart dans le musée
-    musique.pause();
-    musique.currentTime = 0;
+    if (musique) {
+      musique.pause();
+      musique.currentTime = 0;
+    }
 
     // Vérifier si c'est la fin
     const prochaineEtape = GAME.getEtapeCourante();

@@ -41,9 +41,9 @@ const PARCOURS = {
       id: "perroquet",
       station: "Le Perroquet",
       personnage: "Le Perroquet",
-      videoIntro: "https://www.youtube.com/embed/XIZEYaeJ6WA",
-      videoBonneReponse: "", // À ajouter quand disponible
-      videsMauvaisesReponses: ["", ""],
+      videoIntro: "https://www.youtube.com/embed/CEQ1_9SKAT0",
+      videoBonneReponse: "https://www.youtube.com/embed/Lcilsmw5Rhs",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/1OR1jY62P7E", "https://www.youtube.com/embed/GKgw0vlmdpM"],
       questions: {
         enfant: {
           texte: "Marie-Thérèse avait un fils qui est devenu un grand empereur. Il porte le même prénom que beaucoup de rois français, mais avec un numéro 2.",
