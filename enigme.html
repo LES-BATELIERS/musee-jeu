@@ -151,17 +151,7 @@
     if (etapeData.videoIntro) {
       chargerVideo('videoPlayer', etapeData.videoIntro);
       afficherEcran('ecranVideo');
-      // Démarrer la musique au premier tap sur n'importe quel endroit de l'écran
-      const idEtape = etapeData.id;
-      document.addEventListener('touchstart', function premierTap() {
-        demarrerMusique(idEtape);
-        document.removeEventListener('touchstart', premierTap);
-      }, { once: true });
-      // Sur PC : au premier clic
-      document.addEventListener('click', function premierClic() {
-        demarrerMusique(idEtape);
-        document.removeEventListener('click', premierClic);
-      }, { once: true });
+      demarrerMusique(etapeData.id);
     } else {
       // Pas de vidéo → aller direct à la question
       afficherQuestion();
@@ -322,13 +312,16 @@
     musique.loop        = true;
     musique.volume      = 0.18;
     musique.currentTime = config.debut;
-    // Tentative immédiate
+    // Tentative immédiate (fonctionne sur PC et certains Android)
     musique.play().catch(function() {
-      // Navigateur bloque → on attend le premier clic
-      document.addEventListener('click', function premierClic() {
+      // Bloqué par le navigateur → on attend le premier tap ou clic
+      function debloquer() {
         if (musique) musique.play();
-        document.removeEventListener('click', premierClic);
-      });
+        document.removeEventListener('touchstart', debloquer);
+        document.removeEventListener('click', debloquer);
+      }
+      document.addEventListener('touchstart', debloquer, { once: true });
+      document.addEventListener('click', debloquer, { once: true });
     });
   }
 
