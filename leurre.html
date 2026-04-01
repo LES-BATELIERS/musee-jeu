@@ -3,22 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oups...</title>
+  <title>Les Bateliers — Fausse piste</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="accueil">
-    <div style="font-size:4rem;">🦜</div>
-    <h1 style="color:#ff6b6b; margin: 1rem 0;">Raté !</h1>
-    <p style="color:#ccc; margin-bottom:1rem; font-size:1.1rem;">
-      Ce n'est pas le bon QR code... le perroquet t'a eu !
+
+    <img src="img/logo.png" alt="Les Bateliers" class="logo-musee">
+    <div class="separateur"></div>
+
+    <!-- Gardien de musée endormi -->
+    <svg viewBox="0 0 200 180" width="180" style="margin: 0.5rem auto; display:block;">
+      <!-- Fauteuil -->
+      <rect x="40" y="120" width="120" height="12" rx="4" fill="#2a2520"/>
+      <rect x="40" y="100" width="10" height="32" rx="3" fill="#2a2520"/>
+      <rect x="150" y="100" width="10" height="32" rx="3" fill="#2a2520"/>
+      <rect x="38" y="108" width="124" height="18" rx="5" fill="#1e1c18" stroke="#3a3530" stroke-width="1"/>
+      <!-- Corps gardien -->
+      <rect x="72" y="72" width="56" height="50" rx="8" fill="#1e1c18" stroke="#3a3530" stroke-width="1"/>
+      <!-- Uniforme - boutons -->
+      <circle cx="100" cy="82" r="2" fill="#8a8070"/>
+      <circle cx="100" cy="92" r="2" fill="#8a8070"/>
+      <circle cx="100" cy="102" r="2" fill="#8a8070"/>
+      <!-- Tête -->
+      <ellipse cx="100" cy="58" rx="24" ry="22" fill="#c8a882" stroke="#3a3530" stroke-width="1"/>
+      <!-- Casquette -->
+      <rect x="76" y="38" width="48" height="14" rx="4" fill="#1e1c18" stroke="#3a3530" stroke-width="1"/>
+      <rect x="68" y="48" width="64" height="6" rx="3" fill="#2a2520"/>
+      <!-- Yeux fermés (il dort) -->
+      <path d="M88 58 Q92 55 96 58" fill="none" stroke="#5a4a3a" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M104 58 Q108 55 112 58" fill="none" stroke="#5a4a3a" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Bouche ouverte qui ronfle -->
+      <ellipse cx="100" cy="68" rx="6" ry="4" fill="#5a3a2a"/>
+      <!-- ZZZ -->
+      <text x="122" y="50" font-family="serif" font-size="10" fill="#8a8070" opacity="0.9">z</text>
+      <text x="130" y="42" font-family="serif" font-size="13" fill="#8a8070" opacity="0.7">z</text>
+      <text x="140" y="32" font-family="serif" font-size="16" fill="#8a8070" opacity="0.5">z</text>
+      <!-- Bras croisés -->
+      <path d="M72 90 Q85 85 100 90 Q115 85 128 90" fill="none" stroke="#1a1814" stroke-width="8" stroke-linecap="round"/>
+      <path d="M72 90 Q85 95 100 90 Q115 95 128 90" fill="none" stroke="#2a2520" stroke-width="6" stroke-linecap="round"/>
+    </svg>
+
+    <h1 style="font-family:'Cormorant Garamond',serif; font-weight:300; color:#c89090; font-size:1.6rem; letter-spacing:0.05em; margin-top:0.5rem;">
+      Mauvaise piste !
+    </h1>
+
+    <p style="color:#8a8070; font-size:0.9rem; line-height:1.9; margin: 0.8rem 0;">
+      Même le gardien dort mieux que tu ne cherches.
     </p>
-    <p style="color:#888; margin-bottom:2rem; font-size:0.95rem;">
-      Continue à chercher dans le musée 🔍
+
+    <div class="separateur"></div>
+
+    <p style="color:#6b6355; font-size:0.82rem; line-height:1.8;">
+      Ce QR code ne fait pas partie du parcours.<br>
+      Continues à explorer... le bon se cache<br>quelque part dans le musée.
     </p>
-    <button class="btn-parcours enfants" onclick="history.back()" style="justify-content:center;">
-      ← Retour
-    </button>
+
   </div>
 </body>
 </html>
