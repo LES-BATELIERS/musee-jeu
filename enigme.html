@@ -172,10 +172,7 @@
     <div class="cheat-card">
       <div class="indice-icone">✦</div>
       <h2>Pas si vite !</h2>
-      <p>Tu dois d'abord trouver et valider l'étape précédente dans le musée.</p>
-      <button class="btn-suite" id="btnCheatRetour" onclick="retourEtapeCourante()">
-        Reprendre où j'en suis
-      </button>
+      <p id="cheatIndice">Tu dois d'abord trouver l'étape précédente dans le musée.</p>
     </div>
   </div>
 
@@ -240,6 +237,15 @@
 
     // Anti-cheat : seulement si un ID est fourni ET différent de "0"
     if (idEtape && idEtape !== '0' && !GAME.peutAcceder(idEtape)) {
+      // Afficher l'indice de l'étape courante (celle déjà validée)
+      const etapeCourante = GAME.getEtapeCourante();
+      if (etapeCourante) {
+        let indice = etapeCourante.indice;
+        if (typeof indice === 'object') {
+          indice = session.parcours === 'pmr' ? indice.pmr : indice.classique;
+        }
+        document.getElementById('cheatIndice').textContent = indice || "Continue à chercher dans le musée !";
+      }
       afficherEcran('ecranCheat');
       return;
     }
