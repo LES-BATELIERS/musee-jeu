@@ -64,9 +64,9 @@ const PARCOURS = {
       id: "joseph-ii",
       station: "Joseph II",
       personnage: "Joseph II",
-      videoIntro: "",
-      videoBonneReponse: "",
-      videsMauvaisesReponses: ["", ""],
+      videoIntro: "https://www.youtube.com/embed/Wqtln3XlPGI",
+      videoBonneReponse: "https://www.youtube.com/embed/UU5NlkfU70U",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/v5nfooBb6wY", "https://www.youtube.com/embed/DDJHx94yMvw"],
       questions: {
         enfant: {
           texte: "Quelle horloge habillée de fruits m'attend pour te guider ?",
@@ -87,9 +87,9 @@ const PARCOURS = {
       id: "horloge-salon-rouge",
       station: "L'Horloge (Salon rouge)",
       personnage: "L'Horloge",
-      videoIntro: "",
-      videoBonneReponse: "",
-      videsMauvaisesReponses: ["", ""],
+      videoIntro: "https://www.youtube.com/embed/j9LM9EwVrbI",
+      videoBonneReponse: "https://www.youtube.com/embed/L7Fyceln9Ps",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/MKDztpEOh1o", "https://www.youtube.com/embed/jIoUI1tDhnM"],
       questions: {
         enfant: {
           texte: "Je suis l'horloge du salon rouge ! Passe devant ma sœur qui n'est pas de marbre, figée sur une année.",
