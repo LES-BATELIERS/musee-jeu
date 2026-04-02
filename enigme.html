@@ -237,14 +237,25 @@
 
     // Anti-cheat : seulement si un ID est fourni ET différent de "0"
     if (idEtape && idEtape !== '0' && !GAME.peutAcceder(idEtape)) {
-      // Afficher l'indice de l'étape courante (celle déjà validée)
-      const etapeCourante = GAME.getEtapeCourante();
-      if (etapeCourante) {
-        let indice = etapeCourante.indice;
+      // Récupérer l'indice de l'étape PRÉCÉDENTE (celle qui dit où aller)
+      const s = GAME.getSession();
+      let liste;
+      if (s.phase === 'commun')    liste = PARCOURS.commun;
+      if (s.phase === 'classique') liste = PARCOURS.classique;
+      if (s.phase === 'pmr')       liste = PARCOURS.pmr;
+
+      // L'étape précédente = etape actuelle - 1
+      const indexPrec = s.etape - 1;
+      const etapePrec = (liste && indexPrec >= 0) ? liste[indexPrec] : null;
+
+      if (etapePrec) {
+        let indice = etapePrec.indice;
         if (typeof indice === 'object') {
-          indice = session.parcours === 'pmr' ? indice.pmr : indice.classique;
+          indice = s.parcours === 'pmr' ? indice.pmr : indice.classique;
         }
         document.getElementById('cheatIndice').textContent = indice || "Continue à chercher dans le musée !";
+      } else {
+        document.getElementById('cheatIndice').textContent = "Continue à chercher dans le musée !";
       }
       afficherEcran('ecranCheat');
       return;
