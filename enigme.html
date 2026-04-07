@@ -226,11 +226,7 @@
       fichier: 'audio/(( GARDIEN ))2022-03-05_-_Raging_Tides_-_www.FesliyanStudios.com.mp3',
       debut: 16
     },
-    'lampe-magique-classique': {
-      fichier: 'audio/(( LAMPE MAGIQUE )) Breathtaking Cinematic Epic Arabian Music  Royalty Free No Copyright.mp3',
-      debut: 0
-    },
-    'lampe-magique-pmr': {
+    'lampe-magique': {
       fichier: 'audio/(( LAMPE MAGIQUE )) Breathtaking Cinematic Epic Arabian Music  Royalty Free No Copyright.mp3',
       debut: 0
     }
@@ -312,6 +308,11 @@
       const variante = session.parcours === 'pmr' ? 'pmr' : 'classique';
       const q = etapeData.questions[niveau][variante];
       if (q && q.videoIntro) etapeData.videoIntro = q.videoIntro;
+    }
+
+    // Démarrer la musique immédiatement pour les étapes sans question (lampe magique)
+    if (!questionData) {
+      demarrerMusique(etapeData.id);
     }
 
     if (etapeData.videoIntro) {
