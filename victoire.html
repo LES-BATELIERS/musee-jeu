@@ -12,7 +12,7 @@
     <img src="img/logo.png" alt="Les Bateliers" class="logo-musee">
     <div class="separateur"></div>
     <h1>Félicitations</h1>
-    <p>Tu as terminé le parcours du musée.</p>
+    <p id="messageVictoire">Tu as terminé le parcours du musée.</p>
     <div style="margin-top:1rem;">
       <button class="btn-suite" onclick="rejouer()">Recommencer</button>
     </div>
@@ -20,6 +20,20 @@
   <script src="js/game.js"></script>
   <script src="data/parcours.js"></script>
   <script>
+    window.onload = function() {
+      const s = GAME.getSession();
+      const noms = {
+        'enfants': 'Enfants',
+        'famille': 'Famille',
+        'pmr':     'PMR'
+      };
+      const nom = noms[s.parcours] || '';
+      if (nom) {
+        document.getElementById('messageVictoire').textContent =
+          'Tu as terminé le parcours ' + nom + ' du musée.';
+      }
+    };
+
     function rejouer() {
       GAME.reset();
       window.location.href = 'index.html';
