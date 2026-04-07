@@ -46,7 +46,7 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/1OR1jY62P7E", "https://www.youtube.com/embed/GKgw0vlmdpM"],
       questions: {
         enfant: {
-          texte: "Marie-Thérèse avait un fils qui est devenu un grand empereur. Il porte le même prénom que beaucoup de rois français, mais avec un numéro 2.",
+          texte: "Marie-Thérèse avait un fils qui est devenu un grand empereur. Son prénom commence par la dixième lettre de l'alphabet, suivi du numéro II.",
           choix: ["Joseph II", "Louis II", "Napoléon II"],
           bonne: 0
         },
@@ -112,31 +112,33 @@ const PARCOURS = {
       station: "Horloge 1759",
       personnage: "L'Horloge 1759",
       videoIntro: "",
-      videoBonneReponse: "",
-      videsMauvaisesReponses: ["", ""],
-      bifurcation: true, // ← ICI le parcours se sépare
+      videoBonneReponse: "https://www.youtube.com/embed/jcUeuQGWz5U",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/yGiB77rgDfs", "https://www.youtube.com/embed/mO0pOfoMudw"],
+      bifurcation: true,
       questions: {
         enfant: {
-          // Classique
           classique: {
+            videoIntro: "https://www.youtube.com/embed/f9gi1i8Byzg",
             texte: "Je vis dans le désert et j'ai une bosse. Qui suis-je ?",
             choix: ["Le dromadaire", "La biche", "La tortue"],
             bonne: 0
           },
-          // PMR
           pmr: {
-            texte: "Quel petit ange ailé regarde les étoiles et connaît ton signe astrologique ?",
+            videoIntro: "https://www.youtube.com/embed/SLKbj6IRsGo",
+            texte: "Comment s'appelle le petit ange ailé qui regarde les étoiles et connaît ton signe astrologique ?",
             choix: ["Cupidon", "Le putti astrologue", "L'elfe"],
             bonne: 1
           }
         },
         famille: {
           classique: {
+            videoIntro: "https://www.youtube.com/embed/f9gi1i8Byzg",
             texte: "De mon pas lent je traverse les mers de sable. Mon cousin se vante de deux bosses.",
             choix: ["Le dromadaire", "Le zèbre", "Le lama"],
             bonne: 0
           },
           pmr: {
+            videoIntro: "https://www.youtube.com/embed/SLKbj6IRsGo",
             texte: "Je donne l'heure, mais lui donne le destin des étoiles.",
             choix: ["L'angelot", "Le putti astrologue", "Le génie"],
             bonne: 1
@@ -160,9 +162,9 @@ const PARCOURS = {
       id: "dromadaire",
       station: "Le Dromadaire",
       personnage: "Le Dromadaire",
-      videoIntro: "",
-      videoBonneReponse: "",
-      videsMauvaisesReponses: ["", ""],
+      videoIntro: "https://www.youtube.com/embed/dO2VEeA61wQ",
+      videoBonneReponse: "https://www.youtube.com/embed/2WlUa6q1Tu0",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/8PxCp94aDik", "https://www.youtube.com/embed/KtNvU5oG0Cg"],
       questions: {
         enfant: {
           texte: "Je suis un cheval magique avec une corne sur la tête.",
@@ -183,9 +185,9 @@ const PARCOURS = {
       id: "licorne-classique",
       station: "La Licorne",
       personnage: "La Licorne",
-      videoIntro: "",
-      videoBonneReponse: "",
-      videsMauvaisesReponses: ["", ""],
+      videoIntro: "https://www.youtube.com/embed/p0zQH-LkCmE",
+      videoBonneReponse: "https://www.youtube.com/embed/HpmkAkqxbp0",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/TcyMP3vnnQA", "https://www.youtube.com/embed/gav_RTt8nqo"],
       questions: {
         enfant: {
           texte: "Quand on la frotte, un génie apparaît pour exaucer des vœux !",
@@ -198,7 +200,19 @@ const PARCOURS = {
           bonne: 0
         }
       },
-      indice: "Bravo ! Tu as terminé le parcours !"
+      indice: "Trouve la Lampe magique dans le musée !"
+    },
+
+    // ÉTAPE FINALE — Lampe magique (classique)
+    {
+      id: "lampe-magique-classique",
+      station: "La Lampe magique",
+      personnage: "La Lampe magique",
+      videoIntro: "https://www.youtube.com/embed/6HqCE5sP5g0",
+      videoBonneReponse: "",
+      videsMauvaisesReponses: ["", ""],
+      questions: { enfant: null, famille: null },
+      indice: "Félicitations ! Tu as terminé le parcours !"
     }
   ],
 
@@ -212,32 +226,9 @@ const PARCOURS = {
       id: "putti-astrologue",
       station: "Putti Astrologue",
       personnage: "Le Putti Astrologue",
-      videoIntro: "",
-      videoBonneReponse: "",
-      videsMauvaisesReponses: ["", ""],
-      questions: {
-        enfant: {
-          texte: "Qui mesure le temps avec le soleil ?",
-          choix: ["Le cadran solaire", "Le magicien", "L'oiseau étoilé"],
-          bonne: 0
-        },
-        famille: {
-          texte: "Qui fonctionne sans pile ni ressort, pour mesurer le temps ?",
-          choix: ["Le cadran solaire", "L'astronome", "Le sorcier"],
-          bonne: 0
-        }
-      },
-      indice: "Trouve le Cadran Solaire dans le musée !"
-    },
-
-    // ÉTAPE 6P — Cadran Solaire
-    {
-      id: "cadran-solaire",
-      station: "Cadran Solaire",
-      personnage: "Le Cadran Solaire",
-      videoIntro: "",
-      videoBonneReponse: "",
-      videsMauvaisesReponses: ["", ""],
+      videoIntro: "https://www.youtube.com/embed/pZTbmAtOz6U",
+      videoBonneReponse: "https://www.youtube.com/embed/fjYmmtD9OTE",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/8TJuc9SoZrs", "https://www.youtube.com/embed/wIKsSnv4IJ8"],
       questions: {
         enfant: {
           texte: "Derrière la vitre, sans descendre, il y a un gentil papi tout vieux qui surveille le musée. Qui ça peut être ?",
@@ -258,9 +249,9 @@ const PARCOURS = {
       id: "vieux-gardien",
       station: "Vieux Gardien",
       personnage: "Le Vieux Gardien",
-      videoIntro: "",
-      videoBonneReponse: "",
-      videsMauvaisesReponses: ["", ""],
+      videoIntro: "https://www.youtube.com/embed/1BE_o7cC-qQ",
+      videoBonneReponse: "https://www.youtube.com/embed/xy4MYKweUWw",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/uSYD62G-Oko", "https://www.youtube.com/embed/tyftcOLOwqM"],
       questions: {
         enfant: {
           texte: "Quand on la frotte, un génie apparaît pour exaucer des vœux !",
@@ -273,7 +264,19 @@ const PARCOURS = {
           bonne: 0
         }
       },
-      indice: "Bravo ! Tu as terminé le parcours PMR !"
+      indice: "Trouve la Lampe magique dans le musée !"
+    },
+
+    // ÉTAPE FINALE — Lampe magique (PMR)
+    {
+      id: "lampe-magique-pmr",
+      station: "La Lampe magique",
+      personnage: "La Lampe magique",
+      videoIntro: "https://www.youtube.com/embed/6HqCE5sP5g0",
+      videoBonneReponse: "",
+      videsMauvaisesReponses: ["", ""],
+      questions: { enfant: null, famille: null },
+      indice: "Félicitations ! Tu as terminé le parcours PMR !"
     }
   ]
 };

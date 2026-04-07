@@ -129,7 +129,7 @@
       </iframe>
     </div>
     <button class="btn-suite" id="btnSuiteVideo" onclick="demarrerMusiqueEtLancerQuestion()">
-      Voir la question ▶
+      Continuer ▶
     </button>
   </div>
 
@@ -205,6 +205,10 @@
     'horloge-salon-rouge': {
       fichier: 'audio/(( HORLOGE )) Musique Stressante n3.mp3',
       debut: 0
+    },
+    'horloge-1759': {
+      fichier: 'audio/(( HORLOGE )) Musique Stressante n3.mp3',
+      debut: 0
     }
   };
 
@@ -268,7 +272,9 @@
       return;
     }
 
-    questionData = GAME.getQuestion(etapeData, session);
+    questionData = etapeData.questions && etapeData.questions.enfant !== null
+      ? GAME.getQuestion(etapeData, session)
+      : null;
 
     // Mettre à jour la progression
     const pct = GAME.getProgression();
@@ -276,9 +282,16 @@
     document.getElementById('progressionLabel').textContent = 'Progression : ' + pct + '%';
 
     // Charger la vidéo d'intro
+    // Pour l'Horloge 1759, la videoIntro dépend du parcours et niveau
+    if (etapeData.bifurcation) {
+      const niveau = session.parcours === 'enfants' ? 'enfant' : 'famille';
+      const variante = session.parcours === 'pmr' ? 'pmr' : 'classique';
+      const q = etapeData.questions[niveau][variante];
+      if (q && q.videoIntro) etapeData.videoIntro = q.videoIntro;
+    }
+
     if (etapeData.videoIntro) {
       const configMusique = MUSIQUES[etapeData.id];
-      // Splash uniquement pour les étapes après le guide (pas l'intro)
       if (configMusique && etapeData.id !== 'intro-guide') {
         document.getElementById('splashPersonnage').textContent = etapeData.personnage;
         document.getElementById('splashMessage').textContent = "Prépare-toi... une nouvelle rencontre t'attend.";
@@ -465,8 +478,13 @@
   }
 
   function demarrerMusiqueEtLancerQuestion() {
-    afficherQuestion();
-    lancerCascade();
+    if (!questionData) {
+      // Pas de question → aller direct à l'indice (ex: Lampe magique)
+      afficherIndice();
+    } else {
+      afficherQuestion();
+      lancerCascade();
+    }
   }
 
   function lancerCascade() {
