@@ -118,6 +118,10 @@ const GAME = {
   // --- Récupérer la question selon le mode ---
   getQuestion(etape, session) {
     const q = etape.questions;
+
+    // Question unique (parcours PMR)
+    if (q.unique) return q.unique;
+
     const niveau = session.parcours === 'enfants' ? 'enfant' : 'famille';
 
     // Étape de bifurcation

@@ -205,7 +205,7 @@ const PARCOURS = {
 
     // ÉTAPE FINALE — Lampe magique (classique)
     {
-      id: "lampe-magique-classique",
+      id: "lampe-magique",
       station: "La Lampe magique",
       personnage: "La Lampe magique",
       videoIntro: "https://www.youtube.com/embed/6HqCE5sP5g0",
@@ -230,12 +230,7 @@ const PARCOURS = {
       videoBonneReponse: "https://www.youtube.com/embed/fjYmmtD9OTE",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/8TJuc9SoZrs", "https://www.youtube.com/embed/wIKsSnv4IJ8"],
       questions: {
-        enfant: {
-          texte: "Derrière la vitre, sans descendre, il y a un gentil papi tout vieux qui surveille le musée. Qui ça peut être ?",
-          choix: ["Grand père", "Le pape", "Le vieux gardien"],
-          bonne: 2
-        },
-        famille: {
+        unique: {
           texte: "Sans que personne ne puisse l'approcher, derrière une vitre, dans les profondeurs visibles mais interdites, il protège les trésors anciens.",
           choix: ["La caméra de surveillance", "Le sablier", "Le vieux gardien"],
           bonne: 2
@@ -253,12 +248,7 @@ const PARCOURS = {
       videoBonneReponse: "https://www.youtube.com/embed/xy4MYKweUWw",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/uSYD62G-Oko", "https://www.youtube.com/embed/tyftcOLOwqM"],
       questions: {
-        enfant: {
-          texte: "Quand on la frotte, un génie apparaît pour exaucer des vœux !",
-          choix: ["La lampe magique", "La princesse", "L'étoile"],
-          bonne: 0
-        },
-        famille: {
+        unique: {
           texte: "Très recherché dans les contes orientaux, l'on me convoite avec espoir de réaliser des vœux.",
           choix: ["La lampe magique", "La bague enchantée", "Le tapis volant"],
           bonne: 0
@@ -269,7 +259,7 @@ const PARCOURS = {
 
     // ÉTAPE FINALE — Lampe magique (PMR)
     {
-      id: "lampe-magique-pmr",
+      id: "lampe-magique",
       station: "La Lampe magique",
       personnage: "La Lampe magique",
       videoIntro: "https://www.youtube.com/embed/6HqCE5sP5g0",
