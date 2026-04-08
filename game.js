@@ -49,6 +49,19 @@ const GAME = {
   peutAcceder(idEtape) {
     const etape = this.getEtapeCourante();
     if (!etape) return false;
+
+    // IDs réservés au parcours PMR
+    const etapesPMR = ['putti-astrologue', 'cadran-solaire', 'vieux-gardien'];
+    // IDs réservés au parcours classique
+    const etapesClassique = ['dromadaire', 'licorne-classique'];
+
+    const s = this.getSession();
+
+    // Un joueur PMR ne peut pas accéder aux étapes classiques
+    if (s.parcours === 'pmr' && etapesClassique.includes(idEtape)) return false;
+    // Un joueur classique/enfant ne peut pas accéder aux étapes PMR
+    if (s.parcours !== 'pmr' && etapesPMR.includes(idEtape)) return false;
+
     return etape.id === idEtape;
   },
 
@@ -105,6 +118,10 @@ const GAME = {
   // --- Récupérer la question selon le mode ---
   getQuestion(etape, session) {
     const q = etape.questions;
+
+    // Question unique (parcours PMR)
+    if (q.unique) return q.unique;
+
     const niveau = session.parcours === 'enfants' ? 'enfant' : 'famille';
 
     // Étape de bifurcation
