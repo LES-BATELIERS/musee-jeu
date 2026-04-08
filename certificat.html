@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Bateliers — Certificat</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<style id="vignette-respiration">
+@keyframes vigRespire {
+  0%,100% { opacity:0.15; }
+  50%      { opacity:1; }
+}
+.vignette-respiration {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+  background: radial-gradient(ellipse at center, rgba(240,234,216,0.13) 15%, transparent 45%, rgba(0,0,0,0.97) 100%);
+  animation: vigRespire 3.5s ease-in-out infinite;
+}
+</style>
+<div class="vignette-respiration"></div>
+
+<style id="certificat-style">
+@keyframes fadeInUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+@keyframes cardAppear {
+  from { opacity:0; transform:perspective(800px) rotateX(25deg) translateY(30px); }
+  to   { opacity:1; transform:perspective(800px) rotateX(0deg) translateY(0); }
+}
+
+.certif-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 1rem 4rem;
+  gap: 1.5rem;
+}
+
+.certif-wrapper {
+  animation: cardAppear 1.3s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+  width: 100%;
+  max-width: 400px;
+}
+
+.certif {
+  background: #f0ead8;
+  border-radius: 8px;
+  padding: 2.5rem 2rem;
+  position: relative;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.certif-border-outer {
+  position: absolute; inset: 10px;
+  border: 1px solid #8a8070; border-radius: 4px; pointer-events: none;
+}
+.certif-border-inner {
+  position: absolute; inset: 14px;
+  border: 0.5px solid #c8bfa8; border-radius: 2px; pointer-events: none;
+}
+
+.certif-logo {
+  text-align: center; margin-bottom: 1.2rem;
+}
+.certif-logo img {
+  width: 210px; filter: invert(1); opacity: 0.85;
+  display: block; margin: 0 auto;
+}
+
+.certif-sep {
+  width: 50px; height: 0.5px;
+  background: #8a8070; margin: 0 auto 1.5rem;
+}
+
+.certif-titre {
+  text-align: center; margin-bottom: 1rem;
+}
+.certif-titre .label {
+  font-size: 9px; color: #8a8070; letter-spacing: 3px;
+  text-transform: uppercase; margin-bottom: 8px;
+  font-family: 'Jost', sans-serif; display: block;
+}
+.certif-titre h1 {
+  font-size: 22px; color: #1a1208; font-weight: 400;
+  letter-spacing: 0.05em; margin: 0;
+}
+
+.certif-badge {
+  text-align: center; margin-bottom: 1.3rem;
+}
+.certif-badge span {
+  display: inline-block; border: 0.5px solid #8a8070;
+  border-radius: 2px; padding: 3px 14px;
+  font-size: 8px; color: #8a8070; letter-spacing: 2px;
+  text-transform: uppercase; font-family: 'Jost', sans-serif;
+}
+
+.certif-corps { text-align: center; margin-bottom: 1.5rem; }
+.certif-corps .decerne {
+  font-size: 10px; color: #6b6355; letter-spacing: 1px;
+  margin-bottom: 12px; font-family: 'Jost', sans-serif; display: block;
+}
+.certif-corps .nom-joueur {
+  font-size: 20px; color: #1a1208; font-style: italic;
+  border-bottom: 0.5px solid #8a8070; padding-bottom: 6px;
+  margin: 0 2rem 16px; display: block;
+}
+.certif-corps .texte {
+  font-size: 10px; color: #6b6355; line-height: 2.1;
+  margin: 0 1rem; font-family: 'Jost', sans-serif;
+}
+
+.certif-date {
+  text-align: center; margin-top: 0;
+}
+.certif-date .label {
+  font-size: 8px; color: #8a8070; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 4px;
+  font-family: 'Jost', sans-serif; display: block;
+}
+.certif-date .valeur {
+  font-size: 10px; color: #1a1208; font-family: 'Jost', sans-serif;
+}
+
+.certif-mention {
+  text-align: center; margin-top: 1.5rem;
+  font-size: 7px; color: #c8bfa8; letter-spacing: 0.5px;
+  font-family: 'Jost', sans-serif;
+}
+
+/* Formulaire */
+.form-certif {
+  width: 100%; max-width: 400px;
+  display: flex; flex-direction: column; gap: 0.8rem;
+  animation: fadeInUp 0.5s ease 1s both; opacity: 0;
+}
+.form-label {
+  font-size: 10px; color: #6b6355; text-align: center;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  font-family: 'Jost', sans-serif;
+}
+.form-input {
+  background: #161410; border: 1px solid #2a2520;
+  border-radius: 8px; padding: 0.8rem 1rem;
+  color: #f0ead8; font-size: 0.9rem; width: 100%;
+  font-family: 'Jost', sans-serif;
+  transition: border-color 0.2s;
+}
+.form-input:focus { outline: none; border-color: #8a8070; }
+.form-rgpd {
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.form-rgpd span {
+  font-size: 10px; color: #4a4540; line-height: 1.7;
+  font-family: 'Jost', sans-serif;
+}
+.btn-envoyer {
+  background: transparent; border: 1px solid #8a8070;
+  border-radius: 8px; padding: 0.9rem;
+  color: #f0ead8; font-size: 0.85rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  cursor: pointer; font-family: 'Jost', sans-serif;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-envoyer:hover { background: #161410; border-color: #f0ead8; }
+
+.message-succes {
+  display: none; text-align: center; padding: 1rem;
+  background: #111008; border: 1px solid #1e1c18;
+  border-radius: 8px; color: #a8c8a0;
+  font-size: 0.85rem; font-family: 'Jost', sans-serif;
+  letter-spacing: 0.05em;
+}
+</style>
+
+<div class="certif-page">
+
+  <!-- CERTIFICAT -->
+  <div class="certif-wrapper">
+    <div class="certif">
+      <div class="certif-border-outer"></div>
+      <div class="certif-border-inner"></div>
+
+      <div class="certif-logo">
+        <img src="img/logo.png" alt="Les Bateliers">
+      </div>
+
+      <div class="certif-sep"></div>
+
+      <div class="certif-titre">
+        <span class="label">Certificat de réussite</span>
+        <h1>Nuit Blanche</h1>
+      </div>
+
+      <div class="certif-badge">
+        <span id="badgeParcours">Parcours Famille</span>
+      </div>
+
+      <div class="certif-corps">
+        <span class="decerne">est fièrement décerné à</span>
+        <span class="nom-joueur" id="nomJoueurCertif">—</span>
+        <p class="texte">
+          Qui a percé les mystères dissimulés<br>
+          au cœur de la collection,<br>
+          et su déchiffrer les secrets<br>
+          que le temps avait enfouis.
+        </p>
+      </div>
+
+      <div class="certif-sep"></div>
+
+      <div class="certif-date">
+        <span class="label">Date</span>
+        <span class="valeur" id="dateCertif"></span>
+      </div>
+
+      <div class="certif-mention">Jeu conçu par Yoann Rihoux — Les Bateliers</div>
+    </div>
+  </div>
+
+  <!-- FORMULAIRE -->
+  <div class="form-certif" id="formulaire">
+    <div class="form-label">Recevoir mon certificat par email</div>
+    <input type="text" class="form-input" id="inputNom" placeholder="Prénom et nom">
+    <input type="email" class="form-input" id="inputEmail" placeholder="Adresse email">
+    <div class="form-rgpd">
+      <input type="checkbox" id="checkRgpd" style="margin-top:3px; flex-shrink:0;">
+      <span>J'accepte de recevoir des communications des Bateliers (RGPD)</span>
+    </div>
+    <button class="btn-envoyer" onclick="envoyerCertificat()">Envoyer mon certificat ✦</button>
+    <div class="message-succes" id="messageSucces">
+      ✦ Certificat envoyé ! Vérifiez votre boîte mail.
+    </div>
+  </div>
+
+</div>
+
+<script src="js/game.js?v=2"></script>
+<script src="data/parcours.js?v=2"></script>
+<script>
+window.onload = function() {
+  const s = GAME.getSession();
+
+  // Badge parcours
+  const noms = { enfants: 'Enfants', famille: 'Famille', pmr: 'PMR' };
+  document.getElementById('badgeParcours').textContent =
+    'Parcours ' + (noms[s.parcours] || '');
+
+  // Date du jour
+  const d = new Date();
+  const mois = ['janvier','février','mars','avril','mai','juin',
+    'juillet','août','septembre','octobre','novembre','décembre'];
+  document.getElementById('dateCertif').textContent =
+    d.getDate() + ' ' + mois[d.getMonth()] + ' ' + d.getFullYear();
+};
+
+function envoyerCertificat() {
+  const nom   = document.getElementById('inputNom').value.trim();
+  const email = document.getElementById('inputEmail').value.trim();
+  const rgpd  = document.getElementById('checkRgpd').checked;
+
+  if (!nom || !email) {
+    alert('Merci de remplir votre nom et votre email.');
+    return;
+  }
+  if (!rgpd) {
+    alert('Merci d\'accepter les conditions RGPD.');
+    return;
+  }
+
+  // Afficher le nom sur le certificat
+  document.getElementById('nomJoueurCertif').textContent = nom;
+
+  // Message temporaire (Brevo sera branché ici)
+  document.getElementById('messageSucces').style.display = 'block';
+  document.querySelector('.btn-envoyer').style.display = 'none';
+}
+</script>
+
+<style id="ripple-global">
+.ripple-dot {
+  position: fixed; border-radius: 50%;
+  background: rgba(240,234,216,0.25);
+  transform: scale(0); pointer-events: none;
+  z-index: 99999; animation: rippleGlobal 0.6s ease-out forwards;
+}
+@keyframes rippleGlobal {
+  from { transform: scale(0); opacity: 0.5; }
+  to   { transform: scale(6); opacity: 0; }
+}
+</style>
+<script>
+document.addEventListener('click', function(e) {
+  const dot = document.createElement('div');
+  dot.className = 'ripple-dot';
+  const size = 40;
+  dot.style.width = size + 'px';
+  dot.style.height = size + 'px';
+  dot.style.left = (e.clientX - size/2) + 'px';
+  dot.style.top = (e.clientY - size/2) + 'px';
+  document.body.appendChild(dot);
+  dot.addEventListener('animationend', function() { dot.remove(); });
+});
+</script>
+
+</body>
+</html>
