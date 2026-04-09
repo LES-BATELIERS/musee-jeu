@@ -126,6 +126,9 @@ const GAME = {
     if (s.phase === 'classique') etapesPassees = totalCommun + s.etape;
     if (s.phase === 'pmr')       etapesPassees = totalCommun + s.etape;
 
+    // Si l'indice est affiché, l'étape est réussie mais pas encore validée
+    if (s.indiceAffiche) etapesPassees += 1;
+
     return Math.round((etapesPassees / total) * 100);
   },
 

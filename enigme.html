@@ -263,13 +263,16 @@
         window.location.href = 'victoire.html';
         return;
       }
+      // Mettre à jour la barre de progression (getProgression compte +1 si indiceAffiche)
+      const pct = GAME.getProgression();
+      document.getElementById('progressionFill').style.width = pct + '%';
+      document.getElementById('progressionLabel').textContent = 'Progression : ' + pct + '%';
+      // Afficher l'indice de l'étape courante (qui dit où aller ensuite)
       let indice = etapeData.indice;
       if (typeof indice === 'object') {
         indice = session.parcours === 'pmr' ? indice.pmr : indice.classique;
       }
-      document.getElementById('indiceTexte').textContent = indice || "Bravo, continue !"
-      // Masquer le bouton continuer — il faut scanner le QR
-      document.getElementById('btnContinuerIndice').style.display = 'none';
+      document.getElementById('indiceTexte').textContent = indice || "Bravo, continue !";
       afficherEcran('ecranIndice');
       return;
     }
@@ -492,6 +495,11 @@
     GAME.avancer();
     session = GAME.getSession();
     localStorage.removeItem('dejaTentes');
+
+    // Mettre à jour la barre de progression (getProgression compte +1 si indiceAffiche)
+    const pct = GAME.getProgression();
+    document.getElementById('progressionFill').style.width = pct + '%';
+    document.getElementById('progressionLabel').textContent = 'Progression : ' + pct + '%';
 
     let indice = etapeData.indice;
     if (typeof indice === 'object') {
