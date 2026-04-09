@@ -322,12 +322,9 @@
       return;
     }
 
-    // Si on arrive via un QR code (idEtape dans l'URL) → montrer le plan brièvement
+    // Sauvegarder l'URL pour le retour depuis le plan
     if (idEtape && idEtape !== '0') {
-      // Sauvegarder l'URL courante pour y revenir après le plan
       sessionStorage.setItem('retourEnigme', window.location.href);
-      window.location.href = 'plan.html?mode=qr';
-      return;
     }
 
     questionData = etapeData.questions && etapeData.questions.enfant !== null
