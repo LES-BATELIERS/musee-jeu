@@ -255,19 +255,31 @@
       return;
     }
 
-    // Si l'indice était déjà affiché (raffraîchissement après bonne réponse)
-    // → on réaffiche l'indice sans permettre d'avancer sans QR
-    if (session.indiceAffiche) {
+    // Récupérer l'ID de l'étape depuis l'URL (?etape=perroquet etc.)
+    const params  = new URLSearchParams(window.location.search);
+    const idEtape = params.get('etape');
+
+    // Sauvegarder l'URL pour le retour depuis le plan
+    if (idEtape && idEtape !== '0') {
+      sessionStorage.setItem('retourEnigme', window.location.href);
+    }
+
+    // Si le joueur arrive avec un QR ET que l'indice était affiché → valider l'étape
+    if (session.indiceAffiche && idEtape && idEtape !== '0') {
+      GAME.validerEtape();
+      session = GAME.getSession();
+      // Continuer normalement pour charger la nouvelle énigme
+    }
+    // Si indice affiché mais PAS de QR (simple rafraîchissement) → réafficher l'indice
+    else if (session.indiceAffiche && (!idEtape || idEtape === '0')) {
       etapeData = GAME.getEtapeCourante();
       if (!etapeData) {
         window.location.href = 'victoire.html';
         return;
       }
-      // Mettre à jour la barre de progression (getProgression compte +1 si indiceAffiche)
       const pct = GAME.getProgression();
       document.getElementById('progressionFill').style.width = pct + '%';
       document.getElementById('progressionLabel').textContent = 'Progression : ' + pct + '%';
-      // Afficher l'indice de l'étape courante (qui dit où aller ensuite)
       let indice = etapeData.indice;
       if (typeof indice === 'object') {
         indice = session.parcours === 'pmr' ? indice.pmr : indice.classique;
@@ -275,18 +287,6 @@
       document.getElementById('indiceTexte').textContent = indice || "Bravo, continue !";
       afficherEcran('ecranIndice');
       return;
-    }
-
-    // Récupérer l'ID de l'étape depuis l'URL (?etape=intro-guide)
-    const params  = new URLSearchParams(window.location.search);
-    const idEtape = params.get('etape');
-
-    // Si le joueur scanne un QR valide après avoir vu l'indice → valider l'étape précédente
-    if (session.indiceAffiche && idEtape && idEtape !== '0') {
-      // On vérifie si c'est bien le prochain QR attendu
-      // D'abord on valide pour avancer, puis on vérifie l'accès
-      GAME.validerEtape();
-      session = GAME.getSession();
     }
 
     // Anti-cheat : seulement si un ID est fourni ET différent de "0"
