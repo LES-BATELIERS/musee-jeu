@@ -257,8 +257,6 @@
 
     // Si l'indice était déjà affiché (raffraîchissement après bonne réponse)
     // → on réaffiche l'indice sans permettre d'avancer sans QR
-    console.log('DEBUG session:', JSON.stringify(session));
-    console.log('DEBUG indiceAffiche localStorage:', localStorage.getItem('indiceAffiche'));
     if (session.indiceAffiche) {
       etapeData = GAME.getEtapeCourante();
       if (!etapeData) {
@@ -321,6 +319,14 @@
     etapeData = GAME.getEtapeCourante();
     if (!etapeData) {
       window.location.href = 'victoire.html';
+      return;
+    }
+
+    // Si on arrive via un QR code (idEtape dans l'URL) → montrer le plan brièvement
+    if (idEtape && idEtape !== '0') {
+      // Sauvegarder l'URL courante pour y revenir après le plan
+      sessionStorage.setItem('retourEnigme', window.location.href);
+      window.location.href = 'plan.html?mode=qr';
       return;
     }
 
@@ -527,6 +533,10 @@
     }
 
     document.getElementById('indiceTexte').textContent = indice;
+    // Rediriger vers le plan avec animation jaune→vert après 1.5s
+    setTimeout(function() {
+      window.location.href = 'plan.html?mode=reussi';
+    }, 1500);
     afficherEcran('ecranIndice');
   }
 
