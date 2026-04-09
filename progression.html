@@ -455,50 +455,53 @@ document.addEventListener('click', function(e) {
 let scanning = false;
 let animFrame = null;
 let stream = null;
+let detected = false;
 
 function toggleScanner() {
   const wrap = document.getElementById('scannerWrap');
-  if (wrap.style.display === 'none') {
-    ouvrirScanner();
-  } else {
-    fermerScanner();
-  }
+  if (wrap.style.display === 'none') ouvrirScanner();
+  else fermerScanner();
 }
 
 function ouvrirScanner() {
-  const wrap = document.getElementById('scannerWrap');
-  const btn  = document.getElementById('btnScanner');
-  wrap.style.display = 'block';
-  btn.textContent = '✕ Fermer le scanner';
-  btn.style.borderColor = '#3a3530';
-  btn.style.color = '#6b6355';
+  detected = false;
+  document.getElementById('scannerWrap').style.display = 'block';
+  document.getElementById('btnScanner').textContent = '✕ Fermer le scanner';
+  document.getElementById('btnScanner').style.color = '#6b6355';
   demarrerCamera();
 }
 
 function fermerScanner() {
-  const wrap = document.getElementById('scannerWrap');
-  const btn  = document.getElementById('btnScanner');
-  wrap.style.display = 'none';
-  btn.textContent = '✦ Scanner le prochain QR code';
-  btn.style.borderColor = '#5a3810';
-  btn.style.color = '#8a6030';
+  document.getElementById('scannerWrap').style.display = 'none';
+  document.getElementById('btnScanner').textContent = '✦ Scanner le prochain QR code';
+  document.getElementById('btnScanner').style.color = '#8a6030';
   arreterCamera();
 }
 
 function demarrerCamera() {
   const video = document.getElementById('video');
-  navigator.mediaDevices.getUserMedia({
-    video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
-  }).then(s => {
-    stream = s;
-    video.srcObject = s;
-    video.play();
-    scanning = true;
-    video.addEventListener('loadedmetadata', scannerFrame);
-  }).catch(err => {
-    document.getElementById('scanMsg').textContent = 'Caméra non disponible';
-    console.error(err);
-  });
+  const constraints = {
+    video: {
+      facingMode: { ideal: 'environment' },
+      width:  { ideal: 1920 },
+      height: { ideal: 1080 }
+    }
+  };
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then(s => {
+      stream = s;
+      video.srcObject = s;
+      video.setAttribute('playsinline', true);
+      video.play()
+        .then(() => {
+          scanning = true;
+          requestAnimationFrame(scannerFrame);
+        });
+    })
+    .catch(err => {
+      document.getElementById('scanMsg').textContent = 'Accès caméra refusé';
+      console.error('Camera error:', err);
+    });
 }
 
 function arreterCamera() {
@@ -510,31 +513,55 @@ function arreterCamera() {
 }
 
 function scannerFrame() {
-  if (!scanning) return;
+  if (!scanning || detected) return;
+
   const video  = document.getElementById('video');
   const canvas = document.getElementById('canvas');
-  if (video.readyState !== video.HAVE_ENOUGH_DATA) {
+
+  // Attendre que la vidéo soit prête
+  if (video.readyState < 2 || video.videoWidth === 0) {
     animFrame = requestAnimationFrame(scannerFrame);
     return;
   }
-  canvas.width  = video.videoWidth;
-  canvas.height = video.videoHeight;
-  const ctx = canvas.getContext('2d');
+
+  // Redimensionner le canvas à la taille de la vidéo
+  if (canvas.width !== video.videoWidth) {
+    canvas.width  = video.videoWidth;
+    canvas.height = video.videoHeight;
+  }
+
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const code = jsQR(imageData.data, imageData.width, imageData.height, {
-    inversionAttempts: 'dontInvert'
-  });
-  if (code) {
-    const url = code.data;
-    document.getElementById('scanMsg').textContent = '✦ QR détecté !';
-    arreterCamera();
-    // Rediriger vers l'URL du QR après un court délai
-    setTimeout(() => {
-      window.location.href = url;
-    }, 600);
+
+  let imageData;
+  try {
+    imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  } catch(e) {
+    animFrame = requestAnimationFrame(scannerFrame);
     return;
   }
+
+  // Essayer les 4 modes d'inversion pour maximiser la détection
+  const modes = ['dontInvert','onlyInvert','attemptBoth','invertFirst'];
+  let code = null;
+  for (const mode of modes) {
+    code = jsQR(imageData.data, imageData.width, imageData.height, {
+      inversionAttempts: mode
+    });
+    if (code) break;
+  }
+
+  if (code && code.data) {
+    detected = true;
+    const url = code.data;
+    document.getElementById('scanMsg').textContent = '✦ QR détecté — redirection...';
+    document.getElementById('scanMsg').style.color = '#00dd44';
+    arreterCamera();
+    // Redirection immédiate
+    setTimeout(() => { window.location.href = url; }, 400);
+    return;
+  }
+
   animFrame = requestAnimationFrame(scannerFrame);
 }
 </script>
