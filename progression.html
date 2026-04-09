@@ -259,6 +259,49 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 
 <button class="btn-retour" onclick="retourJeu()">← Retour au jeu</button>
 
+<div id="scannerSection" style="width:calc(100% - 24px);max-width:396px;margin:0 auto 24px;box-sizing:border-box;">
+  <button id="btnScanner" onclick="toggleScanner()" style="
+    display:block;width:100%;
+    background:transparent;border:1px solid #5a3810;
+    border-radius:8px;padding:12px;
+    color:#8a6030;font-family:'Jost',sans-serif;
+    font-size:0.85rem;letter-spacing:0.15em;
+    text-transform:uppercase;cursor:pointer;
+    margin-bottom:8px;">
+    ✦ Scanner le prochain QR code
+  </button>
+
+  <div id="scannerWrap" style="display:none;position:relative;border-radius:8px;overflow:hidden;background:#000;">
+    <video id="video" style="width:100%;display:block;" playsinline></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <!-- Viseur -->
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+      <div style="width:60%;aspect-ratio:1;border:2px solid rgba(200,168,66,0.8);border-radius:4px;position:relative;">
+        <div style="position:absolute;top:-2px;left:-2px;width:16px;height:16px;border-top:3px solid #c8a842;border-left:3px solid #c8a842;border-radius:2px 0 0 0;"></div>
+        <div style="position:absolute;top:-2px;right:-2px;width:16px;height:16px;border-top:3px solid #c8a842;border-right:3px solid #c8a842;border-radius:0 2px 0 0;"></div>
+        <div style="position:absolute;bottom:-2px;left:-2px;width:16px;height:16px;border-bottom:3px solid #c8a842;border-left:3px solid #c8a842;border-radius:0 0 0 2px;"></div>
+        <div style="position:absolute;bottom:-2px;right:-2px;width:16px;height:16px;border-bottom:3px solid #c8a842;border-right:3px solid #c8a842;border-radius:0 0 2px 0;"></div>
+      </div>
+    </div>
+
+    <!-- Bouton fermer -->
+    <button onclick="fermerScanner()" style="
+      position:absolute;top:8px;right:8px;
+      background:rgba(0,0,0,0.6);border:1px solid #5a3810;
+      border-radius:50%;width:32px;height:32px;
+      color:#c8a842;font-size:16px;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      line-height:1;">✕</button>
+
+    <div id="scanMsg" style="
+      position:absolute;bottom:12px;left:0;right:0;
+      text-align:center;font-family:Georgia,serif;
+      font-size:11px;color:rgba(200,168,66,0.8);
+      letter-spacing:1px;">Pointez vers un QR code</div>
+  </div>
+</div>
+
 <script src="js/game.js?v=2"></script>
 <script src="data/parcours.js?v=2"></script>
 <script>
@@ -407,5 +450,94 @@ document.addEventListener('click', function(e) {
   document.body.appendChild(d); d.addEventListener('animationend',()=>d.remove());
 });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsqr/1.4.0/jsQR.min.js"></script>
+<script>
+let scanning = false;
+let animFrame = null;
+let stream = null;
+
+function toggleScanner() {
+  const wrap = document.getElementById('scannerWrap');
+  if (wrap.style.display === 'none') {
+    ouvrirScanner();
+  } else {
+    fermerScanner();
+  }
+}
+
+function ouvrirScanner() {
+  const wrap = document.getElementById('scannerWrap');
+  const btn  = document.getElementById('btnScanner');
+  wrap.style.display = 'block';
+  btn.textContent = '✕ Fermer le scanner';
+  btn.style.borderColor = '#3a3530';
+  btn.style.color = '#6b6355';
+  demarrerCamera();
+}
+
+function fermerScanner() {
+  const wrap = document.getElementById('scannerWrap');
+  const btn  = document.getElementById('btnScanner');
+  wrap.style.display = 'none';
+  btn.textContent = '✦ Scanner le prochain QR code';
+  btn.style.borderColor = '#5a3810';
+  btn.style.color = '#8a6030';
+  arreterCamera();
+}
+
+function demarrerCamera() {
+  const video = document.getElementById('video');
+  navigator.mediaDevices.getUserMedia({
+    video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+  }).then(s => {
+    stream = s;
+    video.srcObject = s;
+    video.play();
+    scanning = true;
+    video.addEventListener('loadedmetadata', scannerFrame);
+  }).catch(err => {
+    document.getElementById('scanMsg').textContent = 'Caméra non disponible';
+    console.error(err);
+  });
+}
+
+function arreterCamera() {
+  scanning = false;
+  if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  const video = document.getElementById('video');
+  video.srcObject = null;
+}
+
+function scannerFrame() {
+  if (!scanning) return;
+  const video  = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  if (video.readyState !== video.HAVE_ENOUGH_DATA) {
+    animFrame = requestAnimationFrame(scannerFrame);
+    return;
+  }
+  canvas.width  = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const code = jsQR(imageData.data, imageData.width, imageData.height, {
+    inversionAttempts: 'dontInvert'
+  });
+  if (code) {
+    const url = code.data;
+    document.getElementById('scanMsg').textContent = '✦ QR détecté !';
+    arreterCamera();
+    // Rediriger vers l'URL du QR après un court délai
+    setTimeout(() => {
+      window.location.href = url;
+    }, 600);
+    return;
+  }
+  animFrame = requestAnimationFrame(scannerFrame);
+}
+</script>
+
 </body>
 </html>
