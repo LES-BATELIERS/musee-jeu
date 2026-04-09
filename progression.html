@@ -260,309 +260,88 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 <button class="btn-retour" onclick="retourJeu()">← Retour au jeu</button>
 
 <div id="scannerSection" style="width:calc(100% - 24px);max-width:396px;margin:0 auto 24px;box-sizing:border-box;">
+
   <button id="btnScanner" onclick="toggleScanner()" style="
     display:block;width:100%;
     background:transparent;border:1px solid #5a3810;
     border-radius:8px;padding:12px;
     color:#8a6030;font-family:'Jost',sans-serif;
     font-size:0.85rem;letter-spacing:0.15em;
-    text-transform:uppercase;cursor:pointer;
-    margin-bottom:8px;">
+    text-transform:uppercase;cursor:pointer;margin-bottom:8px;">
     ✦ Scanner le prochain QR code
   </button>
 
-  <div id="scannerWrap" style="display:none;position:relative;border-radius:8px;overflow:hidden;background:#000;">
-    <video id="video" style="width:100%;display:block;" playsinline></video>
-    <canvas id="canvas" style="display:none;"></canvas>
-
-    <!-- Viseur -->
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-      <div style="width:60%;aspect-ratio:1;border:2px solid rgba(200,168,66,0.8);border-radius:4px;position:relative;">
-        <div style="position:absolute;top:-2px;left:-2px;width:16px;height:16px;border-top:3px solid #c8a842;border-left:3px solid #c8a842;border-radius:2px 0 0 0;"></div>
-        <div style="position:absolute;top:-2px;right:-2px;width:16px;height:16px;border-top:3px solid #c8a842;border-right:3px solid #c8a842;border-radius:0 2px 0 0;"></div>
-        <div style="position:absolute;bottom:-2px;left:-2px;width:16px;height:16px;border-bottom:3px solid #c8a842;border-left:3px solid #c8a842;border-radius:0 0 0 2px;"></div>
-        <div style="position:absolute;bottom:-2px;right:-2px;width:16px;height:16px;border-bottom:3px solid #c8a842;border-right:3px solid #c8a842;border-radius:0 0 2px 0;"></div>
-      </div>
-    </div>
-
-    <!-- Bouton fermer -->
-    <button onclick="fermerScanner()" style="
-      position:absolute;top:8px;right:8px;
-      background:rgba(0,0,0,0.6);border:1px solid #5a3810;
-      border-radius:50%;width:32px;height:32px;
-      color:#c8a842;font-size:16px;cursor:pointer;
-      display:flex;align-items:center;justify-content:center;
-      line-height:1;">✕</button>
-
+  <div id="scannerWrap" style="display:none;border-radius:8px;overflow:hidden;">
+    <div id="qr-reader" style="width:100%;"></div>
     <div id="scanMsg" style="
-      position:absolute;bottom:12px;left:0;right:0;
-      text-align:center;font-family:Georgia,serif;
-      font-size:11px;color:rgba(200,168,66,0.8);
-      letter-spacing:1px;">Pointez vers un QR code</div>
+      text-align:center;padding:8px;
+      font-family:Georgia,serif;font-size:11px;
+      color:rgba(200,168,66,0.8);letter-spacing:1px;
+      background:#0a0804;">Pointez vers un QR code</div>
   </div>
+
 </div>
 
-<script src="js/game.js?v=2"></script>
-<script src="data/parcours.js?v=2"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script>
-// Noms selon le parcours
-const NOMS_CLASSIQUE = ['Le Guide','Le Perroquet','Joseph II','H. Salon Rouge','Horloge figée','Le Dromadaire','La Licorne','La Lampe'];
-const NOMS_PMR       = ['Le Guide','Le Perroquet','Joseph II','H. Salon Rouge','Horloge figée','Putti Astrologue','Vieux Gardien','La Lampe'];
-
-const PTS = [
-  {x:90,y:95},{x:255,y:135},{x:80,y:195},{x:265,y:255},
-  {x:90,y:315},{x:255,y:383},{x:100,y:453},{x:225,y:513},{x:180,y:578}
-];
-
-const mode = new URLSearchParams(window.location.search).get('mode');
-
-function getNoms() {
-  if (typeof GAME === 'undefined') return NOMS_CLASSIQUE;
-  const s = GAME.getSession();
-  return s.parcours === 'pmr' ? NOMS_PMR : NOMS_CLASSIQUE;
-}
-
-function getValidated() {
-  if (typeof GAME === 'undefined') return 0;
-  const s = GAME.getSession();
-  if (!s.parcours) return 0;
-  const indiceAffiche = localStorage.getItem('indiceAffiche') === '1';
-  let idx = 0;
-  if (s.phase === 'commun') idx = s.etape;
-  else idx = PARCOURS.commun.length + s.etape;
-  return indiceAffiche ? idx + 1 : idx;
-}
-
-function initParcours() {
-  if (typeof GAME === 'undefined') return;
-  const s = GAME.getSession();
-  const isPMR = s.parcours === 'pmr';
-
-  // Sous-titre
-  const label = isPMR ? 'parcours PMR' : (s.parcours === 'enfants' ? 'parcours Enfants' : 'parcours Famille');
-  document.getElementById('sousTitre').textContent = '~ ' + label + ' ~';
-
-  // Décos étape 6 et 7 selon parcours
-  const d6c = document.getElementById('deco6-classique');
-  const d6p = document.getElementById('deco6-pmr');
-  const d7c = document.getElementById('deco7-classique');
-  const d7p = document.getElementById('deco7-pmr');
-
-  if (isPMR) {
-    d6c.style.display = 'none'; d6c.setAttribute('opacity','0');
-    d6p.style.display = 'block'; d6p.setAttribute('opacity','0.45');
-    d7c.style.display = 'none'; d7c.setAttribute('opacity','0');
-    d7p.style.display = 'block'; d7p.setAttribute('opacity','0.45');
-  } else {
-    d6c.style.display = 'block'; d6c.setAttribute('opacity','0.45');
-    d6p.style.display = 'none'; d6p.setAttribute('opacity','0');
-    d7c.style.display = 'block'; d7c.setAttribute('opacity','0.45');
-    d7p.style.display = 'none'; d7p.setAttribute('opacity','0');
-  }
-}
-
-function renderAll() {
-  const NOMS = getNoms();
-  const v = getValidated();
-  for (let i=0; i<NOMS.length; i++) updateEtape(i, NOMS, v);
-  updateChemin(v);
-  updateCoffre(v, NOMS.length);
-}
-
-function updateEtape(i, NOMS, v) {
-  const c  = document.getElementById('c'+i);
-  const tn = document.getElementById('t'+i+'n');
-  const tl = document.getElementById('t'+i+'l');
-  if (!c) return;
-  if (i < v) {
-    c.setAttribute('fill','#003010'); c.setAttribute('stroke','#00992e'); c.style.animation='';
-    tn.setAttribute('fill','#00dd44'); tl.setAttribute('fill','#00aa33');
-    tl.textContent = NOMS[i];
-  } else if (i === v) {
-    c.setAttribute('fill','#3a0808'); c.setAttribute('stroke','#8a2020');
-    c.style.animation='pulseRouge 2s ease-in-out infinite';
-    tn.setAttribute('fill','#dd4444'); tl.setAttribute('fill','#aa3030');
-    tl.textContent = NOMS[i];
-  } else {
-    c.setAttribute('fill','#1c1408'); c.setAttribute('stroke','#3a2808'); c.style.animation='';
-    tn.setAttribute('fill','#3a2808'); tl.setAttribute('fill','#3a2808');
-    tl.textContent = '???';
-  }
-}
-
-function updateChemin(v) {
-  document.querySelectorAll('.seg').forEach(e=>e.remove());
-  const svg  = document.getElementById('carte');
-  const base = document.getElementById('chemin-base');
-  for (let i=0; i<v && i<PTS.length-1; i++) {
-    const a=PTS[i], b=PTS[i+1];
-    const mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
-    const seg = document.createElementNS('http://www.w3.org/2000/svg','path');
-    seg.setAttribute('d',`M${a.x},${a.y} Q${mx+8},${my-8} ${b.x},${b.y}`);
-    seg.setAttribute('fill','none');
-    seg.setAttribute('stroke','#00992e');
-    seg.setAttribute('stroke-width','2');
-    seg.setAttribute('stroke-dasharray','6 4');
-    seg.setAttribute('class','seg');
-    seg.style.animation='dashFlow 0.8s linear infinite';
-    svg.insertBefore(seg, base);
-  }
-}
-
-function updateCoffre(v, total) {
-  const g = document.getElementById('coffre');
-  if (v >= total) {
-    g.style.animation='coffreBat 0.8s ease-in-out infinite';
-    g.querySelectorAll('rect').forEach(r=>r.setAttribute('stroke','#cc9920'));
-    g.querySelector('text').setAttribute('fill','#cc9920');
-  } else {
-    g.style.animation='';
-  }
-}
-
-function animerReussite() {
-  const v = getValidated();
-  if (v === 0) return;
-  const c = document.getElementById('c'+(v-1));
-  if (!c) return;
-  c.style.animation='rougeVert 1.5s ease forwards';
-  setTimeout(renderAll, 1700);
-}
-
-function retourJeu() {
-  const retour = sessionStorage.getItem('retourEnigme');
-  if (retour) { sessionStorage.removeItem('retourEnigme'); window.location.href = retour; }
-  else history.back();
-}
-
-window.onload = function() {
-  initParcours();
-  renderAll();
-  if (mode === 'reussi') animerReussite();
-};
-</script>
-
-<script>
-document.addEventListener('click', function(e) {
-  const d=document.createElement('div'); d.className='ripple-dot';
-  const s=40; d.style.width=s+'px'; d.style.height=s+'px';
-  d.style.left=(e.clientX-s/2)+'px'; d.style.top=(e.clientY-s/2)+'px';
-  document.body.appendChild(d); d.addEventListener('animationend',()=>d.remove());
-});
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jsqr/1.4.0/jsQR.min.js"></script>
-<script>
-let scanning = false;
-let animFrame = null;
-let stream = null;
+let html5QrCode = null;
+let scannerOuvert = false;
 let detected = false;
 
 function toggleScanner() {
-  const wrap = document.getElementById('scannerWrap');
-  if (wrap.style.display === 'none') ouvrirScanner();
+  if (!scannerOuvert) ouvrirScanner();
   else fermerScanner();
 }
 
 function ouvrirScanner() {
   detected = false;
+  scannerOuvert = true;
   document.getElementById('scannerWrap').style.display = 'block';
   document.getElementById('btnScanner').textContent = '✕ Fermer le scanner';
   document.getElementById('btnScanner').style.color = '#6b6355';
-  demarrerCamera();
+
+  html5QrCode = new Html5Qrcode("qr-reader");
+
+  const config = {
+    fps: 15,
+    qrbox: { width: 220, height: 220 },
+    aspectRatio: 1.0,
+    showTorchButtonIfSupported: true,
+    showZoomSliderIfSupported: true,
+    defaultZoomValueIfSupported: 2,
+  };
+
+  html5QrCode.start(
+    { facingMode: "environment" },
+    config,
+    (decodedText) => {
+      if (detected) return;
+      detected = true;
+      document.getElementById('scanMsg').textContent = '✦ QR détecté — redirection...';
+      document.getElementById('scanMsg').style.color = '#00dd44';
+      html5QrCode.stop().then(() => {
+        setTimeout(() => { window.location.href = decodedText; }, 400);
+      }).catch(() => {
+        setTimeout(() => { window.location.href = decodedText; }, 400);
+      });
+    },
+    (errorMsg) => { /* ignore scan errors */ }
+  ).catch(err => {
+    document.getElementById('scanMsg').textContent = 'Accès caméra refusé';
+    document.getElementById('scanMsg').style.color = '#cc4444';
+    console.error('Scanner error:', err);
+  });
 }
 
 function fermerScanner() {
+  scannerOuvert = false;
   document.getElementById('scannerWrap').style.display = 'none';
   document.getElementById('btnScanner').textContent = '✦ Scanner le prochain QR code';
   document.getElementById('btnScanner').style.color = '#8a6030';
-  arreterCamera();
-}
-
-function demarrerCamera() {
-  const video = document.getElementById('video');
-  const constraints = {
-    video: {
-      facingMode: { ideal: 'environment' },
-      width:  { ideal: 1920 },
-      height: { ideal: 1080 }
-    }
-  };
-  navigator.mediaDevices.getUserMedia(constraints)
-    .then(s => {
-      stream = s;
-      video.srcObject = s;
-      video.setAttribute('playsinline', true);
-      video.play()
-        .then(() => {
-          scanning = true;
-          requestAnimationFrame(scannerFrame);
-        });
-    })
-    .catch(err => {
-      document.getElementById('scanMsg').textContent = 'Accès caméra refusé';
-      console.error('Camera error:', err);
-    });
-}
-
-function arreterCamera() {
-  scanning = false;
-  if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
-  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-  const video = document.getElementById('video');
-  video.srcObject = null;
-}
-
-function scannerFrame() {
-  if (!scanning || detected) return;
-
-  const video  = document.getElementById('video');
-  const canvas = document.getElementById('canvas');
-
-  // Attendre que la vidéo soit prête
-  if (video.readyState < 2 || video.videoWidth === 0) {
-    animFrame = requestAnimationFrame(scannerFrame);
-    return;
+  if (html5QrCode) {
+    html5QrCode.stop().catch(() => {});
+    html5QrCode = null;
   }
-
-  // Redimensionner le canvas à la taille de la vidéo
-  if (canvas.width !== video.videoWidth) {
-    canvas.width  = video.videoWidth;
-    canvas.height = video.videoHeight;
-  }
-
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-  let imageData;
-  try {
-    imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  } catch(e) {
-    animFrame = requestAnimationFrame(scannerFrame);
-    return;
-  }
-
-  // Essayer les 4 modes d'inversion pour maximiser la détection
-  const modes = ['dontInvert','onlyInvert','attemptBoth','invertFirst'];
-  let code = null;
-  for (const mode of modes) {
-    code = jsQR(imageData.data, imageData.width, imageData.height, {
-      inversionAttempts: mode
-    });
-    if (code) break;
-  }
-
-  if (code && code.data) {
-    detected = true;
-    const url = code.data;
-    document.getElementById('scanMsg').textContent = '✦ QR détecté — redirection...';
-    document.getElementById('scanMsg').style.color = '#00dd44';
-    arreterCamera();
-    // Redirection immédiate
-    setTimeout(() => { window.location.href = url; }, 400);
-    return;
-  }
-
-  animFrame = requestAnimationFrame(scannerFrame);
 }
 </script>
 
