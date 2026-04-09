@@ -7,21 +7,83 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <link rel="stylesheet" href="css/style.css?v=2">
 <style>
-@keyframes pulseRouge { 0%,100%{opacity:1} 50%{opacity:0.5} }
-@keyframes rougeVert  { 0%{fill:#3a0808;stroke:#7a1a1a;} 50%{fill:#2a1800;stroke:#aa7700;} 100%{fill:#003010;stroke:#00992e;} }
-@keyframes dashFlow   { to{stroke-dashoffset:-20;} }
-@keyframes coffreBat  { 0%,100%{transform:scale(1) rotate(-1deg)} 50%{transform:scale(1.1) rotate(1deg)} }
-@keyframes fadeIn     { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pulseRouge  { 0%,100%{opacity:1} 50%{opacity:0.5} }
+@keyframes rougeVert   { 0%{fill:#3a0808;stroke:#7a1a1a;} 50%{fill:#2a1800;stroke:#aa7700;} 100%{fill:#003010;stroke:#00992e;} }
+@keyframes dashFlow    { to{stroke-dashoffset:-20;} }
+@keyframes fadeIn      { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* Animation spéciale trésor */
+@keyframes tresorBat   { 0%,100%{transform:scale(1) rotate(-2deg)} 50%{transform:scale(1.15) rotate(2deg)} }
+@keyframes tresorGlow  { 0%,100%{opacity:0.6} 50%{opacity:1} }
+@keyframes etoilesSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes particule   {
+  0%   { transform:translate(0,0) scale(1); opacity:1; }
+  100% { transform:translate(var(--dx),var(--dy)) scale(0); opacity:0; }
+}
+
 body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; font-family:Georgia,serif; }
 .carte-wrap { width:100%; max-width:420px; padding:12px; box-sizing:border-box; animation:fadeIn 0.8s ease; }
 .carte-wrap svg { width:100%; height:auto; display:block; border-radius:8px; }
-.btn-retour { display:block; margin:10px auto 20px; width:calc(100% - 24px); max-width:396px; background:transparent; border:1px solid #3a3530; border-radius:8px; padding:12px; color:#8a8070; font-family:'Jost',sans-serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; box-sizing:border-box; }
+
+.btn-retour {
+  display:block; margin:10px auto 8px;
+  width:calc(100% - 24px); max-width:396px;
+  background:transparent; border:1px solid #3a3530;
+  border-radius:8px; padding:12px;
+  color:#8a8070; font-family:'Jost',sans-serif;
+  font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase;
+  cursor:pointer; box-sizing:border-box;
+}
 .btn-retour:hover { border-color:#8a8070; color:#f0ead8; }
+
+.btn-scanner {
+  display:block; width:calc(100% - 24px); max-width:396px;
+  margin:0 auto 24px; box-sizing:border-box;
+  background:transparent; border:1px solid #5a3810;
+  border-radius:8px; padding:12px;
+  color:#8a6030; font-family:'Jost',sans-serif;
+  font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase;
+  cursor:pointer;
+}
+.btn-scanner:hover { border-color:#c8a842; color:#c8a842; }
+
+#scannerWrap { width:calc(100% - 24px); max-width:396px; margin:0 auto 24px; border-radius:8px; overflow:hidden; display:none; }
+#qr-reader  { width:100%; }
+#scanMsg    { text-align:center; padding:8px; font-family:Georgia,serif; font-size:11px; color:rgba(200,168,66,0.8); letter-spacing:1px; background:#0a0804; }
+
+/* Overlay trésor */
+#tresorOverlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.92); z-index:1000;
+  flex-direction:column; align-items:center; justify-content:center;
+  font-family:Georgia,serif;
+}
+#tresorOverlay.visible { display:flex; animation:fadeIn 0.5s ease; }
+.tresor-coffre { font-size:80px; animation:tresorBat 0.7s ease-in-out infinite; margin-bottom:16px; }
+.tresor-titre  { font-size:22px; color:#ddaa00; letter-spacing:4px; text-transform:uppercase; margin-bottom:8px; animation:tresorGlow 1.5s ease-in-out infinite; }
+.tresor-sous   { font-size:12px; color:#8a6830; letter-spacing:2px; margin-bottom:32px; }
+.tresor-btn    { background:transparent; border:1px solid #ddaa00; border-radius:8px; padding:12px 28px; color:#ddaa00; font-family:Georgia,serif; font-size:13px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
+.tresor-btn:hover { background:rgba(200,168,66,0.1); }
+
+/* Particules autour du coffre */
+.particules { position:relative; display:flex; align-items:center; justify-content:center; }
+.part { position:absolute; width:8px; height:8px; border-radius:50%; animation:particule 1.2s ease-out infinite; }
+
 .ripple-dot { position:fixed;border-radius:50%;background:rgba(200,168,66,0.2);transform:scale(0);pointer-events:none;z-index:99999;animation:rippleG 0.6s ease-out forwards; }
 @keyframes rippleG { from{transform:scale(0);opacity:0.5} to{transform:scale(6);opacity:0} }
 </style>
 </head>
 <body>
+
+<!-- OVERLAY TRÉSOR -->
+<div id="tresorOverlay">
+  <div class="particules" id="particules">
+    <div class="tresor-coffre">🏆</div>
+  </div>
+  <div class="tresor-titre">Trésor découvert !</div>
+  <div class="tresor-sous">Vous avez percé tous les mystères</div>
+  <button class="tresor-btn" onclick="document.getElementById('tresorOverlay').classList.remove('visible'); window.location.href='victoire.html';">Voir mon certificat ✦</button>
+</div>
 
 <div class="carte-wrap">
 <svg id="carte" viewBox="0 0 360 640" xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +105,6 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   </clipPath>
 </defs>
 
-<!-- Fond parchemin -->
 <rect width="360" height="640" fill="url(#grain)" clip-path="url(#bord)"/>
 <rect width="360" height="640" fill="#c8a842" opacity="0.12" clip-path="url(#bord)"/>
 <ellipse cx="55"  cy="130" rx="45" ry="35" fill="#8a6018" opacity="0.10"/>
@@ -51,7 +112,6 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 <ellipse cx="175" cy="320" rx="55" ry="45" fill="#6a4010" opacity="0.07"/>
 <ellipse cx="28"  cy="490" rx="22" ry="32" fill="#8a5818" opacity="0.13"/>
 <ellipse cx="335" cy="90"  rx="28" ry="22" fill="#7a5010" opacity="0.11"/>
-<ellipse cx="80"  cy="590" rx="35" ry="20" fill="#6a4010" opacity="0.10"/>
 <path d="M10,5 Q40,0 80,7 Q120,2 160,8 Q200,1 240,7 Q280,2 320,8 Q345,3 354,9 L357,20 Q360,55 355,95 Q358,135 353,175 Q357,215 352,255 Q356,295 350,335 Q354,375 349,415 Q352,455 347,495 Q351,535 346,575 Q350,600 352,620 L340,628 Q300,632 260,627 Q220,631 180,626 Q140,630 100,625 Q60,629 25,626 L10,622 Q5,598 8,568 Q3,533 6,498 Q1,463 4,428 Q-1,393 3,358 Q-2,323 2,288 Q-3,253 1,218 Q-4,183 0,148 Q-2,113 1,78 Q-1,45 3,18 Z" fill="none" stroke="#3a2006" stroke-width="7" opacity="0.45"/>
 
 <!-- TITRE -->
@@ -77,7 +137,7 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   <text x="23" y="3" text-anchor="middle" font-family="Georgia" font-size="6" fill="#4a2808">E</text>
 </g>
 
-<!-- BATEAU haut gauche -->
+<!-- BATEAU -->
 <g transform="translate(42,84)" opacity="0.55">
   <ellipse cx="0" cy="18" rx="22" ry="7" fill="#7a5010"/>
   <rect x="-3" y="-10" width="3" height="28" fill="#5a3808" rx="1"/>
@@ -87,7 +147,7 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   <text x="0" y="32" text-anchor="middle" font-family="Georgia" font-size="7" fill="#4a2808">~ ~ ~</text>
 </g>
 
-<!-- PALMIERS haut centre -->
+<!-- PALMIERS haut -->
 <g transform="translate(175,88)" opacity="0.5">
   <rect x="-1" y="0" width="2" height="20" fill="#5a3808" transform="rotate(-8)"/>
   <path d="M0,0 Q-12,-8 -18,-4 Q-10,-2 0,0 Z" fill="#4a6010"/>
@@ -108,7 +168,7 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   <path d="M0,0 Q7,-15 3,-20 Q-2,-13 0,0 Z" fill="#3a5008"/>
 </g>
 
-<!-- MONTAGNES gauche milieu -->
+<!-- MONTAGNES -->
 <g transform="translate(33,278)" opacity="0.45">
   <path d="M0,40 L20,-5 L40,40 Z" fill="#8a7050"/>
   <path d="M15,40 L32,2 L50,40 Z" fill="#9a8060"/>
@@ -122,12 +182,12 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   <ellipse cx="-4" cy="-3" rx="4" ry="5" fill="#3a2010"/>
   <ellipse cx="4" cy="-3" rx="4" ry="5" fill="#3a2010"/>
   <circle cx="-5" cy="-4" r="2" fill="#c8a040"/><circle cx="-5" cy="-4" r="0.8" fill="#1a1008"/>
-  <circle cx="5"  cy="-4" r="2" fill="#c8a040"/><circle cx="5"  cy="-4" r="0.8" fill="#1a1008"/>
+  <circle cx="5" cy="-4" r="2" fill="#c8a040"/><circle cx="5" cy="-4" r="0.8" fill="#1a1008"/>
   <path d="M-14,5 Q-18,15 -14,20 Q-10,15 -12,8" fill="none" stroke="#4a3020" stroke-width="2" stroke-linecap="round"/>
-  <path d="M-8,8 Q-10,20 -6,24 Q-2,18 -5,10"   fill="none" stroke="#4a3020" stroke-width="2" stroke-linecap="round"/>
-  <path d="M0,10 Q0,22 4,25 Q7,18 3,10"          fill="none" stroke="#4a3020" stroke-width="2" stroke-linecap="round"/>
-  <path d="M8,8 Q12,20 10,24 Q6,18 7,10"          fill="none" stroke="#4a3020" stroke-width="2" stroke-linecap="round"/>
-  <path d="M14,5 Q18,15 14,20 Q10,15 12,8"        fill="none" stroke="#4a3020" stroke-width="2" stroke-linecap="round"/>
+  <path d="M-8,8 Q-10,20 -6,24 Q-2,18 -5,10" fill="none" stroke="#4a3020" stroke-width="2" stroke-linecap="round"/>
+  <path d="M0,10 Q0,22 4,25 Q7,18 3,10" fill="none" stroke="#4a3020" stroke-width="2" stroke-linecap="round"/>
+  <path d="M8,8 Q12,20 10,24 Q6,18 7,10" fill="none" stroke="#4a3020" stroke-width="2" stroke-linecap="round"/>
+  <path d="M14,5 Q18,15 14,20 Q10,15 12,8" fill="none" stroke="#4a3020" stroke-width="2" stroke-linecap="round"/>
 </g>
 
 <!-- COURONNE près étape 3 -->
@@ -135,22 +195,22 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   <path d="M-12,8 L-12,-4 L-6,2 L0,-8 L6,2 L12,-4 L12,8 Z" fill="none" stroke="#8a6820" stroke-width="1.2"/>
   <rect x="-12" y="6" width="24" height="5" rx="1" fill="#7a5818" stroke="#8a6820" stroke-width="0.8"/>
   <circle cx="-6" cy="-6" r="2" fill="#8a6820"/>
-  <circle cx="0"  cy="-10" r="2" fill="#8a6820"/>
-  <circle cx="6"  cy="-6" r="2" fill="#8a6820"/>
+  <circle cx="0" cy="-10" r="2" fill="#8a6820"/>
+  <circle cx="6" cy="-6" r="2" fill="#8a6820"/>
 </g>
 
-<!-- CRÂNE centre fantomatique -->
+<!-- CRÂNE centre -->
 <g transform="translate(178,305)" opacity="0.16">
   <circle cx="0" cy="-5" r="14" fill="#3a2808"/>
   <ellipse cx="0" cy="6" rx="10" ry="6" fill="#3a2808"/>
   <ellipse cx="-5" cy="-6" rx="4" ry="5" fill="#c8a840"/>
-  <ellipse cx="5"  cy="-6" rx="4" ry="5" fill="#c8a840"/>
+  <ellipse cx="5" cy="-6" rx="4" ry="5" fill="#c8a840"/>
   <path d="M-6,2 L-4,8 L4,8 L6,2" fill="#c8a840"/>
   <rect x="-5" y="4" width="3" height="4" fill="#3a2808"/>
-  <rect x="2"  y="4" width="3" height="4" fill="#3a2808"/>
+  <rect x="2" y="4" width="3" height="4" fill="#3a2808"/>
 </g>
 
-<!-- VOLCAN près étape 6 (parcours classique) -->
+<!-- DECO étape 6 classique : volcan -->
 <g id="deco6-classique" transform="translate(158,365)" opacity="0.45">
   <path d="M0,35 L18,-5 L36,35 Z" fill="#6a4828"/>
   <path d="M8,35 L22,5 L36,35 Z" fill="#7a5830"/>
@@ -158,48 +218,44 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   <path d="M16,-8 Q18,-14 20,-8 Q19,-4 18,-2 Q17,-4 16,-8 Z" fill="#dd5010"/>
   <path d="M13,-4 Q15,-10 14,-6 Q13,-2 14,0 Z" fill="#cc4010"/>
   <path d="M20,-6 Q22,-10 21,-6 Q20,-2 21,0 Z" fill="#cc4010"/>
-  <text x="18" y="46" text-anchor="middle" font-family="Georgia" font-size="6" fill="#4a2808" opacity="0.6">~ ~</text>
 </g>
 
-<!-- JARDIN / ASTROLABE près étape 6 (parcours PMR) — caché par défaut -->
+<!-- DECO étape 6 PMR : astrolabe -->
 <g id="deco6-pmr" transform="translate(158,355)" opacity="0" style="display:none">
   <circle cx="18" cy="18" r="18" fill="none" stroke="#6a4820" stroke-width="1.2"/>
   <circle cx="18" cy="18" r="12" fill="none" stroke="#5a3818" stroke-width="0.8"/>
-  <circle cx="18" cy="18" r="4"  fill="#4a3010"/>
-  <line x1="18" y1="0"  x2="18" y2="36" stroke="#6a4820" stroke-width="0.8"/>
-  <line x1="0"  y1="18" x2="36" y2="18" stroke="#6a4820" stroke-width="0.8"/>
-  <line x1="5"  y1="5"  x2="31" y2="31" stroke="#5a3818" stroke-width="0.6" opacity="0.6"/>
-  <line x1="31" y1="5"  x2="5"  y2="31" stroke="#5a3818" stroke-width="0.6" opacity="0.6"/>
+  <circle cx="18" cy="18" r="4" fill="#4a3010"/>
+  <line x1="18" y1="0" x2="18" y2="36" stroke="#6a4820" stroke-width="0.8"/>
+  <line x1="0" y1="18" x2="36" y2="18" stroke="#6a4820" stroke-width="0.8"/>
+  <line x1="5" y1="5" x2="31" y2="31" stroke="#5a3818" stroke-width="0.6" opacity="0.6"/>
+  <line x1="31" y1="5" x2="5" y2="31" stroke="#5a3818" stroke-width="0.6" opacity="0.6"/>
   <path d="M18,0 L22,10 L18,8 L14,10 Z" fill="#7a5828"/>
-  <text x="18" y="50" text-anchor="middle" font-family="Georgia" font-size="7" fill="#4a2808" opacity="0.7">Astrolabe</text>
 </g>
 
-<!-- LICORNE près étape 7 (parcours classique) -->
+<!-- DECO étape 7 classique : licorne -->
 <g id="deco7-classique" transform="translate(195,445)" opacity="0.45">
   <ellipse cx="0" cy="5" rx="16" ry="9" fill="#3a2818"/>
   <circle cx="-10" cy="-2" r="9" fill="#3a2818"/>
   <path d="M-15,-8 L-10,-20 L-7,-8 Z" fill="#7a5828"/>
-  <path d="M-10,-11 L-15,-8 L-8,-9 Z" fill="#5a4018"/>
-  <line x1="-20" y1="5"  x2="-26" y2="14" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="-8"  y1="12" x2="-12" y2="22" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="4"   y1="12" x2="2"   y2="22" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="14"  y1="8"  x2="18"  y2="18" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="-20" y1="5" x2="-26" y2="14" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="-8" y1="12" x2="-12" y2="22" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="4" y1="12" x2="2" y2="22" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="14" y1="8" x2="18" y2="18" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
   <path d="M12,0 Q20,-5 16,6" fill="none" stroke="#3a2818" stroke-width="2" stroke-linecap="round"/>
   <circle cx="-13" cy="-4" r="1.5" fill="#c8a040"/>
 </g>
 
-<!-- SILHOUETTE GARDIEN près étape 7 (parcours PMR) — caché par défaut -->
+<!-- DECO étape 7 PMR : gardien -->
 <g id="deco7-pmr" transform="translate(195,438)" opacity="0" style="display:none">
   <circle cx="0" cy="-18" r="8" fill="#3a2818"/>
   <path d="M-10,0 Q0,-8 10,0 L8,25 L-8,25 Z" fill="#3a2818"/>
-  <line x1="-10" y1="5"  x2="-20" y2="20" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="10"  y1="5"  x2="20"  y2="20" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="-4"  y1="25" x2="-5"  y2="40" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="4"   y1="25" x2="5"   y2="40" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="20"  y1="20" x2="22"  y2="35" stroke="#3a2818" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="-10" y1="5" x2="-20" y2="20" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="10" y1="5" x2="20" y2="20" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="-4" y1="25" x2="-5" y2="40" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="4" y1="25" x2="5" y2="40" stroke="#3a2818" stroke-width="2.5" stroke-linecap="round"/>
 </g>
 
-<!-- PETITE ÎLE bas droite -->
+<!-- ÎLE bas droite -->
 <g transform="translate(300,522)" opacity="0.45">
   <ellipse cx="0" cy="12" rx="22" ry="8" fill="#8a7040"/>
   <ellipse cx="0" cy="10" rx="18" ry="6" fill="#9a8050"/>
@@ -217,7 +273,7 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   <path d="M260,590 Q273,585 285,590 Q297,595 310,590" fill="none" stroke="#4a3010" stroke-width="1.2"/>
 </g>
 
-<!-- ÉTOILES déco -->
+<!-- ÉTOILES -->
 <text x="30"  y="162" font-family="Georgia" font-size="11" fill="#4a2e08" opacity="0.32">✦</text>
 <text x="320" y="318" font-family="Georgia" font-size="9"  fill="#4a2e08" opacity="0.32">✦</text>
 <text x="38"  y="430" font-family="Georgia" font-size="10" fill="#4a2e08" opacity="0.32">✦</text>
@@ -225,14 +281,14 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 <text x="148" y="148" font-family="Georgia" font-size="7"  fill="#4a2e08" opacity="0.28">✦</text>
 <text x="310" y="460" font-family="Georgia" font-size="8"  fill="#4a2e08" opacity="0.28">✦</text>
 
-<!-- CHEMIN DE BASE -->
+<!-- CHEMIN BASE -->
 <path id="chemin-base"
   d="M90,95 Q172,108 255,135 Q200,165 80,195 Q162,225 265,255 Q188,285 90,315 Q170,350 255,383 Q172,418 100,453 Q162,485 225,513 Q202,535 180,578"
   fill="none" stroke="#5a3810" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.5"/>
 
 <!-- ÉTAPES -->
-<g id="e0"><circle id="c0" cx="90"  cy="95"  r="20" fill="#3a0808" stroke="#7a2020" stroke-width="1.5"/><text id="t0n" x="90"  y="92"  text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#cc5555" font-weight="bold">1</text><text id="t0l" x="90"  y="103" text-anchor="middle" font-family="Georgia,serif" font-size="7"  fill="#cc5555">Guide</text></g>
-<g id="e1"><circle id="c1" cx="255" cy="135" r="20" fill="#3a0808" stroke="#7a2020" stroke-width="1.5"/><text id="t1n" x="255" y="132" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#cc5555" font-weight="bold">2</text><text id="t1l" x="255" y="143" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#cc5555">Perroquet</text></g>
+<g id="e0"><circle id="c0" cx="90"  cy="95"  r="20" fill="#1c1408" stroke="#3a2808" stroke-width="1.5"/><text id="t0n" x="90"  y="92"  text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#3a2808" font-weight="bold">1</text><text id="t0l" x="90"  y="103" text-anchor="middle" font-family="Georgia,serif" font-size="7"  fill="#3a2808">???</text></g>
+<g id="e1"><circle id="c1" cx="255" cy="135" r="20" fill="#1c1408" stroke="#3a2808" stroke-width="1.5"/><text id="t1n" x="255" y="132" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#3a2808" font-weight="bold">2</text><text id="t1l" x="255" y="143" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#3a2808">???</text></g>
 <g id="e2"><circle id="c2" cx="80"  cy="195" r="20" fill="#1c1408" stroke="#3a2808" stroke-width="1.5"/><text id="t2n" x="80"  y="192" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#3a2808" font-weight="bold">3</text><text id="t2l" x="80"  y="203" text-anchor="middle" font-family="Georgia,serif" font-size="7"  fill="#3a2808">???</text></g>
 <g id="e3"><circle id="c3" cx="265" cy="255" r="20" fill="#1c1408" stroke="#3a2808" stroke-width="1.5"/><text id="t3n" x="265" y="252" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#3a2808" font-weight="bold">4</text><text id="t3l" x="265" y="263" text-anchor="middle" font-family="Georgia,serif" font-size="7"  fill="#3a2808">???</text></g>
 <g id="e4"><circle id="c4" cx="90"  cy="315" r="20" fill="#1c1408" stroke="#3a2808" stroke-width="1.5"/><text id="t4n" x="90"  y="312" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#3a2808" font-weight="bold">5</text><text id="t4l" x="90"  y="323" text-anchor="middle" font-family="Georgia,serif" font-size="7"  fill="#3a2808">???</text></g>
@@ -240,7 +296,7 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 <g id="e6"><circle id="c6" cx="100" cy="453" r="20" fill="#1c1408" stroke="#3a2808" stroke-width="1.5"/><text id="t6n" x="100" y="450" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#3a2808" font-weight="bold">7</text><text id="t6l" x="100" y="461" text-anchor="middle" font-family="Georgia,serif" font-size="7"  fill="#3a2808">???</text></g>
 <g id="e7"><circle id="c7" cx="225" cy="513" r="20" fill="#1c1408" stroke="#3a2808" stroke-width="1.5"/><text id="t7n" x="225" y="510" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#3a2808" font-weight="bold">8</text><text id="t7l" x="225" y="521" text-anchor="middle" font-family="Georgia,serif" font-size="7"  fill="#3a2808">???</text></g>
 
-<!-- COFFRE FINAL -->
+<!-- COFFRE -->
 <g id="coffre" transform="translate(180,578)">
   <rect x="-22" y="-14" width="44" height="28" rx="4" fill="#1e1200" stroke="#5a3808" stroke-width="1.8"/>
   <rect x="-22" y="-14" width="44" height="13" rx="4" fill="#2a1808" stroke="#5a3808" stroke-width="1.2"/>
@@ -259,28 +315,174 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 
 <button class="btn-retour" onclick="retourJeu()">← Retour au jeu</button>
 
-<div id="scannerSection" style="width:calc(100% - 24px);max-width:396px;margin:0 auto 24px;box-sizing:border-box;">
-
-  <button id="btnScanner" onclick="toggleScanner()" style="
-    display:block;width:100%;
-    background:transparent;border:1px solid #5a3810;
-    border-radius:8px;padding:12px;
-    color:#8a6030;font-family:'Jost',sans-serif;
-    font-size:0.85rem;letter-spacing:0.15em;
-    text-transform:uppercase;cursor:pointer;margin-bottom:8px;">
-    ✦ Scanner le prochain QR code
-  </button>
-
-  <div id="scannerWrap" style="display:none;border-radius:8px;overflow:hidden;">
-    <div id="qr-reader" style="width:100%;"></div>
-    <div id="scanMsg" style="
-      text-align:center;padding:8px;
-      font-family:Georgia,serif;font-size:11px;
-      color:rgba(200,168,66,0.8);letter-spacing:1px;
-      background:#0a0804;">Pointez vers un QR code</div>
+<div id="scannerSection">
+  <button id="btnScanner" class="btn-scanner" onclick="toggleScanner()">✦ Scanner le prochain QR code</button>
+  <div id="scannerWrap">
+    <div id="qr-reader"></div>
+    <div id="scanMsg">Pointez vers un QR code</div>
   </div>
-
 </div>
+
+<script src="js/game.js?v=2"></script>
+<script src="data/parcours.js?v=2"></script>
+<script>
+const NOMS_CLASSIQUE = ['Le Guide','Le Perroquet','Joseph II','H. Salon Rouge','Horloge figée','Le Dromadaire','La Licorne','La Lampe'];
+const NOMS_PMR       = ['Le Guide','Le Perroquet','Joseph II','H. Salon Rouge','Horloge figée','Putti Astrologue','Vieux Gardien','La Lampe'];
+const PTS = [
+  {x:90,y:95},{x:255,y:135},{x:80,y:195},{x:265,y:255},
+  {x:90,y:315},{x:255,y:383},{x:100,y:453},{x:225,y:513},{x:180,y:578}
+];
+const mode = new URLSearchParams(window.location.search).get('mode');
+
+function getNoms() {
+  if (typeof GAME === 'undefined') return NOMS_CLASSIQUE;
+  return GAME.getSession().parcours === 'pmr' ? NOMS_PMR : NOMS_CLASSIQUE;
+}
+
+function getValidated() {
+  if (typeof GAME === 'undefined') return 0;
+  const s = GAME.getSession();
+  if (!s.parcours) return 0;
+  const indiceAffiche = localStorage.getItem('indiceAffiche') === '1';
+  let idx = (s.phase === 'commun') ? s.etape : PARCOURS.commun.length + s.etape;
+  return indiceAffiche ? idx + 1 : idx;
+}
+
+function initParcours() {
+  if (typeof GAME === 'undefined') return;
+  const s = GAME.getSession();
+  const isPMR = s.parcours === 'pmr';
+  const label = isPMR ? 'parcours PMR' : (s.parcours === 'enfants' ? 'parcours Enfants' : 'parcours Famille');
+  document.getElementById('sousTitre').textContent = '~ ' + label + ' ~';
+
+  ['deco6-classique','deco7-classique'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.display = isPMR ? 'none' : 'block';
+    el.setAttribute('opacity', isPMR ? '0' : '0.45');
+  });
+  ['deco6-pmr','deco7-pmr'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.display = isPMR ? 'block' : 'none';
+    el.setAttribute('opacity', isPMR ? '0.45' : '0');
+  });
+}
+
+function renderAll() {
+  const NOMS = getNoms();
+  const v = getValidated();
+  for (let i = 0; i < NOMS.length; i++) updateEtape(i, NOMS, v);
+  updateChemin(v);
+  updateCoffre(v, NOMS.length);
+}
+
+function updateEtape(i, NOMS, v) {
+  const c  = document.getElementById('c'+i);
+  const tn = document.getElementById('t'+i+'n');
+  const tl = document.getElementById('t'+i+'l');
+  if (!c) return;
+  if (i < v) {
+    c.setAttribute('fill','#003010'); c.setAttribute('stroke','#00992e'); c.style.animation='';
+    tn.setAttribute('fill','#00dd44'); tl.setAttribute('fill','#00aa33');
+    tl.textContent = NOMS[i];
+  } else if (i === v) {
+    c.setAttribute('fill','#3a0808'); c.setAttribute('stroke','#8a2020');
+    c.style.animation = 'pulseRouge 2s ease-in-out infinite';
+    tn.setAttribute('fill','#dd4444'); tl.setAttribute('fill','#aa3030');
+    tl.textContent = NOMS[i];
+  } else {
+    c.setAttribute('fill','#1c1408'); c.setAttribute('stroke','#3a2808'); c.style.animation='';
+    tn.setAttribute('fill','#3a2808'); tl.setAttribute('fill','#3a2808');
+    tl.textContent = '???';
+  }
+}
+
+function updateChemin(v) {
+  document.querySelectorAll('.seg').forEach(e => e.remove());
+  const svg  = document.getElementById('carte');
+  const base = document.getElementById('chemin-base');
+  for (let i = 0; i < v && i < PTS.length - 1; i++) {
+    const a = PTS[i], b = PTS[i+1];
+    const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;
+    const seg = document.createElementNS('http://www.w3.org/2000/svg','path');
+    seg.setAttribute('d', `M${a.x},${a.y} Q${mx+8},${my-8} ${b.x},${b.y}`);
+    seg.setAttribute('fill','none');
+    seg.setAttribute('stroke','#00992e');
+    seg.setAttribute('stroke-width','2');
+    seg.setAttribute('stroke-dasharray','6 4');
+    seg.setAttribute('class','seg');
+    seg.style.animation = 'dashFlow 0.8s linear infinite';
+    svg.insertBefore(seg, base);
+  }
+}
+
+function updateCoffre(v, total) {
+  const g = document.getElementById('coffre');
+  if (v >= total) {
+    g.style.animation = 'tresorBat 0.7s ease-in-out infinite';
+    g.querySelectorAll('rect').forEach(r => r.setAttribute('stroke','#ddaa00'));
+    g.querySelector('circle:last-of-type').setAttribute('fill','#ffcc44');
+    g.querySelector('text').setAttribute('fill','#ddaa00');
+  } else {
+    g.style.animation = '';
+  }
+}
+
+function lancerAnimationTresor() {
+  // Créer particules
+  const cont = document.getElementById('particules');
+  const couleurs = ['#ddaa00','#ffcc44','#ff8800','#ffffff','#ffdd88'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'part';
+    const angle = (i / 20) * 360;
+    const dist  = 80 + Math.random() * 60;
+    const dx = Math.cos(angle * Math.PI/180) * dist;
+    const dy = Math.sin(angle * Math.PI/180) * dist;
+    p.style.cssText = `
+      background:${couleurs[i%couleurs.length]};
+      --dx:${dx}px; --dy:${dy}px;
+      animation-delay:${Math.random()*0.4}s;
+      animation-duration:${0.8+Math.random()*0.6}s;
+      animation-iteration-count:infinite;
+    `;
+    cont.appendChild(p);
+  }
+  document.getElementById('tresorOverlay').classList.add('visible');
+}
+
+function animerReussite() {
+  const NOMS = getNoms();
+  const v = getValidated();
+  if (v === 0) return;
+  const c = document.getElementById('c'+(v-1));
+  if (!c) return;
+  c.style.animation = 'rougeVert 1.5s ease forwards';
+  setTimeout(() => {
+    renderAll();
+    // Si toutes les étapes sont validées → animation trésor
+    if (v >= NOMS.length) {
+      setTimeout(lancerAnimationTresor, 800);
+    }
+  }, 1700);
+}
+
+function retourJeu() {
+  const retour = sessionStorage.getItem('retourEnigme');
+  if (retour) { sessionStorage.removeItem('retourEnigme'); window.location.href = retour; }
+  else history.back();
+}
+
+window.onload = function() {
+  initParcours();
+  renderAll();
+  if (mode === 'reussi') animerReussite();
+  // Si déjà toutes les étapes validées sans animation
+  const NOMS = getNoms();
+  if (mode !== 'reussi' && getValidated() >= NOMS.length) {
+    setTimeout(lancerAnimationTresor, 500);
+  }
+};
+</script>
 
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script>
@@ -298,22 +500,10 @@ function ouvrirScanner() {
   scannerOuvert = true;
   document.getElementById('scannerWrap').style.display = 'block';
   document.getElementById('btnScanner').textContent = '✕ Fermer le scanner';
-  document.getElementById('btnScanner').style.color = '#6b6355';
-
   html5QrCode = new Html5Qrcode("qr-reader");
-
-  const config = {
-    fps: 15,
-    qrbox: { width: 220, height: 220 },
-    aspectRatio: 1.0,
-    showTorchButtonIfSupported: true,
-    showZoomSliderIfSupported: true,
-    defaultZoomValueIfSupported: 2,
-  };
-
   html5QrCode.start(
     { facingMode: "environment" },
-    config,
+    { fps: 15, qrbox: { width: 220, height: 220 }, aspectRatio: 1.0 },
     (decodedText) => {
       if (detected) return;
       detected = true;
@@ -325,11 +515,10 @@ function ouvrirScanner() {
         setTimeout(() => { window.location.href = decodedText; }, 400);
       });
     },
-    (errorMsg) => { /* ignore scan errors */ }
+    () => {}
   ).catch(err => {
     document.getElementById('scanMsg').textContent = 'Accès caméra refusé';
     document.getElementById('scanMsg').style.color = '#cc4444';
-    console.error('Scanner error:', err);
   });
 }
 
@@ -337,13 +526,17 @@ function fermerScanner() {
   scannerOuvert = false;
   document.getElementById('scannerWrap').style.display = 'none';
   document.getElementById('btnScanner').textContent = '✦ Scanner le prochain QR code';
-  document.getElementById('btnScanner').style.color = '#8a6030';
-  if (html5QrCode) {
-    html5QrCode.stop().catch(() => {});
-    html5QrCode = null;
-  }
+  if (html5QrCode) { html5QrCode.stop().catch(() => {}); html5QrCode = null; }
 }
 </script>
 
+<script>
+document.addEventListener('click', function(e) {
+  const d = document.createElement('div'); d.className = 'ripple-dot';
+  const s = 40; d.style.width = s+'px'; d.style.height = s+'px';
+  d.style.left = (e.clientX-s/2)+'px'; d.style.top = (e.clientY-s/2)+'px';
+  document.body.appendChild(d); d.addEventListener('animationend', () => d.remove());
+});
+</script>
 </body>
 </html>
