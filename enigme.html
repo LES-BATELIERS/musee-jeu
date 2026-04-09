@@ -257,6 +257,8 @@
 
     // Si l'indice était déjà affiché (raffraîchissement après bonne réponse)
     // → on réaffiche l'indice sans permettre d'avancer sans QR
+    console.log('DEBUG session:', JSON.stringify(session));
+    console.log('DEBUG indiceAffiche localStorage:', localStorage.getItem('indiceAffiche'));
     if (session.indiceAffiche) {
       etapeData = GAME.getEtapeCourante();
       if (!etapeData) {
