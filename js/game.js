@@ -8,19 +8,21 @@ const GAME = {
   // --- Lire la session ---
   getSession() {
     return {
-      parcours: localStorage.getItem('parcours') || null,
-      etape:    parseInt(localStorage.getItem('etape') || '0'),
-      erreurs:  parseInt(localStorage.getItem('erreurs') || '0'),
-      phase:    localStorage.getItem('phase') || 'commun' // commun | classique | pmr
+      parcours:       localStorage.getItem('parcours') || null,
+      etape:          parseInt(localStorage.getItem('etape') || '0'),
+      erreurs:        parseInt(localStorage.getItem('erreurs') || '0'),
+      phase:          localStorage.getItem('phase') || 'commun', // commun | classique | pmr
+      indiceAffiche:  localStorage.getItem('indiceAffiche') === '1'
     };
   },
 
   // --- Sauvegarder la session ---
   saveSession(data) {
-    localStorage.setItem('parcours', data.parcours);
-    localStorage.setItem('etape',    data.etape);
-    localStorage.setItem('erreurs',  data.erreurs);
-    localStorage.setItem('phase',    data.phase);
+    localStorage.setItem('parcours',      data.parcours);
+    localStorage.setItem('etape',         data.etape);
+    localStorage.setItem('erreurs',       data.erreurs);
+    localStorage.setItem('phase',         data.phase);
+    localStorage.setItem('indiceAffiche', data.indiceAffiche ? '1' : '0');
   },
 
   // --- Réinitialiser ---
@@ -29,6 +31,7 @@ const GAME = {
     localStorage.removeItem('etape');
     localStorage.removeItem('erreurs');
     localStorage.removeItem('phase');
+    localStorage.removeItem('indiceAffiche');
   },
 
   // --- Récupérer l'étape courante ---
@@ -66,7 +69,17 @@ const GAME = {
   },
 
   // --- Avancer à l'étape suivante ---
+  // Marquer l'étape réussie — l'indice est affiché
+  // L'avancement réel se fait au scan du prochain QR (validerEtape)
   avancer() {
+    const s = this.getSession();
+    s.indiceAffiche = true;
+    s.erreurs = 0;
+    this.saveSession(s);
+  },
+
+  // Appelé quand le joueur scanne le prochain QR — on avance vraiment
+  validerEtape() {
     const s = this.getSession();
     let liste;
     if (s.phase === 'commun')    liste = PARCOURS.commun;
@@ -87,6 +100,7 @@ const GAME = {
       s.etape = s.etape + 1;
     }
 
+    s.indiceAffiche = false;
     s.erreurs = 0;
     this.saveSession(s);
   },

@@ -255,9 +255,36 @@
       return;
     }
 
+    // Si l'indice était déjà affiché (raffraîchissement après bonne réponse)
+    // → on réaffiche l'indice sans permettre d'avancer sans QR
+    if (session.indiceAffiche) {
+      etapeData = GAME.getEtapeCourante();
+      if (!etapeData) {
+        window.location.href = 'victoire.html';
+        return;
+      }
+      let indice = etapeData.indice;
+      if (typeof indice === 'object') {
+        indice = session.parcours === 'pmr' ? indice.pmr : indice.classique;
+      }
+      document.getElementById('indiceTexte').textContent = indice || "Bravo, continue !"
+      // Masquer le bouton continuer — il faut scanner le QR
+      document.getElementById('btnContinuerIndice').style.display = 'none';
+      afficherEcran('ecranIndice');
+      return;
+    }
+
     // Récupérer l'ID de l'étape depuis l'URL (?etape=intro-guide)
     const params  = new URLSearchParams(window.location.search);
     const idEtape = params.get('etape');
+
+    // Si le joueur scanne un QR valide après avoir vu l'indice → valider l'étape précédente
+    if (session.indiceAffiche && idEtape && idEtape !== '0') {
+      // On vérifie si c'est bien le prochain QR attendu
+      // D'abord on valide pour avancer, puis on vérifie l'accès
+      GAME.validerEtape();
+      session = GAME.getSession();
+    }
 
     // Anti-cheat : seulement si un ID est fourni ET différent de "0"
     if (idEtape && idEtape !== '0' && !GAME.peutAcceder(idEtape)) {
@@ -460,37 +487,36 @@
 
   // ── Afficher l'indice (prochain QR à trouver) ──
   function afficherIndice() {
+    // Marque l'étape comme réussie (indiceAffiche=true) sans avancer
+    // L'avancement réel se fera au prochain scan de QR
     GAME.avancer();
     session = GAME.getSession();
-    localStorage.removeItem('dejaTentes'); // Réinitialiser pour la prochaine étape
-
-    // Mettre à jour la barre de progression
-    const pct = GAME.getProgression();
-    document.getElementById('progressionFill').style.width = pct + '%';
-    document.getElementById('progressionLabel').textContent = 'Progression : ' + pct + '%';
+    localStorage.removeItem('dejaTentes');
 
     let indice = etapeData.indice;
-    // Cas bifurcation
     if (typeof indice === 'object') {
       indice = session.parcours === 'pmr' ? indice.pmr : indice.classique;
     }
 
-    document.getElementById('indiceTexte').textContent = indice || "Bravo, tu as terminé !";
-
-    // Arrêter la musique — étape réussie, joueur repart dans le musée
+    // Arrêter la musique
     if (musique) {
       musique.pause();
       musique.currentTime = 0;
     }
 
-    // Vérifier si c'est la fin
-    const prochaineEtape = GAME.getEtapeCourante();
-    if (!prochaineEtape) {
+    // Si pas d'indice = dernière étape → aller à la victoire
+    if (!indice) {
+      // C'est la fin ! On valide directement et on redirige
+      GAME.validerEtape();
       setTimeout(function() {
         window.location.href = 'victoire.html';
-      }, 3000);
+      }, 1500);
+      document.getElementById('indiceTexte').textContent = "Bravo, tu as terminé !";
+      afficherEcran('ecranIndice');
+      return;
     }
 
+    document.getElementById('indiceTexte').textContent = indice;
     afficherEcran('ecranIndice');
   }
 
