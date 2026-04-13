@@ -97,7 +97,7 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Quelle horloge arrêtée l'année où s'achevaient les réformes de Marie-Thérèse.",
+          texte: "Quelle horloge arrêtée l'année où s'achevait les réformes de Marie-Thérèse.",
           choix: ["L'horloge de 1759", "L'horloge de 1412", "L'horloge de 1914"],
           bonne: 0
         }
@@ -237,7 +237,7 @@ const PARCOURS = {
         },
         famille: {
           texte: "Je donne l'heure, mais lui donne le destin des étoiles.",
-          choix: ["L'angelot", "Le putti astronome", "Le génie"],
+          choix: ["L'angelot", "Le putti", "Le génie"],
           bonne: 1
         }
       },
@@ -254,14 +254,14 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/uSYD62G-Oko", "https://www.youtube.com/embed/tyftcOLOwqM"],
       questions: {
         enfant: {
-          texte: "Quand on la frotte, un génie apparaît pour exaucer des vœux !",
-          choix: ["La lampe magique", "La princesse", "L'étoile"],
-          bonne: 0
+          texte: "Derrière la vitre, sans descendre, il y a un gentil papi tout vieux qui surveille le musée. Qui ça peut être ?",
+          choix: ["Grand père", "Le pape", "Le vieux gardien"],
+          bonne: 2
         },
         famille: {
-          texte: "Très recherché dans les contes orientaux, l'on me convoite avec espoir de réaliser des vœux.",
-          choix: ["La lampe magique", "La bague enchantée", "Le tapis volant"],
-          bonne: 0
+          texte: "Sans que personne ne puisse l'approcher, derrière une vitre, dans les profondeurs visibles mais interdites, il/elle protège les trésors anciens",
+          choix: ["La caméra de surveillance", "Le sablier", "Le vieux gardien"],
+          bonne: 2
         }
       },
       indice: "Trouve la Lampe magique dans le musée !"
