@@ -24,12 +24,12 @@ const PARCOURS = {
       questions: {
         enfant: {
           texte: "Qui est ce bavard à plumes qui répète tout ce qu'on lui dit ?",
-          choix: ["Le perroquet", "Le lion", "Le singe"],
+          choix: ["Le perroquet", "Le poulet", "L'autruche"],
           bonne: 0
         },
         famille: {
           texte: "Quel oiseau exotique, offert comme trésor vivant, amusait les nobles d'autrefois ?",
-          choix: ["Le perroquet", "Le faucon", "Le perroquet gris"],
+          choix: ["Le perroquet", "Le faucon", "Le pigeon"],
           bonne: 0
         }
       },
@@ -64,7 +64,7 @@ const PARCOURS = {
       id: "joseph-ii",
       station: "Joseph II",
       personnage: "Joseph II",
-      videoIntro: "https://www.youtube.com/embed/Wqtln3XlPGI",
+      videoIntro: "https://www.youtube.com/embed/kmbpnM9tDE0",
       videoBonneReponse: "https://www.youtube.com/embed/UU5NlkfU70U",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/v5nfooBb6wY", "https://www.youtube.com/embed/DDJHx94yMvw"],
       questions: {
@@ -74,8 +74,8 @@ const PARCOURS = {
           bonne: 0
         },
         famille: {
-          texte: "« Cherche un grand objet orné de fruits qui compte les saisons et les secondes »...",
-          choix: ["Une montre", "Cadran solaire", "L'Horloge (Salon rouge)"],
+          texte: "« Cherche un objet ornée de fruits qui compte les saisons. »",
+          choix: ["Une montre (grenier)", "Cadran solaire (Jardin)", "L'Horloge (Salon rouge)"],
           bonne: 2
         }
       },
@@ -97,7 +97,7 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Quelle horloge arrêtée l'année où s'achevait la décennie des réformes de Marie-Thérèse ?",
+          texte: "Quelle horloge arrêtée l'année où s'achevaient les réformes de Marie-Thérèse.",
           choix: ["L'horloge de 1759", "L'horloge de 1412", "L'horloge de 1914"],
           bonne: 0
         }
@@ -120,7 +120,7 @@ const PARCOURS = {
           classique: {
             videoIntro: "https://www.youtube.com/embed/f9gi1i8Byzg",
             texte: "Je vis dans le désert et j'ai une bosse. Qui suis-je ?",
-            choix: ["Le dromadaire", "La biche", "La tortue"],
+            choix: ["Le dromadaire", "Le serpent", "La tortue"],
             bonne: 0
           },
           pmr: {
@@ -133,8 +133,8 @@ const PARCOURS = {
         famille: {
           classique: {
             videoIntro: "https://www.youtube.com/embed/f9gi1i8Byzg",
-            texte: "De mon pas lent je traverse les mers de sable. Mon cousin se vante de deux bosses.",
-            choix: ["Le dromadaire", "Le zèbre", "Le lama"],
+            texte: "De mon pas lent je traverse les mers de sable.",
+            choix: ["Le dromadaire", "L'éléphant", "Le serpent"],
             bonne: 0
           },
           pmr: {
@@ -185,7 +185,7 @@ const PARCOURS = {
       id: "licorne-classique",
       station: "La Licorne",
       personnage: "La Licorne",
-      videoIntro: "https://www.youtube.com/embed/p0zQH-LkCmE",
+      videoIntro: "https://www.youtube.com/embed/waAUMbW2320",
       videoBonneReponse: "https://www.youtube.com/embed/HpmkAkqxbp0",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/TcyMP3vnnQA", "https://www.youtube.com/embed/gav_RTt8nqo"],
       questions: {
@@ -226,14 +226,19 @@ const PARCOURS = {
       id: "putti-astrologue",
       station: "Putti Astrologue",
       personnage: "Le Putti Astrologue",
-      videoIntro: "https://www.youtube.com/embed/pZTbmAtOz6U",
-      videoBonneReponse: "https://www.youtube.com/embed/fjYmmtD9OTE",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/8TJuc9SoZrs", "https://www.youtube.com/embed/wIKsSnv4IJ8"],
+      videoIntro: "https://www.youtube.com/embed/S-xNwuLkdNY",
+      videoBonneReponse: "https://www.youtube.com/embed/Z5iN_w8gcSc",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/mlhYCQm7I80", "https://www.youtube.com/embed/LBWyy1xHys8"],
       questions: {
-        unique: {
-          texte: "Sans que personne ne puisse l'approcher, derrière une vitre, dans les profondeurs visibles mais interdites, il protège les trésors anciens.",
-          choix: ["La caméra de surveillance", "Le sablier", "Le vieux gardien"],
-          bonne: 2
+        enfant: {
+          texte: "Comment s'appelle le petit ange ailé qui regarde les étoiles et connaît ton signe astrologique ?",
+          choix: ["Cupidon", "Le putti astronome", "L'elfe"],
+          bonne: 1
+        },
+        famille: {
+          texte: "Je donne l'heure, mais lui donne le destin des étoiles.",
+          choix: ["L'angelot", "Le putti astronome", "Le génie"],
+          bonne: 1
         }
       },
       indice: "Trouve le Vieux Gardien dans le musée !"
@@ -248,7 +253,12 @@ const PARCOURS = {
       videoBonneReponse: "https://www.youtube.com/embed/xy4MYKweUWw",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/uSYD62G-Oko", "https://www.youtube.com/embed/tyftcOLOwqM"],
       questions: {
-        unique: {
+        enfant: {
+          texte: "Quand on la frotte, un génie apparaît pour exaucer des vœux !",
+          choix: ["La lampe magique", "La princesse", "L'étoile"],
+          bonne: 0
+        },
+        famille: {
           texte: "Très recherché dans les contes orientaux, l'on me convoite avec espoir de réaliser des vœux.",
           choix: ["La lampe magique", "La bague enchantée", "Le tapis volant"],
           bonne: 0
