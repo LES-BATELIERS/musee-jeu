@@ -231,14 +231,14 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/mlhYCQm7I80", "https://www.youtube.com/embed/LBWyy1xHys8"],
       questions: {
         enfant: {
-          texte: "Comment s'appelle le petit ange ailé qui regarde les étoiles et connaît ton signe astrologique ?",
-          choix: ["Cupidon", "Le putti astronome", "L'elfe"],
-          bonne: 1
+          texte: "Derrière la vitre, sans descendre, il y a un gentil papi tout vieux qui surveille le musée. Qui ça peut être ?",
+          choix: ["Grand père", "Le pape", "Le vieux gardien"],
+          bonne: 2
         },
         famille: {
-          texte: "Je donne l'heure, mais lui donne le destin des étoiles.",
-          choix: ["L'angelot", "Le putti", "Le génie"],
-          bonne: 1
+          texte: "Sans que personne ne puisse l'approcher, derrière une vitre, dans les profondeurs visibles mais interdites, il/elle protège les trésors anciens",
+          choix: ["La caméra de surveillance", "Le sablier", "Le vieux gardien"],
+          bonne: 2
         }
       },
       indice: "Trouve le Vieux Gardien dans le musée !"
@@ -254,14 +254,14 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/uSYD62G-Oko", "https://www.youtube.com/embed/tyftcOLOwqM"],
       questions: {
         enfant: {
-          texte: "Derrière la vitre, sans descendre, il y a un gentil papi tout vieux qui surveille le musée. Qui ça peut être ?",
-          choix: ["Grand père", "Le pape", "Le vieux gardien"],
-          bonne: 2
+          texte: "Quand on la frotte, un génie apparaît pour exaucer des vœux !",
+          choix: ["La lampe magique", "La princesse", "L'étoile"],
+          bonne: 0
         },
         famille: {
-          texte: "Sans que personne ne puisse l'approcher, derrière une vitre, dans les profondeurs visibles mais interdites, il/elle protège les trésors anciens",
-          choix: ["La caméra de surveillance", "Le sablier", "Le vieux gardien"],
-          bonne: 2
+          texte: "Très recherché dans les contes orientaux, l'on me convoite avec espoir de réaliser des vœux.",
+          choix: ["La lampe magique", "La bague enchantée", "Le tapis volant"],
+          bonne: 0
         }
       },
       indice: "Trouve la Lampe magique dans le musée !"
