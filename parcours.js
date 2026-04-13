@@ -126,7 +126,7 @@ const PARCOURS = {
           pmr: {
             videoIntro: "https://www.youtube.com/embed/SLKbj6IRsGo",
             texte: "Comment s'appelle le petit ange ailé qui regarde les étoiles et connaît ton signe astrologique ?",
-            choix: ["Cupidon", "Le putti astrologue", "L'elfe"],
+            choix: ["Cupidon", "Le putti astronome", "L'elfe"],
             bonne: 1
           }
         },
@@ -140,14 +140,14 @@ const PARCOURS = {
           pmr: {
             videoIntro: "https://www.youtube.com/embed/SLKbj6IRsGo",
             texte: "Je donne l'heure, mais lui donne le destin des étoiles.",
-            choix: ["L'angelot", "Le putti astrologue", "Le génie"],
+            choix: ["L'angelot", "Le putti astronome", "Le génie"],
             bonne: 1
           }
         }
       },
       indice: {
         classique: "Trouve le Dromadaire dans le musée !",
-        pmr: "Trouve le Putti Astrologue dans le musée !"
+        pmr: "Trouve le Putti Astronome dans le musée !"
       }
     }
   ],
@@ -221,11 +221,11 @@ const PARCOURS = {
   // ----------------------------------------------------------
   pmr: [
 
-    // ÉTAPE 5P — Putti Astrologue
+    // ÉTAPE 5P — Putti Astronome
     {
       id: "putti-astrologue",
-      station: "Putti Astrologue",
-      personnage: "Le Putti Astrologue",
+      station: "Putti Astronome",
+      personnage: "Le Putti Astronome",
       videoIntro: "https://www.youtube.com/embed/S-xNwuLkdNY",
       videoBonneReponse: "https://www.youtube.com/embed/Z5iN_w8gcSc",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/mlhYCQm7I80", "https://www.youtube.com/embed/LBWyy1xHys8"],
