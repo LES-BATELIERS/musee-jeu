@@ -316,7 +316,7 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 <button class="btn-retour" onclick="retourJeu()">← Retour au jeu</button>
 
 <div id="scannerSection">
-  <button id="btnScanner" class="btn-scanner" onclick="toggleScanner()">✦ Scanner le prochain QR code</button>
+  <button id="btnScanner" class="btn-scanner" onclick="actionBoutonBas()">✦ Scanner le prochain QR code</button>
   <div id="scannerWrap">
     <div id="qr-reader"></div>
     <div id="scanMsg">Pointez vers un QR code</div>
@@ -340,11 +340,20 @@ function getNoms() {
 }
 
 function getValidated() {
-  if (typeof GAME === 'undefined') return 0;
+  if (typeof GAME === 'undefined' || typeof PARCOURS === 'undefined') return 0;
   const s = GAME.getSession();
   if (!s.parcours) return 0;
   const indiceAffiche = localStorage.getItem('indiceAffiche') === '1';
-  let idx = (s.phase === 'commun') ? s.etape : PARCOURS.commun.length + s.etape;
+  const totalCommun = PARCOURS.commun ? PARCOURS.commun.length : 5;
+  // En phase commun : idx = etape courante
+  // En phase classique/pmr : idx = toutes les étapes communes + étape dans la branche
+  let idx;
+  if (s.phase === 'commun') {
+    idx = s.etape;
+  } else {
+    // +1 car on a aussi validé l'étape de bifurcation (horloge-1759) qui est la dernière du commun
+    idx = totalCommun + s.etape;
+  }
   return indiceAffiche ? idx + 1 : idx;
 }
 
@@ -459,6 +468,7 @@ function animerReussite() {
   c.style.animation = 'rougeVert 1.5s ease forwards';
   setTimeout(() => {
     renderAll();
+    majBoutonBas();
     // Si toutes les étapes sont validées → animation trésor
     if (v >= NOMS.length) {
       setTimeout(lancerAnimationTresor, 800);
@@ -472,10 +482,41 @@ function retourJeu() {
   else history.back();
 }
 
+function actionBoutonBas() {
+  const NOMS = getNoms();
+  const v = getValidated();
+  if (v >= NOMS.length) {
+    // Parcours terminé → certificat
+    window.location.href = 'victoire.html';
+  } else {
+    // En cours → scanner QR
+    toggleScanner();
+  }
+}
+
+function majBoutonBas() {
+  const NOMS = getNoms();
+  const v = getValidated();
+  const btn = document.getElementById('btnScanner');
+  if (!btn) return;
+  if (v >= NOMS.length) {
+    btn.textContent = '✦ Récupérer mon certificat';
+    btn.style.borderColor = '#ddaa00';
+    btn.style.color = '#ddaa00';
+  } else {
+    btn.textContent = '✦ Scanner le prochain QR code';
+    btn.style.borderColor = '#5a3810';
+    btn.style.color = '#8a6030';
+  }
+}
+
 window.onload = function() {
   initParcours();
   renderAll();
-  if (mode === 'reussi') animerReussite();
+  majBoutonBas();
+  if (mode === 'reussi') {
+    animerReussite();
+  }
   // Si déjà toutes les étapes validées sans animation
   const NOMS = getNoms();
   if (mode !== 'reussi' && getValidated() >= NOMS.length) {

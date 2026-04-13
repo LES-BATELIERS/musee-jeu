@@ -345,14 +345,10 @@
       if (q && q.videoIntro) etapeData.videoIntro = q.videoIntro;
     }
 
-    // Démarrer la musique immédiatement pour les étapes sans question (lampe magique)
-    if (!questionData) {
-      demarrerMusique(etapeData.id);
-    }
-
     if (etapeData.videoIntro) {
       const configMusique = MUSIQUES[etapeData.id];
       if (configMusique && etapeData.id !== 'intro-guide') {
+        // Splash → clic → musique + vidéo (comportement standard)
         document.getElementById('splashPersonnage').textContent = etapeData.personnage;
         document.getElementById('splashMessage').textContent = "Prépare-toi... une nouvelle rencontre t'attend.";
         afficherEcran('ecranSplash');
@@ -362,8 +358,15 @@
         demarrerMusique(etapeData.id);
       }
     } else {
-      // Pas de vidéo → aller direct à la question
-      afficherQuestion();
+      // Pas de vidéo intro → splash quand même pour déclencher la musique au clic
+      if (!questionData) {
+        // Lampe magique : splash puis vidéo de fin
+        document.getElementById('splashPersonnage').textContent = etapeData.personnage;
+        document.getElementById('splashMessage').textContent = "Prépare-toi... la dernière rencontre t'attend.";
+        afficherEcran('ecranSplash');
+      } else {
+        afficherQuestion();
+      }
     }
   };
 
