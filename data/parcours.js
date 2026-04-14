@@ -228,7 +228,7 @@ const PARCOURS = {
       station: "Putti Astronome",
       personnage: "Le Putti Astronome",
       videoIntro: "https://www.youtube.com/embed/S-xNwuLkdNY",
-      videoBonneReponse: "https://www.youtube.com/embed/Z5iN_w8gcSc",
+      videoBonneReponse: "https://www.youtube.com/embed/Yhw4OQjhSZY",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/iyhDj21HOmA", "https://www.youtube.com/embed/LBWyy1xHys8"],
       questions: {
         unique: {
