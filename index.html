@@ -90,9 +90,23 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
     <h1 class="anim-titre">Nuit blanche</h1>
     <p class="sous-titre anim-sous">Choisissez votre parcours</p>
 
+    <!-- Bandeau reprise de partie -->
+    <div id="bandeauReprise" style="display:none;flex-direction:column;align-items:center;gap:8px;
+         background:rgba(138,128,112,0.12);border:1px solid #3a3530;border-radius:10px;
+         padding:14px 18px;margin-bottom:18px;width:100%;box-sizing:border-box;">
+      <div style="font-size:0.75rem;color:#8a8070;letter-spacing:2px;text-transform:uppercase;">Partie en cours</div>
+      <div id="repriseLabel" style="font-size:1rem;color:#f0ead8;letter-spacing:1px;"></div>
+      <div style="display:flex;gap:10px;width:100%;margin-top:4px;">
+        <button onclick="reprendrepartie()" style="flex:1;background:transparent;border:1px solid #8a8070;
+          border-radius:8px;padding:10px;color:#f0ead8;font-size:0.8rem;letter-spacing:1px;
+          text-transform:uppercase;cursor:pointer;">↩ Reprendre</button>
+        <button onclick="confirmerNouvelle()" style="flex:1;background:transparent;border:1px solid #3a3530;
+          border-radius:8px;padding:10px;color:#6b6355;font-size:0.8rem;letter-spacing:1px;
+          text-transform:uppercase;cursor:pointer;">✕ Recommencer</button>
+      </div>
+    </div>
+
     <div class="parcours-choix">
-  
-  </div>
 
       <button class="btn-parcours anim-btn1" onclick="choisirParcours('enfants')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -136,14 +150,12 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
           <small>Parcours accessible</small>
         </div>
       </button>
- <div style="margin-top:2rem; text-align:center;">
-      <div style="font-size:0.68rem; color:#6b6355; letter-spacing:0.15em; text-transform:uppercase;">Conception du jeu</div>
-      <div style="font-size:0.75rem; color:#8a8070; letter-spacing:0.1em; margin-top:3px;">Yoann Rihoux</div>
+
     </div>
   </div>
 
-  <script src="js/game.js?v=1"></script>
-  <script src="data/parcours.js?v=1"></script>
+  <script src="js/game.js?v=4"></script>
+  <script src="data/parcours.js?v=4"></script>
   <script>
     window.onload = function() {
       // 1. Écran de chargement disparaît après 1s
@@ -158,16 +170,70 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
       }, 1000);
     };
 
+    function reprendrepartie() {
+      // Reprendre la session en cours → aller directement à l'étape courante
+      window.location.href = 'enigme.html';
+    }
+
+    function confirmerNouvelle() {
+      // Masquer bandeau et laisser l'utilisateur choisir son parcours
+      document.getElementById('bandeauReprise').style.display = 'none';
+    }
+
     function choisirParcours(mode) {
-      // Petit délai pour laisser le ripple s'afficher avant de changer de page
       setTimeout(function() {
-      localStorage.setItem('parcours', mode);
-      localStorage.setItem('etape',    '0');
-      localStorage.setItem('erreurs',  '0');
-      localStorage.setItem('phase',    'commun');
-        window.location.href = 'enigme.html?etape=0';
+        // Si une session existe déjà pour ce parcours → on la reprend sans remettre à zéro
+        const parcoursExistant = localStorage.getItem('parcours');
+        const etapeExistante   = parseInt(localStorage.getItem('etape') || '0');
+        const phaseExistante   = localStorage.getItem('phase') || 'commun';
+        const dejaParcours     = parcoursExistant === mode && etapeExistante > 0;
+
+        if (!dejaParcours) {
+          // Nouvelle partie : réinitialiser
+          localStorage.setItem('parcours', mode);
+          localStorage.setItem('etape',    '0');
+          localStorage.setItem('erreurs',  '0');
+          localStorage.setItem('phase',    'commun');
+          localStorage.setItem('indiceAffiche', '0');
+        }
+        // Dans tous les cas, aller vers l'étape courante
+        window.location.href = 'enigme.html';
       }, 300);
     }
+
+    function nouvellePartie(mode) {
+      // Forcer une nouvelle partie même si session existante
+      setTimeout(function() {
+        localStorage.setItem('parcours', mode);
+        localStorage.setItem('etape',    '0');
+        localStorage.setItem('erreurs',  '0');
+        localStorage.setItem('phase',    'commun');
+        localStorage.setItem('indiceAffiche', '0');
+        window.location.href = 'enigme.html';
+      }, 300);
+    }
+
+    // Au chargement : détecter session en cours et proposer de reprendre
+    window.onload = function() {
+      document.body.classList.add('pret');
+      const parcours = localStorage.getItem('parcours');
+      const etape    = parseInt(localStorage.getItem('etape') || '0');
+      const phase    = localStorage.getItem('phase') || 'commun';
+      const indice   = localStorage.getItem('indiceAffiche') === '1';
+      const aSession = parcours && (etape > 0 || indice);
+
+      if (aSession) {
+        // Afficher le bandeau de reprise
+        const noms = { enfants: 'Enfants', famille: 'Famille', pmr: 'PMR' };
+        const nomParcours = noms[parcours] || parcours;
+        const bandeau = document.getElementById('bandeauReprise');
+        const lbl     = document.getElementById('repriseLabel');
+        if (bandeau && lbl) {
+          lbl.textContent = 'Parcours ' + nomParcours + ' en cours';
+          bandeau.style.display = 'flex';
+        }
+      }
+    };
   </script>
 
 
