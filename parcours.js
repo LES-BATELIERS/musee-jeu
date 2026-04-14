@@ -70,9 +70,9 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/v5nfooBb6wY", "https://www.youtube.com/embed/DDJHx94yMvw"],
       questions: {
         enfant: {
-          texte: "Quelle horloge habillée de fruits m'attend pour te guider ?",
-          choix: ["L'horloge du salon rouge", "L'horloge du grenier", "L'horloge du jardin"],
-          bonne: 0
+          texte: "Joseph II visite ses grandes salles et crie pour tester l'acoustique. Son écho revient 2 secondes plus tard. Sachant que le son voyage à 340 m/s, à quelle distance est le mur ?",
+          choix: ["170 m", "340 m", "680 m"],
+          bonne: 1
         },
         famille: {
           texte: "« Cherche un objet ornée de fruits qui compte les saisons. »",
