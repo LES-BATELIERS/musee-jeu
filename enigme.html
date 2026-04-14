@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="css/style.css?v=1">
 </head>
 <body>
+<div id="flecheScroll" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});cacherFleche();">
+  <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16M5 13l7 7 7-7" stroke="#c8a842" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <span>Continuer</span>
+</div>
+
 
 <style id="animations-globales">
 @keyframes fadeInUp {
@@ -423,10 +428,18 @@
   };
 
   // ── Afficher la question ──
+  function montrerFleche() {
+    var f = document.getElementById('flecheScroll');
+    if (f) f.classList.add('visible');
+  }
+
+  function cacherFleche() {
+    var f = document.getElementById('flecheScroll');
+    if (f) f.classList.remove('visible');
+  }
+
   function scrollBas() {
-    setTimeout(function() {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }, 300);
+    montrerFleche();
   }
 
   function toggleCalc() {
@@ -773,6 +786,34 @@
 @keyframes rippleGlobal {
   from { transform: scale(0); opacity: 0.5; }
   to   { transform: scale(6); opacity: 0; }
+}
+
+/* ── FLÈCHE SCROLL ── */
+#flecheScroll {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  pointer-events: all;
+}
+@keyframes clignote {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.08; }
+}
+#flecheScroll.visible {
+  display: flex;
+  animation: clignote 0.9s ease-in-out infinite;
+}
+#flecheScroll svg { width: 36px; height: 36px; }
+#flecheScroll span {
+  font-size: 9px; color: #c8a842;
+  letter-spacing: 2px; text-transform: uppercase;
 }
 </style>
 <script>
