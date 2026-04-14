@@ -269,22 +269,10 @@
       session = GAME.getSession();
       // Continuer normalement pour charger la nouvelle énigme
     }
-    // Si indice affiché mais PAS de QR (simple rafraîchissement) → réafficher l'indice
+    // Si indice affiché mais PAS de QR → rediriger vers la carte de progression
+    // qui affiche l'indice + le scanner QR
     else if (session.indiceAffiche && (!idEtape || idEtape === '0')) {
-      etapeData = GAME.getEtapeCourante();
-      if (!etapeData) {
-        window.location.href = 'victoire.html';
-        return;
-      }
-      const pct = GAME.getProgression();
-      document.getElementById('progressionFill').style.width = pct + '%';
-      document.getElementById('progressionLabel').textContent = 'Progression : ' + pct + '%';
-      let indice = etapeData.indice;
-      if (typeof indice === 'object') {
-        indice = session.parcours === 'pmr' ? indice.pmr : indice.classique;
-      }
-      document.getElementById('indiceTexte').textContent = indice || "Bravo, continue !";
-      afficherEcran('ecranIndice');
+      window.location.href = 'progression.html';
       return;
     }
 
