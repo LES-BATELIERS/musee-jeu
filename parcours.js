@@ -75,9 +75,9 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "« Cherche un objet ornée de fruits qui compte les saisons. »",
-          choix: ["Une montre (grenier)", "Cadran solaire (Jardin)", "L'Horloge (Salon rouge)"],
-          bonne: 2
+          texte: "Sous Joseph II, chaque ville avait sa propre heure locale. Les fuseaux horaires universels ne furent adoptés qu'en 1884. Combien d'années après sa mort le monde entier partagea-t-il enfin la même heure ? (Joseph II mourut en 1790)",
+          choix: ["74 ans", "94 ans", "114 ans"],
+          bonne: 1
         }
       },
       indice: "Trouve l'Horloge du Salon rouge dans le musée !"
@@ -134,9 +134,9 @@ const PARCOURS = {
         famille: {
           classique: {
             videoIntro: "https://www.youtube.com/embed/f9gi1i8Byzg",
-            texte: "De mon pas lent je traverse les mers de sable.",
-            choix: ["Le dromadaire", "L'éléphant", "Le serpent"],
-            bonne: 0
+            texte: "La clepsydre égyptienne, inventée vers 1500 avant J.C., s'écoulait plus vite en été qu'en hiver. À 10°C elle perd 0,8 litre par heure, à 30°C elle perd 1,2 litre par heure. Une clepsydre contient 12 litres. Combien d'heures de différence entre une nuit d'hiver et une nuit d'été mesurée par la même clepsydre ?",
+            choix: ["3 heures", "5 heures", "7 heures"],
+            bonne: 1
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/SLKbj6IRsGo",
