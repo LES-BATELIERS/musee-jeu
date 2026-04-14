@@ -734,35 +734,32 @@
   }
 
   // ── Helpers ──
+  // Délais avant d'afficher la flèche — uniquement pour les écrans avec vidéo
   var DELAIS_BTN = { ecranSplash:3000, ecranVideo:8000, ecranFeedback:6000 };
   var _timerFleche = null;
 
   function afficherEcran(idEcran) {
-    // Cacher tous les écrans
     document.querySelectorAll('.ecran').forEach(function(e) {
       e.classList.add('cache');
     });
     document.getElementById(idEcran).classList.remove('cache');
 
-    // Cacher flèche et timer précédent
+    // Toujours cacher la flèche en changeant d'écran
     cacherFleche();
     if (_timerFleche) { clearTimeout(_timerFleche); _timerFleche = null; }
 
     var delai = DELAIS_BTN[idEcran];
     if (delai) {
-      // Cacher le bouton pendant la vidéo
+      // Écrans vidéo : cacher le bouton puis révéler avec la flèche après délai
       var ids = {ecranSplash:'btnSplash', ecranVideo:'btnSuiteVideo', ecranFeedback:'btnApresReponse'};
       var btn = document.getElementById(ids[idEcran]);
       if (btn) btn.style.visibility = 'hidden';
-      // Révéler après le délai
       _timerFleche = setTimeout(function() {
         if (btn) btn.style.visibility = 'visible';
         montrerFleche();
       }, delai);
-    } else {
-      // Écrans sans vidéo : flèche immédiate
-      setTimeout(montrerFleche, 400);
     }
+    // Écrans sans vidéo (question, indice, cheat) : pas de flèche, bouton visible normalement
   }
 
   function chargerVideo(idPlayer, url) {
