@@ -506,7 +506,34 @@
       liste.appendChild(btn);
     });
 
+    // Calculette : afficher/masquer selon la question
+    var calcZone = document.getElementById('calcZone');
+    if (calcZone && typeof QUESTIONS_CALC !== 'undefined') {
+      var needsCalc = QUESTIONS_CALC.some(function(kw) {
+        return questionData.texte.toLowerCase().indexOf(kw.toLowerCase()) >= 0;
+      });
+      calcZone.style.display = needsCalc ? 'block' : 'none';
+      var mc = document.getElementById('miniCalc');
+      if (mc) mc.style.display = 'none';
+      var cr = document.getElementById('calcResultat');
+      if (cr) cr.textContent = '';
+      var ch = document.getElementById('calcHistorique');
+      if (ch) ch.textContent = '';
+      var br = document.getElementById('btnReutiliser');
+      if (br) br.style.display = 'none';
+      var ca = document.getElementById('calcA');
+      if (ca) ca.value = '';
+      var cb2 = document.getElementById('calcB');
+      if (cb2) cb2.value = '';
+      // Remettre le bouton dans son état fermé
+      var btnC = document.getElementById('btnCalc');
+      if (btnC) { btnC.style.borderColor = '#3a3530'; btnC.style.color = '#8a8070'; }
+    }
+
     afficherEcran('ecranQuestion');
+
+    // Scroll vers le haut à chaque nouvelle question
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // ── Vérifier la réponse ──
