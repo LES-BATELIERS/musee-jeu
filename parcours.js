@@ -229,7 +229,7 @@ const PARCOURS = {
       personnage: "Le Putti Astronome",
       videoIntro: "https://www.youtube.com/embed/S-xNwuLkdNY",
       videoBonneReponse: "https://www.youtube.com/embed/Z5iN_w8gcSc",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/mlhYCQm7I80", "https://www.youtube.com/embed/LBWyy1xHys8"],
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/iyhDj21HOmA", "https://www.youtube.com/embed/LBWyy1xHys8"],
       questions: {
         enfant: {
           texte: "Derrière la vitre, sans descendre, il y a un gentil papi tout vieux qui surveille le musée. Qui ça peut être ?",
