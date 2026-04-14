@@ -168,14 +168,14 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/8PxCp94aDik", "https://www.youtube.com/embed/KtNvU5oG0Cg"],
       questions: {
         enfant: {
-          texte: "Je suis un cheval magique avec une corne sur la tête.",
-          choix: ["Centaure", "Pégase", "La licorne"],
-          bonne: 2
+          texte: "Un chevalier avance de 3 pas, recule de 1 pas, avance de 3 pas, recule de 1 pas... Après 8 mouvements, combien de pas a-t-il parcouru vers l'avant ?",
+          choix: ["6 pas", "8 pas", "12 pas"],
+          bonne: 1
         },
         famille: {
-          texte: "On m'attribuait jadis le pouvoir de purifier les poisons. Mon image ornait les tapisseries médiévales.",
-          choix: ["Dragon", "Pégase", "La licorne"],
-          bonne: 2
+          texte: "Un chevalier fait 3 pas en avant puis 2 pas en arrière. Combien de pas en tout pour avancer de 10 pas ?",
+          choix: ["44 pas", "46 pas", "48 pas"],
+          bonne: 1
         }
       },
       indice: "Trouve la Licorne dans le musée !"
@@ -191,14 +191,14 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/TcyMP3vnnQA", "https://www.youtube.com/embed/gav_RTt8nqo"],
       questions: {
         enfant: {
-          texte: "Quand on la frotte, un génie apparaît pour exaucer des vœux !",
-          choix: ["La lampe magique", "La princesse", "L'étoile"],
-          bonne: 0
+          texte: "Mon bassin enchanté contient 120 litres d'eau de lune. Mais un mauvais sort y a percé un trou qui laisse couler 2 litres par minute. Dans combien de minutes mon bassin sera-t-il vide ?",
+          choix: ["30 minutes", "60 minutes", "90 minutes"],
+          bonne: 1
         },
         famille: {
-          texte: "Très recherché dans les contes orientaux, l'on me convoite avec espoir de réaliser des vœux.",
-          choix: ["La lampe magique", "Le griffon", "Le phénix"],
-          bonne: 0
+          texte: "La fontaine enchantée du château contient 360 litres. Une fissure magique laisse s'échapper 40 cl par seconde. En combien de minutes l'eau aura-t-elle entièrement disparu ?",
+          choix: ["10 minutes", "15 minutes", "20 minutes"],
+          bonne: 1
         }
       },
       indice: "Trouve la Lampe magique dans le musée !"
