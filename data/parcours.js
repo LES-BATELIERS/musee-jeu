@@ -231,14 +231,9 @@ const PARCOURS = {
       videoBonneReponse: "https://www.youtube.com/embed/Z5iN_w8gcSc",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/iyhDj21HOmA", "https://www.youtube.com/embed/LBWyy1xHys8"],
       questions: {
-        enfant: {
-          texte: "Derrière la vitre, sans descendre, il y a un gentil papi tout vieux qui surveille le musée. Qui ça peut être ?",
-          choix: ["Grand père", "Le pape", "Le vieux gardien"],
-          bonne: 2
-        },
-        famille: {
-          texte: "Sans que personne ne puisse l'approcher, derrière une vitre, dans les profondeurs visibles mais interdites, il/elle protège les trésors anciens",
-          choix: ["La caméra de surveillance", "Le sablier", "Le vieux gardien"],
+        unique: {
+          texte: "Le Putti Astronome te confie un secret en 3 clés :\n\n① Les anciens découpaient l'année en 13 lunes de 28 jours — il restait 1 seul jour sans nom, hors du temps.\n\n② Septembre vient de 'septem' (7), Octobre d'octo (8), Novembre de 'novem' (9), Décembre de 'decem' (10).\n\n③ Si Décembre était jadis le 10e mois, quel jour mystérieux marquait la fin de l'ancienne année ?",
+          choix: ["Le 1er janvier", "Le 1er mars", "Le 1er avril"],
           bonne: 2
         }
       },
