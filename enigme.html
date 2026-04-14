@@ -423,6 +423,12 @@
   };
 
   // ── Afficher la question ──
+  function scrollBas() {
+    setTimeout(function() {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 300);
+  }
+
   function toggleCalc() {
     const panel = document.getElementById('miniCalc');
     const btn   = document.getElementById('btnCalc');
@@ -532,6 +538,8 @@
           '<span class="feedback-ok">✅ Bravo ! Bonne réponse !</span>';
         document.getElementById('btnApresReponse').textContent = 'Continuer ▶';
         document.getElementById('btnApresReponse').classList.remove('cache');
+      scrollBas();
+        scrollBas();
         afficherEcran('ecranFeedback');
         // Animation bonne réponse
         const feedback = document.getElementById('messageFeedback');
@@ -574,6 +582,7 @@
       }
 
       document.getElementById('btnApresReponse').classList.remove('cache');
+      scrollBas();
       afficherEcran('ecranFeedback');
       // Animation mauvaise réponse
       const card = document.querySelector('#ecranFeedback .video-wrapper, #ecranFeedback');
