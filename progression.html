@@ -313,7 +313,7 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 </svg>
 </div>
 
-<button class="btn-retour" onclick="retourJeu()">← Retour au jeu</button>
+<button class="btn-retour" id="btnRetourJeu" onclick="retourJeu()">← Retour au jeu</button>
 
 <div id="scannerSection">
   <button id="btnScanner" class="btn-scanner" onclick="actionBoutonBas()">✦ Scanner le prochain QR code</button>
@@ -477,11 +477,19 @@ function animerReussite() {
 }
 
 function retourJeu() {
-  // On efface l'URL mémorisée pour éviter tout rechargement automatique
-  // qui déclencherait validerEtape() sans scan de QR
-  sessionStorage.removeItem('retourEnigme');
-  // Retour à l'accueil — le joueur doit scanner le prochain QR pour avancer
-  window.location.href = 'index.html';
+  // Retour vers enigme.html sans paramètre
+  // → charge l'étape courante sans déclencher validerEtape()
+  // → si indiceAffiche=true, enigme.html redirige ici (progression.html)
+  //   donc on va directement à index.html pour éviter une boucle
+  const indiceAffiche = localStorage.getItem('indiceAffiche') === '1';
+  if (indiceAffiche) {
+    // L'indice est affiché → le joueur doit chercher le QR dans le musée
+    // On reste sur cette page, on ferme juste le scanner si ouvert
+    if (typeof fermerScanner === 'function') fermerScanner();
+  } else {
+    // Pas d'indice en cours → retour à l'énigme courante
+    window.location.href = 'enigme.html';
+  }
 }
 
 function actionBoutonBas() {
@@ -500,15 +508,23 @@ function majBoutonBas() {
   const NOMS = getNoms();
   const v = getValidated();
   const btn = document.getElementById('btnScanner');
+  const btnRetour = document.getElementById('btnRetourJeu');
   if (!btn) return;
   if (v >= NOMS.length) {
     btn.textContent = '✦ Récupérer mon certificat';
     btn.style.borderColor = '#ddaa00';
     btn.style.color = '#ddaa00';
+    // Parcours terminé → pas besoin du bouton retour
+    if (btnRetour) btnRetour.style.display = 'none';
   } else {
     btn.textContent = '✦ Scanner le prochain QR code';
     btn.style.borderColor = '#5a3810';
     btn.style.color = '#8a6030';
+    // En cours → changer le texte du bouton retour
+    if (btnRetour) {
+      btnRetour.textContent = '✦ Je cherche le QR dans le musée';
+      btnRetour.style.color = '#6b6355';
+    }
   }
 }
 
