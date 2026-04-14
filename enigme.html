@@ -574,8 +574,13 @@
 
       if (etapeData.videoBonneReponse) {
         chargerVideo('videoFeedback', etapeData.videoBonneReponse);
-        document.getElementById('messageFeedback').innerHTML =
-          '<span class="feedback-ok">✅ Bravo ! Bonne réponse !</span>';
+        // Message personnalisé si défini dans la question, sinon message par défaut
+        var msgSpecial = questionData.messageBonneReponse || '';
+        var msgHtml = '<span class="feedback-ok">✅ Bravo ! Bonne réponse !</span>';
+        if (msgSpecial) {
+          msgHtml += '<p style="margin-top:12px;font-size:0.85rem;color:#c8a842;font-style:italic;line-height:1.6;text-align:center;padding:0 8px;">' + msgSpecial + '</p>';
+        }
+        document.getElementById('messageFeedback').innerHTML = msgHtml;
         document.getElementById('btnApresReponse').textContent = 'Continuer ▶';
         document.getElementById('btnApresReponse').classList.remove('cache');
       scrollBas();
