@@ -323,8 +323,8 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   </div>
 </div>
 
-<script src="js/game.js?v=2"></script>
-<script src="data/parcours.js?v=2"></script>
+<script src="js/game.js?v=4"></script>
+<script src="data/parcours.js?v=4"></script>
 <script>
 const NOMS_CLASSIQUE = ['Le Guide','Le Perroquet','Joseph II','H. Salon Rouge','Horloge figée','Le Dromadaire','La Licorne','La Lampe'];
 const NOMS_PMR       = ['Le Guide','Le Perroquet','Joseph II','H. Salon Rouge','Horloge figée','Putti Astronome','Vieux Gardien','La Lampe'];
@@ -477,9 +477,11 @@ function animerReussite() {
 }
 
 function retourJeu() {
-  const retour = sessionStorage.getItem('retourEnigme');
-  if (retour) { sessionStorage.removeItem('retourEnigme'); window.location.href = retour; }
-  else history.back();
+  // On efface l'URL mémorisée pour éviter tout rechargement automatique
+  // qui déclencherait validerEtape() sans scan de QR
+  sessionStorage.removeItem('retourEnigme');
+  // Retour à l'accueil — le joueur doit scanner le prochain QR pour avancer
+  window.location.href = 'index.html';
 }
 
 function actionBoutonBas() {

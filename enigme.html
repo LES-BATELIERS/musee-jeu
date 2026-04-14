@@ -259,10 +259,9 @@
     const params  = new URLSearchParams(window.location.search);
     const idEtape = params.get('etape');
 
-    // Sauvegarder l'URL pour le retour depuis le plan
-    if (idEtape && idEtape !== '0') {
-      sessionStorage.setItem('retourEnigme', window.location.href);
-    }
+    // Note: on ne sauvegarde plus l'URL enigme dans sessionStorage
+    // pour éviter que le bouton "Retour au jeu" de progression.html
+    // ne déclenche validerEtape() sans scan de QR
 
     // Si le joueur arrive avec un QR ET que l'indice était affiché → valider l'étape
     if (session.indiceAffiche && idEtape && idEtape !== '0') {
@@ -322,10 +321,9 @@
       return;
     }
 
-    // Sauvegarder l'URL pour le retour depuis le plan
-    if (idEtape && idEtape !== '0') {
-      sessionStorage.setItem('retourEnigme', window.location.href);
-    }
+    // Note: on ne sauvegarde plus l'URL enigme dans sessionStorage
+    // pour éviter que le bouton "Retour au jeu" de progression.html
+    // ne déclenche validerEtape() sans scan de QR
 
     questionData = etapeData.questions && etapeData.questions.enfant !== null
       ? GAME.getQuestion(etapeData, session)
