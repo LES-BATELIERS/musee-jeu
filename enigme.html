@@ -734,11 +734,35 @@
   }
 
   // ── Helpers ──
+  var DELAIS_BTN = { ecranSplash:3000, ecranVideo:8000, ecranFeedback:6000 };
+  var _timerFleche = null;
+
   function afficherEcran(idEcran) {
+    // Cacher tous les écrans
     document.querySelectorAll('.ecran').forEach(function(e) {
       e.classList.add('cache');
     });
     document.getElementById(idEcran).classList.remove('cache');
+
+    // Cacher flèche et timer précédent
+    cacherFleche();
+    if (_timerFleche) { clearTimeout(_timerFleche); _timerFleche = null; }
+
+    var delai = DELAIS_BTN[idEcran];
+    if (delai) {
+      // Cacher le bouton pendant la vidéo
+      var ids = {ecranSplash:'btnSplash', ecranVideo:'btnSuiteVideo', ecranFeedback:'btnApresReponse'};
+      var btn = document.getElementById(ids[idEcran]);
+      if (btn) btn.style.visibility = 'hidden';
+      // Révéler après le délai
+      _timerFleche = setTimeout(function() {
+        if (btn) btn.style.visibility = 'visible';
+        montrerFleche();
+      }, delai);
+    } else {
+      // Écrans sans vidéo : flèche immédiate
+      setTimeout(montrerFleche, 400);
+    }
   }
 
   function chargerVideo(idPlayer, url) {
