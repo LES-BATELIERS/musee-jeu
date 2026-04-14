@@ -93,17 +93,17 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/MKDztpEOh1o", "https://www.youtube.com/embed/jIoUI1tDhnM"],
       questions: {
         enfant: {
-          texte: "Je suis l'horloge du salon rouge ! Passe devant ma sœur qui n'est pas de marbre, figée sur une année.",
-          choix: ["L'horloge qui danse", "L'horloge de 1759", "L'horloge qui chante"],
+          texte: "Une horloge sonne 1 coup à 1h, 2 coups à 2h, 3 coups à 3h... Combien de coups sonne-t-elle en tout de 1h à 6h ?",
+          choix: ["18", "21", "24"],
           bonne: 1
         },
         famille: {
-          texte: "Quelle horloge arrêtée l'année où s'achevait les réformes de Marie-Thérèse.",
-          choix: ["L'horloge de 1759", "L'horloge de 1412", "L'horloge de 1914"],
-          bonne: 0
+          texte: "Il est 14h à Namur. Tokyo est en avance de 8h, New York en retard de 6h. Combien d'heures séparent Tokyo de New York ?",
+          choix: ["12h", "14h", "16h"],
+          bonne: 1
         }
       },
-      indice: "Trouve l'Horloge de 1759 dans le musée !"
+      indice: "Trouve l'horloge près d'un escalier !"
     },
 
     // ÉTAPE 4 — L'Horloge 1759 (point de bifurcation)
