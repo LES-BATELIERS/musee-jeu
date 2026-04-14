@@ -255,14 +255,14 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/uSYD62G-Oko", "https://www.youtube.com/embed/tyftcOLOwqM"],
       questions: {
         enfant: {
-          texte: "Quand on la frotte, un génie apparaît pour exaucer des vœux !",
-          choix: ["La lampe magique", "La princesse", "L'étoile"],
-          bonne: 0
+          texte: "Le Vieux Gardien crie et son écho revient 2 secondes plus tard. Le son voyage à 340 m/s. À quelle distance est le mur ?",
+          choix: ["170 m", "340 m", "680 m"],
+          bonne: 1
         },
         famille: {
-          texte: "Très recherché dans les contes orientaux, l'on me convoite avec espoir de réaliser des vœux.",
-          choix: ["La lampe magique", "La bague enchantée", "Le tapis volant"],
-          bonne: 0
+          texte: "Le Vieux Gardien crie et entend deux échos : le premier après 1,5 seconde, le second après 4 secondes. Le son voyage à 340 m/s. Quelle est la distance entre les deux murs ?",
+          choix: ["325 m", "425 m", "525 m"],
+          bonne: 1
         }
       },
       indice: "Trouve la Lampe magique dans le musée !"
