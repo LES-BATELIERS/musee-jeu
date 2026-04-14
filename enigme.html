@@ -140,6 +140,21 @@
       <div class="separateur-question"></div>
       <div class="personnage-nom" id="personnageNom"></div>
       <p class="question-texte" id="questionTexte"></p>
+
+      <!-- Mini calculette — visible uniquement pour les questions qui le demandent -->
+      <div id="miniCalc" style="display:none;margin:12px 0;background:rgba(0,0,0,0.3);border:1px solid #3a3530;border-radius:8px;padding:10px;">
+        <div style="font-size:0.65rem;color:#6b6355;letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:8px;">✦ Calculette ✦</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+          <input id="calcA" type="number" placeholder="360" style="flex:1;background:#0e0e0e;border:1px solid #3a3530;border-radius:4px;padding:6px;color:#f0ead8;font-size:13px;text-align:center;width:0;">
+          <select id="calcOp" style="background:#0e0e0e;border:1px solid #3a3530;border-radius:4px;padding:6px;color:#8a8070;font-size:14px;">
+            <option>÷</option><option>×</option><option>+</option><option>−</option>
+          </select>
+          <input id="calcB" type="number" placeholder="24" style="flex:1;background:#0e0e0e;border:1px solid #3a3530;border-radius:4px;padding:6px;color:#f0ead8;font-size:13px;text-align:center;width:0;">
+          <button onclick="calculer()" style="background:transparent;border:1px solid #8a8070;border-radius:4px;padding:6px 10px;color:#f0ead8;font-size:12px;cursor:pointer;">=</button>
+        </div>
+        <div id="calcResultat" style="text-align:center;font-size:16px;color:#c8a842;letter-spacing:1px;min-height:22px;"></div>
+      </div>
+
       <div class="choix-liste" id="choixListe"></div>
     </div>
   </div>
@@ -357,6 +372,24 @@
   };
 
   // ── Afficher la question ──
+  function calculer() {
+    const a  = parseFloat(document.getElementById('calcA').value);
+    const b  = parseFloat(document.getElementById('calcB').value);
+    const op = document.getElementById('calcOp').value;
+    if (isNaN(a) || isNaN(b)) return;
+    let res;
+    if (op === '÷') res = b !== 0 ? a / b : '∞';
+    if (op === '×') res = a * b;
+    if (op === '+') res = a + b;
+    if (op === '−') res = a - b;
+    // Arrondir à 4 décimales max
+    if (typeof res === 'number') res = Math.round(res * 10000) / 10000;
+    document.getElementById('calcResultat').textContent = '= ' + res;
+  }
+
+  // Mots-clés qui déclenchent l'affichage de la calculette
+  const QUESTIONS_CALC = ['longitude', 'chronomètre', 'Greenwich', 'clepsydre', 'fuseaux'];
+
   function afficherQuestion() {
     session = GAME.getSession();
 

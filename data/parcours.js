@@ -75,8 +75,8 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Sous Joseph II, chaque ville avait sa propre heure locale. Les fuseaux horaires universels ne furent adoptés qu'en 1884. Combien d'années après sa mort le monde entier partagea-t-il enfin la même heure ? (Joseph II mourut en 1790)",
-          choix: ["74 ans", "94 ans", "114 ans"],
+          texte: "En 1759, Harrison résout le problème de la longitude en mer grâce à son chronomètre. Pour calculer sa position, un marin devait connaître l'heure exacte à Greenwich. Si son chronomètre retardait de 4 minutes, de combien de degrés sa position serait-elle fausse ? (La Terre tourne de 360° en 24h)",
+          choix: ["0,5°", "1°", "2°"],
           bonne: 1
         }
       },
