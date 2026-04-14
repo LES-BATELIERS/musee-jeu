@@ -75,8 +75,8 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "En 1759, l'année même où cette horloge s'est arrêtée, Harrison résout le problème de la longitude en mer. Pour trouver sa position, un marin devait connaître l'heure exacte à Greenwich. Si son chronomètre retardait de 4 minutes, de combien de degrés sa position serait-elle fausse ? (La Terre tourne de 360° en 24h)",
-          choix: ["0,5°", "1°", "2°"],
+          texte: "Il est 14h à Namur. Tokyo est en avance de 8h, New York en retard de 6h. Combien d'heures séparent Tokyo de New York ?",
+          choix: ["12h", "14h", "16h"],
           bonne: 1
         }
       },
@@ -98,8 +98,8 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Il est 14h à Namur. Tokyo est en avance de 8h, New York en retard de 6h. Combien d'heures séparent Tokyo de New York ?",
-          choix: ["12h", "14h", "16h"],
+          texte: "En 1759, l'année même où cette horloge s'est arrêtée, Harrison résout le problème de la longitude en mer. Pour trouver sa position, un marin devait connaître l'heure exacte à Greenwich. Si son chronomètre retardait de 4 minutes, de combien de degrés sa position serait-elle fausse ? (La Terre tourne de 360° en 24h)",
+          choix: ["0,5°", "1°", "2°"],
           bonne: 1
         }
       },
