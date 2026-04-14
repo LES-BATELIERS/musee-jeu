@@ -157,18 +157,7 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
   <script src="js/game.js?v=4"></script>
   <script src="data/parcours.js?v=4"></script>
   <script>
-    window.onload = function() {
-      // 1. Écran de chargement disparaît après 1s
-      setTimeout(function() {
-        const ec = document.getElementById('ecranChargement');
-        ec.style.opacity = '0';
-        // 2. Déclencher les animations UNE FOIS le fondu terminé (800ms)
-        setTimeout(function() {
-          ec.style.display = 'none';
-          document.body.classList.add('pret');
-        }, 800);
-      }, 1000);
-    };
+    // window.onload fusionné ci-dessous
 
     function reprendrepartie() {
       // Reprendre la session en cours → aller directement à l'étape courante
@@ -213,17 +202,25 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
       }, 300);
     }
 
-    // Au chargement : détecter session en cours et proposer de reprendre
+    // Au chargement : écran de chargement + détecter session en cours
     window.onload = function() {
-      document.body.classList.add('pret');
+      // Écran de chargement
+      setTimeout(function() {
+        const ec = document.getElementById('ecranChargement');
+        if (ec) {
+          ec.style.opacity = '0';
+          setTimeout(function() { if (ec) ec.style.display = 'none'; }, 800);
+        }
+        document.body.classList.add('pret');
+      }, 1000);
+
+      // Détecter session en cours
       const parcours = localStorage.getItem('parcours');
       const etape    = parseInt(localStorage.getItem('etape') || '0');
-      const phase    = localStorage.getItem('phase') || 'commun';
       const indice   = localStorage.getItem('indiceAffiche') === '1';
       const aSession = parcours && (etape > 0 || indice);
 
       if (aSession) {
-        // Afficher le bandeau de reprise
         const noms = { enfants: 'Enfants', famille: 'Famille', pmr: 'PMR' };
         const nomParcours = noms[parcours] || parcours;
         const bandeau = document.getElementById('bandeauReprise');
