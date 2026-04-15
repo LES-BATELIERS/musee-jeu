@@ -459,12 +459,30 @@ function lancerAnimationTresor() {
   document.getElementById('tresorOverlay').classList.add('visible');
 }
 
+function lancerJingle() {
+  try {
+    var jingle = new Audio('audio/JINGLE PARCOURS INTERRACTIF VSG.mp3');
+    jingle.currentTime = 3;
+    jingle.volume = 0.85;
+    jingle.play().catch(function() {});
+    // Arrêter après 8 secondes
+    setTimeout(function() {
+      jingle.pause();
+      jingle.currentTime = 0;
+    }, 8000);
+  } catch(e) {}
+}
+
 function animerReussite() {
   const NOMS = getNoms();
   const v = getValidated();
   if (v === 0) return;
   const c = document.getElementById('c'+(v-1));
   if (!c) return;
+
+  // Lancer le jingle à 3 secondes
+  lancerJingle();
+
   c.style.animation = 'rougeVert 1.5s ease forwards';
   setTimeout(() => {
     renderAll();
