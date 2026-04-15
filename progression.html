@@ -437,6 +437,18 @@ function updateCoffre(v, total) {
 }
 
 function lancerAnimationTresor() {
+  // Jingle de fin — commence à 29s, s'arrête à 35s
+  try {
+    var jingleFin = new Audio('audio/JINGLE DE FIN CERTIFICAT.mp3');
+    jingleFin.currentTime = 29;
+    jingleFin.volume = 0.9;
+    jingleFin.play().catch(function() {});
+    setTimeout(function() {
+      jingleFin.pause();
+      jingleFin.currentTime = 0;
+    }, 6000); // 35 - 29 = 6 secondes
+  } catch(e) {}
+
   // Créer particules
   const cont = document.getElementById('particules');
   const couleurs = ['#ddaa00','#ffcc44','#ff8800','#ffffff','#ffdd88'];
@@ -487,9 +499,9 @@ function animerReussite() {
   setTimeout(() => {
     renderAll();
     majBoutonBas();
-    // Si toutes les étapes sont validées → animation trésor
+    // Si toutes les étapes sont validées → animation trésor plus tôt
     if (v >= NOMS.length) {
-      setTimeout(lancerAnimationTresor, 800);
+      setTimeout(lancerAnimationTresor, 200);
     }
   }, 1700);
 }
@@ -556,7 +568,7 @@ window.onload = function() {
   // Si déjà toutes les étapes validées sans animation
   const NOMS = getNoms();
   if (mode !== 'reussi' && getValidated() >= NOMS.length) {
-    setTimeout(lancerAnimationTresor, 500);
+    setTimeout(lancerAnimationTresor, 200);
   }
 };
 </script>
