@@ -76,9 +76,10 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Il est 14h à Namur. Tokyo est en avance de 8h, New York en retard de 6h. Combien d'heures séparent Tokyo de New York ?",
+          texte: "Avant 1884, chaque ville avait sa propre heure — les montres de Paris ne concordaient pas avec celles de Namur ! Ce n'est qu'après des siècles d'horloges précises que 25 nations signèrent enfin un accord : Greenwich deviendrait le méridien zéro, référence de tous les fuseaux. Aujourd'hui il est 14h à Namur. Tokyo est en avance de 8h, New York en retard de 6h. Combien d'heures séparent Tokyo de New York ?",
           choix: ["12h", "14h", "16h"],
-          bonne: 1
+          bonne: 1,
+          messageBonneReponse: "Des siècles pour s'entendre sur une référence commune. Et pourtant aujourd'hui encore, la Chine impose une seule heure pour un pays qui devrait en avoir 5... Si l'heure n'est qu'une convention inventée par l'homme — une histoire qu'on se raconte ensemble — alors peut-être que le temps lui-même n'est pas ce qu'on croit. Einstein disait : 'La distinction entre passé, présent et futur n'est qu'une illusion, aussi tenace soit-elle.'"
         }
       },
       indice: "Trouve l'Horloge du Salon rouge dans le musée !"
