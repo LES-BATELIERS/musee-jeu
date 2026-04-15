@@ -52,7 +52,7 @@ const PARCOURS = {
           bonne: 0
         },
         famille: {
-          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots et la musique transforment l'eau ? Le Dr Emoto l'a prouvé avec des cristaux. Le prochain personnage que tu vas rencontrer était si passionné de musique qu'il invita Mozart à sa cour. Notre corps est composé à 70% d'eau par kilo. Si une personne pèse 60 kg, combien de litres vibrent en elle à chaque mélodie ?",
+          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots et la musique transforment l'eau ? Le Dr Emoto l'a prouvé avec des cristaux. Le prochain personnage que tu vas rencontrer était si passionné de musique qu'il invita Mozart à sa cour. Si notre corps est composé à 70% d'eau par kilo et qu'une personne pèse 60 kg, combien de litres vibrent en elle à chaque mélodie ?",
           choix: ["36 litres", "42 litres", "48 litres"],
           bonne: 1,
           messageBonneReponse: "42 litres d'eau en toi... sensibles à chaque mot, chaque musique, chaque pensée, chaque émotion. Peut-être que prendre soin de ce que tu penses et écoutes, c'est déjà prendre soin de toi."
@@ -142,7 +142,7 @@ const PARCOURS = {
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/SLKbj6IRsGo",
-            texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est ce que tu es quand tu en as plus qu'il n'en faut.\nMon troisième invente, imagine et se questionne.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
+            texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est ce que tu es quand tu en as plus qu'il n'en faut.\nMon troisième est de chair, d'os et de questions.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
             choix: ["Royauté", "Astronome", "Damnation"],
             bonne: 1,
             messageBonneReponse: "7,83 Hz — la pulsation de la Terre. Ton cerveau vibre à cette même fréquence quand tu te détends, médites ou marches dans la nature. Nous ne sommes pas séparés de la planète... nous en sommes le prolongement."
