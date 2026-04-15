@@ -52,7 +52,7 @@ const PARCOURS = {
           bonne: 0
         },
         famille: {
-          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots et la musique transforment l'eau ? Le Dr Emoto l'a prouvé avec des cristaux. Le prochain personnage que tu vas rencontrer était si passionné de musique qu'il invita Mozart à sa cour. Notre corps est à 70% d'eau. Si une personne pèse 60 kg, combien de litres vibrent en elle à chaque mélodie ?",
+          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots et la musique transforment l'eau ? Le Dr Emoto l'a prouvé avec des cristaux. Le prochain personnage que tu vas rencontrer était si passionné de musique qu'il invita Mozart à sa cour. Notre corps est composé à 70% d'eau par kilo. Si une personne pèse 60 kg, combien de litres vibrent en elle à chaque mélodie ?",
           choix: ["36 litres", "42 litres", "48 litres"],
           bonne: 1,
           messageBonneReponse: "42 litres d'eau en toi... sensibles à chaque mot, chaque musique, chaque pensée, chaque émotion. Peut-être que prendre soin de ce que tu penses et écoutes, c'est déjà prendre soin de toi."
