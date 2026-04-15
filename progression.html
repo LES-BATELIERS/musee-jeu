@@ -8,7 +8,13 @@
 <link rel="stylesheet" href="css/style.css?v=2">
 <style>
 @keyframes pulseRouge  { 0%,100%{opacity:1} 50%{opacity:0.5} }
-@keyframes rougeVert   { 0%{fill:#3a0808;stroke:#7a1a1a;} 50%{fill:#2a1800;stroke:#aa7700;} 100%{fill:#003010;stroke:#00992e;} }
+@keyframes rougeVert {
+  0%   { fill:#3a0808; stroke:#cc2020; }
+  25%  { fill:#003010; stroke:#00992e; }
+  50%  { fill:#3a0808; stroke:#cc2020; }
+  75%  { fill:#003010; stroke:#00992e; }
+  100% { fill:#003010; stroke:#00992e; }
+}
 @keyframes dashFlow    { to{stroke-dashoffset:-20;} }
 @keyframes fadeIn      { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
@@ -439,7 +445,7 @@ function updateCoffre(v, total) {
 function lancerAnimationTresor() {
   // Jingle de fin — commence à 29s, s'arrête à 35s
   try {
-    var jingleFin = new Audio('audio/JINGLE DE FIN CERTIFICAT.mp3');
+    var jingleFin = new Audio('audio/JINGLE CERTIFICAT.mp3');
     jingleFin.currentTime = 29;
     jingleFin.volume = 0.9;
     jingleFin.play().catch(function() {});
@@ -473,7 +479,7 @@ function lancerAnimationTresor() {
 
 function lancerJingle() {
   try {
-    var jingle = new Audio('audio/JINGLE PARCOURS INTERRACTIF VSG.mp3');
+    var jingle = new Audio('audio/JINGLE PARCOURS INTERRACTIVE.mp3');
     jingle.currentTime = 3;
     jingle.volume = 0.85;
     jingle.play().catch(function() {});
@@ -492,18 +498,45 @@ function animerReussite() {
   const c = document.getElementById('c'+(v-1));
   if (!c) return;
 
-  // Lancer le jingle à 3 secondes
+  // Lancer le jingle du parcours interractif
   lancerJingle();
 
-  c.style.animation = 'rougeVert 1.5s ease forwards';
+  // Animation rouge→vert clignotante pendant 2s
+  c.setAttribute('fill', '#3a0808');
+  c.setAttribute('stroke', '#cc2020');
+  c.style.animation = 'rougeVert 2s ease forwards';
+
   setTimeout(() => {
-    renderAll();
+    // Étape validée → vert fixe
+    c.style.animation = '';
+    c.setAttribute('fill', '#003010');
+    c.setAttribute('stroke', '#00992e');
+    // Mettre à jour les textes de l'étape validée
+    const tn = document.getElementById('t'+(v-1)+'n');
+    const tl = document.getElementById('t'+(v-1)+'l');
+    if (tn) tn.setAttribute('fill','#00dd44');
+    if (tl) { tl.setAttribute('fill','#00aa33'); tl.textContent = getNoms()[v-1]; }
+
     majBoutonBas();
-    // Si toutes les étapes sont validées → animation trésor plus tôt
+
+    // Si toutes les étapes validées → trésor
     if (v >= NOMS.length) {
       setTimeout(lancerAnimationTresor, 200);
+      return;
     }
-  }, 1700);
+
+    // Sinon → faire clignoter la prochaine étape en rouge pulsant
+    const next = document.getElementById('c'+v);
+    if (next) {
+      next.setAttribute('fill', '#3a0808');
+      next.setAttribute('stroke', '#cc2020');
+      next.style.animation = 'pulseRouge 1s ease-in-out infinite';
+      const tn2 = document.getElementById('t'+v+'n');
+      const tl2 = document.getElementById('t'+v+'l');
+      if (tn2) tn2.setAttribute('fill','#dd4444');
+      if (tl2) { tl2.setAttribute('fill','#aa3030'); tl2.textContent = getNoms()[v]; }
+    }
+  }, 2100);
 }
 
 function retourJeu() {
