@@ -16,11 +16,11 @@ const PARCOURS = {
       id: "intro-guide",
       station: "Introduction",
       personnage: "Le Guide",
-      videoIntro: "https://www.youtube.com/embed/al5mtxqQQQo",
-      videoBonneReponse: "https://www.youtube.com/embed/xrv1vkICY4A",
+      videoIntro: "https://www.youtube.com/embed/DvsH159e45U",
+      videoBonneReponse: "https://www.youtube.com/embed/Xp31yApsl7o",
       videsMauvaisesReponses: [
-        "https://www.youtube.com/embed/qDf-MP9J5go",
-        "https://www.youtube.com/embed/y-eprhgK-fI"
+        "https://www.youtube.com/embed/bfCclIsJEjQ",
+        "https://www.youtube.com/embed/r8XTB6Rm1_s"
       ],
       questions: {
         enfant: {
@@ -42,9 +42,9 @@ const PARCOURS = {
       id: "perroquet",
       station: "Le Perroquet",
       personnage: "Le Perroquet",
-      videoIntro: "https://www.youtube.com/embed/CEQ1_9SKAT0",
-      videoBonneReponse: "https://www.youtube.com/embed/Lcilsmw5Rhs",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/1OR1jY62P7E", "https://www.youtube.com/embed/GKgw0vlmdpM"],
+      videoIntro: "https://www.youtube.com/embed/qSrEyoz7WVk",
+      videoBonneReponse: "https://www.youtube.com/embed/GHS-yI8CC-0",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/xb8puGSgPrM", "https://www.youtube.com/embed/MYPDx5FAsYg"],
       questions: {
         enfant: {
           texte: "Marie-Thérèse avait un fils qui est devenu un grand empereur. Son prénom commence par la dixième lettre de l'alphabet, suivi du numéro II.",
@@ -66,9 +66,9 @@ const PARCOURS = {
       id: "joseph-ii",
       station: "Joseph II",
       personnage: "Joseph II",
-      videoIntro: "https://www.youtube.com/embed/kmbpnM9tDE0",
-      videoBonneReponse: "https://www.youtube.com/embed/UU5NlkfU70U",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/v5nfooBb6wY", "https://www.youtube.com/embed/DDJHx94yMvw"],
+      videoIntro: "https://www.youtube.com/embed/H9Ioq9c6tpk",
+      videoBonneReponse: "https://www.youtube.com/embed/p_XxCOi5duM",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/7KPVi6gNEc4", "https://www.youtube.com/embed/3jtGKUmHRJw"],
       questions: {
         enfant: {
           texte: "Joseph II visite ses grandes salles et crie pour tester l'acoustique. Son écho revient 2 secondes plus tard. Sachant que le son voyage à 340 m/s, à quelle distance est le mur ?",
@@ -90,9 +90,9 @@ const PARCOURS = {
       id: "horloge-salon-rouge",
       station: "L'Horloge (Salon rouge)",
       personnage: "L'Horloge",
-      videoIntro: "https://www.youtube.com/embed/j9LM9EwVrbI",
-      videoBonneReponse: "https://www.youtube.com/embed/L7Fyceln9Ps",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/MKDztpEOh1o", "https://www.youtube.com/embed/jIoUI1tDhnM"],
+      videoIntro: "https://www.youtube.com/embed/H-fkIpErUb8",
+      videoBonneReponse: "https://www.youtube.com/embed/DOnVAWFW8Ys",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/aKXXWSDq7oY", "https://www.youtube.com/embed/yL_dN8YHTg4"],
       questions: {
         enfant: {
           texte: "Une horloge sonne 1 coup à 1h, 2 coups à 2h, 3 coups à 3h... Combien de coups sonne-t-elle en tout de 1h à 6h ?",
@@ -115,19 +115,19 @@ const PARCOURS = {
       station: "Horloge 1759",
       personnage: "L'Horloge 1759",
       videoIntro: "",
-      videoBonneReponse: "https://www.youtube.com/embed/jcUeuQGWz5U",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/yGiB77rgDfs", "https://www.youtube.com/embed/mO0pOfoMudw"],
+      videoBonneReponse: "https://www.youtube.com/embed/hnr4sP3YQwI",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/ngJ-VgshEnY", "https://www.youtube.com/embed/CJXDBvwUgOI"],
       bifurcation: true,
       questions: {
         enfant: {
           classique: {
-            videoIntro: "https://www.youtube.com/embed/f9gi1i8Byzg",
+            videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
             texte: "Je vis dans le désert et j'ai une bosse. Qui suis-je ?",
             choix: ["Le dromadaire", "Le serpent", "La tortue"],
             bonne: 0
           },
           pmr: {
-            videoIntro: "https://www.youtube.com/embed/SLKbj6IRsGo",
+            videoIntro: "https://www.youtube.com/embed/ZSdN-8uqHOY",
             texte: "Comment s'appelle le petit ange ailé qui regarde les étoiles et connaît ton signe astrologique ?",
             choix: ["Cupidon", "Le putti astronome", "L'elfe"],
             bonne: 1
@@ -135,13 +135,13 @@ const PARCOURS = {
         },
         famille: {
           classique: {
-            videoIntro: "https://www.youtube.com/embed/f9gi1i8Byzg",
+            videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
             texte: "La clepsydre égyptienne, inventée vers 1500 avant J.C., s'écoulait plus vite en été qu'en hiver. À 10°C elle perd 0,8 litre par heure, à 30°C elle perd 1,2 litre par heure. Une clepsydre contient 12 litres. Combien d'heures de différence entre une nuit d'hiver et une nuit d'été mesurée par la même clepsydre ?",
             choix: ["3 heures", "5 heures", "7 heures"],
             bonne: 1
           },
           pmr: {
-            videoIntro: "https://www.youtube.com/embed/SLKbj6IRsGo",
+            videoIntro: "https://www.youtube.com/embed/ZSdN-8uqHOY",
             texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est ce que tu es quand tu en as plus qu'il n'en faut.\nMon troisième est de chair, d'os et de questions.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
             choix: ["Royauté", "Astronome", "Damnation"],
             bonne: 1,
@@ -166,9 +166,9 @@ const PARCOURS = {
       id: "dromadaire",
       station: "Le Dromadaire",
       personnage: "Le Dromadaire",
-      videoIntro: "https://www.youtube.com/embed/dO2VEeA61wQ",
-      videoBonneReponse: "https://www.youtube.com/embed/2WlUa6q1Tu0",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/8PxCp94aDik", "https://www.youtube.com/embed/KtNvU5oG0Cg"],
+      videoIntro: "https://www.youtube.com/embed/mSrgRkJqS7A",
+      videoBonneReponse: "https://www.youtube.com/embed/v0KDlA0U-bQ",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/ZrqXjjVA8NI", "https://www.youtube.com/embed/gsZglG5dbeY"],
       questions: {
         enfant: {
           texte: "Un chevalier avance de 3 pas, recule de 1 pas, avance de 3 pas, recule de 1 pas... Après 8 mouvements, combien de pas a-t-il parcouru vers l'avant ?",
@@ -189,9 +189,9 @@ const PARCOURS = {
       id: "licorne-classique",
       station: "La Licorne",
       personnage: "La Licorne",
-      videoIntro: "https://www.youtube.com/embed/waAUMbW2320",
-      videoBonneReponse: "https://www.youtube.com/embed/HpmkAkqxbp0",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/TcyMP3vnnQA", "https://www.youtube.com/embed/gav_RTt8nqo"],
+      videoIntro: "https://www.youtube.com/embed/Hbat1rxbXxE",
+      videoBonneReponse: "https://www.youtube.com/embed/gXL6cRe0C5U",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/HPuIKFIwllM", "https://www.youtube.com/embed/WkustlPWb4A"],
       questions: {
         enfant: {
           texte: "Mon bassin enchanté contient 120 litres d'eau de lune. Mais un mauvais sort y a percé un trou qui laisse couler 2 litres par minute. Dans combien de minutes mon bassin sera-t-il vide ?",
@@ -212,7 +212,7 @@ const PARCOURS = {
       id: "lampe-magique",
       station: "La Lampe magique",
       personnage: "La Lampe magique",
-      videoIntro: "https://www.youtube.com/embed/6HqCE5sP5g0",
+      videoIntro: "https://www.youtube.com/embed/JjPM4IithaI",
       videoBonneReponse: "",
       videsMauvaisesReponses: ["", ""],
       questions: { enfant: null, famille: null },
@@ -230,9 +230,9 @@ const PARCOURS = {
       id: "putti-astrologue",
       station: "Putti Astronome",
       personnage: "Le Putti Astronome",
-      videoIntro: "https://www.youtube.com/embed/S-xNwuLkdNY",
-      videoBonneReponse: "https://www.youtube.com/embed/Yhw4OQjhSZY",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/iyhDj21HOmA", "https://www.youtube.com/embed/LBWyy1xHys8"],
+      videoIntro: "https://www.youtube.com/embed/zC-Bogb-qnE",
+      videoBonneReponse: "https://www.youtube.com/embed/7c3sRBsYq4c",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/8PJ2i8IUlfs", "https://www.youtube.com/embed/x4LXD4nxfOA"],
       questions: {
         unique: {
           texte: "Le Putti Astronome te confie un secret en 3 clés :\n\n① Les anciens découpaient l'année en 13 lunes de 28 jours — il restait 1 seul jour sans nom, hors du temps.\n\n② Septembre vient de 'septem' (7), Octobre d'octo (8), Novembre de 'novem' (9), Décembre de 'decem' (10).\n\n③ Si Décembre était jadis le 10e mois, quel jour mystérieux marquait la fin de l'ancienne année ?",
@@ -249,9 +249,9 @@ const PARCOURS = {
       id: "vieux-gardien",
       station: "Vieux Gardien",
       personnage: "Le Vieux Gardien",
-      videoIntro: "https://www.youtube.com/embed/1BE_o7cC-qQ",
-      videoBonneReponse: "https://www.youtube.com/embed/xy4MYKweUWw",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/uSYD62G-Oko", "https://www.youtube.com/embed/tyftcOLOwqM"],
+      videoIntro: "https://www.youtube.com/embed/lPqw2nYo3E0",
+      videoBonneReponse: "https://www.youtube.com/embed/5o630es4POU",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/nmFzb3SOXEY", "https://www.youtube.com/embed/XIhGVUl-r5c"],
       questions: {
         enfant: {
           texte: "Le Vieux Gardien crie et son écho revient 2 secondes plus tard. Le son voyage à 340 m/s. À quelle distance est le mur ?",
@@ -272,7 +272,7 @@ const PARCOURS = {
       id: "lampe-magique",
       station: "La Lampe magique",
       personnage: "La Lampe magique",
-      videoIntro: "https://www.youtube.com/embed/6HqCE5sP5g0",
+      videoIntro: "https://www.youtube.com/embed/JjPM4IithaI",
       videoBonneReponse: "",
       videsMauvaisesReponses: ["", ""],
       questions: { enfant: null, famille: null },
