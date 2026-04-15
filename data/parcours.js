@@ -142,9 +142,10 @@ const PARCOURS = {
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/SLKbj6IRsGo",
-            texte: "Je donne l'heure, mais lui donne le destin des étoiles.",
-            choix: ["L'angelot", "Le putti astronome", "Le génie"],
-            bonne: 1
+            texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est ce que tu es quand tu en as plus qu'il n'en faut.\nMon troisième invente, imagine et se questionne.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
+            choix: ["Royauté", "Astronome", "Damnation"],
+            bonne: 1,
+            messageBonneReponse: "7,83 Hz — la pulsation de la Terre. Ton cerveau vibre à cette même fréquence quand tu te détends, médites ou marches dans la nature. Nous ne sommes pas séparés de la planète... nous en sommes le prolongement."
           }
         }
       },
