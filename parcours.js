@@ -95,14 +95,14 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/aKXXWSDq7oY", "https://www.youtube.com/embed/yL_dN8YHTg4"],
       questions: {
         enfant: {
-          texte: "Une horloge sonne 1 coup à 1h, 2 coups à 2h, 3 coups à 3h... Combien de coups sonne-t-elle en tout de 1h à 6h ?",
-          choix: ["18", "21", "24"],
-          bonne: 1
+          texte: "Cette horloge tourne depuis des siècles. Un poète a dit : 'Le temps, c'est ce qui empêche que tout arrive en même temps.' Qu'est-ce qui mesure le temps dans la nature, sans avoir besoin d'une horloge ?",
+          choix: ["Les saisons", "Les horloges", "Les livres"],
+          bonne: 0
         },
         famille: {
-          texte: "En 1759, l'année même où cette horloge s'est arrêtée, Harrison résout le problème de la longitude en mer. Pour trouver sa position, un marin devait connaître l'heure exacte à Greenwich. Si son chronomètre retardait de 4 minutes, de combien de degrés sa position serait-elle fausse ? (La Terre tourne de 360° en 24h)",
-          choix: ["0,5°", "1°", "2°"],
-          bonne: 1
+          texte: "L'horloge du salon rouge bat comme un cœur mécanique. Marcel Proust écrivait que 'le temps perdu' ne l'est jamais vraiment — il vit dans nos souvenirs. Comment appelle-t-on en littérature le procédé qui consiste à raconter des événements passés dans un récit au présent ?",
+          choix: ["L'analepse", "La métaphore", "L'ellipse"],
+          bonne: 0
         }
       },
       indice: "Trouve l'horloge près d'un escalier !"
