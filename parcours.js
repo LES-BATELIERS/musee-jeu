@@ -171,13 +171,13 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/ZrqXjjVA8NI", "https://www.youtube.com/embed/gsZglG5dbeY"],
       questions: {
         enfant: {
-          texte: "Un chevalier avance de 3 pas, recule de 1 pas, avance de 3 pas, recule de 1 pas... Après 8 mouvements, combien de pas a-t-il parcouru vers l'avant ?",
-          choix: ["6 pas", "8 pas", "12 pas"],
+          texte: "Le Sphinx de Gizeh veille depuis 4500 ans. Son nez fut cassé au XIVe siècle par un homme qui ne supportait pas qu'on lui rende hommage. Mais pendant des siècles, c'est Napoléon qu'on a accusé — sans aucune preuve. L'histoire que tu apprends à l'école a toujours été écrite par quelqu'un. Par qui était-elle écrite le plus souvent ?",
+          choix: ["Les savants", "Les vainqueurs", "Les vaincus"],
           bonne: 1
         },
         famille: {
-          texte: "Un chevalier fait 3 pas en avant puis 2 pas en arrière. Combien de pas en tout pour avancer de 10 pas ?",
-          choix: ["44 pas", "46 pas", "48 pas"],
+          texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé, mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits africains du visage. Comment appelle-t-on le fait de réécrire l'histoire selon les intérêts de ceux qui sont au pouvoir ?",
+          choix: ["La légende", "La réécriture de l'histoire", "La mythologie"],
           bonne: 1
         }
       },
