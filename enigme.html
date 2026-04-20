@@ -244,6 +244,9 @@
       <div class="indice-icone">✦</div>
       <h2>Pas si vite !</h2>
       <p id="cheatIndice">Tu dois d'abord trouver l'étape précédente dans le musée.</p>
+      <button class="btn-suite" onclick="window.location.href='progression.html'" style="margin-top:20px;">
+        📷 Scanner un QR code
+      </button>
     </div>
   </div>
 
@@ -369,6 +372,10 @@
       } else {
         document.getElementById('cheatIndice').textContent = "Continue à chercher dans le musée !";
       }
+      // Mettre à jour la barre de progression avec la vraie progression
+      const pctCheat = GAME.getProgression();
+      document.getElementById('progressionFill').style.width = pctCheat + '%';
+      document.getElementById('progressionLabel').textContent = 'Progression : ' + pctCheat + '%';
       afficherEcran('ecranCheat');
       return;
     }
