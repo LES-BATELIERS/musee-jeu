@@ -17,7 +17,7 @@ const PARCOURS = {
       station: "Introduction",
       personnage: "Le Guide",
       videoIntro: "https://www.youtube.com/embed/DvsH159e45U",
-      videoBonneReponse: "https://www.youtube.com/embed/Xp31yApsl7o",
+      videoBonneReponse: "https://www.youtube.com/embed/ky7wWCBApX0",
       videsMauvaisesReponses: [
         "https://www.youtube.com/embed/bfCclIsJEjQ",
         "https://www.youtube.com/embed/r8XTB6Rm1_s"
