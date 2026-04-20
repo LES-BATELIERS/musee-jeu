@@ -76,8 +76,8 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Avant 1884, chaque ville avait sa propre heure — les montres de Paris ne concordaient pas avec celles de Namur ! Ce n'est qu'après des siècles d'horloges précises que 25 nations signèrent enfin un accord : Greenwich deviendrait le méridien zéro, référence de tous les fuseaux. Aujourd'hui il est 14h à Namur. Tokyo est en avance de 8h, New York en retard de 6h. Combien d'heures séparent Tokyo de New York ?",
-          choix: ["12h", "14h", "16h"],
+          texte: "Avant 1884, New York et Namur ne partageaient pas la même heure — chaque ville vivait dans son propre présent. Puis les hommes inventèrent une heure universelle, choisissant Greenwich comme méridien zéro. Mais si chaque civilisation a inventé sa propre façon de mesurer le temps, quel mot décrit le mieux ce qu'est réellement le temps ?",
+          choix: ["Une loi naturelle", "Une invention humaine", "Une force universelle"],
           bonne: 1,
           messageBonneReponse: "Des siècles pour s'entendre sur une référence commune. Et pourtant aujourd'hui encore, la Chine impose une seule heure pour un pays qui devrait en avoir 5... Si l'heure n'est qu'une convention inventée par l'homme — une histoire qu'on se raconte ensemble — alors peut-être que le temps lui-même n'est pas ce qu'on croit. Einstein disait : 'La distinction entre passé, présent et futur n'est qu'une illusion, aussi tenace soit-elle.'"
         }
@@ -253,15 +253,11 @@ const PARCOURS = {
       videoBonneReponse: "https://www.youtube.com/embed/5o630es4POU",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/nmFzb3SOXEY", "https://www.youtube.com/embed/XIhGVUl-r5c"],
       questions: {
-        enfant: {
-          texte: "Le Vieux Gardien crie et son écho revient 2 secondes plus tard. Le son voyage à 340 m/s. À quelle distance est le mur ?",
-          choix: ["170 m", "340 m", "680 m"],
-          bonne: 1
-        },
-        famille: {
-          texte: "Le Vieux Gardien crie et entend deux échos : le premier après 1,5 seconde, le second après 4 secondes. Le son voyage à 340 m/s. Quelle est la distance entre les deux murs ?",
-          choix: ["325 m", "425 m", "525 m"],
-          bonne: 1
+        unique: {
+          texte: "Le Vieux Gardien sait que les mots ont un poids. Victor Hugo écrivait : 'La musique, c'est du bruit qui pense.' Si les mots sont des vibrations et que notre corps est une caisse de résonance, comment appelle-t-on la figure de style qui donne une vie, une âme à une chose inanimée ?",
+          choix: ["La métaphore", "La personnification", "L'allégorie"],
+          bonne: 1,
+          messageBonneReponse: "Les mots vibrent. Les histoires guérissent. C'est peut-être ça, être humain — donner une âme à ce qui n'en a pas, pour mieux comprendre la nôtre."
         }
       },
       indice: "Trouve la Lampe magique dans le musée !"
