@@ -144,8 +144,7 @@ const PARCOURS = {
             videoIntro: "https://www.youtube.com/embed/ZSdN-8uqHOY",
             texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est quand la quantité dépasse la limite.\nMon troisième est le mot qui désigne tous les êtres humains.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
             choix: ["Royauté", "Astronome", "Damnation"],
-            bonne: 1,
-            messageBonneReponse: "7,83 Hz — la pulsation de la Terre. Ton cerveau vibre à cette même fréquence quand tu te détends, médites ou marches dans la nature. Nous ne sommes pas séparés de la planète... nous en sommes le prolongement."
+            bonne: 1
           }
         }
       },
