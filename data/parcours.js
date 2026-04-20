@@ -71,8 +71,8 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/7KPVi6gNEc4", "https://www.youtube.com/embed/3jtGKUmHRJw"],
       questions: {
         enfant: {
-          texte: "Joseph II visite ses grandes salles et crie pour tester l'acoustique. Son écho revient 2 secondes plus tard. Sachant que le son voyage à 340 m/s, à quelle distance est le mur ?",
-          choix: ["170 m", "340 m", "680 m"],
+          texte: "Avant, chaque ville avait sa propre heure — comme si chaque ville avait son propre soleil ! Puis les grandes personnes du monde entier ont décidé ensemble d'une seule heure pour tout le monde. Mais dis-moi... est-ce que le temps existe vraiment, ou est-ce que c'est juste une idée qu'on a inventée ?",
+          choix: ["C'est une vraie chose", "C'est une idée inventée", "C'est de la magie"],
           bonne: 1
         },
         famille: {
