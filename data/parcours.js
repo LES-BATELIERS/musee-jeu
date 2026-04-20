@@ -136,13 +136,13 @@ const PARCOURS = {
         famille: {
           classique: {
             videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
-            texte: "La clepsydre égyptienne, inventée vers 1500 avant J.C., s'écoulait plus vite en été qu'en hiver. À 10°C elle perd 0,8 litre par heure, à 30°C elle perd 1,2 litre par heure. Une clepsydre contient 12 litres. Combien d'heures de différence entre une nuit d'hiver et une nuit d'été mesurée par la même clepsydre ?",
-            choix: ["3 heures", "5 heures", "7 heures"],
+            texte: "Mon premier se lance sur une table de jeu.\nMon deuxième, c'est ce que fait un serveur au restaurant.\nMon tout est le royaume du dromadaire.",
+            choix: ["Dessert", "Désert", "Désaccord"],
             bonne: 1
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/ZSdN-8uqHOY",
-            texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est ce que tu es quand tu en as plus qu'il n'en faut.\nMon troisième est de chair, d'os et de questions.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
+            texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est quand la quantité dépasse la limite.\nMon troisième est le mot qui désigne tous les êtres humains.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
             choix: ["Royauté", "Astronome", "Damnation"],
             bonne: 1,
             messageBonneReponse: "7,83 Hz — la pulsation de la Terre. Ton cerveau vibre à cette même fréquence quand tu te détends, médites ou marches dans la nature. Nous ne sommes pas séparés de la planète... nous en sommes le prolongement."
