@@ -337,11 +337,33 @@
     // pour éviter que le bouton "Retour au jeu" de progression.html
     // ne déclenche validerEtape() sans scan de QR
 
-    // Si le joueur arrive avec un QR ET que l'indice était affiché → valider l'étape
+    // Si le joueur arrive avec un QR ET que l'indice était affiché
+    // → vérifier que c'est bien le BON QR avant de valider
     if (session.indiceAffiche && idEtape && idEtape !== '0') {
-      GAME.validerEtape();
-      session = GAME.getSession();
-      // Continuer normalement pour charger la nouvelle énigme
+      // Vérifier que le QR scanné correspond bien à l'étape suivante attendue
+      if (GAME.peutAcceder(idEtape)) {
+        GAME.validerEtape();
+        session = GAME.getSession();
+        // Continuer normalement pour charger la nouvelle énigme
+      } else {
+        // Mauvais QR scanné — afficher ecranCheat avec l'indice
+        const s = GAME.getSession();
+        let liste;
+        if (s.phase === 'commun')    liste = PARCOURS.commun;
+        if (s.phase === 'classique') liste = PARCOURS.classique;
+        if (s.phase === 'pmr')       liste = PARCOURS.pmr;
+        const etapeCourante = GAME.getEtapeCourante();
+        let indiceMsg = etapeCourante ? etapeCourante.indice : "Continue à chercher dans le musée !";
+        if (typeof indiceMsg === 'object') {
+          indiceMsg = s.parcours === 'pmr' ? indiceMsg.pmr : indiceMsg.classique;
+        }
+        document.getElementById('cheatIndice').textContent = indiceMsg || "Continue à chercher dans le musée !";
+        const pctCheat = GAME.getProgression();
+        document.getElementById('progressionFill').style.width = pctCheat + '%';
+        document.getElementById('progressionLabel').textContent = 'Progression : ' + pctCheat + '%';
+        afficherEcran('ecranCheat');
+        return;
+      }
     }
     // Si indice affiché mais PAS de QR → rediriger vers la carte de progression
     // qui affiche l'indice + le scanner QR
