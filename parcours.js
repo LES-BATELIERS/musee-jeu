@@ -175,7 +175,7 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits africains du visage. Comment appelle-t-on le fait de réécrire l'histoire selon les intérêts de ceux qui sont au pouvoir ?",
+          texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits noirs africains du visage — car si le Sphinx est bien en Afrique, certains pensent qu'il fut attribué aux peuples du nord pour en effacer l'origine. Comment appelle-t-on le fait de réécrire l'histoire selon les intérêts de ceux qui sont au pouvoir ?",
           choix: ["La légende", "La réécriture de l'histoire", "La mythologie"],
           bonne: 1
         }
