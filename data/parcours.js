@@ -193,8 +193,8 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/HPuIKFIwllM", "https://www.youtube.com/embed/WkustlPWb4A"],
       questions: {
         enfant: {
-          texte: "Mon bassin enchanté contient 120 litres d'eau de lune. Mais un mauvais sort y a percé un trou qui laisse couler 2 litres par minute. Dans combien de minutes mon bassin sera-t-il vide ?",
-          choix: ["30 minutes", "60 minutes", "90 minutes"],
+          texte: "Mon bassin enchanté contient 10 litres d'eau de lune. Un mauvais sort y a percé un trou qui laisse couler 1 litre par minute. Dans combien de minutes mon bassin sera-t-il vide ?",
+          choix: ["5 minutes", "10 minutes", "15 minutes"],
           bonne: 1
         },
         famille: {
