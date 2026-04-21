@@ -170,7 +170,7 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/ZrqXjjVA8NI", "https://www.youtube.com/embed/gsZglG5dbeY"],
       questions: {
         enfant: {
-          texte: "Le Sphinx de Gizeh veille depuis 4500 ans. Son nez fut cassé au XIVe siècle par un homme qui ne supportait pas qu'on lui rende hommage. Mais pendant des siècles, c'est Napoléon qu'on a accusé — sans aucune preuve. L'histoire que tu apprends à l'école a toujours été écrite par quelqu'un. Par qui était-elle écrite le plus souvent ?",
+          texte: "Le Sphinx de Gizeh veille depuis 4500 ans. Son nez a disparu — personne ne sait vraiment comment ni pourquoi. Napoléon a été accusé pendant des siècles, sans aucune preuve. L'histoire que tu apprends à l'école a toujours été écrite par quelqu'un. Par qui était-elle écrite le plus souvent ?",
           choix: ["Les savants", "Les vainqueurs", "Les vaincus"],
           bonne: 1
         },
