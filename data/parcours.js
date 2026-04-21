@@ -267,7 +267,7 @@ const PARCOURS = {
       id: "lampe-magique",
       station: "La Lampe magique",
       personnage: "La Lampe magique",
-      videoIntro: "https://www.youtube.com/embed/JjPM4IithaI",
+      videoIntro: "https://www.youtube.com/embed/ZqZNc5UG8nM",
       videoBonneReponse: "",
       videsMauvaisesReponses: ["", ""],
       questions: { enfant: null, famille: null },
