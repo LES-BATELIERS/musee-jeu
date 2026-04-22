@@ -175,7 +175,7 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits noirs africains du visage. Comment appelle-t-on le fait de réécrire l'histoire selon les intérêts de ceux qui sont au pouvoir ?",
+          texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits noirs africains du visage. George Orwell écrivait : 'Celui qui contrôle le passé contrôle l'avenir.' De quel procédé parle-t-il ?",
           choix: ["La légende", "La réécriture de l'histoire", "La mythologie"],
           bonne: 1
         }
