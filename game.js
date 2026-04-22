@@ -64,19 +64,23 @@ const GAME = {
 
     // Si l'indice est affiché → on attend le QR de l'étape SUIVANTE
     if (s.indiceAffiche) {
-      // Simuler validerEtape pour connaître l'ID de la prochaine étape
       let liste;
       if (s.phase === 'commun')    liste = PARCOURS.commun;
       if (s.phase === 'classique') liste = PARCOURS.classique;
       if (s.phase === 'pmr')       liste = PARCOURS.pmr;
-      const prochaine = liste ? liste[s.etape + 1] : null;
-      // Cas bifurcation : l'étape courante a une bifurcation
+
       const etapeCourante = liste ? liste[s.etape] : null;
+
+      // Cas bifurcation : simuler le changement de phase
       if (etapeCourante && etapeCourante.bifurcation) {
-        const niv = (s.parcours === 'pmr') ? 'pmr' : (s.parcours === 'famille' ? 'famille' : 'enfant');
-        const branch = etapeCourante.bifurcation[niv] || etapeCourante.bifurcation['classique'];
-        return branch && branch.nextId === idEtape;
+        const prochainePhase = (s.parcours === 'pmr') ? 'pmr' : 'classique';
+        const listeSuivante = (prochainePhase === 'pmr') ? PARCOURS.pmr : PARCOURS.classique;
+        const prochaine = listeSuivante ? listeSuivante[0] : null;
+        return prochaine ? prochaine.id === idEtape : false;
       }
+
+      // Cas normal : étape suivante dans la même liste
+      const prochaine = liste ? liste[s.etape + 1] : null;
       return prochaine ? prochaine.id === idEtape : false;
     }
 
