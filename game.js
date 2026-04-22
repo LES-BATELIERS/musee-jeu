@@ -52,6 +52,8 @@ const GAME = {
   peutAcceder(idEtape) {
     const s = this.getSession();
 
+    console.log('[peutAcceder] idEtape='+idEtape+' phase='+s.phase+' etape='+s.etape+' indiceAffiche='+s.indiceAffiche+' parcours='+s.parcours);
+
     // IDs réservés au parcours PMR
     const etapesPMR = ['putti-astrologue', 'cadran-solaire', 'vieux-gardien'];
     // IDs réservés au parcours classique
@@ -70,23 +72,27 @@ const GAME = {
       if (s.phase === 'pmr')       liste = PARCOURS.pmr;
 
       const etapeCourante = liste ? liste[s.etape] : null;
+      console.log('[peutAcceder] etapeCourante=', etapeCourante ? etapeCourante.id : 'null', 'bifurcation=', etapeCourante ? etapeCourante.bifurcation : 'null');
 
       // Cas bifurcation : simuler le changement de phase
       if (etapeCourante && etapeCourante.bifurcation) {
         const prochainePhase = (s.parcours === 'pmr') ? 'pmr' : 'classique';
         const listeSuivante = (prochainePhase === 'pmr') ? PARCOURS.pmr : PARCOURS.classique;
         const prochaine = listeSuivante ? listeSuivante[0] : null;
+        console.log('[peutAcceder] bifurcation → prochaine=', prochaine ? prochaine.id : 'null', 'résultat=', prochaine ? prochaine.id === idEtape : false);
         return prochaine ? prochaine.id === idEtape : false;
       }
 
       // Cas normal : étape suivante dans la même liste
       const prochaine = liste ? liste[s.etape + 1] : null;
+      console.log('[peutAcceder] normal → prochaine=', prochaine ? prochaine.id : 'null');
       return prochaine ? prochaine.id === idEtape : false;
     }
 
     // Sinon → on attend le QR de l'étape COURANTE
     const etape = this.getEtapeCourante();
     if (!etape) return false;
+    console.log('[peutAcceder] etape courante='+etape.id+' résultat='+(etape.id === idEtape));
     return etape.id === idEtape;
   },
 
