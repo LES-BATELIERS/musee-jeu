@@ -31,6 +31,32 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 .carte-wrap { width:100%; max-width:420px; padding:12px; box-sizing:border-box; animation:fadeIn 0.8s ease; }
 .carte-wrap svg { width:100%; height:auto; display:block; border-radius:8px; }
 
+/* ── FLÈCHE SCROLL FIXE ── */
+#flecheScrollProg {
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9998;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  animation: clignote 0.9s ease-in-out infinite;
+}
+#flecheScrollProg svg { width: 36px; height: 36px; }
+#flecheScrollProg span {
+  font-size: 9px; color: #cc3333;
+  letter-spacing: 2px; text-transform: uppercase;
+  font-family: Georgia, serif;
+}
+
+@keyframes clignote {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.2; }
+}
+
 .btn-retour {
   display:block; margin:10px auto 8px;
   width:calc(100% - 24px); max-width:396px;
@@ -108,6 +134,12 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 </style>
 </head>
 <body>
+<div id="flecheScrollProg" onclick="document.getElementById('scannerSection').scrollIntoView({behavior:'smooth', block:'center'})">
+  <svg viewBox="0 0 24 24" fill="none">
+    <path d="M12 5v14M5 12l7 7 7-7" stroke="#cc3333" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span>Continuer</span>
+</div>
 
 <!-- OVERLAY TRÉSOR -->
 <div id="tresorOverlay">
@@ -347,7 +379,8 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 </svg>
 </div>
 
-<button class="btn-retour" id="btnRetourJeu" onclick="retourJeu()">← Retour au jeu</button>
+
+
 
 <div id="scannerSection">
   <button id="btnScanner" class="btn-scanner" onclick="actionBoutonBas()">✦ Scanner le prochain QR code</button>
@@ -599,23 +632,20 @@ function majBoutonBas() {
   const NOMS = getNoms();
   const v = getValidated();
   const btn = document.getElementById('btnScanner');
-  const btnRetour = document.getElementById('btnRetourJeu');
+  // btnRetourJeu supprimé
   if (!btn) return;
   if (v >= NOMS.length) {
     btn.textContent = '✦ Récupérer mon certificat';
     btn.style.borderColor = '#ddaa00';
     btn.style.color = '#ddaa00';
     // Parcours terminé → pas besoin du bouton retour
-    if (btnRetour) btnRetour.style.display = 'none';
+
   } else {
     btn.textContent = '✦ Scanner le prochain QR code';
     btn.style.borderColor = '#5a3810';
     btn.style.color = '#8a6030';
     // En cours → changer le texte du bouton retour
-    if (btnRetour) {
-      btnRetour.textContent = '✦ Je cherche le QR dans le musée';
-      btnRetour.style.color = '#6b6355';
-    }
+
   }
 }
 
