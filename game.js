@@ -64,28 +64,27 @@ const GAME = {
     // Un joueur classique/enfant ne peut pas accéder aux étapes PMR
     if (s.parcours !== 'pmr' && etapesPMR.includes(idEtape)) return false;
 
-    // Si l'indice est affiché → on attend le QR de l'étape SUIVANTE
+    // Si l'indice est affiché → vérifier que c'est bien le QR de l'étape courante
+    // Note : avancer() ne change PAS encore la phase/etape, validerEtape() le fait
+    // Donc l'étape courante EST bien celle qu'on attend
     if (s.indiceAffiche) {
+      const etape = this.getEtapeCourante();
+      if (!etape) return false;
+
+      // Cas bifurcation : l'étape courante est horloge-1759, on attend dromadaire ou putti
+      if (etape.bifurcation) {
+        const prochainePhase = (s.parcours === 'pmr') ? 'pmr' : 'classique';
+        const listeSuivante = (prochainePhase === 'pmr') ? PARCOURS.pmr : PARCOURS.classique;
+        const prochaine = listeSuivante ? listeSuivante[0] : null;
+        return prochaine ? prochaine.id === idEtape : false;
+      }
+
+      // Cas normal : on cherche l'étape suivante
       let liste;
       if (s.phase === 'commun')    liste = PARCOURS.commun;
       if (s.phase === 'classique') liste = PARCOURS.classique;
       if (s.phase === 'pmr')       liste = PARCOURS.pmr;
-
-      const etapeCourante = liste ? liste[s.etape] : null;
-      console.log('[peutAcceder] etapeCourante=', etapeCourante ? etapeCourante.id : 'null', 'bifurcation=', etapeCourante ? etapeCourante.bifurcation : 'null');
-
-      // Cas bifurcation : simuler le changement de phase
-      if (etapeCourante && etapeCourante.bifurcation) {
-        const prochainePhase = (s.parcours === 'pmr') ? 'pmr' : 'classique';
-        const listeSuivante = (prochainePhase === 'pmr') ? PARCOURS.pmr : PARCOURS.classique;
-        const prochaine = listeSuivante ? listeSuivante[0] : null;
-        console.log('[peutAcceder] bifurcation → prochaine=', prochaine ? prochaine.id : 'null', 'résultat=', prochaine ? prochaine.id === idEtape : false);
-        return prochaine ? prochaine.id === idEtape : false;
-      }
-
-      // Cas normal : étape suivante dans la même liste
       const prochaine = liste ? liste[s.etape + 1] : null;
-      console.log('[peutAcceder] normal → prochaine=', prochaine ? prochaine.id : 'null');
       return prochaine ? prochaine.id === idEtape : false;
     }
 
