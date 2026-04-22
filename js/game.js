@@ -52,6 +52,8 @@ const GAME = {
   peutAcceder(idEtape) {
     const s = this.getSession();
 
+    console.log('[peutAcceder] idEtape='+idEtape+' phase='+s.phase+' etape='+s.etape+' indiceAffiche='+s.indiceAffiche+' parcours='+s.parcours);
+
     // IDs réservés au parcours PMR
     const etapesPMR = ['putti-astrologue', 'cadran-solaire', 'vieux-gardien'];
     // IDs réservés au parcours classique
@@ -62,27 +64,34 @@ const GAME = {
     // Un joueur classique/enfant ne peut pas accéder aux étapes PMR
     if (s.parcours !== 'pmr' && etapesPMR.includes(idEtape)) return false;
 
-    // Si l'indice est affiché → on attend le QR de l'étape SUIVANTE
+    // Si l'indice est affiché → vérifier que c'est bien le QR de l'étape courante
+    // Note : avancer() ne change PAS encore la phase/etape, validerEtape() le fait
+    // Donc l'étape courante EST bien celle qu'on attend
     if (s.indiceAffiche) {
-      // Simuler validerEtape pour connaître l'ID de la prochaine étape
+      const etape = this.getEtapeCourante();
+      if (!etape) return false;
+
+      // Cas bifurcation : l'étape courante est horloge-1759, on attend dromadaire ou putti
+      if (etape.bifurcation) {
+        const prochainePhase = (s.parcours === 'pmr') ? 'pmr' : 'classique';
+        const listeSuivante = (prochainePhase === 'pmr') ? PARCOURS.pmr : PARCOURS.classique;
+        const prochaine = listeSuivante ? listeSuivante[0] : null;
+        return prochaine ? prochaine.id === idEtape : false;
+      }
+
+      // Cas normal : on cherche l'étape suivante
       let liste;
       if (s.phase === 'commun')    liste = PARCOURS.commun;
       if (s.phase === 'classique') liste = PARCOURS.classique;
       if (s.phase === 'pmr')       liste = PARCOURS.pmr;
       const prochaine = liste ? liste[s.etape + 1] : null;
-      // Cas bifurcation : l'étape courante a une bifurcation
-      const etapeCourante = liste ? liste[s.etape] : null;
-      if (etapeCourante && etapeCourante.bifurcation) {
-        const niv = (s.parcours === 'pmr') ? 'pmr' : (s.parcours === 'famille' ? 'famille' : 'enfant');
-        const branch = etapeCourante.bifurcation[niv] || etapeCourante.bifurcation['classique'];
-        return branch && branch.nextId === idEtape;
-      }
       return prochaine ? prochaine.id === idEtape : false;
     }
 
     // Sinon → on attend le QR de l'étape COURANTE
     const etape = this.getEtapeCourante();
     if (!etape) return false;
+    console.log('[peutAcceder] etape courante='+etape.id+' résultat='+(etape.id === idEtape));
     return etape.id === idEtape;
   },
 
