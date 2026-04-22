@@ -52,8 +52,8 @@ const PARCOURS = {
           bonne: 0
         },
         famille: {
-          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots et la musique transforment l'eau ? Le Dr Emoto l'a photographié au microscope : les cristaux d'eau gelée changent de forme selon les mots et la musique qu'on leur soumet — tout comme il n'existe pas deux flocons de neige identiques. Le prochain personnage que tu vas rencontrer aimait tant la musique qu'à 21 ans, il assista au concert du petit Mozart qui n'en avait que 6. Si notre corps est composé à 70% d'eau par kilo et qu'une personne pèse 60 kg, combien de litres vibrent en elle à chaque mélodie ?",
-          choix: ["36 litres", "42 litres", "48 litres"],
+          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots ont une forme ? Le Dr Emoto a photographié des cristaux d'eau au microscope — les mots d'amour créaient de magnifiques symétries, les mots de haine les déformaient en chaos. Comme des flocons de neige dont il n'existe jamais deux identiques. Le prochain personnage que tu vas croiser jouait lui-même du violoncelle et commanda des opéras à Mozart. Si les mots et la musique transforment l'eau, et que notre corps en est composé à 70%... que devient-elle à chaque mélodie ?",
+          choix: ["Elle se fige", "Elle vibre et se transforme", "Elle s'évapore"],
           bonne: 1,
           messageBonneReponse: "42 litres d'eau en toi... sensibles à chaque mot, chaque musique, chaque pensée, chaque émotion. Peut-être que prendre soin de ce que tu penses et écoutes, c'est déjà prendre soin de toi."
         }
