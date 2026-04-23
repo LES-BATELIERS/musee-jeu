@@ -90,6 +90,32 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
     <h1 class="anim-titre">Nuit blanche</h1>
     <p class="sous-titre anim-sous">Choisissez votre parcours</p>
 
+    <!-- Modal prénom -->
+    <div id="modalPrenom" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.85);z-index:99999;flex-direction:column;align-items:center;
+      justify-content:center;gap:16px;padding:20px;box-sizing:border-box;">
+      <div style="background:#0e0e0e;border:1px solid #3a3530;border-radius:12px;
+        padding:28px 24px;max-width:360px;width:100%;text-align:center;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">✦</div>
+        <p style="color:#f0ead8;font-family:Georgia,serif;font-size:1rem;
+          letter-spacing:1px;margin-bottom:20px;line-height:1.6;">
+          Avant de commencer,<br>quel est ton prénom ?
+        </p>
+        <input id="inputPrenom" type="text" placeholder="Ton prénom..."
+          onkeydown="if(event.key==='Enter') validerPrenom()"
+          style="width:100%;box-sizing:border-box;background:#0a0a0a;
+          border:1px solid #3a3530;border-radius:8px;padding:12px;
+          color:#f0ead8;font-family:Georgia,serif;font-size:1rem;
+          text-align:center;outline:none;margin-bottom:16px;">
+        <button onclick="validerPrenom()"
+          style="width:100%;background:transparent;border:1px solid #c8a842;
+          border-radius:8px;padding:12px;color:#c8a842;font-family:Georgia,serif;
+          font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">
+          Commencer l'aventure ✦
+        </button>
+      </div>
+    </div>
+
     <!-- Bandeau reprise de partie -->
     <div id="bandeauReprise" style="display:none;flex-direction:column;align-items:center;gap:8px;
          background:rgba(138,128,112,0.12);border:1px solid #3a3530;border-radius:10px;
@@ -154,8 +180,13 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
     </div>
   </div>
 
-  <script src="js/game.js?v=4"></script>
-  <script src="data/parcours.js?v=4"></script>
+  <p style="text-align:center; margin-top:20px; font-size:0.7rem; color:#3a3530;
+     letter-spacing:2px; text-transform:uppercase; font-family:Georgia,serif;">
+    Conception du jeu par Yoann Rihoux
+  </p>
+
+  <script src="js/game.js?v=5"></script>
+  <script src="data/parcours.js?v=5"></script>
   <script>
     // window.onload fusionné ci-dessous
 
@@ -170,6 +201,37 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
     }
 
     function choisirParcours(mode) {
+      // Demander le prénom avant de démarrer
+      const prenom = localStorage.getItem('prenom');
+      if (!prenom) {
+        afficherModalPrenom(mode);
+        return;
+      }
+      demarrerParcours(mode);
+    }
+
+    function afficherModalPrenom(mode) {
+      const modal = document.getElementById('modalPrenom');
+      const input = document.getElementById('inputPrenom');
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.dataset.mode = mode;
+        if (input) setTimeout(function() { input.focus(); }, 200);
+      }
+    }
+
+    function validerPrenom() {
+      const input = document.getElementById('inputPrenom');
+      const prenom = input ? input.value.trim() : '';
+      if (!prenom) { input.style.borderColor = '#cc3333'; return; }
+      localStorage.setItem('prenom', prenom);
+      const modal = document.getElementById('modalPrenom');
+      const mode = modal ? modal.dataset.mode : 'famille';
+      if (modal) modal.style.display = 'none';
+      demarrerParcours(mode);
+    }
+
+    function demarrerParcours(mode) {
       setTimeout(function() {
         // Si une session existe déjà pour ce parcours → on la reprend sans remettre à zéro
         const parcoursExistant = localStorage.getItem('parcours');
