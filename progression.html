@@ -148,7 +148,7 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   </div>
   <div class="tresor-titre">Trésor découvert !</div>
   <div class="tresor-sous">Vous avez percé tous les mystères</div>
-  <button class="tresor-btn" onclick="document.getElementById('tresorOverlay').classList.remove('visible'); window.location.href='victoire.html';">Voir mon certificat ✦</button>
+  <button class="tresor-btn" onclick="demanderPrenom()">Voir mon certificat ✦</button>
 </div>
 
 <div class="carte-wrap">
@@ -390,8 +390,33 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   </div>
 </div>
 
-<script src="js/game.js?v=4"></script>
-<script src="data/parcours.js?v=4"></script>
+<!-- Modale prénom -->
+<div id="modalPrenom" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.85);z-index:99999;align-items:center;justify-content:center;">
+  <div style="background:#0e0e0e;border:1px solid #c8a842;border-radius:14px;
+    padding:32px 24px;max-width:340px;width:90%;text-align:center;font-family:Georgia,serif;">
+    <div style="font-size:0.65rem;color:#c8a842;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;">
+      ✦ Ton certificat ✦
+    </div>
+    <p style="color:#8a8070;font-size:0.85rem;letter-spacing:1px;line-height:1.8;margin-bottom:20px;">
+      Quel est ton prénom ?
+    </p>
+    <input id="inputPrenom" type="text" maxlength="30" placeholder="Ton prénom..."
+      style="width:100%;box-sizing:border-box;background:#0a0a0a;border:1px solid #3a3530;
+      border-radius:8px;padding:12px;color:#f0ead8;font-size:1rem;font-family:Georgia,serif;
+      text-align:center;letter-spacing:2px;margin-bottom:16px;"
+      onkeydown="if(event.key==='Enter') validerPrenom()">
+    <button onclick="validerPrenom()"
+      style="width:100%;background:transparent;border:1px solid #c8a842;border-radius:8px;
+      padding:12px;color:#c8a842;font-family:Georgia,serif;font-size:0.85rem;
+      letter-spacing:2px;text-transform:uppercase;cursor:pointer;">
+      Obtenir mon certificat ✦
+    </button>
+  </div>
+</div>
+
+<script src="js/game.js?v=5"></script>
+<script src="data/parcours.js?v=5"></script>
 <script>
 const NOMS_CLASSIQUE = ['Le Guide','Le Perroquet','Joseph II','H. Salon Rouge','Horloge figée','Le Dromadaire','La Licorne','La Lampe'];
 const NOMS_PMR       = ['Le Guide','Le Perroquet','Joseph II','H. Salon Rouge','Horloge figée','Putti Astronome','Vieux Gardien','La Lampe'];
@@ -598,6 +623,25 @@ function animerReussite() {
       if (tl2) { tl2.setAttribute('fill','#aa3030'); tl2.textContent = getNoms()[v]; }
     }
   }, 2100);
+}
+
+function demanderPrenom() {
+  // Masquer l'overlay trésor et afficher la modale prénom
+  document.getElementById('tresorOverlay').classList.remove('visible');
+  var modal = document.getElementById('modalPrenom');
+  modal.style.display = 'flex';
+  setTimeout(function() {
+    var input = document.getElementById('inputPrenom');
+    if (input) input.focus();
+  }, 200);
+}
+
+function validerPrenom() {
+  var prenom = document.getElementById('inputPrenom').value.trim();
+  if (!prenom) prenom = 'Explorateur';
+  localStorage.setItem('prenom', prenom);
+  document.getElementById('modalPrenom').style.display = 'none';
+  window.location.href = 'victoire.html';
 }
 
 function retourJeu() {
