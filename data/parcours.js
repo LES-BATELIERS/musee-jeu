@@ -52,10 +52,10 @@ const PARCOURS = {
           bonne: 0
         },
         famille: {
-          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots et la musique transforment l'eau ? Le Dr Emoto l'a photographié au microscope : les cristaux d'eau gelée changent de forme selon les mots et la musique qu'on leur soumet — tout comme il n'existe pas deux flocons de neige identiques. Le prochain personnage que tu vas rencontrer aimait tant la musique qu'à 21 ans, il assista au concert du petit Mozart qui n'en avait que 6. Si notre corps est composé à 70% d'eau par kilo et qu'une personne pèse 60 kg, combien de litres vibrent en elle à chaque mélodie ?",
-          choix: ["36 litres", "42 litres", "48 litres"],
+          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots ont une forme ? Le Dr Emoto a photographié des cristaux d'eau au microscope — les mots d'amour créaient de magnifiques symétries, les mots de haine les déformaient en chaos. Comme des flocons de neige dont il n'existe jamais deux identiques. Le prochain personnage que tu vas croiser jouait lui-même du violoncelle et commanda des opéras à Mozart. Si les mots et la musique transforment l'eau, et que notre corps en est composé à 70%... que devient-elle à chaque mélodie ?",
+          choix: ["Elle se fige", "Elle vibre et se transforme", "Elle s'évapore"],
           bonne: 1,
-          messageBonneReponse: "42 litres d'eau en toi... sensibles à chaque mot, chaque musique, chaque pensée, chaque émotion. Peut-être que prendre soin de ce que tu penses et écoutes, c'est déjà prendre soin de toi."
+          messageBonneReponse: "Autant de litres d'eau en toi... sensibles à chaque mot, chaque musique, chaque pensée, chaque émotion. Peut-être que prendre soin de ce que tu penses et écoutes, c'est déjà prendre soin de toi."
         }
       },
       indice: "Trouve Joseph II dans le musée pour continuer !"
@@ -127,7 +127,7 @@ const PARCOURS = {
             bonne: 0
           },
           pmr: {
-            videoIntro: "https://www.youtube.com/embed/ZSdN-8uqHOY",
+            videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
             texte: "Comment s'appelle le petit ange ailé qui regarde les étoiles et connaît ton signe astrologique ?",
             choix: ["Cupidon", "Le putti astronome", "L'elfe"],
             bonne: 1
@@ -141,7 +141,7 @@ const PARCOURS = {
             bonne: 1
           },
           pmr: {
-            videoIntro: "https://www.youtube.com/embed/ZSdN-8uqHOY",
+            videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
             texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est quand la quantité dépasse la limite.\nMon troisième est le mot qui désigne tous les êtres humains.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
             choix: ["Royauté", "Astronome", "Damnation"],
             bonne: 1
@@ -175,7 +175,7 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits noirs africains du visage. Comment appelle-t-on le fait de réécrire l'histoire selon les intérêts de ceux qui sont au pouvoir ?",
+          texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits noirs africains du visage. George Orwell écrivait : 'Celui qui contrôle le passé contrôle l'avenir.' De quel procédé parle-t-il ?",
           choix: ["La légende", "La réécriture de l'histoire", "La mythologie"],
           bonne: 1
         }
