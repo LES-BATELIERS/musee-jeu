@@ -672,6 +672,8 @@
       bonneReponse = false;
       const nbErreurs = GAME.ajouterErreur();
       session = GAME.getSession();
+      // Mettre à jour les étoiles immédiatement
+      majCompteurErreurs();
       // Mémoriser ce mauvais choix pour le barrer au retour
       const dejaTentes = JSON.parse(localStorage.getItem('dejaTentes') || '[]');
       if (!dejaTentes.includes(indexChoisi)) dejaTentes.push(indexChoisi);
