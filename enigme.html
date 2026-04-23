@@ -104,10 +104,15 @@
 
   <!-- HEADER : logo + progression -->
   <div class="jeu-header">
-      <div class="progression-bar" style="width:100%">
+    <div class="progression-bar" style="width:100%">
       <div class="progression-fill" id="progressionFill"></div>
     </div>
     <div class="progression-label" id="progressionLabel">Progression : 0%</div>
+    <div id="etoilesCompteur">
+      <span class="etoile" id="etoile1">⭐</span>
+      <span class="etoile" id="etoile2">⭐</span>
+      <span class="etoile" id="etoile3">⭐</span>
+    </div>
   </div>
 
   <!-- ÉCRAN : SPLASH (intro avant vidéo avec musique) -->
@@ -824,7 +829,19 @@
     }
   }
 
-  function majCompteurErreurs() { /* supprimé — plus de compteur coeurs */ }
+  function majCompteurErreurs() {
+    const erreurs = GAME.getSession().erreurs;
+    for (var i = 1; i <= 3; i++) {
+      var e = document.getElementById('etoile' + i);
+      if (e) {
+        if (i <= erreurs) {
+          e.classList.add('perdue');
+        } else {
+          e.classList.remove('perdue');
+        }
+      }
+    }
+  }
 
 </script>
 
