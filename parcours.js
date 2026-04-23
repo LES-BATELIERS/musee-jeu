@@ -52,8 +52,8 @@ const PARCOURS = {
           bonne: 0
         },
         famille: {
-          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots ont une forme ? Le Dr Emoto a photographié des cristaux d'eau au microscope — les mots d'amour créaient de magnifiques symétries, les mots de haine les déformaient en chaos. Comme des flocons de neige dont il n'existe jamais deux identiques. Le prochain personnage que tu vas croiser jouait lui-même du violoncelle et commanda des opéras à Mozart. Si les mots et la musique transforment l'eau, et que notre corps en est composé à 70%... que devient-elle à chaque mélodie ?",
-          choix: ["Elle se fige", "Elle vibre et se transforme", "Elle s'évapore"],
+          texte: "Savais-tu que le Dr Emoto a découvert qu'il n'existe jamais deux cristaux d'eau identiques — comme les flocons de neige, chacun est unique et porte sa propre histoire. Ces deux abbés sur le mur aussi sont uniques... mais l'un d'eux cache un secret. Quelque chose a été ajouté sur son portrait après sa mort. Sauras-tu trouver quoi ?",
+          choix: ["Un chapeau", "Une croix", "Une chemise"],
           bonne: 1,
           messageBonneReponse: "Autant de litres d'eau en toi... sensibles à chaque mot, chaque musique, chaque pensée, chaque émotion. Peut-être que prendre soin de ce que tu penses et écoutes, c'est déjà prendre soin de toi."
         }
