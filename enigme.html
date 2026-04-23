@@ -638,6 +638,11 @@
       // ✅ BONNE RÉPONSE
       bonneReponse = true;
 
+      // Vibration bonne réponse (mobile)
+      if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 100]);
+      }
+
       if (etapeData.videoBonneReponse) {
         chargerVideo('videoFeedback', etapeData.videoBonneReponse);
         // Message personnalisé si défini dans la question, sinon message par défaut
