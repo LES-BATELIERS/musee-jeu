@@ -52,8 +52,8 @@ const PARCOURS = {
           bonne: 0
         },
         famille: {
-          texte: "Je répète tout ce qu'on me dit... mais savais-tu que les mots ont une forme ? Le Dr Emoto a photographié des cristaux d'eau au microscope — les mots d'amour créaient de magnifiques symétries, les mots de haine les déformaient en chaos. Comme des flocons de neige dont il n'existe jamais deux identiques. Le prochain personnage que tu vas croiser jouait lui-même du violoncelle et commanda des opéras à Mozart. Si les mots et la musique transforment l'eau, et que notre corps en est composé à 70%... que devient-elle à chaque mélodie ?",
-          choix: ["Elle se fige", "Elle vibre et se transforme", "Elle s'évapore"],
+          texte: "Savais-tu que le Dr Emoto a découvert qu'il n'existe jamais deux cristaux d'eau identiques — comme les flocons de neige, chacun est unique et porte sa propre histoire. Ces deux abbés sur le mur aussi sont uniques... mais l'un d'eux cache un secret. Quelque chose a été ajouté sur son portrait après sa mort. Sauras-tu trouver quoi ?",
+          choix: ["Un chapeau", "Une croix", "Une chemise"],
           bonne: 1,
           messageBonneReponse: "Autant de litres d'eau en toi... sensibles à chaque mot, chaque musique, chaque pensée, chaque émotion. Peut-être que prendre soin de ce que tu penses et écoutes, c'est déjà prendre soin de toi."
         }
@@ -71,13 +71,13 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/7KPVi6gNEc4", "https://www.youtube.com/embed/3jtGKUmHRJw"],
       questions: {
         enfant: {
-          texte: "Avant, chaque ville avait sa propre heure — comme si chaque ville avait son propre soleil ! Puis les grandes personnes du monde entier ont décidé ensemble d'une seule heure pour tout le monde. Mais dis-moi... est-ce que le temps existe vraiment, ou est-ce que c'est juste une idée qu'on a inventée ?",
-          choix: ["C'est une vraie chose", "C'est une idée inventée", "C'est de la magie"],
+          texte: "Imagine que tu arrives à l'école et tu dis à ta maîtresse : 'Je suis pas en retard, j'ai décidé que l'école commence à midi !' Elle va dire quoi ? Avant, chaque ville faisait exactement ça ! Qui a eu l'idée d'inventer une heure pour tout le monde ?",
+          choix: ["Les maîtresses", "Les humains", "Les pizzas"],
           bonne: 1
         },
         famille: {
-          texte: "Avant 1884, New York et Namur ne partageaient pas la même heure — chaque ville vivait dans son propre présent. Puis les hommes inventèrent une heure universelle, choisissant Greenwich comme méridien zéro. Mais si chaque civilisation a inventé sa propre façon de mesurer le temps, quel mot décrit le mieux ce qu'est réellement le temps ?",
-          choix: ["Une loi naturelle", "Une invention humaine", "Une force universelle"],
+          texte: "Avant 1884, chaque ville vivait à sa propre heure. Mais les trains allaient trop vite — impossible de faire des horaires quand chaque ville avait son propre temps ! Alors 25 nations signèrent un accord à Washington, choisissant Greenwich comme référence mondiale. Le temps a toujours existé... mais l'heure sur ta montre ?",
+          choix: ["C'est une loi de la nature", "C'est une convention humaine", "C'est une force cosmique"],
           bonne: 1,
           messageBonneReponse: "Des siècles pour s'entendre sur une référence commune. Et pourtant aujourd'hui encore, la Chine impose une seule heure pour un pays qui devrait en avoir 5... Si l'heure n'est qu'une convention inventée par l'homme — une histoire qu'on se raconte ensemble — alors peut-être que le temps lui-même n'est pas ce qu'on croit. Einstein disait : 'La distinction entre passé, présent et futur n'est qu'une illusion, aussi tenace soit-elle.'"
         }
@@ -123,7 +123,7 @@ const PARCOURS = {
           classique: {
             videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
             texte: "Je vis dans le désert et j'ai une bosse. Qui suis-je ?",
-            choix: ["Le dromadaire", "Le serpent", "La tortue"],
+            choix: ["Le dromadaire", "Le chameau", "La tortue"],
             bonne: 0
           },
           pmr: {
@@ -136,7 +136,7 @@ const PARCOURS = {
         famille: {
           classique: {
             videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
-            texte: "Mon premier se lance sur une table de jeu.\nMon deuxième, c'est ce que fait un serveur au restaurant.\nMon tout est le royaume du dromadaire.",
+            texte: "Mon premier est le baldaquin suspendu au-dessus du trône royal.\nMon deuxième, c'est ce que fait un serf pour son seigneur.\nMon tout est le royaume du dromadaire.",
             choix: ["Dessert", "Désert", "Désaccord"],
             bonne: 1
           },
@@ -170,9 +170,10 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/ZrqXjjVA8NI", "https://www.youtube.com/embed/gsZglG5dbeY"],
       questions: {
         enfant: {
-          texte: "Le Sphinx de Gizeh veille depuis 4500 ans. Son nez a disparu — personne ne sait vraiment comment ni pourquoi. Napoléon a été accusé pendant des siècles, sans aucune preuve. L'histoire que tu apprends à l'école a toujours été écrite par quelqu'un. Par qui était-elle écrite le plus souvent ?",
-          choix: ["Les savants", "Les vainqueurs", "Les vaincus"],
-          bonne: 1
+          texte: "Pendant 200 ans, tout le monde a cru que Napoléon avait cassé le nez du Sphinx. Faux ! Des dessins datant d'avant lui le prouvent. Si 200 ans de mensonge peuvent exister... que faut-il faire face à une affirmation ?",
+          choix: ["La croire immédiatement", "La questionner", "L'ignorer"],
+          bonne: 1,
+          messageBonneReponse: "200 ans de mensonge sur le nez du Sphinx... Le doute est une force, pas une faiblesse. Questionner ce qu'on te dit, chercher les preuves, ne pas avaler tout ce qu'on te raconte — c'est une des choses les plus courageuses qu'un être humain puisse faire."
         },
         famille: {
           texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits noirs africains du visage. George Orwell écrivait : 'Celui qui contrôle le passé contrôle l'avenir.' De quel procédé parle-t-il ?",
@@ -256,7 +257,7 @@ const PARCOURS = {
           texte: "Le Vieux Gardien sait que les mots ont un poids. Victor Hugo écrivait : 'La musique, c'est du bruit qui pense.' Si les mots sont des vibrations et que notre corps est une caisse de résonance, comment appelle-t-on la figure de style qui donne une vie, une âme à une chose inanimée ?",
           choix: ["La métaphore", "La personnification", "L'allégorie"],
           bonne: 1,
-          messageBonneReponse: "Les mots vibrent. Les musiques guérissent. Donner une âme à ce qui n'en a pas, pour mieux comprendre la nôtre."
+          messageBonneReponse: "Les mots vibrent. La musique guérit. Et si chaque mélodie entendue, chaque mot reçu depuis ta naissance, avait doucement dessiné les contours de qui tu es ?"
         }
       },
       indice: "Trouve la Lampe magique dans le musée !"
