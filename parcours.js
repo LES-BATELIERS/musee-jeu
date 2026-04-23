@@ -136,7 +136,7 @@ const PARCOURS = {
         famille: {
           classique: {
             videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
-            texte: "Mon premier se lance sur une table de jeu.\nMon deuxième, c'est ce que fait un serveur au restaurant.\nMon tout est le royaume du dromadaire.",
+            texte: "Mon premier est le baldaquin suspendu au-dessus du trône royal.\nMon deuxième, c'est ce que fait un serf pour son seigneur.\nMon tout est le royaume du dromadaire.",
             choix: ["Dessert", "Désert", "Désaccord"],
             bonne: 1
           },
