@@ -127,7 +127,7 @@ const PARCOURS = {
             bonne: 0
           },
           pmr: {
-            videoIntro: "https://www.youtube.com/embed/4l7BW-rRidE",
+            videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
             texte: "Comment s'appelle le petit ange ailé qui regarde les étoiles et connaît ton signe astrologique ?",
             choix: ["Cupidon", "Le putti astronome", "L'elfe"],
             bonne: 1
@@ -141,7 +141,7 @@ const PARCOURS = {
             bonne: 1
           },
           pmr: {
-            videoIntro: "https://www.youtube.com/embed/4l7BW-rRidE",
+            videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
             texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est quand la quantité dépasse la limite.\nMon troisième est le mot qui désigne tous les êtres humains.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
             choix: ["Royauté", "Astronome", "Damnation"],
             bonne: 1
