@@ -71,8 +71,8 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/7KPVi6gNEc4", "https://www.youtube.com/embed/3jtGKUmHRJw"],
       questions: {
         enfant: {
-          texte: "Avant, chaque ville avait sa propre heure — comme si chaque ville avait son propre soleil ! Puis les grandes personnes du monde entier ont décidé ensemble d'une seule heure pour tout le monde. Mais dis-moi... est-ce que le temps existe vraiment, ou est-ce que c'est juste une idée qu'on a inventée ?",
-          choix: ["C'est une vraie chose", "C'est une idée inventée", "C'est de la magie"],
+          texte: "Imagine que tu arrives à l'école et tu dis à ta maîtresse : 'Je suis pas en retard, j'ai décidé que l'école commence à midi !' Elle va dire quoi ? Avant, chaque ville faisait exactement ça ! Qui a eu l'idée d'inventer une heure pour tout le monde ?",
+          choix: ["Les maîtresses", "Les humains", "Les pizzas"],
           bonne: 1
         },
         famille: {
