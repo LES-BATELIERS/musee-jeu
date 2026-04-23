@@ -955,6 +955,23 @@ body.grand-texte .message-feedback { font-size: 1.1rem !important; }
   background: rgba(200,168,66,0.15);
   animation: clignote 1s ease-in-out infinite;
 }
+
+/* ── COMPTEUR ÉTOILES ── */
+#etoilesCompteur {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 6px 0 2px;
+}
+.etoile {
+  font-size: 20px;
+  transition: all 0.4s ease;
+}
+.etoile.perdue {
+  opacity: 0.15;
+  transform: scale(0.7);
+  filter: grayscale(100%);
+}
 </style>
 <script>
 document.addEventListener('click', function(e) {
