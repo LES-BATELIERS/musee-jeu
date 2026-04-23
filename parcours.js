@@ -170,8 +170,8 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/ZrqXjjVA8NI", "https://www.youtube.com/embed/gsZglG5dbeY"],
       questions: {
         enfant: {
-          texte: "Le Sphinx de Gizeh veille depuis 4500 ans. Son nez a disparu — personne ne sait vraiment comment ni pourquoi. Napoléon a été accusé pendant des siècles, sans aucune preuve. L'histoire que tu apprends à l'école a toujours été écrite par quelqu'un. Par qui était-elle écrite le plus souvent ?",
-          choix: ["Les savants", "Les vainqueurs", "Les vaincus"],
+          texte: "Pendant 200 ans, tout le monde a cru que Napoléon avait cassé le nez du Sphinx. Faux ! Des dessins datant d'avant lui le prouvent. Si 200 ans de mensonge peuvent exister... que faut-il faire face à une affirmation ?",
+          choix: ["La croire immédiatement", "La questionner", "L'ignorer"],
           bonne: 1
         },
         famille: {
