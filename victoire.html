@@ -5,85 +5,214 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Les Bateliers — Félicitations</title>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <link rel="stylesheet" href="css/style.css?v=1">
+  <link rel="stylesheet" href="css/style.css?v=5">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+  function toggleGrandTexte() {
+    const actif = document.body.classList.toggle('grand-texte');
+    const btn = document.getElementById('btnGrandTexte');
+    if (btn) btn.classList.toggle('actif', actif);
+    localStorage.setItem('grandTexte', actif ? '1' : '0');
+  }
+  // Restaurer au chargement
+  if (localStorage.getItem('grandTexte') === '1') {
+    document.body.classList.add('grand-texte');
+    var btn = document.getElementById('btnGrandTexte');
+    if (btn) btn.classList.add('actif');
+  }
+</script>
+  <style>
+    #certificat {
+      background: #0a0a0a;
+      border: 2px solid #c8a842;
+      border-radius: 16px;
+      padding: 32px 24px;
+      margin: 20px auto;
+      max-width: 380px;
+      text-align: center;
+      position: relative;
+      font-family: Georgia, serif;
+    }
+    #certificat .cert-titre {
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #c8a842;
+      margin-bottom: 6px;
+    }
+    #certificat .cert-musee {
+      font-size: 1rem;
+      color: #8a8070;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    #certificat .cert-prenom {
+      font-size: 2rem;
+      color: #f0ead8;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    #certificat .cert-message {
+      font-size: 0.8rem;
+      color: #6b6355;
+      letter-spacing: 1px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    #certificat .cert-parcours {
+      display: inline-block;
+      border: 1px solid #c8a842;
+      border-radius: 6px;
+      padding: 4px 16px;
+      font-size: 0.75rem;
+      color: #c8a842;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    #certificat .cert-etoiles {
+      font-size: 1.6rem;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+    }
+    #certificat .cert-date {
+      font-size: 0.65rem;
+      color: #3a3530;
+      letter-spacing: 2px;
+    }
+    #certificat .cert-sep {
+      border: none;
+      border-top: 1px solid #2a2520;
+      margin: 16px 0;
+    }
+    #certificat .cert-logo {
+      width: 60px;
+      margin-bottom: 12px;
+      opacity: 0.8;
+    }
+    .btn-dl {
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto 12px;
+      display: block;
+      background: transparent;
+      border: 1px solid #c8a842;
+      border-radius: 10px;
+      padding: 14px;
+      color: #c8a842;
+      font-family: Georgia, serif;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .btn-rejouer {
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+      display: block;
+      background: transparent;
+      border: 1px solid #2a2520;
+      border-radius: 10px;
+      padding: 14px;
+      color: #3a3530;
+      font-family: Georgia, serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+  /* ── MODE GRAND TEXTE ── */
+  #btnGrandTexte {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 9999;
+    background: transparent;
+    border: 1px solid #3a3530;
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: #6b6355;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Georgia, serif;
+  }
+  #btnGrandTexte.actif { border-color: #c8a842; color: #c8a842; }
+  body.grand-texte #certificat { font-size: 1.2rem !important; }
+  body.grand-texte #certificat .cert-titre { font-size: 0.8rem !important; }
+  body.grand-texte #certificat .cert-nom { font-size: 2rem !important; }
+  body.grand-texte #certificat .cert-message { font-size: 1.1rem !important; line-height: 1.9 !important; }
+  body.grand-texte #certificat .cert-date { font-size: 0.9rem !important; }
+  body.grand-texte .btn-dl { font-size: 1rem !important; padding: 14px 20px !important; }
+  </style>
 </head>
 <body>
-  <div class="victoire-card">
-    <img src="img/logo.png" alt="Les Bateliers" class="logo-musee">
-    <div class="separateur"></div>
-    <h1>Félicitations</h1>
-    <p id="messageVictoire">Tu as terminé le parcours du musée.</p>
-    <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.7rem;">
-      <button class="btn-suite" onclick="window.location.href='certificat.html'">
-        Voir mon certificat ✦
-      </button>
-      <button class="btn-suite" style="border-color:#2a2520; color:#6b6355;" onclick="rejouer()">
-        Recommencer
-      </button>
+<button id="btnGrandTexte" onclick="toggleGrandTexte()" title="Agrandir le texte">𝐀</button>
+
+  <div style="padding: 20px; max-width: 420px; margin: 0 auto;">
+
+    <div id="certificat">
+      <img src="img/logo.png" alt="Les Bateliers" class="cert-logo">
+      <div class="cert-titre">Certificat d'exploration</div>
+      <div class="cert-musee">Les Bateliers</div>
+      <hr class="cert-sep">
+      <div class="cert-prenom" id="certPrenom">Explorateur</div>
+      <div class="cert-message">a percé les mystères du musée<br>et découvert tous ses secrets</div>
+      <div class="cert-parcours" id="certParcours">Parcours</div>
+      <div class="cert-etoiles" id="certEtoiles">⭐⭐⭐</div>
+      <hr class="cert-sep">
+      <div class="cert-date" id="certDate"></div>
     </div>
+
+    <button class="btn-dl" onclick="telecharger()">
+      ⬇ Télécharger mon certificat
+    </button>
+    <button class="btn-rejouer" onclick="rejouer()">
+      Recommencer l'aventure
+    </button>
+
   </div>
-  <script src="js/game.js"></script>
-  <script src="data/parcours.js"></script>
+
+  <script src="js/game.js?v=5"></script>
+  <script src="data/parcours.js?v=5"></script>
   <script>
     window.onload = function() {
       const s = GAME.getSession();
-      const noms = {
-        'enfants': 'Enfants',
-        'famille': 'Famille',
-        'pmr':     'PMR'
-      };
-      const nom = noms[s.parcours] || '';
-      if (nom) {
-        document.getElementById('messageVictoire').textContent =
-          'Tu as terminé le parcours ' + nom + ' du musée.';
-      }
+      const prenom = localStorage.getItem('prenom') || 'Explorateur';
+      const noms = { enfants: 'Enfants', famille: 'Famille', pmr: 'PMR' };
+      const parcours = noms[s.parcours] || 'Découverte';
+      const erreurs = s.erreurs || 0;
+      const etoiles = Math.max(0, 3 - erreurs);
+      const etoilesAffichees = '⭐'.repeat(etoiles) + (etoiles < 3 ? '☆'.repeat(3 - etoiles) : '');
+      const date = new Date().toLocaleDateString('fr-BE', { day:'numeric', month:'long', year:'numeric' });
+
+      document.getElementById('certPrenom').textContent = prenom;
+      document.getElementById('certParcours').textContent = 'Parcours ' + parcours;
+      document.getElementById('certEtoiles').textContent = etoilesAffichees;
+      document.getElementById('certDate').textContent = date;
     };
+
+    function telecharger() {
+      const cert = document.getElementById('certificat');
+      html2canvas(cert, {
+        backgroundColor: '#0a0a0a',
+        scale: 2,
+        useCORS: true
+      }).then(function(canvas) {
+        const lien = document.createElement('a');
+        const prenom = localStorage.getItem('prenom') || 'explorateur';
+        lien.download = 'certificat-bateliers-' + prenom.toLowerCase() + '.png';
+        lien.href = canvas.toDataURL('image/png');
+        lien.click();
+      });
+    }
 
     function rejouer() {
       GAME.reset();
+      localStorage.removeItem('prenom');
       window.location.href = 'index.html';
     }
   </script>
-
-<style id="ripple-global">
-.ripple-dot {
-  position: fixed;
-  border-radius: 50%;
-  background: rgba(240, 234, 216, 0.25);
-  transform: scale(0);
-  pointer-events: none;
-  z-index: 99999;
-  animation: rippleGlobal 0.6s ease-out forwards;
-}
-@keyframes rippleGlobal {
-  from { transform: scale(0); opacity: 0.5; }
-  to   { transform: scale(6); opacity: 0; }
-}
-</style>
-<script>
-document.addEventListener('click', function(e) {
-  const dot = document.createElement('div');
-  dot.className = 'ripple-dot';
-  const size = 40;
-  dot.style.width  = size + 'px';
-  dot.style.height = size + 'px';
-  dot.style.left   = (e.clientX - size / 2) + 'px';
-  dot.style.top    = (e.clientY - size / 2) + 'px';
-  document.body.appendChild(dot);
-  dot.addEventListener('animationend', function() { dot.remove(); });
-});
-document.addEventListener('touchstart', function(e) {
-  const touch = e.touches[0];
-  const dot = document.createElement('div');
-  dot.className = 'ripple-dot';
-  const size = 40;
-  dot.style.width  = size + 'px';
-  dot.style.height = size + 'px';
-  dot.style.left   = (touch.clientX - size / 2) + 'px';
-  dot.style.top    = (touch.clientY - size / 2) + 'px';
-  document.body.appendChild(dot);
-  dot.addEventListener('animationend', function() { dot.remove(); });
-}, { passive: true });
-</script>
 </body>
 </html>
