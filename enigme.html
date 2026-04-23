@@ -558,7 +558,11 @@
     document.getElementById('personnageNom').textContent = etapeData.personnage;
     document.getElementById('questionTexte').textContent = questionData.texte;
 
-    // Compteur d'erreurs
+    // Remettre les 3 étoiles à plein au début de chaque question
+    for (var i = 1; i <= 3; i++) {
+      var e = document.getElementById('etoile' + i);
+      if (e) e.classList.remove('perdue');
+    }
     majCompteurErreurs();
 
     // Générer les boutons de réponse
