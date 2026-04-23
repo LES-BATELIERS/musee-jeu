@@ -76,8 +76,8 @@ const PARCOURS = {
           bonne: 1
         },
         famille: {
-          texte: "Avant 1884, New York et Namur ne partageaient pas la même heure — chaque ville vivait dans son propre présent. Puis les hommes inventèrent une heure universelle, choisissant Greenwich comme méridien zéro. Mais si chaque civilisation a inventé sa propre façon de mesurer le temps, quel mot décrit le mieux ce qu'est réellement le temps ?",
-          choix: ["Une loi naturelle", "Une invention humaine", "Une force universelle"],
+          texte: "Avant 1884, chaque ville vivait à sa propre heure. Mais les trains allaient trop vite — impossible de faire des horaires quand chaque ville avait son propre temps ! Alors 25 nations signèrent un accord à Washington, choisissant Greenwich comme référence mondiale. Le temps a toujours existé... mais l'heure sur ta montre ?",
+          choix: ["C'est une loi de la nature", "C'est une convention humaine", "C'est une force cosmique"],
           bonne: 1,
           messageBonneReponse: "Des siècles pour s'entendre sur une référence commune. Et pourtant aujourd'hui encore, la Chine impose une seule heure pour un pays qui devrait en avoir 5... Si l'heure n'est qu'une convention inventée par l'homme — une histoire qu'on se raconte ensemble — alors peut-être que le temps lui-même n'est pas ce qu'on croit. Einstein disait : 'La distinction entre passé, présent et futur n'est qu'une illusion, aussi tenace soit-elle.'"
         }
