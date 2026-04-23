@@ -172,7 +172,8 @@ const PARCOURS = {
         enfant: {
           texte: "Pendant 200 ans, tout le monde a cru que Napoléon avait cassé le nez du Sphinx. Faux ! Des dessins datant d'avant lui le prouvent. Si 200 ans de mensonge peuvent exister... que faut-il faire face à une affirmation ?",
           choix: ["La croire immédiatement", "La questionner", "L'ignorer"],
-          bonne: 1
+          bonne: 1,
+          messageBonneReponse: "200 ans de mensonge sur le nez du Sphinx... Le doute est une force, pas une faiblesse. Questionner ce qu'on te dit, chercher les preuves, ne pas avaler tout ce qu'on te raconte — c'est une des choses les plus courageuses qu'un être humain puisse faire."
         },
         famille: {
           texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits noirs africains du visage. George Orwell écrivait : 'Celui qui contrôle le passé contrôle l'avenir.' De quel procédé parle-t-il ?",
