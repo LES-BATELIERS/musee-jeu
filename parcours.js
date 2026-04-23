@@ -123,7 +123,7 @@ const PARCOURS = {
           classique: {
             videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
             texte: "Je vis dans le désert et j'ai une bosse. Qui suis-je ?",
-            choix: ["Le dromadaire", "Le serpent", "La tortue"],
+            choix: ["Le dromadaire", "Le chameau", "La tortue"],
             bonne: 0
           },
           pmr: {
