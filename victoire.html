@@ -160,7 +160,10 @@
       <div class="cert-prenom" id="certPrenom">Explorateur</div>
       <div class="cert-message">a percé les mystères du musée<br>et découvert tous ses secrets</div>
       <div class="cert-parcours" id="certParcours">Parcours</div>
-      <div class="cert-etoiles" id="certEtoiles">⭐⭐⭐</div>
+      <div class="cert-etoiles" id="certEtoiles" style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">
+        <span style="font-size:0.75rem;color:#8a8070;letter-spacing:1px;">Réussi avec</span>
+        <span id="certEtoilesSymboles" style="font-size:1.6rem;letter-spacing:3px;">⭐⭐⭐</span>
+      </div>
       <hr class="cert-sep">
       <div class="cert-date" id="certDate"></div>
     </div>
@@ -182,14 +185,16 @@
       const prenom = localStorage.getItem('prenom') || 'Explorateur';
       const noms = { enfants: 'Enfants', famille: 'Famille', pmr: 'PMR' };
       const parcours = noms[s.parcours] || 'Découverte';
-      const erreurs = s.erreurs || 0;
-      const etoiles = Math.max(0, 3 - erreurs);
-      const etoilesAffichees = '⭐'.repeat(etoiles) + (etoiles < 3 ? '☆'.repeat(3 - etoiles) : '');
+      const totalErreurs = parseInt(localStorage.getItem('totalErreurs') || '0');
+      const maxEtoiles = 21;
+      const etoilesObtenues = Math.max(0, maxEtoiles - totalErreurs);
+      const etoilesAffichees = etoilesObtenues + ' / ' + maxEtoiles;
       const date = new Date().toLocaleDateString('fr-BE', { day:'numeric', month:'long', year:'numeric' });
 
       document.getElementById('certPrenom').textContent = prenom;
       document.getElementById('certParcours').textContent = 'Parcours ' + parcours;
-      document.getElementById('certEtoiles').textContent = etoilesAffichees;
+      var symb = document.getElementById('certEtoilesSymboles');
+      if (symb) symb.textContent = '⭐ ' + etoilesAffichees;
       document.getElementById('certDate').textContent = date;
     };
 
