@@ -10,8 +10,14 @@
   <link rel="stylesheet" href="css/style.css?v=1">
 </head>
 <body>
-<button id="btnGrandTexte" onclick="toggleGrandTexte()" title="Mode grand texte">𝐀</button>
-
+<button id="btnGrandTexte" onclick="toggleGrandTexte()" title="Agrandir le texte">
+  <svg id="loupeIcon" viewBox="0 0 24 24" fill="none" stroke="#6b6355" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+    <circle cx="11" cy="11" r="7"/>
+    <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+    <line x1="8" y1="11" x2="14" y2="11"/>
+    <line x1="11" y1="8" x2="11" y2="14"/>
+  </svg>
+</button>
 <div id="flecheScroll" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});cacherFleche();">
   <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16M5 13l7 7 7-7" stroke="#c8a842" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <span>Continuer</span>
@@ -464,6 +470,26 @@
   };
 
   // ── Afficher la question ──
+  function toggleGrandTexte() {
+    var actif = document.body.classList.toggle('grand-texte');
+    var btn = document.getElementById('btnGrandTexte');
+    var ico = document.getElementById('loupeIcon');
+    if (btn) btn.classList.toggle('actif', actif);
+    if (ico) ico.setAttribute('stroke', actif ? '#c8a842' : '#6b6355');
+    localStorage.setItem('grandTexte', actif ? '1' : '0');
+  }
+
+  // Restaurer au chargement
+  (function() {
+    if (localStorage.getItem('grandTexte') === '1') {
+      document.body.classList.add('grand-texte');
+      var btn = document.getElementById('btnGrandTexte');
+      var ico = document.getElementById('loupeIcon');
+      if (btn) btn.classList.add('actif');
+      if (ico) ico.setAttribute('stroke', '#c8a842');
+    }
+  })();
+
   function montrerFleche() {
     var f = document.getElementById('flecheScroll');
     if (f) f.classList.add('visible');
@@ -472,22 +498,6 @@
   function cacherFleche() {
     var f = document.getElementById('flecheScroll');
     if (f) f.classList.remove('visible');
-  }
-
-  function toggleGrandTexte() {
-    const actif = document.body.classList.toggle('grand-texte');
-    const btn = document.getElementById('btnGrandTexte');
-    if (btn) btn.classList.toggle('actif', actif);
-    localStorage.setItem('grandTexte', actif ? '1' : '0');
-  }
-
-  // Restaurer le mode grand texte au chargement
-  if (localStorage.getItem('grandTexte') === '1') {
-    document.body.classList.add('grand-texte');
-    document.addEventListener('DOMContentLoaded', function() {
-      var btn = document.getElementById('btnGrandTexte');
-      if (btn) btn.classList.add('actif');
-    });
   }
 
   function scrollBas() {
@@ -905,6 +915,30 @@
   font-size: 9px; color: #c8a842;
   letter-spacing: 2px; text-transform: uppercase;
 }
+
+/* ── MODE GRAND TEXTE ── */
+body.grand-texte .question-texte { font-size: 1.25rem !important; line-height: 1.9 !important; }
+body.grand-texte .btn-choix { font-size: 1.1rem !important; padding: 14px 16px !important; }
+body.grand-texte .personnage-nom { font-size: 1.2rem !important; }
+body.grand-texte .message-feedback { font-size: 1.1rem !important; }
+
+#btnGrandTexte {
+  position: fixed;
+  bottom: 70px;
+  right: 14px;
+  z-index: 9998;
+  background: rgba(10,10,10,0.85);
+  border: 1px solid #3a3530;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+#btnGrandTexte.actif { border-color: #c8a842; background: rgba(200,168,66,0.1); }
 </style>
 <script>
 document.addEventListener('click', function(e) {
