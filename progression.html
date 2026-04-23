@@ -56,8 +56,8 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 #btnZoomCarte {
   position: fixed;
   bottom: 80px;
-  left: 50%;
-  transform: translateX(-120px);
+  left: 970px;
+  transform: translateX(-50%);
   z-index: 9999;
   background: rgba(10,10,10,0.9);
   border: 1px solid #3a3530;
@@ -80,7 +80,7 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   transition: transform 0.3s ease;
   transform-origin: center top;
 }
-#carte.zoome { transform: scale(3); transform-origin: top center; }
+#carte.zoome { transform: scale(2); transform-origin: top center; }
 
 @keyframes clignote {
   0%,100% { opacity: 1; }
