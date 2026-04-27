@@ -569,6 +569,48 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   </div>
 </div>
 
+<!-- Overlay indice Loggia → Licorne -->
+<div id="overlayLoggia">
+  <div class="joseph-card">
+
+    <div class="joseph-points">
+      <div class="joseph-point actif" id="lp1"></div>
+      <div class="joseph-point" id="lp2"></div>
+      <div class="joseph-point" id="lp3"></div>
+      <div class="joseph-point" id="lp4"></div>
+    </div>
+
+    <!-- Étape 1 -->
+    <div id="loggiaEtape1">
+      <div class="joseph-etape">✦ Indice — Étape 1 / 4 ✦</div>
+      <div class="joseph-texte">Tu approches de la prochaine énigme...<br><br>Commence par te rendre dans la<br><strong style="color:#c8a842;font-size:1.1rem;letter-spacing:2px;">Salle de la Loggia</strong></div>
+      <button class="joseph-btn" onclick="loggiaEtape(2)">J'y suis ✦</button>
+    </div>
+
+    <!-- Étape 2 -->
+    <div id="loggiaEtape2" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 2 / 4 ✦</div>
+      <div class="joseph-texte">Prends un moment...<br><br>Apprécie la belle vue sur le <strong style="color:#c8a842;">jardin</strong> 🌿</div>
+      <button class="joseph-btn" onclick="loggiaEtape(3)">C'est fait ✦</button>
+    </div>
+
+    <!-- Étape 3 -->
+    <div id="loggiaEtape3" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 3 / 4 ✦</div>
+      <div class="joseph-texte">Avance maintenant jusqu'à la<br><br><strong style="color:#c8a842;font-size:1.1rem;letter-spacing:2px;">Salle aux toiles fleuries</strong></div>
+      <button class="joseph-btn" onclick="loggiaEtape(4)">J'y suis ✦</button>
+    </div>
+
+    <!-- Étape 4 -->
+    <div id="loggiaEtape4" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 4 / 4 ✦</div>
+      <div class="joseph-texte">Dans cette salle se cache une créature mythique...<br><br>Cherche la <strong style="color:#c8a842;font-size:1.1rem;letter-spacing:2px;">Licorne 🦄</strong><br><br>et scanne son QR code !</div>
+      <button class="joseph-btn" style="border-color:#00aa33;color:#00aa33;" onclick="fermerLoggia()">Je l'ai trouvée ! ✦</button>
+    </div>
+
+  </div>
+</div>
+
 <!-- Overlay indice Couloir → Horloge 1759 -->
 <div id="overlayCouloir">
   <div class="joseph-card">
@@ -648,6 +690,48 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
         <div style="color:#00dd44; font-size:0.85rem; letter-spacing:1px; margin-bottom:16px;">✓ Bien observé !</div>
         <button class="joseph-btn" style="border-color:#00aa33; color:#00aa33;" onclick="fermerSalon()">Trouve l'horloge et scanne le QR code ✦</button>
       </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Overlay indice Loggia → Licorne -->
+<div id="overlayLoggia">
+  <div class="joseph-card">
+
+    <div class="joseph-points">
+      <div class="joseph-point actif" id="lp1"></div>
+      <div class="joseph-point" id="lp2"></div>
+      <div class="joseph-point" id="lp3"></div>
+      <div class="joseph-point" id="lp4"></div>
+    </div>
+
+    <!-- Étape 1 -->
+    <div id="loggiaEtape1">
+      <div class="joseph-etape">✦ Indice — Étape 1 / 4 ✦</div>
+      <div class="joseph-texte">Tu approches de la prochaine énigme...<br><br>Commence par te rendre dans la<br><strong style="color:#c8a842;font-size:1.1rem;letter-spacing:2px;">Salle de la Loggia</strong></div>
+      <button class="joseph-btn" onclick="loggiaEtape(2)">J'y suis ✦</button>
+    </div>
+
+    <!-- Étape 2 -->
+    <div id="loggiaEtape2" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 2 / 4 ✦</div>
+      <div class="joseph-texte">Prends un moment...<br><br>Apprécie la belle vue sur le <strong style="color:#c8a842;">jardin</strong> 🌿</div>
+      <button class="joseph-btn" onclick="loggiaEtape(3)">C'est fait ✦</button>
+    </div>
+
+    <!-- Étape 3 -->
+    <div id="loggiaEtape3" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 3 / 4 ✦</div>
+      <div class="joseph-texte">Avance maintenant jusqu'à la<br><br><strong style="color:#c8a842;font-size:1.1rem;letter-spacing:2px;">Salle aux toiles fleuries</strong></div>
+      <button class="joseph-btn" onclick="loggiaEtape(4)">J'y suis ✦</button>
+    </div>
+
+    <!-- Étape 4 -->
+    <div id="loggiaEtape4" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 4 / 4 ✦</div>
+      <div class="joseph-texte">Dans cette salle se cache une créature mythique...<br><br>Cherche la <strong style="color:#c8a842;font-size:1.1rem;letter-spacing:2px;">Licorne 🦄</strong><br><br>et scanne son QR code !</div>
+      <button class="joseph-btn" style="border-color:#00aa33;color:#00aa33;" onclick="fermerLoggia()">Je l'ai trouvée ! ✦</button>
     </div>
 
   </div>
@@ -1001,6 +1085,30 @@ function validerPrenom() {
   window.location.href = 'victoire.html';
 }
 
+function ouvrirLoggia() {
+  var overlay = document.getElementById('overlayLoggia');
+  if (overlay) overlay.classList.add('visible');
+  loggiaEtape(1);
+}
+
+function loggiaEtape(n) {
+  [1,2,3,4].forEach(function(i) {
+    var e = document.getElementById('loggiaEtape'+i);
+    if (e) e.style.display = i === n ? 'block' : 'none';
+    var p = document.getElementById('lp'+i);
+    if (p) {
+      p.classList.remove('actif','fait');
+      if (i < n) p.classList.add('fait');
+      if (i === n) p.classList.add('actif');
+    }
+  });
+}
+
+function fermerLoggia() {
+  var overlay = document.getElementById('overlayLoggia');
+  if (overlay) overlay.classList.remove('visible');
+}
+
 function ouvrirCouloir() {
   var overlay = document.getElementById('overlayCouloir');
   if (overlay) overlay.classList.add('visible');
@@ -1022,6 +1130,30 @@ function couloirEtape(n) {
 
 function fermerCouloir() {
   var overlay = document.getElementById('overlayCouloir');
+  if (overlay) overlay.classList.remove('visible');
+}
+
+function ouvrirLoggia() {
+  var overlay = document.getElementById('overlayLoggia');
+  if (overlay) overlay.classList.add('visible');
+  loggiaEtape(1);
+}
+
+function loggiaEtape(n) {
+  [1,2,3,4].forEach(function(i) {
+    var e = document.getElementById('loggiaEtape'+i);
+    if (e) e.style.display = i === n ? 'block' : 'none';
+    var p = document.getElementById('lp'+i);
+    if (p) {
+      p.classList.remove('actif','fait');
+      if (i < n) p.classList.add('fait');
+      if (i === n) p.classList.add('actif');
+    }
+  });
+}
+
+function fermerLoggia() {
+  var overlay = document.getElementById('overlayLoggia');
   if (overlay) overlay.classList.remove('visible');
 }
 
@@ -1230,9 +1362,17 @@ window.onload = function() {
     if (s && s.phase === 'commun' && s.etape === 3) {
       setTimeout(ouvrirCouloir, 1500);
     }
+    // Afficher l'indice Loggia après Le Dromadaire (classique, étape 0)
+    if (s && s.parcours !== 'pmr' && s.phase === 'classique' && s.etape === 1) {
+      setTimeout(ouvrirLoggia, 1500);
+    }
     // Afficher l'indice Couloir après H. Salon Rouge (tous parcours, étape 3)
     if (s && s.phase === 'commun' && s.etape === 3) {
       setTimeout(ouvrirCouloir, 1500);
+    }
+    // Afficher l'indice Loggia après Le Dromadaire (classique, étape 0)
+    if (s && s.parcours !== 'pmr' && s.phase === 'classique' && s.etape === 1) {
+      setTimeout(ouvrirLoggia, 1500);
     }
   }
   // Si déjà toutes les étapes validées sans animation
