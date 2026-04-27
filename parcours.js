@@ -142,7 +142,7 @@ const PARCOURS = {
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
-            texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est quand la quantité dépasse la limite.\nMon troisième est le mot qui désigne tous les êtres humains.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
+            texte: "Mon premier est celui que tous les joueurs de cartes rêvent de tenir en main.\nMon deuxième envahit ce qui devrait rester raisonnable.\nMon troisième, ni femme ni enfant, désigne pourtant toute notre humanité.\nMon tout observe le ciel depuis le jardin du musée, les yeux levés vers l'infini.",
             choix: ["Royauté", "Astronome", "Damnation"],
             bonne: 1
           }
