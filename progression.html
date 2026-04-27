@@ -82,6 +82,22 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 }
 #carte.zoome { transform: scale(2); transform-origin: top center; }
 
+/* ── OVERLAY INDICE SALON ── */
+#overlaySalon {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.95);
+  z-index: 99999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  font-family: Georgia, serif;
+}
+#overlaySalon.visible { display: flex; }
+
 /* ── OVERLAY INDICE JOSEPH ── */
 #overlayJoseph {
   display: none;
@@ -537,6 +553,56 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   </div>
 </div>
 
+<!-- Overlay indice Salon Louis XVI → Salon Rouge -->
+<div id="overlaySalon">
+  <div class="joseph-card">
+
+    <div class="joseph-points">
+      <div class="joseph-point actif" id="sp1"></div>
+      <div class="joseph-point" id="sp2"></div>
+      <div class="joseph-point" id="sp3"></div>
+      <div class="joseph-point" id="sp4"></div>
+    </div>
+
+    <!-- Étape 1 -->
+    <div id="salonEtape1">
+      <div class="joseph-etape">✦ Indice — Étape 1 / 4 ✦</div>
+      <div class="joseph-texte">Pour trouver la prochaine énigme, commence par te rendre dans...<br><br><strong style="color:#c8a842;font-size:1.1rem;letter-spacing:2px;">Le Salon Louis XVI</strong></div>
+      <button class="joseph-btn" onclick="salonEtape(2)">Oui, j'y suis ✦</button>
+    </div>
+
+    <!-- Étape 2 -->
+    <div id="salonEtape2" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 2 / 4 ✦</div>
+      <div class="joseph-texte">Dans ce salon se cachent des personnages sculptés ou moulés en terre cuite.<br><br>Combien en comptes-tu ?</div>
+      <button class="joseph-choix" id="schoixA" onclick="salonChoix1('A')">8</button>
+      <button class="joseph-choix" id="schoixB" onclick="salonChoix1('B')">9</button>
+      <button class="joseph-choix" id="schoixC" onclick="salonChoix1('C')">10</button>
+    </div>
+
+    <!-- Étape 3 -->
+    <div id="salonEtape3" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 3 / 4 ✦</div>
+      <div class="joseph-texte">Parfait ! Maintenant rends-toi dans la pièce suivante...<br><br><strong style="color:#cc3333;font-size:1.1rem;letter-spacing:2px;">Le Salon Rouge</strong></div>
+      <button class="joseph-btn" onclick="salonEtape(4)">J'y suis ✦</button>
+    </div>
+
+    <!-- Étape 4 -->
+    <div id="salonEtape4" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 4 / 4 ✦</div>
+      <div class="joseph-texte">Observe la vaisselle exposée dans cette pièce...<br><br>Quel animal y trouve-t-on ?</div>
+      <button class="joseph-choix" id="schoixD" onclick="salonChoix2('D')">Un serpent</button>
+      <button class="joseph-choix" id="schoixE" onclick="salonChoix2('E')">Un escargot</button>
+      <button class="joseph-choix" id="schoixF" onclick="salonChoix2('F')">Un lion</button>
+      <div id="salonSucces" style="display:none; margin-top:16px;">
+        <div style="color:#00dd44; font-size:0.85rem; letter-spacing:1px; margin-bottom:16px;">✓ Bien observé !</div>
+        <button class="joseph-btn" style="border-color:#00aa33; color:#00aa33;" onclick="fermerSalon()">Trouve l'horloge et scanne le QR code ✦</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- Overlay indice Joseph II -->
 <div id="overlayJoseph">
   <div class="joseph-card">
@@ -844,6 +910,65 @@ function validerPrenom() {
   window.location.href = 'victoire.html';
 }
 
+function ouvrirSalon() {
+  var overlay = document.getElementById('overlaySalon');
+  if (overlay) overlay.classList.add('visible');
+  salonEtape(1);
+  ['schoixA','schoixB','schoixC','schoixD','schoixE','schoixF'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (btn) { btn.classList.remove('grise','bon'); btn.style.pointerEvents = ''; }
+  });
+  document.getElementById('salonSucces').style.display = 'none';
+}
+
+function salonEtape(n) {
+  [1,2,3,4].forEach(function(i) {
+    var e = document.getElementById('salonEtape'+i);
+    if (e) e.style.display = i === n ? 'block' : 'none';
+    var p = document.getElementById('sp'+i);
+    if (p) {
+      p.classList.remove('actif','fait');
+      if (i < n) p.classList.add('fait');
+      if (i === n) p.classList.add('actif');
+    }
+  });
+}
+
+function salonChoix1(choix) {
+  if (choix === 'C') {
+    var btn = document.getElementById('schoix'+choix);
+    if (btn) btn.classList.add('bon');
+    ['schoixA','schoixB'].forEach(function(id) {
+      var b = document.getElementById(id);
+      if (b) b.classList.add('grise');
+    });
+    setTimeout(function() { salonEtape(3); }, 800);
+  } else {
+    var btn = document.getElementById('schoix'+choix);
+    if (btn) btn.classList.add('grise');
+  }
+}
+
+function salonChoix2(choix) {
+  if (choix === 'F') {
+    var btn = document.getElementById('schoix'+choix);
+    if (btn) btn.classList.add('bon');
+    ['schoixD','schoixE'].forEach(function(id) {
+      var b = document.getElementById(id);
+      if (b) b.classList.add('grise');
+    });
+    document.getElementById('salonSucces').style.display = 'block';
+  } else {
+    var btn = document.getElementById('schoix'+choix);
+    if (btn) btn.classList.add('grise');
+  }
+}
+
+function fermerSalon() {
+  var overlay = document.getElementById('overlaySalon');
+  if (overlay) overlay.classList.remove('visible');
+}
+
 function ouvrirJoseph() {
   var overlay = document.getElementById('overlayJoseph');
   if (overlay) overlay.classList.add('visible');
@@ -950,6 +1075,10 @@ window.onload = function() {
     var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
     if (s && s.parcours !== 'enfants' && s.phase === 'commun' && s.etape === 1) {
       setTimeout(ouvrirJoseph, 1500);
+    }
+    // Afficher l'indice Salon après Joseph II (famille/PMR, étape 2)
+    if (s && s.parcours !== 'enfants' && s.phase === 'commun' && s.etape === 2) {
+      setTimeout(ouvrirSalon, 1500);
     }
   }
   // Si déjà toutes les étapes validées sans animation
