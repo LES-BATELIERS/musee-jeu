@@ -82,6 +82,22 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 }
 #carte.zoome { transform: scale(2); transform-origin: top center; }
 
+/* ── OVERLAY INDICE COULOIR ── */
+#overlayCouloir {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.95);
+  z-index: 99999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  font-family: Georgia, serif;
+}
+#overlayCouloir.visible { display: flex; }
+
 /* ── OVERLAY INDICE SALON ── */
 #overlaySalon {
   display: none;
@@ -553,6 +569,40 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   </div>
 </div>
 
+<!-- Overlay indice Couloir → Horloge 1759 -->
+<div id="overlayCouloir">
+  <div class="joseph-card">
+
+    <div class="joseph-points">
+      <div class="joseph-point actif" id="cp1"></div>
+      <div class="joseph-point" id="cp2"></div>
+      <div class="joseph-point" id="cp3"></div>
+    </div>
+
+    <!-- Étape 1 -->
+    <div id="couloirEtape1">
+      <div class="joseph-etape">✦ Indice — Étape 1 / 3 ✦</div>
+      <div class="joseph-texte">Quitte le Salon Rouge...<br><br><strong style="color:#c8a842;">Mais pas par où tu es entré !</strong></div>
+      <button class="joseph-btn" onclick="couloirEtape(2)">J'ai trouvé la sortie ✦</button>
+    </div>
+
+    <!-- Étape 2 -->
+    <div id="couloirEtape2" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 2 / 3 ✦</div>
+      <div class="joseph-texte">Dans le couloir, tourne-toi vers le jardin...<br><br>Et fais exactement <strong style="color:#c8a842;font-size:1.4rem;">10 pas</strong> dans la direction opposée.</div>
+      <button class="joseph-btn" onclick="couloirEtape(3)">J'ai fait mes 10 pas ✦</button>
+    </div>
+
+    <!-- Étape 3 -->
+    <div id="couloirEtape3" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 3 / 3 ✦</div>
+      <div class="joseph-texte">Maintenant fais un tour complet sur toi-même...<br><br><strong style="color:#c8a842;font-size:1.4rem;">360°</strong><br><br>Et cherche une horloge figée sur une année mystérieuse.</div>
+      <button class="joseph-btn" style="border-color:#00aa33;color:#00aa33;" onclick="fermerCouloir()">Je l'ai trouvée ! ✦</button>
+    </div>
+
+  </div>
+</div>
+
 <!-- Overlay indice Salon Louis XVI → Salon Rouge -->
 <div id="overlaySalon">
   <div class="joseph-card">
@@ -598,6 +648,47 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
         <div style="color:#00dd44; font-size:0.85rem; letter-spacing:1px; margin-bottom:16px;">✓ Bien observé !</div>
         <button class="joseph-btn" style="border-color:#00aa33; color:#00aa33;" onclick="fermerSalon()">Trouve l'horloge et scanne le QR code ✦</button>
       </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Overlay indice Couloir → Horloge 1759 -->
+<div id="overlayCouloir">
+  <div class="joseph-card">
+
+    <div class="joseph-points">
+      <div class="joseph-point actif" id="cp1"></div>
+      <div class="joseph-point" id="cp2"></div>
+      <div class="joseph-point" id="cp3"></div>
+    </div>
+
+    <!-- Étape 1 -->
+    <div id="couloirEtape1">
+      <div class="joseph-etape">✦ Indice — Étape 1 / 3 ✦</div>
+      <div class="joseph-texte">Quitte le Salon Rouge...<br><br><strong style="color:#c8a842;">Mais pas par où tu es entré !</strong></div>
+      <button class="joseph-btn" onclick="couloirEtape(2)">J'ai trouvé la sortie ✦</button>
+    </div>
+
+    <!-- Étape 2 — Classique/Enfants -->
+    <div id="couloirEtape2Classic" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 2 / 3 ✦</div>
+      <div class="joseph-texte">Dans le couloir, tourne-toi vers le jardin...<br><br>Et fais <strong style="color:#c8a842;">10 pas</strong> dans la direction opposée.</div>
+      <button class="joseph-btn" onclick="couloirEtape(3)">J'ai fait mes 10 pas ✦</button>
+    </div>
+
+    <!-- Étape 2 — PMR -->
+    <div id="couloirEtape2PMR" style="display:none;">
+      <div class="joseph-etape">✦ Indice — Étape 2 / 3 ✦</div>
+      <div class="joseph-texte">Dans le couloir, tourne le dos au jardin...<br><br>Et avance jusqu'au <strong style="color:#c8a842;">prochain carrefour</strong>.</div>
+      <button class="joseph-btn" onclick="couloirEtape(3)">J'y suis ✦</button>
+    </div>
+
+    <!-- Étape 3 -->
+    <div id="couloirEtape3">
+      <div class="joseph-etape">✦ Indice — Étape 3 / 3 ✦</div>
+      <div class="joseph-texte">Maintenant fais un tour complet sur toi-même à <strong style="color:#c8a842;">360°</strong>...<br><br>Cherche une horloge figée sur une année mystérieuse.</div>
+      <button class="joseph-btn" style="border-color:#00aa33;color:#00aa33;" onclick="fermerCouloir()">Je l'ai trouvée ! Scanne le QR ✦</button>
     </div>
 
   </div>
@@ -910,6 +1001,61 @@ function validerPrenom() {
   window.location.href = 'victoire.html';
 }
 
+function ouvrirCouloir() {
+  var overlay = document.getElementById('overlayCouloir');
+  if (overlay) overlay.classList.add('visible');
+  couloirEtape(1);
+}
+
+function couloirEtape(n) {
+  [1,2,3].forEach(function(i) {
+    var e = document.getElementById('couloirEtape'+i);
+    if (e) e.style.display = i === n ? 'block' : 'none';
+    var p = document.getElementById('cp'+i);
+    if (p) {
+      p.classList.remove('actif','fait');
+      if (i < n) p.classList.add('fait');
+      if (i === n) p.classList.add('actif');
+    }
+  });
+}
+
+function fermerCouloir() {
+  var overlay = document.getElementById('overlayCouloir');
+  if (overlay) overlay.classList.remove('visible');
+}
+
+function ouvrirCouloir() {
+  var overlay = document.getElementById('overlayCouloir');
+  if (overlay) overlay.classList.add('visible');
+  couloirEtape(1);
+}
+
+function couloirEtape(n) {
+  var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
+  var isPMR = s && s.parcours === 'pmr';
+
+  [1,2,3].forEach(function(i) {
+    var eC = document.getElementById('couloirEtape'+i+'Classic');
+    var eP = document.getElementById('couloirEtape'+i+'PMR');
+    var e  = document.getElementById('couloirEtape'+i);
+    if (e)  e.style.display  = i === n ? 'block' : 'none';
+    if (eC) eC.style.display = (i === n && !isPMR) ? 'block' : 'none';
+    if (eP) eP.style.display = (i === n && isPMR)  ? 'block' : 'none';
+    var p = document.getElementById('cp'+i);
+    if (p) {
+      p.classList.remove('actif','fait');
+      if (i < n) p.classList.add('fait');
+      if (i === n) p.classList.add('actif');
+    }
+  });
+}
+
+function fermerCouloir() {
+  var overlay = document.getElementById('overlayCouloir');
+  if (overlay) overlay.classList.remove('visible');
+}
+
 function ouvrirSalon() {
   var overlay = document.getElementById('overlaySalon');
   if (overlay) overlay.classList.add('visible');
@@ -1079,6 +1225,14 @@ window.onload = function() {
     // Afficher l'indice Salon après Joseph II (famille/PMR, étape 2)
     if (s && s.parcours !== 'enfants' && s.phase === 'commun' && s.etape === 2) {
       setTimeout(ouvrirSalon, 1500);
+    }
+    // Afficher l'indice Couloir après H. Salon Rouge (tous parcours, étape 3)
+    if (s && s.phase === 'commun' && s.etape === 3) {
+      setTimeout(ouvrirCouloir, 1500);
+    }
+    // Afficher l'indice Couloir après H. Salon Rouge (tous parcours, étape 3)
+    if (s && s.phase === 'commun' && s.etape === 3) {
+      setTimeout(ouvrirCouloir, 1500);
     }
   }
   // Si déjà toutes les étapes validées sans animation
