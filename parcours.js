@@ -240,7 +240,7 @@ const PARCOURS = {
           texte: "Le Putti Astronome te confie un secret en 3 clés :\n\n① Les anciens découpaient l'année en 13 lunes de 28 jours — il restait 1 seul jour sans nom, hors du temps.\n\n② Septembre vient de 'septem' (7), Octobre d'octo (8), Novembre de 'novem' (9), Décembre de 'decem' (10).\n\n③ Si Décembre était jadis le 10e mois, quel jour mystérieux marquait la fin de l'ancienne année ?",
           choix: ["Le 1er janvier", "Le 1er mars", "Le 1er avril"],
           bonne: 2,
-          messageBonneReponse: "Le poisson d'avril n'est pas une blague — c'est le souvenir d'un jour sans nom, hors du temps..."
+          messageBonneReponse: "Le poisson d'avril n'est pas une blague — c'est le souvenir d'un jour sans nom, hors du temps... Maintenant cherche le Vieux Gardien dans la serre — pas celle du jardin, mais celle qui se cache à l'intérieur du musée."
         }
       },
       indice: "Trouve le Vieux Gardien dans le musée !"
