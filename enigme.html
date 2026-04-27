@@ -678,7 +678,7 @@
         var msgHtml = '<span class="feedback-ok">✅ Bravo ! Bonne réponse !</span>';
         // Si message court (<150 car) → afficher en petit doré sur l'écran feedback
         // Si message long → envoyer dans l'overlay de progression.html
-        if (msgSpecial && msgSpecial.length <= 200) {
+        if (msgSpecial && msgSpecial.length <= 450) {
           msgHtml += '<p style="margin-top:14px;font-size:0.85rem;color:#c8a842;font-style:italic;line-height:1.7;text-align:center;padding:0 12px;">' + msgSpecial + '</p>';
           localStorage.removeItem('messageSpecial');
         } else if (msgSpecial) {
