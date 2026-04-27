@@ -54,7 +54,8 @@ const PARCOURS = {
         famille: {
           texte: "Savais-tu que le Dr Emoto a découvert qu'il n'existe jamais deux cristaux d'eau identiques — comme les flocons de neige, chacun est unique et porte sa propre histoire. Ces deux abbés sur le mur aussi sont uniques... mais l'un d'eux cache un secret. Quelque chose a été ajouté sur son portrait après sa mort. Sauras-tu trouver quoi ?",
           choix: ["Un chapeau", "Une croix", "Une chemise"],
-          bonne: 1
+          bonne: 1,
+          messageBonneReponse: "Pas deux flocons identiques... pas deux êtres identiques non plus. Ce que tu écoutes, ce qu'on te dit, ce que tu ressens — tout cela te façonne doucement. Prendre soin de ses pensées, c'est déjà prendre soin de soi."
         }
       },
       indice: "Trouve Joseph II dans le musée pour continuer !"
