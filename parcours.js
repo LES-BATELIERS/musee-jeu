@@ -124,7 +124,8 @@ const PARCOURS = {
             videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
             texte: "Je vis dans le désert et j'ai une bosse. Qui suis-je ?",
             choix: ["Le dromadaire", "Le chameau", "La tortue"],
-            bonne: 0
+            bonne: 0,
+            messageBonneReponse: "Bien joué ! Maintenant trouve le dromadaire à cet étage du musée..."
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
@@ -138,7 +139,8 @@ const PARCOURS = {
             videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
             texte: "Mon premier est le baldaquin suspendu au-dessus du trône royal.\nMon deuxième, c'est ce que fait un serf pour son seigneur.\nMon tout est le royaume du dromadaire.",
             choix: ["Dessert", "Désert", "Désaccord"],
-            bonne: 1
+            bonne: 1,
+            messageBonneReponse: "Bien joué ! Maintenant trouve le dromadaire à cet étage du musée..."
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
