@@ -143,8 +143,8 @@ const PARCOURS = {
           pmr: {
             videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
             texte: "Mon premier est celui que tous les joueurs de cartes rêvent de tenir en main.\nMon deuxième envahit ce qui devrait rester raisonnable.\nMon troisième, ni femme ni enfant, désigne pourtant toute notre humanité.\nMon tout observe le ciel depuis le jardin du musée, les yeux levés vers l'infini.",
-            choix: ["Royauté", "Astronome", "Damnation"],
-            bonne: 1
+            choix: ["Cartographe", "Astrologue", "Astronome"],
+            bonne: 2
           }
         }
       },
