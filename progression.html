@@ -1475,18 +1475,11 @@ window.onload = function() {
       setTimeout(ouvrirSalon, 1500);
     }
     // Afficher l'indice Couloir après H. Salon Rouge (tous parcours, étape 3)
-    if (s && s.phase === 'commun' && s.etape === 3) {
-      setTimeout(ouvrirCouloir, 1500);
-    }
-    // Afficher l'indice Loggia après Le Dromadaire (classique, étape 0)
-    if (s && s.parcours !== 'pmr' && s.phase === 'classique' && s.etape === 1) {
-      setTimeout(ouvrirLoggia, 1500);
-    }
     // Afficher l'indice Couloir après H. Salon Rouge (tous parcours, étape 3)
     if (s && s.phase === 'commun' && s.etape === 3) {
       setTimeout(ouvrirCouloir, 1500);
     }
-    // Afficher l'indice Loggia après Le Dromadaire (classique, étape 0)
+    // Afficher l'indice Loggia après Le Dromadaire (classique enfant/famille, etape 1)
     if (s && s.parcours !== 'pmr' && s.phase === 'classique' && s.etape === 1) {
       setTimeout(ouvrirLoggia, 1500);
     }
