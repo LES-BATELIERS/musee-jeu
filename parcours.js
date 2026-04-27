@@ -96,8 +96,8 @@ const PARCOURS = {
       questions: {
         enfant: {
           texte: "Cette horloge tourne depuis des siècles. Un poète a dit : 'Le temps, c'est ce qui empêche que tout arrive en même temps.' Qu'est-ce qui mesure le temps dans la nature, sans avoir besoin d'une horloge ?",
-          choix: ["Les saisons", "Les horloges", "Les livres"],
-          bonne: 0
+          choix: ["Le chant du coq", "Les ronflements du perroquet", "Les saisons"],
+          bonne: 2
         },
         famille: {
           texte: "L'horloge du salon rouge bat comme un cœur mécanique. Marcel Proust écrivait que 'le temps perdu' ne l'est jamais vraiment — il vit dans nos souvenirs. Comment appelle-t-on en littérature le procédé qui consiste à raconter des événements passés dans un récit au présent ?",
