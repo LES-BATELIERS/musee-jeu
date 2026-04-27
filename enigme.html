@@ -677,9 +677,11 @@
         var msgSpecial = questionData.messageBonneReponse || '';
         var msgHtml = '<span class="feedback-ok">✅ Bravo ! Bonne réponse !</span>';
         document.getElementById('messageFeedback').innerHTML = msgHtml;
-        // Si message spécial → afficher dans overlay après la vidéo
+        // Si message spécial → sauvegarder pour afficher dans progression.html
         if (msgSpecial) {
-          setTimeout(function() { ouvrirOverlayMessage(msgSpecial); }, 7000);
+          localStorage.setItem('messageSpecial', msgSpecial);
+        } else {
+          localStorage.removeItem('messageSpecial');
         }
         document.getElementById('btnApresReponse').textContent = 'Continuer ▶';
         document.getElementById('btnApresReponse').classList.remove('cache');

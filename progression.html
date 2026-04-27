@@ -98,6 +98,68 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
 }
 #overlayCouloir.visible { display: flex; }
 
+/* ── OVERLAY MESSAGE SPECIAL ── */
+#overlayMsgSpecial {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.92);
+  z-index: 99999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  font-family: Georgia, serif;
+}
+#overlayMsgSpecial.visible { display: flex; }
+#overlayMsgSpecial .msg-card {
+  background: #0e0e0e;
+  border: 1px solid #c8a842;
+  border-radius: 12px;
+  padding: 32px 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+#overlayMsgSpecial .msg-card::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid #3a2800;
+  border-radius: 8px;
+  pointer-events: none;
+}
+#overlayMsgSpecial .msg-label {
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: #c8a842;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+#overlayMsgSpecial .msg-texte {
+  font-size: 1rem;
+  color: #f0ead8;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  font-style: italic;
+  white-space: pre-line;
+}
+#overlayMsgSpecial .msg-btn {
+  background: transparent;
+  border: 1px solid #c8a842;
+  border-radius: 8px;
+  padding: 12px 24px;
+  color: #c8a842;
+  font-family: Georgia, serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+}
+
 /* ── OVERLAY INDICE SALON ── */
 #overlaySalon {
   display: none;
@@ -569,6 +631,15 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
   </div>
 </div>
 
+<!-- Overlay message spécial -->
+<div id="overlayMsgSpecial">
+  <div class="msg-card">
+    <div class="msg-label">✦ À retenir ✦</div>
+    <div class="msg-texte" id="msgSpecialTexte"></div>
+    <button class="msg-btn" onclick="fermerMsgSpecial()">J'ai compris ✦</button>
+  </div>
+</div>
+
 <!-- Overlay indice Loggia → Licorne -->
 <div id="overlayLoggia">
   <div class="joseph-card">
@@ -692,6 +763,15 @@ body { background:#080808; margin:0; padding:0; min-height:100vh; display:flex; 
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- Overlay message spécial -->
+<div id="overlayMsgSpecial">
+  <div class="msg-card">
+    <div class="msg-label">✦ À retenir ✦</div>
+    <div class="msg-texte" id="msgSpecialTexte"></div>
+    <button class="msg-btn" onclick="fermerMsgSpecial()">J'ai compris ✦</button>
   </div>
 </div>
 
@@ -1085,6 +1165,21 @@ function validerPrenom() {
   window.location.href = 'victoire.html';
 }
 
+function ouvrirMsgSpecial(texte) {
+  var overlay = document.getElementById('overlayMsgSpecial');
+  var t = document.getElementById('msgSpecialTexte');
+  if (overlay && t) {
+    t.textContent = texte;
+    overlay.classList.add('visible');
+  }
+}
+
+function fermerMsgSpecial() {
+  var overlay = document.getElementById('overlayMsgSpecial');
+  if (overlay) overlay.classList.remove('visible');
+  localStorage.removeItem('messageSpecial');
+}
+
 function ouvrirLoggia() {
   var overlay = document.getElementById('overlayLoggia');
   if (overlay) overlay.classList.add('visible');
@@ -1131,6 +1226,21 @@ function couloirEtape(n) {
 function fermerCouloir() {
   var overlay = document.getElementById('overlayCouloir');
   if (overlay) overlay.classList.remove('visible');
+}
+
+function ouvrirMsgSpecial(texte) {
+  var overlay = document.getElementById('overlayMsgSpecial');
+  var t = document.getElementById('msgSpecialTexte');
+  if (overlay && t) {
+    t.textContent = texte;
+    overlay.classList.add('visible');
+  }
+}
+
+function fermerMsgSpecial() {
+  var overlay = document.getElementById('overlayMsgSpecial');
+  if (overlay) overlay.classList.remove('visible');
+  localStorage.removeItem('messageSpecial');
 }
 
 function ouvrirLoggia() {
@@ -1347,6 +1457,12 @@ window.onload = function() {
   initParcours();
   renderAll();
   majBoutonBas();
+  // Afficher message spécial si défini
+  var msgSpec = localStorage.getItem('messageSpecial');
+  if (msgSpec && mode === 'reussi') {
+    setTimeout(function() { ouvrirMsgSpecial(msgSpec); }, 1200);
+  }
+
   if (mode === 'reussi') {
     animerReussite();
     // Afficher l'indice Joseph II après le Perroquet (famille/PMR, étape 1)
