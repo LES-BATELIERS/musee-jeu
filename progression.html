@@ -1431,7 +1431,7 @@ window.onload = function() {
       setTimeout(ouvrirCouloir, 1500);
     }
     // Afficher l'indice Loggia après Le Dromadaire (classique enfant/famille, etape 1)
-    if (s && s.parcours !== 'pmr' && s.phase === 'classique' && s.etape === 1) {
+    if (s && (s.parcours === 'enfants' || s.parcours === 'famille') && s.phase === 'classique' && s.etape === 1) {
       setTimeout(ouvrirLoggia, 1500);
     }
   }
