@@ -259,7 +259,7 @@ const PARCOURS = {
           texte: "Le Vieux Gardien sait que les mots ont un poids. Victor Hugo écrivait : 'La musique, c'est du bruit qui pense.' Si les mots sont des vibrations et que notre corps est une caisse de résonance, comment appelle-t-on la figure de style qui donne une vie, une âme à une chose inanimée ?",
           choix: ["L'hyperbole", "La personnification", "L'allégorie"],
           bonne: 1,
-          messageBonneReponse: "Les mots vibrent. La musique guérit. Et si chaque mélodie entendue, chaque mot reçu depuis ta naissance, avait doucement dessiné les contours de qui tu es ?"
+          messageBonneReponse: "Les mots vibrent. La musique guérit. Et si chaque mélodie entendue, chaque mot reçu depuis ta naissance, avait doucement dessiné les contours de qui tu es ?\n\nCherche maintenant dans cette même pièce... la Lampe Magique ✨"
         }
       },
       indice: "Trouve la Lampe magique dans le musée !"
