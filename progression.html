@@ -648,9 +648,18 @@ function getNoms()   { if (typeof GAME==='undefined') return NOMS_CLASSIQUE; ret
 function getIcones() { if (typeof GAME==='undefined') return ICONES_CLASSIQUE; return GAME.getSession().parcours==='pmr'?ICONES_PMR:ICONES_CLASSIQUE; }
 
 // ── VALIDATION ──
-const validatedKey = 'validatedSteps';
-function getValidated() { return parseInt(localStorage.getItem(validatedKey)||'0'); }
-function setValidated(n){ localStorage.setItem(validatedKey, n); }
+function getValidated() {
+  if (typeof GAME === 'undefined') return 0;
+  var s = GAME.getSession();
+  if (!s || !s.parcours) return 0;
+  var totalCommun = PARCOURS.commun ? PARCOURS.commun.length : 5;
+  var etapesPassees = 0;
+  if (s.phase === 'commun')    etapesPassees = s.etape;
+  if (s.phase === 'classique') etapesPassees = totalCommun + s.etape;
+  if (s.phase === 'pmr')       etapesPassees = totalCommun + s.etape;
+  return etapesPassees;
+}
+function setValidated(n){ /* calculé depuis GAME, pas besoin de stocker */ }
 
 // ── MODE ──
 const params = new URLSearchParams(window.location.search);
@@ -752,9 +761,8 @@ function allumerChemin(idx, isPMR) {
 function animerReussite() {
   const NOMS = getNoms();
   const ICONES = getIcones();
-  const v = getValidated();
-  const newV = v + 1;
-  setValidated(newV);
+  const newV = getValidated(); // GAME a déjà avancé — newV = étape courante validée
+  const v = Math.max(0, newV - 1); // étape précédente
   lancerJingle();
 
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
