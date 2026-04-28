@@ -735,6 +735,17 @@ function actionBoutonBas() {
 }
 
 // ── ANIMATION RÉUSSITE ──
+function allumerCheminInstant(idx, isPMR) {
+  var prefix = isPMR ? 'cpv' : 'cv';
+  var ids = ['01','12','23','34','45','56','67','78'];
+  if (idx < 1 || idx > 8) return;
+  var path = document.getElementById(prefix + ids[idx-1]);
+  if (!path) return;
+  path.setAttribute('opacity', '1');
+  path.setAttribute('stroke-dasharray', '8 6');
+  path.setAttribute('stroke-dashoffset', '0');
+}
+
 function allumerChemin(idx, isPMR) {
   var prefix = isPMR ? 'cpv' : 'cv';
   var ids = ['01','12','23','34','45','56','67','78'];
@@ -1057,20 +1068,52 @@ window.onload = function() {
   var msgSpec=localStorage.getItem('messageSpecial');
   if(msgSpec && mode==='reussi'){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},1200);}
 
+  var sLoad = typeof GAME!=='undefined' ? GAME.getSession() : null;
+  var isPMRLoad = sLoad && sLoad.parcours==='pmr';
+  var vLoad = getValidated();
+
   if (mode==='reussi') {
-    // Nettoyer l'URL immédiatement pour éviter re-progression au refresh
+    // Nettoyer l'URL pour éviter re-progression au refresh
     window.history.replaceState({}, '', 'progression.html');
     animerReussite();
+  } else {
+    // Refresh normal : restaurer l'état visuel complet
+    var NOMS2 = getNoms();
+    var ICONES2 = getIcones();
 
-    var s=typeof GAME!=='undefined'?GAME.getSession():null;
+    // Bulles vertes pour toutes les étapes validées
+    for (var i = 0; i < vLoad; i++) {
+      var ci = document.getElementById('c'+i);
+      var tni = document.getElementById('t'+i+'n');
+      var tli = document.getElementById('t'+i+'l');
+      if(ci){ci.setAttribute('fill','#003010');ci.setAttribute('stroke','#00992e');ci.style.animation='';}
+      if(tni){tni.setAttribute('fill','#00dd44');tni.textContent=ICONES2[i]||'✦';}
+      if(tli){tli.setAttribute('fill','#00aa33');tli.textContent=NOMS2[i];}
+    }
 
-    // Overlays déclenchés depuis animerReussite avec callbacks
+    // Bulle courante en rouge
+    var curC = document.getElementById('c'+vLoad);
+    var curTn = document.getElementById('t'+vLoad+'n');
+    var curTl = document.getElementById('t'+vLoad+'l');
+    if(curC){
+      curC.setAttribute('fill','#3a0808');curC.setAttribute('stroke','#8a2020');
+      curC.style.animation='pulseRouge 2s ease-in-out infinite';
+      if(curTn){curTn.setAttribute('fill','#dd4444');curTn.textContent=ICONES2[vLoad]||'✦';}
+      if(curTl){curTl.setAttribute('fill','#aa3030');curTl.textContent=NOMS2[vLoad];}
+    }
+
+    // Rallumer tous les pointillés déjà validés (délai pour que le SVG soit rendu)
+    setTimeout(function(){
+      for (var j = 1; j <= vLoad; j++) {
+        allumerCheminInstant(j, isPMRLoad);
+      }
+    }, 100);
   }
 
   // Trésor si tout validé
-  const NOMS=getNoms();
-  if(mode!=='reussi' && getValidated()>=NOMS.length){
-    setTimeout(lancerAnimationTresor,200);
+  var NOMS3 = getNoms();
+  if(mode!=='reussi' && vLoad >= NOMS3.length){
+    setTimeout(lancerAnimationTresor, 200);
   }
 };
 </script>
