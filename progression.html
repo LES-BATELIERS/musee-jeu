@@ -948,12 +948,6 @@ window.onload = function() {
   renderAll();
   majBoutonBas();
 
-  // Allumer les chemins déjà validés
-  var s2 = typeof GAME!=='undefined' ? GAME.getSession() : null;
-  var isPMR2 = s2 && s2.parcours==='pmr';
-  var v2 = getValidated();
-  for(var i2=1; i2<=v2; i2++) allumerChemin(i2, isPMR2);
-
   // Afficher décos selon parcours
   if (s2 && s2.parcours==='pmr') {
     var dc = document.getElementById('decoClassique');
@@ -974,6 +968,8 @@ window.onload = function() {
   if(msgSpec && mode==='reussi'){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},1200);}
 
   if (mode==='reussi') {
+    // Nettoyer l'URL immédiatement pour éviter re-progression au refresh
+    window.history.replaceState({}, '', 'progression.html');
     animerReussite();
 
     var s=typeof GAME!=='undefined'?GAME.getSession():null;
