@@ -345,6 +345,10 @@
       setTimeout(function() { ec.style.display = 'none'; }, 800);
     }, 1200);
 
+    // Vider messageSpecial au début de chaque nouvelle question
+    if (!session.indiceAffiche) {
+      localStorage.removeItem('messageSpecial');
+    }
     // Pas de parcours choisi → retour accueil
     if (!session.parcours) {
       window.location.href = 'index.html';

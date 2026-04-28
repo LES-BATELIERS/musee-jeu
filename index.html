@@ -158,7 +158,12 @@ body.pret .anim-btn3  { animation: fadeInUp  0.5s ease 1.2s both; }
     </div>
   </div>
 
-  <script src="js/game.js?v=5"></script>
+  <script>
+// Nettoyage complet à chaque retour à l'accueil
+localStorage.removeItem('messageSpecial');
+localStorage.removeItem('prenom');
+</script>
+<script src="js/game.js?v=5"></script>
   <script src="data/parcours.js?v=5"></script>
   <script>
     // window.onload fusionné ci-dessous
