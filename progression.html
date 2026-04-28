@@ -738,6 +738,8 @@ function animerReussite() {
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
   var isPMR = s && s.parcours === 'pmr';
 
+  console.log('[animerReussite] newV='+newV+' phase='+(s?s.phase:'?')+' etape='+(s?s.etape:'?')+' parcours='+(s?s.parcours:'?'));
+
   lancerJingle();
 
   // Rendre toutes les bulles avant newV-1 déjà vertes (sans animation)
