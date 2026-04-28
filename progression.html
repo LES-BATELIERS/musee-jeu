@@ -713,22 +713,28 @@ function allumerChemin(idx, isPMR) {
   var path = document.getElementById(prefix + ids[idx-1]);
   if (!path) return;
 
-  var dashLen = 8, gapLen = 6, unit = dashLen + gapLen;
   var len;
-  try { len = path.getTotalLength(); } catch(e) { len = 180; }
+  try { len = path.getTotalLength(); } catch(e) { len = 200; }
 
-  // Rendre visible, offset = len (chemin caché)
+  var DASH = 8, GAP = 6, UNIT = DASH + GAP;
+  var total = Math.ceil(len / UNIT);
+  var dot = 0;
+
   path.setAttribute('opacity', '1');
-  path.setAttribute('stroke-dasharray', dashLen + ' ' + gapLen);
-  path.setAttribute('stroke-dashoffset', len);
+  path.setAttribute('stroke-dasharray', '0 ' + len);
+  path.setAttribute('stroke-dashoffset', '0');
 
-  var step = 0, steps = Math.ceil(len / unit);
-  (function tick() {
-    step++;
-    var offset = Math.max(0, len - step * unit);
-    path.setAttribute('stroke-dashoffset', offset);
-    if (step < steps) setTimeout(tick, 35);
-  })();
+  function tick() {
+    dot++;
+    var arr = '';
+    for (var i = 0; i < dot; i++) {
+      arr += (i > 0 ? ' ' : '') + DASH + ' ' + GAP;
+    }
+    arr += ' 0 9999';
+    path.setAttribute('stroke-dasharray', arr);
+    if (dot < total) setTimeout(tick, 50);
+  }
+  setTimeout(tick, 50);
 }
 
 function animerReussite() {
