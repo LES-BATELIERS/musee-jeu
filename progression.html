@@ -318,92 +318,185 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
 <!-- SVG Carte -->
 <div id="carteWrap">
 <svg id="carte" viewBox="0 0 360 640" xmlns="http://www.w3.org/2000/svg">
-  <!-- Fond parchemin -->
+
+  <!-- ══ FOND PARCHEMIN ══ -->
+  <defs>
+    <filter id="papier" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- Fond principal parchemin -->
   <rect x="0" y="0" width="360" height="640" rx="18" fill="#c8a030"/>
-  <rect x="8" y="8" width="344" height="624" rx="14" fill="#d4aa40" opacity="0.5"/>
-  <!-- Titre -->
-  <text x="180" y="38" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#3a1a00" letter-spacing="4">NUIT BLANCHE</text>
-  <text x="180" y="54" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#6a4410" letter-spacing="3" id="carteParcours">~ parcours ~</text>
-  <!-- Rose des vents -->
-  <g transform="translate(310,55)">
-    <circle cx="0" cy="0" r="22" fill="none" stroke="#8a6020" stroke-width="1"/>
-    <text x="0" y="-12" text-anchor="middle" font-size="8" fill="#8a6020">N</text>
-    <text x="0" y="18" text-anchor="middle" font-size="8" fill="#8a6020">S</text>
-    <text x="14" y="4" text-anchor="middle" font-size="8" fill="#8a6020">E</text>
-    <text x="-14" y="4" text-anchor="middle" font-size="8" fill="#8a6020">O</text>
+  <rect x="6" y="6" width="348" height="628" rx="14" fill="#d4aa42" opacity="0.6"/>
+  <rect x="14" y="14" width="332" height="612" rx="10" fill="none" stroke="#8a6010" stroke-width="1" opacity="0.5"/>
+
+  <!-- Texture parchemin taches -->
+  <ellipse cx="60" cy="120" rx="35" ry="25" fill="#b8900a" opacity="0.12"/>
+  <ellipse cx="290" cy="350" rx="40" ry="30" fill="#b8900a" opacity="0.10"/>
+  <ellipse cx="150" cy="500" rx="50" ry="20" fill="#b8900a" opacity="0.08"/>
+  <ellipse cx="310" cy="180" rx="25" ry="40" fill="#c8a020" opacity="0.10"/>
+  <ellipse cx="40" cy="420" rx="30" ry="35" fill="#b8900a" opacity="0.09"/>
+
+  <!-- ══ TITRE ══ -->
+  <text x="155" y="36" text-anchor="middle" font-family="Georgia,serif" font-size="17" font-weight="bold" fill="#3a1a00" letter-spacing="5" opacity="0.9">NUIT BLANCHE</text>
+  <line x1="30" y1="42" x2="280" y2="42" stroke="#8a6010" stroke-width="0.8" opacity="0.5"/>
+  <text x="155" y="54" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#6a4410" letter-spacing="3" id="carteParcours" opacity="0.8">~ parcours ~</text>
+
+  <!-- ══ ROSE DES VENTS ══ -->
+  <g transform="translate(318,50)">
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#8a6020" stroke-width="0.8" opacity="0.7"/>
+    <line x1="0" y1="-16" x2="0" y2="16" stroke="#8a6020" stroke-width="0.8" opacity="0.5"/>
+    <line x1="-16" y1="0" x2="16" y2="0" stroke="#8a6020" stroke-width="0.8" opacity="0.5"/>
+    <polygon points="0,-14 3,-6 0,-9 -3,-6" fill="#8a6020" opacity="0.8"/>
+    <text x="0" y="-17" text-anchor="middle" font-size="7" fill="#8a6020" font-family="Georgia,serif">N</text>
+    <text x="0" y="22" text-anchor="middle" font-size="7" fill="#8a6020" font-family="Georgia,serif">S</text>
+    <text x="22" y="3" text-anchor="middle" font-size="7" fill="#8a6020" font-family="Georgia,serif">E</text>
+    <text x="-22" y="3" text-anchor="middle" font-size="7" fill="#8a6020" font-family="Georgia,serif">O</text>
   </g>
 
-  <!-- CHEMINS classique -->
+  <!-- ══ DÉCORATIONS ══ -->
+
+  <!-- Palmier gauche -->
+  <g transform="translate(28,110)" opacity="0.4">
+    <line x1="0" y1="0" x2="2" y2="-32" stroke="#5a3a10" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="2" cy="-34" rx="10" ry="5" fill="#5a7a20" transform="rotate(-20,2,-34)"/>
+    <ellipse cx="2" cy="-34" rx="10" ry="5" fill="#5a7a20" transform="rotate(30,2,-34)"/>
+    <ellipse cx="2" cy="-34" rx="10" ry="5" fill="#5a7a20" transform="rotate(-70,2,-34)"/>
+  </g>
+
+  <!-- Palmier droit -->
+  <g transform="translate(320,290)" opacity="0.4">
+    <line x1="0" y1="0" x2="-2" y2="-28" stroke="#5a3a10" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="-2" cy="-30" rx="9" ry="5" fill="#5a7a20" transform="rotate(20,-2,-30)"/>
+    <ellipse cx="-2" cy="-30" rx="9" ry="5" fill="#5a7a20" transform="rotate(-30,-2,-30)"/>
+    <ellipse cx="-2" cy="-30" rx="9" ry="5" fill="#5a7a20" transform="rotate(70,-2,-30)"/>
+  </g>
+
+  <!-- Palmier petit droite bas -->
+  <g transform="translate(308,460)" opacity="0.35">
+    <line x1="0" y1="0" x2="1" y2="-22" stroke="#5a3a10" stroke-width="1.5" stroke-linecap="round"/>
+    <ellipse cx="1" cy="-23" rx="7" ry="4" fill="#5a7a20" transform="rotate(-15,1,-23)"/>
+    <ellipse cx="1" cy="-23" rx="7" ry="4" fill="#5a7a20" transform="rotate(40,1,-23)"/>
+  </g>
+
+  <!-- Montagne gauche -->
+  <g opacity="0.3">
+    <polygon points="25,340 55,295 85,340" fill="#8a7050"/>
+    <polygon points="38,340 55,305 72,340" fill="#9a8060"/>
+  </g>
+
+  <!-- Vagues bas gauche -->
+  <g opacity="0.3" transform="translate(20,580)">
+    <path d="M0,0 Q10,-6 20,0 Q30,6 40,0" fill="none" stroke="#6080a0" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M0,7 Q10,1 20,7 Q30,13 40,7" fill="none" stroke="#6080a0" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Vagues bas droit -->
+  <g opacity="0.3" transform="translate(280,570)">
+    <path d="M0,0 Q10,-6 20,0 Q30,6 40,0" fill="none" stroke="#6080a0" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M0,8 Q10,2 20,8 Q30,14 40,8" fill="none" stroke="#6080a0" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Île trésor (plante) -->
+  <g transform="translate(308,390)" opacity="0.4">
+    <ellipse cx="0" cy="0" rx="18" ry="6" fill="#8a7030"/>
+    <line x1="0" y1="0" x2="0" y2="-18" stroke="#5a7a20" stroke-width="1.5"/>
+    <ellipse cx="0" cy="-20" rx="7" ry="3" fill="#5a7a20" transform="rotate(-30)"/>
+    <ellipse cx="0" cy="-20" rx="7" ry="3" fill="#5a7a20" transform="rotate(30)"/>
+    <ellipse cx="0" cy="-20" rx="5" ry="3" fill="#5a7a20"/>
+  </g>
+
+  <!-- Boussole déco -->
+  <g transform="translate(35,240)" opacity="0.25">
+    <circle cx="0" cy="0" r="14" fill="none" stroke="#8a6020" stroke-width="1"/>
+    <line x1="0" y1="-10" x2="0" y2="10" stroke="#8a6020" stroke-width="1"/>
+    <line x1="-10" y1="0" x2="10" y2="0" stroke="#8a6020" stroke-width="1"/>
+    <polygon points="0,-8 2,-3 0,-5 -2,-3" fill="#8a6020"/>
+  </g>
+
+  <!-- Crâne déco -->
+  <g transform="translate(188,300)" opacity="0.18">
+    <circle cx="0" cy="-5" r="10" fill="#8a7050"/>
+    <rect x="-6" y="3" width="12" height="7" rx="2" fill="#8a7050"/>
+    <circle cx="-3" cy="-6" r="2.5" fill="#c8a030"/>
+    <circle cx="3" cy="-6" r="2.5" fill="#c8a030"/>
+  </g>
+
+  <!-- ══ CHEMINS SINUEUX ══ -->
   <g id="cheminsClassique">
-    <line x1="90" y1="100" x2="220" y2="130" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="220" y1="130" x2="120" y2="200" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="120" y1="200" x2="240" y2="260" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="240" y1="260" x2="100" y2="330" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="100" y1="330" x2="230" y2="400" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="230" y1="400" x2="120" y2="470" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="120" y1="470" x2="240" y2="530" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="240" y1="530" x2="180" y2="590" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
+    <path d="M90,100 C130,108 180,118 220,130" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M220,130 C190,155 150,175 120,200" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M120,200 C165,220 210,240 240,260" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M240,260 C195,285 145,308 100,330" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M100,330 C148,355 190,378 230,400" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M230,400 C195,425 158,450 120,470" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M120,470 C162,492 205,512 240,530" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M240,530 C220,550 200,570 180,590" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
   </g>
-
-  <!-- CHEMINS PMR -->
   <g id="cheminsPMR" style="display:none">
-    <line x1="90" y1="100" x2="220" y2="130" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="220" y1="130" x2="120" y2="200" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="120" y1="200" x2="240" y2="260" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="240" y1="260" x2="100" y2="330" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="100" y1="330" x2="230" y2="400" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="230" y1="400" x2="120" y2="470" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="120" y1="470" x2="240" y2="530" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
-    <line x1="240" y1="530" x2="180" y2="590" stroke="#8a6020" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
+    <path d="M90,100 C130,108 180,118 220,130" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M220,130 C190,155 150,175 120,200" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M120,200 C165,220 210,240 240,260" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M240,260 C195,285 145,308 100,330" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M100,330 C148,355 190,378 230,400" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M230,400 C195,425 158,450 120,470" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M120,470 C162,492 205,512 240,530" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
+    <path d="M240,530 C220,550 200,570 180,590" fill="none" stroke="#8a6020" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.7"/>
   </g>
 
-  <!-- Étapes: 8 cercles -->
+  <!-- ══ ÉTAPES ══ -->
+
   <!-- c0 Guide -->
-  <circle id="c0" cx="90" cy="100" r="28" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
-  <text id="t0n" x="90" y="106" text-anchor="middle" font-size="18" fill="#3a2808">🗝️</text>
-  <text id="t0l" x="90" y="140" text-anchor="middle" font-size="9" fill="#3a2808" letter-spacing="1">???</text>
+  <circle id="c0" cx="90" cy="100" r="26" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
+  <text id="t0n" x="90" y="107" text-anchor="middle" font-size="17" fill="#3a2808">🗝️</text>
+  <text id="t0l" x="90" y="138" text-anchor="middle" font-size="8" fill="#3a2808" letter-spacing="1" font-family="Georgia,serif">???</text>
 
   <!-- c1 Perroquet -->
-  <circle id="c1" cx="220" cy="130" r="28" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
-  <text id="t1n" x="220" y="136" text-anchor="middle" font-size="18" fill="#3a2808">?</text>
-  <text id="t1l" x="220" y="170" text-anchor="middle" font-size="9" fill="#3a2808" letter-spacing="1">???</text>
+  <circle id="c1" cx="220" cy="130" r="26" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
+  <text id="t1n" x="220" y="137" text-anchor="middle" font-size="17" fill="#3a2808">?</text>
+  <text id="t1l" x="220" y="168" text-anchor="middle" font-size="8" fill="#3a2808" letter-spacing="1" font-family="Georgia,serif">???</text>
 
   <!-- c2 Joseph II -->
-  <circle id="c2" cx="120" cy="200" r="28" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
-  <text id="t2n" x="120" y="206" text-anchor="middle" font-size="18" fill="#3a2808">?</text>
-  <text id="t2l" x="120" y="240" text-anchor="middle" font-size="9" fill="#3a2808" letter-spacing="1">???</text>
+  <circle id="c2" cx="120" cy="200" r="26" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
+  <text id="t2n" x="120" y="207" text-anchor="middle" font-size="17" fill="#3a2808">?</text>
+  <text id="t2l" x="120" y="238" text-anchor="middle" font-size="8" fill="#3a2808" letter-spacing="1" font-family="Georgia,serif">???</text>
 
   <!-- c3 H.Salon Rouge -->
-  <circle id="c3" cx="240" cy="260" r="28" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
-  <text id="t3n" x="240" y="266" text-anchor="middle" font-size="18" fill="#3a2808">?</text>
-  <text id="t3l" x="240" y="300" text-anchor="middle" font-size="9" fill="#3a2808" letter-spacing="1">???</text>
+  <circle id="c3" cx="240" cy="260" r="26" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
+  <text id="t3n" x="240" y="267" text-anchor="middle" font-size="17" fill="#3a2808">?</text>
+  <text id="t3l" x="240" y="298" text-anchor="middle" font-size="8" fill="#3a2808" letter-spacing="1" font-family="Georgia,serif">???</text>
 
   <!-- c4 H.1759 -->
-  <circle id="c4" cx="100" cy="330" r="28" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
-  <text id="t4n" x="100" y="336" text-anchor="middle" font-size="18" fill="#3a2808">?</text>
-  <text id="t4l" x="100" y="370" text-anchor="middle" font-size="9" fill="#3a2808" letter-spacing="1">???</text>
+  <circle id="c4" cx="100" cy="330" r="26" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
+  <text id="t4n" x="100" y="337" text-anchor="middle" font-size="17" fill="#3a2808">?</text>
+  <text id="t4l" x="100" y="368" text-anchor="middle" font-size="8" fill="#3a2808" letter-spacing="1" font-family="Georgia,serif">???</text>
 
   <!-- c5 Dromadaire/Putti -->
-  <circle id="c5" cx="230" cy="400" r="28" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
-  <text id="t5n" x="230" y="406" text-anchor="middle" font-size="18" fill="#3a2808">?</text>
-  <text id="t5l" x="230" y="440" text-anchor="middle" font-size="9" fill="#3a2808" letter-spacing="1">???</text>
+  <circle id="c5" cx="230" cy="400" r="26" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
+  <text id="t5n" x="230" y="407" text-anchor="middle" font-size="17" fill="#3a2808">?</text>
+  <text id="t5l" x="230" y="438" text-anchor="middle" font-size="8" fill="#3a2808" letter-spacing="1" font-family="Georgia,serif">???</text>
 
   <!-- c6 Licorne/Vieux Gardien -->
-  <circle id="c6" cx="120" cy="470" r="28" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
-  <text id="t6n" x="120" y="476" text-anchor="middle" font-size="18" fill="#3a2808">?</text>
-  <text id="t6l" x="120" y="510" text-anchor="middle" font-size="9" fill="#3a2808" letter-spacing="1">???</text>
+  <circle id="c6" cx="120" cy="470" r="26" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
+  <text id="t6n" x="120" y="477" text-anchor="middle" font-size="17" fill="#3a2808">?</text>
+  <text id="t6l" x="120" y="508" text-anchor="middle" font-size="8" fill="#3a2808" letter-spacing="1" font-family="Georgia,serif">???</text>
 
   <!-- c7 Lampe magique -->
-  <circle id="c7" cx="240" cy="530" r="28" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
-  <text id="t7n" x="240" y="536" text-anchor="middle" font-size="18" fill="#3a2808">?</text>
-  <text id="t7l" x="240" y="570" text-anchor="middle" font-size="9" fill="#3a2808" letter-spacing="1">???</text>
+  <circle id="c7" cx="240" cy="530" r="26" fill="#1c1408" stroke="#3a2808" stroke-width="2.5"/>
+  <text id="t7n" x="240" y="537" text-anchor="middle" font-size="17" fill="#3a2808">?</text>
+  <text id="t7l" x="240" y="568" text-anchor="middle" font-size="8" fill="#3a2808" letter-spacing="1" font-family="Georgia,serif">???</text>
 
-  <!-- Trésor -->
-  <g transform="translate(180,600)">
-    <rect x="-28" y="-18" width="56" height="36" rx="6" fill="#3a1a00" stroke="#c8a842" stroke-width="2" id="tresorRect"/>
-    <text x="0" y="6" text-anchor="middle" font-size="18">🏆</text>
-    <text x="0" y="28" text-anchor="middle" font-size="8" fill="#8a6020" letter-spacing="2">TRÉSOR</text>
+  <!-- ══ TRÉSOR ══ -->
+  <g transform="translate(180,605)">
+    <rect x="-30" y="-18" width="60" height="36" rx="6" fill="#3a1a00" stroke="#c8a842" stroke-width="2" id="tresorRect"/>
+    <rect x="-30" y="-18" width="60" height="14" rx="3" fill="#4a2a00" stroke="#c8a842" stroke-width="1"/>
+    <circle cx="0" cy="-11" r="3" fill="#c8a842"/>
+    <text x="0" y="9" text-anchor="middle" font-size="14">💎</text>
+    <text x="0" y="27" text-anchor="middle" font-size="8" fill="#c8a842" letter-spacing="2" font-family="Georgia,serif">TRÉSOR</text>
   </g>
+
 </svg>
 </div>
 
