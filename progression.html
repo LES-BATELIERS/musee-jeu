@@ -750,42 +750,60 @@ function allumerChemin(idx, isPMR) {
 }
 
 function animerReussite() {
-  const NOMS=getNoms();
+  const NOMS = getNoms();
+  const ICONES = getIcones();
   const v = getValidated();
-  const newV = v+1;
+  const newV = v + 1;
   setValidated(newV);
   lancerJingle();
 
-  var s = typeof GAME!=='undefined' ? GAME.getSession() : null;
-  var isPMR = s && s.parcours==='pmr';
+  var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
+  var isPMR = s && s.parcours === 'pmr';
 
-  // Allumer tous les chemins déjà validés au chargement
-  for(var i=1; i<=newV; i++) allumerChemin(i, isPMR);
-
-  const prevC = document.getElementById('c'+(newV-1));
+  // Phase 1 : bulle précédente clignote rouge (déjà réussie)
+  var prevC = document.getElementById('c' + (newV - 1));
+  var tn = document.getElementById('t' + (newV - 1) + 'n');
+  var tl = document.getElementById('t' + (newV - 1) + 'l');
   if (prevC) {
-    prevC.setAttribute('fill','#3a0808'); prevC.setAttribute('stroke','#8a2020');
-    prevC.style.animation='pulseRouge 2s ease-in-out infinite';
-    const tn=document.getElementById('t'+(newV-1)+'n'), tl=document.getElementById('t'+(newV-1)+'l');
-    if(tn){tn.setAttribute('fill','#dd4444'); tn.textContent=getIcones()[newV-1]||'✦';}
-    if(tl){tl.setAttribute('fill','#aa3030'); tl.textContent=NOMS[newV-1];}
-    setTimeout(function(){
-      prevC.setAttribute('fill','#003010'); prevC.setAttribute('stroke','#00992e');
-      prevC.style.animation='';
-      if(tn){tn.setAttribute('fill','#00dd44');}
-      if(tl){tl.setAttribute('fill','#00aa33');}
-      renderAll();
-      const curC=document.getElementById('c'+newV);
-      if(curC){
-        curC.setAttribute('fill','#3a0808'); curC.setAttribute('stroke','#8a2020');
-        curC.style.animation='pulseRouge 2s ease-in-out infinite';
-        const tn2=document.getElementById('t'+newV+'n'), tl2=document.getElementById('t'+newV+'l');
-        if(tn2){tn2.setAttribute('fill','#dd4444'); tn2.textContent=getIcones()[newV]||'✦';}
-        if(tl2){tl2.setAttribute('fill','#aa3030'); tl2.textContent=NOMS[newV];}
-      }
-    }, 2000);
+    prevC.setAttribute('fill', '#3a0808');
+    prevC.setAttribute('stroke', '#8a2020');
+    prevC.style.animation = 'pulseRouge 1.5s ease-in-out infinite';
+    if (tn) { tn.setAttribute('fill', '#dd4444'); tn.textContent = ICONES[newV-1] || '✦'; }
+    if (tl) { tl.setAttribute('fill', '#aa3030'); tl.textContent = NOMS[newV-1]; }
   }
-  if (newV >= NOMS.length) { setTimeout(lancerAnimationTresor, 3000); }
+
+  // Phase 2 (après 1.5s) : bulle devient verte + pointillés s'allument
+  setTimeout(function() {
+    if (prevC) {
+      prevC.setAttribute('fill', '#003010');
+      prevC.setAttribute('stroke', '#00992e');
+      prevC.style.animation = '';
+      if (tn) tn.setAttribute('fill', '#00dd44');
+      if (tl) tl.setAttribute('fill', '#00aa33');
+    }
+
+    // Allumer le chemin en pointillés
+    allumerChemin(newV, isPMR);
+
+    // Phase 3 (après animation pointillés ~1.2s) : prochaine bulle clignote rouge
+    setTimeout(function() {
+      if (newV < NOMS.length) {
+        var curC = document.getElementById('c' + newV);
+        var tn2 = document.getElementById('t' + newV + 'n');
+        var tl2 = document.getElementById('t' + newV + 'l');
+        if (curC) {
+          curC.setAttribute('fill', '#3a0808');
+          curC.setAttribute('stroke', '#8a2020');
+          curC.style.animation = 'pulseRouge 2s ease-in-out infinite';
+          if (tn2) { tn2.setAttribute('fill', '#dd4444'); tn2.textContent = ICONES[newV] || '✦'; }
+          if (tl2) { tl2.setAttribute('fill', '#aa3030'); tl2.textContent = NOMS[newV]; }
+        }
+      }
+      majBoutonBas();
+      if (newV >= NOMS.length) { setTimeout(lancerAnimationTresor, 1000); }
+    }, 1400);
+
+  }, 1500);
 }
 
 function lancerAnimationTresor() {
