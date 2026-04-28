@@ -1009,6 +1009,7 @@ window.onload = function() {
   majBoutonBas();
 
   // Afficher décos selon parcours
+  var s2 = typeof GAME !== 'undefined' ? GAME.getSession() : null;
   if (s2 && s2.parcours==='pmr') {
     var dc = document.getElementById('decoClassique');
     var dp = document.getElementById('decoPMR');
