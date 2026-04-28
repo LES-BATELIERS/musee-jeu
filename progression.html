@@ -808,7 +808,7 @@ function animerReussite() {
     }
     allumerChemin(newV + 1, isPMR);
 
-    // Phase 3 (1.4s après) : overlay mini jeu si applicable, PUIS bulle suivante rouge
+    // Phase 3 (après pointillés) : overlay mini jeu si applicable, PUIS bulle suivante rouge
     setTimeout(function(){
       majBoutonBas();
       if(newV >= NOMS.length){ setTimeout(lancerAnimationTresor,1000); return; }
@@ -825,7 +825,7 @@ function animerReussite() {
       } else {
         montrerBulleRouge(newV,NOMS,ICONES);
       }
-    }, 1400);
+    }, 1200);
   }, 1500);
 }
 
