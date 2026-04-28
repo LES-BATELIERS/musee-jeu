@@ -474,37 +474,91 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
   <path d="M252,572 C314,551 251,488 206,583 S160,678 165,630" fill="none" stroke="#00bb44" stroke-width="3" stroke-dasharray="8,6" stroke-dashoffset="9999" opacity="0" id="cpv78" stroke-linecap="round"/>
 </g>
 
-<!-- ══ DÉCORATIONS ══ -->
+<!-- ══ DÉCORATIONS repositionnées selon nouvelles bulles ══ -->
 
-<!-- Notes musique Joseph -->
-<g transform="translate(62,188)" opacity="0.35" fill="#5a2a08" font-family="Georgia,serif">
-  <text font-size="14">♪</text>
-  <text x="16" y="-6" font-size="11">♫</text>
+<!-- Plume près Guide (75,95) — en haut à gauche -->
+<g transform="translate(118,70)" opacity="0.32" fill="#5a2a08">
+  <path d="M0,0 C5,-10 12,-18 8,-28 C4,-18 -2,-10 0,0 Z"/>
+  <line x1="0" y1="0" x2="8" y2="-28" stroke="#5a2a08" stroke-width="0.8" opacity="0.5" fill="none"/>
 </g>
 
-<!-- Horloge HSalon -->
-<g transform="translate(282,240)" opacity="0.32" stroke="#5a2a08" fill="none">
+<!-- Notes musique près Joseph (95,240) — à droite -->
+<g transform="translate(148,220)" opacity="0.35" fill="#5a2a08" font-family="Georgia,serif">
+  <text font-size="14">♪</text>
+  <text x="18" y="-6" font-size="11">♫</text>
+</g>
+
+<!-- Horloge près HSalon (268,295) — à gauche de la bulle -->
+<g transform="translate(220,285)" opacity="0.32" stroke="#5a2a08" fill="none">
   <circle cx="0" cy="0" r="10" stroke-width="1.2"/>
   <line x1="0" y1="0" x2="0" y2="-7" stroke-width="1.5" stroke-linecap="round"/>
   <line x1="0" y1="0" x2="6" y2="0" stroke-width="1" stroke-linecap="round"/>
 </g>
 
-<!-- Sablier H1759 -->
-<g transform="translate(45,310)" opacity="0.32" fill="#5a2a08">
+<!-- Sablier près H1759 (62,385) — à droite -->
+<g transform="translate(108,375)" opacity="0.32" fill="#5a2a08">
   <path d="M-7,-12 L7,-12 L0,0 L7,12 L-7,12 L0,0 Z"/>
   <line x1="-7" y1="-12" x2="7" y2="-12" stroke="#5a2a08" stroke-width="1.5" fill="none"/>
   <line x1="-7" y1="12" x2="7" y2="12" stroke="#5a2a08" stroke-width="1.5" fill="none"/>
 </g>
 
-<!-- CLASSIQUE: Pyramide dromadaire -->
+<!-- Vagues en bas à gauche -->
+<g opacity="0.3" transform="translate(18,610)">
+  <path d="M0,0 Q14,-9 28,0 Q42,9 56,0" fill="none" stroke="#4a6a8a" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M0,9 Q14,0 28,9 Q42,18 56,9" fill="none" stroke="#4a6a8a" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+
+<!-- Vagues en bas à droite -->
+<g opacity="0.28" transform="translate(272,600)">
+  <path d="M0,0 Q12,-7 24,0 Q36,7 48,0" fill="none" stroke="#4a6a8a" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M0,8 Q12,1 24,8 Q36,15 48,8" fill="none" stroke="#4a6a8a" stroke-width="1.4" stroke-linecap="round"/>
+</g>
+
+<!-- Montagne gauche entre H1759 et Dromadaire -->
+<g opacity="0.25" transform="translate(18,430)">
+  <polygon points="0,28 26,-14 52,28" fill="#8a6840"/>
+  <polygon points="10,28 26,-4 42,28" fill="#a07850" opacity="0.5"/>
+</g>
+
+<!-- Petit palmier haut droit -->
+<g transform="translate(318,200)" opacity="0.32">
+  <line x1="0" y1="0" x2="-2" y2="-26" stroke="#5a3a10" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <ellipse cx="-2" cy="-28" rx="9" ry="4" fill="#4a7a20" transform="rotate(20,-2,-28)"/>
+  <ellipse cx="-2" cy="-28" rx="9" ry="4" fill="#4a7a20" transform="rotate(-30,-2,-28)"/>
+  <ellipse cx="-2" cy="-28" rx="7" ry="4" fill="#4a7a20" transform="rotate(80,-2,-28)"/>
+</g>
+
+<!-- Petit palmier bas gauche -->
+<g transform="translate(28,490)" opacity="0.28">
+  <line x1="0" y1="0" x2="2" y2="-22" stroke="#5a3a10" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <ellipse cx="2" cy="-24" rx="8" ry="3.5" fill="#4a7a20" transform="rotate(-20,2,-24)"/>
+  <ellipse cx="2" cy="-24" rx="8" ry="3.5" fill="#4a7a20" transform="rotate(40,2,-24)"/>
+</g>
+
+<!-- Crâne déco entre H1759 et Dromadaire -->
+<g transform="translate(168,418)" opacity="0.18">
+  <circle cx="0" cy="-5" r="10" fill="#8a7050"/>
+  <rect x="-6" y="3" width="12" height="7" rx="2" fill="#8a7050"/>
+  <circle cx="-3" cy="-6" r="2.5" fill="#c8a030"/>
+  <circle cx="3" cy="-6" r="2.5" fill="#c8a030"/>
+</g>
+
+<!-- Flamme lampe près Lampe (252,572) -->
+<g transform="translate(308,548)" opacity="0.32">
+  <path d="M0,2 C-5,-6 -2,-16 0,-22 C2,-16 5,-6 0,2 Z" fill="#c89020"/>
+  <path d="M0,-2 C-2,-10 0,-18 0,-22 C2,-16 1,-8 0,-2 Z" fill="#f0d060" opacity="0.7"/>
+  <ellipse cx="0" cy="4" rx="9" ry="5" fill="#8a6820" stroke="#5a3808" stroke-width="0.8"/>
+</g>
+
+<!-- CLASSIQUE: Pyramide près Dromadaire (245,455) -->
 <g id="decoClassique">
-  <g transform="translate(278,374)" opacity="0.38">
-    <polygon points="0,-24 20,0 -20,0" fill="#8a6a30" stroke="#5a3a10" stroke-width="1"/>
-    <polygon points="0,-24 8,0 -8,0" fill="#a07a40" opacity="0.4"/>
-    <ellipse cx="0" cy="4" rx="22" ry="5" fill="#c8a030" opacity="0.25"/>
+  <g transform="translate(305,425)" opacity="0.38">
+    <polygon points="0,-22 20,0 -20,0" fill="#8a6a30" stroke="#5a3a10" stroke-width="1"/>
+    <polygon points="0,-22 7,0 -7,0" fill="#a07a40" opacity="0.4"/>
+    <ellipse cx="0" cy="4" rx="20" ry="4" fill="#c8a030" opacity="0.25"/>
   </g>
-  <!-- Arc-en-ciel licorne -->
-  <g transform="translate(62,450)" opacity="0.42">
+  <!-- Arc-en-ciel près Licorne (88,528) -->
+  <g transform="translate(150,500)" opacity="0.42">
     <path d="M-24,14 C-24,-8 24,-8 24,14" fill="none" stroke="#cc2222" stroke-width="3" stroke-linecap="round"/>
     <path d="M-17,14 C-17,-1 17,-1 17,14" fill="none" stroke="#dd9900" stroke-width="2.5" stroke-linecap="round"/>
     <path d="M-10,14 C-10,6 10,6 10,14" fill="none" stroke="#22aa22" stroke-width="2.5" stroke-linecap="round"/>
@@ -512,50 +566,25 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
   </g>
 </g>
 
-<!-- PMR: Étoiles + Puits -->
+<!-- PMR: Étoiles près Putti (245,455) + Puits près VG (88,528) -->
 <g id="decoPMR" style="display:none">
-  <!-- Étoiles filantes -->
-  <g transform="translate(272,372)" opacity="0.42" fill="#c8b820" font-family="Georgia,serif">
+  <g transform="translate(305,425)" opacity="0.42" fill="#c8b820" font-family="Georgia,serif">
     <text font-size="11" x="-10" y="0">★</text>
-    <text font-size="7" x="4" y="-12">★</text>
+    <text font-size="7" x="5" y="-12">★</text>
     <text font-size="9" x="-22" y="-10">✦</text>
     <text font-size="6" x="8" y="8">⋆</text>
-    <text font-size="8" x="-6" y="-20">✧</text>
-    <line x1="-22" y1="-18" x2="-10" y2="-6" stroke="#c8b820" stroke-width="1" opacity="0.5"/>
-    <line x1="6" y1="-20" x2="14" y2="-12" stroke="#c8b820" stroke-width="1" opacity="0.5"/>
+    <text font-size="8" x="-5" y="-20">✧</text>
+    <line x1="-22" y1="-18" x2="-10" y2="-6" stroke="#c8b820" stroke-width="1" opacity="0.5" fill="none"/>
+    <line x1="6" y1="-20" x2="14" y2="-12" stroke="#c8b820" stroke-width="1" opacity="0.5" fill="none"/>
   </g>
-  <!-- Puits -->
-  <g transform="translate(62,450)" opacity="0.38">
+  <g transform="translate(150,505)" opacity="0.38">
     <rect x="-15" y="-4" width="30" height="18" rx="2" fill="#7a5a30" stroke="#4a3010" stroke-width="1.2"/>
     <ellipse cx="0" cy="-4" rx="15" ry="5" fill="#9a7a50" stroke="#4a3010" stroke-width="1"/>
-    <line x1="-18" y1="-10" x2="0" y2="-24" stroke="#4a3010" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="18" y1="-10" x2="0" y2="-24" stroke="#4a3010" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="-18" y1="-10" x2="18" y2="-10" stroke="#4a3010" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="-18" y1="-10" x2="0" y2="-24" stroke="#4a3010" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <line x1="18" y1="-10" x2="0" y2="-24" stroke="#4a3010" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <line x1="-18" y1="-10" x2="18" y2="-10" stroke="#4a3010" stroke-width="1.2" stroke-linecap="round" fill="none"/>
     <rect x="-4" y="-20" width="8" height="10" rx="1" fill="#8a6030" stroke="#4a3010" stroke-width="0.8"/>
   </g>
-</g>
-
-<!-- Flamme lampe -->
-<g transform="translate(285,510)" opacity="0.32">
-  <path d="M0,2 C-5,-6 -2,-16 0,-22 C2,-16 5,-6 0,2 Z" fill="#c89020"/>
-  <path d="M0,-2 C-2,-10 0,-18 0,-22 C2,-16 1,-8 0,-2 Z" fill="#f0d060" opacity="0.7"/>
-  <ellipse cx="0" cy="4" rx="9" ry="5" fill="#8a6820" stroke="#5a3808" stroke-width="0.8"/>
-</g>
-
-<!-- Vagues -->
-<g opacity="0.3" transform="translate(18,600)">
-  <path d="M0,0 Q14,-9 28,0 Q42,9 56,0" fill="none" stroke="#4a6a8a" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M0,9 Q14,0 28,9 Q42,18 56,9" fill="none" stroke="#4a6a8a" stroke-width="1.5" stroke-linecap="round"/>
-</g>
-<g opacity="0.28" transform="translate(272,592)">
-  <path d="M0,0 Q12,-7 24,0 Q36,7 48,0" fill="none" stroke="#4a6a8a" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M0,8 Q12,1 24,8 Q36,15 48,8" fill="none" stroke="#4a6a8a" stroke-width="1.4" stroke-linecap="round"/>
-</g>
-
-<!-- Montagne -->
-<g opacity="0.28" transform="translate(18,345)">
-  <polygon points="0,28 24,-12 48,28" fill="#8a6840"/>
-  <polygon points="8,28 24,-2 40,28" fill="#a07850" opacity="0.5"/>
 </g>
 
 <!-- ══ ÉTAPES ══ -->
