@@ -1072,6 +1072,11 @@ window.onload = function() {
   var isPMRLoad = sLoad && sLoad.parcours==='pmr';
   var vLoad = getValidated();
 
+  // Vider messageSpecial si on n'arrive pas d'une réussite
+  if (mode !== 'reussi') {
+    localStorage.removeItem('messageSpecial');
+  }
+
   if (mode==='reussi') {
     // Nettoyer l'URL pour éviter re-progression au refresh
     window.history.replaceState({}, '', 'progression.html');
