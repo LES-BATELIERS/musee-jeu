@@ -768,6 +768,15 @@ localStorage.removeItem('messageSpecial');
 
   // ── Afficher l'indice (prochain QR à trouver) ──
   function afficherIndice() {
+    // Capturer l'index de la bulle AVANT GAME.avancer()
+    var sAvantAvancer = GAME.getSession();
+    var totalCommunAvant = PARCOURS.commun ? PARCOURS.commun.length : 5;
+    var idxAvantAvancer = 0;
+    if (sAvantAvancer.phase === 'commun')    idxAvantAvancer = sAvantAvancer.etape;
+    if (sAvantAvancer.phase === 'classique') idxAvantAvancer = totalCommunAvant + sAvantAvancer.etape;
+    if (sAvantAvancer.phase === 'pmr')       idxAvantAvancer = totalCommunAvant + sAvantAvancer.etape;
+    localStorage.setItem('idxBulleReussie', String(idxAvantAvancer));
+
     // Marque l'étape comme réussie (indiceAffiche=true) sans avancer
     // L'avancement réel se fera au prochain scan de QR
     GAME.avancer();
@@ -803,15 +812,7 @@ localStorage.removeItem('messageSpecial');
     }
 
     document.getElementById('indiceTexte').textContent = indice;
-    // Stocker les infos nécessaires pour l'animation
-    var sRedir = GAME.getSession();
-    var totalCommunR = PARCOURS.commun ? PARCOURS.commun.length : 5;
-    var idxR = 0;
-    if (sRedir.phase === 'commun')    idxR = sRedir.etape - 1;
-    if (sRedir.phase === 'classique') idxR = totalCommunR + sRedir.etape - 1;
-    if (sRedir.phase === 'pmr')       idxR = totalCommunR + sRedir.etape - 1;
-    if (idxR < 0) idxR = 0;
-    localStorage.setItem('idxBulleReussie', String(idxR));
+    // idxBulleReussie déjà stocké avant GAME.avancer()
     setTimeout(function() {
       window.location.href = 'progression.html?mode=reussi';
     }, 1500);
