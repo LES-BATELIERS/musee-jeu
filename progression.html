@@ -783,108 +783,97 @@ function allumerChemin(idx, isPMR, callback) {
 }
 
 function animerReussite() {
-  const NOMS = getNoms();
-  const ICONES = getIcones();
-  // newV = index de la bulle qu'on vient de réussir (0=guide, 1=perroquet...)
-  // On lit depuis l'URL pour avoir la valeur exacte avant validerEtape()
-  var newV = etapeReussieParam >= 0 ? etapeReussieParam : (getValidated() - 1);
-  var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
-  var isPMR = s && s.parcours === 'pmr';
+  var NOMS   = getNoms();
+  var ICONES = getIcones();
+  var newV   = etapeReussieParam >= 0 ? etapeReussieParam : 0;
+  var s      = typeof GAME !== 'undefined' ? GAME.getSession() : null;
+  var isPMR  = s && s.parcours === 'pmr';
 
   lancerJingle();
 
-  // Bulles 0..newV-1 → vertes instantanément + leurs chemins allumés
+  // Bulles 0..newV-1 déjà vertes instantanément + leurs chemins
   for (var i = 0; i < newV; i++) {
-    var ci = document.getElementById('c'+i);
+    var ci  = document.getElementById('c'+i);
     var tni = document.getElementById('t'+i+'n');
     var tli = document.getElementById('t'+i+'l');
-    if(ci){ci.setAttribute('fill','#003010');ci.setAttribute('stroke','#00992e');ci.style.animation='';}
-    if(tni){tni.setAttribute('fill','#00dd44');tni.textContent=ICONES[i]||'✦';}
-    if(tli){tli.setAttribute('fill','#00aa33');tli.textContent=NOMS[i];}
-    allumerCheminInstant(i+1, isPMR); // chemin i → i+1
+    if(ci){ ci.setAttribute('fill','#003010'); ci.setAttribute('stroke','#00992e'); ci.style.animation=''; }
+    if(tni){ tni.setAttribute('fill','#00dd44'); tni.textContent=ICONES[i]||'✦'; }
+    if(tli){ tli.setAttribute('fill','#00aa33'); tli.textContent=NOMS[i]; }
+    allumerCheminInstant(i+1, isPMR);
   }
 
-  // Bulle newV = celle qu'on vient de réussir → pulse rouge→vert
-  var prevC = document.getElementById('c'+newV);
-  var tn    = document.getElementById('t'+newV+'n');
-  var tl    = document.getElementById('t'+newV+'l');
-  if(!prevC) return;
+  // Bulle newV : révélée + clignote rouge
+  var bC  = document.getElementById('c'+newV);
+  var tn  = document.getElementById('t'+newV+'n');
+  var tl  = document.getElementById('t'+newV+'l');
+  if(!bC) return;
 
-  prevC.setAttribute('fill','#3a0808'); prevC.setAttribute('stroke','#8a2020');
-  if(tn){tn.setAttribute('fill','#dd4444'); tn.textContent=ICONES[newV]||'✦';}
-  if(tl){tl.setAttribute('fill','#aa3030'); tl.textContent=NOMS[newV];}
+  bC.setAttribute('fill','#3a0808'); bC.setAttribute('stroke','#8a2020');
+  if(tn){ tn.setAttribute('fill','#dd4444'); tn.textContent=ICONES[newV]||'✦'; }
+  if(tl){ tl.setAttribute('fill','#aa3030'); tl.textContent=NOMS[newV]; }
 
-  // Pulse rouge
-  var pulse = setInterval(function(){
-    var f = prevC.getAttribute('fill');
-    prevC.setAttribute('fill', f==='#3a0808' ? '#6a1010' : '#3a0808');
-  }, 300);
+  var p = 0;
+  function pulse1() {
+    p++;
+    bC.setAttribute('fill', p%2===0 ? '#3a0808' : '#6a1010');
+    if(p < 6) setTimeout(pulse1, 300);
+    else versVert();
+  }
+  setTimeout(pulse1, 300);
 
-  // PHASE 2 (1.8s) : bulle verte
-  setTimeout(function(){
-    clearInterval(pulse);
-    prevC.setAttribute('fill','#003010'); prevC.setAttribute('stroke','#00992e');
+  function versVert() {
+    bC.setAttribute('fill','#003010'); bC.setAttribute('stroke','#00992e');
     if(tn) tn.setAttribute('fill','#00dd44');
     if(tl) tl.setAttribute('fill','#00aa33');
+    setTimeout(versPointilles, 500);
+  }
 
-    // PHASE 3 : pointillés newV-1 → newV (chemin depuis la bulle réussie)
-    allumerChemin(newV, isPMR, function(){
-
-      // PHASE 4 : overlay ou bulle rouge
-      setTimeout(function(){
-        majBoutonBas();
-        if(newV >= NOMS.length){ setTimeout(lancerAnimationTresor,500); return; }
-
-        function afficherBulleRouge(){
-          montrerBulleRouge(newV, NOMS, ICONES);
-        }
-
-        // newV = index de la bulle qu'on vient de réussir
-        // 0=Guide, 1=Perroquet, 2=Joseph, 3=HSalon, 4=H1759...
-        var parcours = s ? s.parcours : 'enfants';
-        if(newV === 1 && parcours !== 'enfants'){
-          // Fini Perroquet (famille/PMR) → mini jeu Grand Salon → Joseph II
-          ouvrirJosephAvecCallback(afficherBulleRouge);
-        } else if(newV === 2 && parcours !== 'enfants'){
-          // Fini Joseph II (famille/PMR) → mini jeu Salon Rouge
-          ouvrirSalonAvecCallback(afficherBulleRouge);
-        } else if(newV === 3){
-          // Fini HSalon → mini jeu Couloir
-          ouvrirCouloirAvecCallback(afficherBulleRouge);
-        } else if(newV === 4 && (parcours === 'enfants' || parcours === 'famille')){
-          // Fini H1759 classique → mini jeu Loggia → Licorne
-          ouvrirLoggiaAvecCallback(afficherBulleRouge);
-        } else {
-          afficherBulleRouge();
-        }
-      }, 200);
+  function versPointilles() {
+    allumerChemin(newV+1, isPMR, function(){
+      setTimeout(versSuite, 200);
     });
+  }
 
-  }, 1800);
+  function versSuite() {
+    majBoutonBas();
+    if(newV+1 >= NOMS.length){ setTimeout(lancerAnimationTresor,500); return; }
+
+    function afficherBulleRouge() {
+      var bN  = document.getElementById('c'+(newV+1));
+      var tn2 = document.getElementById('t'+(newV+1)+'n');
+      var tl2 = document.getElementById('t'+(newV+1)+'l');
+      if(!bN) return;
+      bN.setAttribute('fill','#3a0808'); bN.setAttribute('stroke','#8a2020');
+      if(tn2){ tn2.setAttribute('fill','#dd4444'); tn2.textContent=ICONES[newV+1]||'✦'; }
+      if(tl2){ tl2.setAttribute('fill','#aa3030'); tl2.textContent=NOMS[newV+1]; }
+      var q = 0;
+      function pulse2() {
+        q++;
+        bN.setAttribute('fill', q%2===0 ? '#3a0808' : '#6a1010');
+        if(q < 999) setTimeout(pulse2, 350);
+      }
+      pulse2();
+    }
+
+    var parcours = s ? s.parcours : 'enfants';
+    if(newV === 1 && parcours !== 'enfants'){
+      ouvrirJosephAvecCallback(afficherBulleRouge);
+    } else if(newV === 2 && parcours !== 'enfants'){
+      ouvrirSalonAvecCallback(afficherBulleRouge);
+    } else if(newV === 3){
+      ouvrirCouloirAvecCallback(afficherBulleRouge);
+    } else if(newV === 4 && (parcours==='enfants'||parcours==='famille')){
+      ouvrirLoggiaAvecCallback(afficherBulleRouge);
+    } else {
+      afficherBulleRouge();
+    }
+  }
 }
 
-function montrerBulleRouge(idx, NOMS, ICONES) {
-  if(idx >= NOMS.length) return;
-  var curC = document.getElementById('c'+idx);
-  var tn2  = document.getElementById('t'+idx+'n');
-  var tl2  = document.getElementById('t'+idx+'l');
-  if(curC){
-    curC.setAttribute('fill','#3a0808'); curC.setAttribute('stroke','#8a2020');
-    curC.style.animation = 'pulseRouge 2s ease-in-out infinite';
-    if(tn2){tn2.setAttribute('fill','#dd4444');tn2.textContent=ICONES[idx]||'✦';}
     if(tl2){tl2.setAttribute('fill','#aa3030');tl2.textContent=NOMS[idx];}
   }
 }
 
-function montrerBulleRouge(idx, NOMS, ICONES) {
-  if(idx >= NOMS.length) return;
-  var curC = document.getElementById('c'+idx);
-  var tn2  = document.getElementById('t'+idx+'n');
-  var tl2  = document.getElementById('t'+idx+'l');
-  if(curC){
-    curC.setAttribute('fill','#3a0808'); curC.setAttribute('stroke','#8a2020');
-    curC.style.animation='pulseRouge 2s ease-in-out infinite';
-    if(tn2){tn2.setAttribute('fill','#dd4444');tn2.textContent=ICONES[idx]||'✦';}
     if(tl2){tl2.setAttribute('fill','#aa3030');tl2.textContent=NOMS[idx];}
   }
 }
