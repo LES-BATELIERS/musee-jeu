@@ -797,7 +797,9 @@ localStorage.removeItem('messageSpecial');
     document.getElementById('indiceTexte').textContent = indice;
     // Rediriger vers le plan avec animation jaune→vert après 1.5s
     setTimeout(function() {
-      window.location.href = 'progression.html?mode=reussi';
+      var sRedir = GAME.getSession();
+      var etapeReussie = sRedir.etape; // index de l'étape qu'on vient de réussir
+      window.location.href = 'progression.html?mode=reussi&etape=' + etapeReussie;
     }, 1500);
     afficherEcran('ecranIndice');
   }

@@ -676,6 +676,7 @@ function setValidated(n){ /* calculé depuis GAME, pas besoin de stocker */ }
 // ── MODE ──
 const params = new URLSearchParams(window.location.search);
 const mode = params.get('mode') || '';
+const etapeReussieParam = parseInt(params.get('etape') || '-1');
 
 // ── RENDER ──
 function updateEtape(i, NOMS, v) {
@@ -781,8 +782,9 @@ function allumerChemin(idx, isPMR, callback) {
 function animerReussite() {
   const NOMS = getNoms();
   const ICONES = getIcones();
-  const newV = getValidated() - 1; // bulle qu'on vient de réussir (0=guide, 1=perroquet...)
-  // newV = index de la bulle réussie, newV+1 = prochaine bulle à allumer
+  // newV = index de la bulle qu'on vient de réussir (0=guide, 1=perroquet...)
+  // On lit depuis l'URL pour avoir la valeur exacte avant validerEtape()
+  var newV = etapeReussieParam >= 0 ? etapeReussieParam : (getValidated() - 1);
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
   var isPMR = s && s.parcours === 'pmr';
 
