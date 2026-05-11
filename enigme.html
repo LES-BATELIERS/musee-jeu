@@ -802,10 +802,16 @@ localStorage.removeItem('messageSpecial');
     }
 
     document.getElementById('indiceTexte').textContent = indice;
-    // Calculer l'index de la bulle sur la carte (position globale)
-    // Rediriger vers le plan avec animation après 1.5s
+    // Calculer l'index de la bulle réussie (avant validerEtape qui a déjà eu lieu)
+    var sRedir = GAME.getSession();
+    var totalCommunRedir = PARCOURS.commun ? PARCOURS.commun.length : 5;
+    var idxRedir = 0;
+    if (sRedir.phase === 'commun')    idxRedir = sRedir.etape - 1;
+    if (sRedir.phase === 'classique') idxRedir = totalCommunRedir + sRedir.etape - 1;
+    if (sRedir.phase === 'pmr')       idxRedir = totalCommunRedir + sRedir.etape - 1;
+    if (idxRedir < 0) idxRedir = 0;
     setTimeout(function() {
-      window.location.href = 'progression.html?mode=reussi&etape=' + indexAvant;
+      window.location.href = 'progression.html?mode=reussi&etape=' + idxRedir;
     }, 1500);
     afficherEcran('ecranIndice');
   }
