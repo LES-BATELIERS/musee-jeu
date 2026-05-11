@@ -38,8 +38,8 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
 
 /* ── OVERLAY GÉNERIQUE ── */
 .joseph-overlay {
-  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.95); z-index:99999; flex-direction:column;
+  display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.97); z-index:999999; flex-direction:column;
   align-items:center; justify-content:center; padding:24px; box-sizing:border-box;
   font-family:Georgia,serif;
 }
@@ -832,15 +832,15 @@ function animerReussite() {
 
   // Choisir l'overlay selon la bulle réussie
   if(newV === 1 && parcours !== 'enfants'){
-    setTimeout(function(){ ouvrirJosephAvecCallback(apresOverlay); }, 600);
+    setTimeout(function(){ ouvrirJosephAvecCallback(apresOverlay); }, 1200);
   } else if(newV === 2 && parcours !== 'enfants'){
-    setTimeout(function(){ ouvrirSalonAvecCallback(apresOverlay); }, 600);
+    setTimeout(function(){ ouvrirSalonAvecCallback(apresOverlay); }, 1200);
   } else if(newV === 3){
-    setTimeout(function(){ ouvrirCouloirAvecCallback(apresOverlay); }, 600);
+    setTimeout(function(){ ouvrirCouloirAvecCallback(apresOverlay); }, 1200);
   } else if(newV === 4 && (parcours==='enfants'||parcours==='famille')){
-    setTimeout(function(){ ouvrirLoggiaAvecCallback(apresOverlay); }, 600);
+    setTimeout(function(){ ouvrirLoggiaAvecCallback(apresOverlay); }, 1200);
   } else {
-    setTimeout(apresOverlay, 600);
+    setTimeout(apresOverlay, 800);
   }
 }
 
