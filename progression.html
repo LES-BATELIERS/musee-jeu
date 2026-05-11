@@ -746,22 +746,22 @@ function allumerCheminInstant(idx, isPMR) {
   path.setAttribute('stroke-dashoffset', '0');
 }
 
-function allumerChemin(idx, isPMR) {
+function allumerChemin(idx, isPMR, callback) {
   var prefix = isPMR ? 'cpv' : 'cv';
   var ids = ['01','12','23','34','45','56','67','78'];
-  if (idx < 1 || idx > 8) return;
+  if (idx < 1 || idx > 8) { if(callback) callback(); return; }
   var path = document.getElementById(prefix + ids[idx-1]);
-  if (!path) return;
+  if (!path) { if(callback) callback(); return; }
 
   var len;
   try { len = path.getTotalLength(); } catch(e) { len = 200; }
 
-  var DASH = 8, GAP = 6, UNIT = DASH + GAP;
-  var total = Math.ceil(len / UNIT);
+  var DASH = 8, GAP = 6;
+  var total = Math.ceil(len / (DASH + GAP));
   var dot = 0;
 
   path.setAttribute('opacity', '1');
-  path.setAttribute('stroke-dasharray', '0 ' + len);
+  path.setAttribute('stroke-dasharray', '0 9999');
   path.setAttribute('stroke-dashoffset', '0');
 
   function tick() {
@@ -773,6 +773,7 @@ function allumerChemin(idx, isPMR) {
     arr += ' 0 9999';
     path.setAttribute('stroke-dasharray', arr);
     if (dot < total) setTimeout(tick, 50);
+    else if (callback) setTimeout(callback, 100);
   }
   setTimeout(tick, 50);
 }
@@ -784,11 +785,9 @@ function animerReussite() {
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
   var isPMR = s && s.parcours === 'pmr';
 
-  console.log('[animerReussite] newV='+newV+' phase='+(s?s.phase:'?')+' etape='+(s?s.etape:'?')+' parcours='+(s?s.parcours:'?'));
-
   lancerJingle();
 
-  // Rendre toutes les bulles avant newV-1 déjà vertes (sans animation)
+  // Bulles avant newV-1 → déjà vertes instantanément
   for (var i = 0; i < newV - 1; i++) {
     var ci = document.getElementById('c'+i);
     var tni = document.getElementById('t'+i+'n');
@@ -798,46 +797,69 @@ function animerReussite() {
     if(tli){tli.setAttribute('fill','#00aa33');tli.textContent=NOMS[i];}
   }
 
-  // Phase 1 : bulle newV-1 clignote rouge→vert
+  // Bulle newV-1 = celle qu'on vient de réussir → pulse rouge
   var prevC = document.getElementById('c'+(newV-1));
-  var tn = document.getElementById('t'+(newV-1)+'n');
-  var tl = document.getElementById('t'+(newV-1)+'l');
-  if(prevC){
+  var tn    = document.getElementById('t'+(newV-1)+'n');
+  var tl    = document.getElementById('t'+(newV-1)+'l');
+  if(prevC && tn && tl) {
     prevC.setAttribute('fill','#3a0808'); prevC.setAttribute('stroke','#8a2020');
-    prevC.style.animation='pulseRouge 1.5s ease-in-out infinite';
-    if(tn){tn.setAttribute('fill','#dd4444');tn.textContent=ICONES[newV-1]||'✦';}
-    if(tl){tl.setAttribute('fill','#aa3030');tl.textContent=NOMS[newV-1];}
-  }
+    tn.setAttribute('fill','#dd4444'); tn.textContent = ICONES[newV-1]||'✦';
+    tl.setAttribute('fill','#aa3030'); tl.textContent = NOMS[newV-1];
 
-  // Phase 2 (1.5s) : devient verte + pointillés
-  setTimeout(function(){
-    if(prevC){
-      prevC.setAttribute('fill','#003010'); prevC.setAttribute('stroke','#00992e');
-      prevC.style.animation='';
-      if(tn)tn.setAttribute('fill','#00dd44');
-      if(tl)tl.setAttribute('fill','#00aa33');
-    }
-    allumerChemin(newV + 1, isPMR);
+    var pulse = setInterval(function(){
+      var f = prevC.getAttribute('fill');
+      prevC.setAttribute('fill', f==='#3a0808' ? '#6a1010' : '#3a0808');
+    }, 300);
 
-    // Phase 3 (après pointillés) : overlay mini jeu si applicable, PUIS bulle suivante rouge
+    // PHASE 2 (1.8s) : devient verte
     setTimeout(function(){
-      majBoutonBas();
-      if(newV >= NOMS.length){ setTimeout(lancerAnimationTresor,1000); return; }
+      clearInterval(pulse);
+      prevC.setAttribute('fill','#003010'); prevC.setAttribute('stroke','#00992e');
+      prevC.style.animation = '';
+      tn.setAttribute('fill','#00dd44');
+      tl.setAttribute('fill','#00aa33');
 
-      // Overlay avec callback → bulle rouge seulement APRÈS fermeture overlay
-      if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===1){
-        ouvrirJosephAvecCallback(function(){ montrerBulleRouge(newV,NOMS,ICONES); });
-      } else if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===2){
-        ouvrirSalonAvecCallback(function(){ montrerBulleRouge(newV,NOMS,ICONES); });
-      } else if(s && s.phase==='commun' && s.etape===3){
-        ouvrirCouloirAvecCallback(function(){ montrerBulleRouge(newV,NOMS,ICONES); });
-      } else if(s && (s.parcours==='enfants'||s.parcours==='famille') && s.phase==='classique' && s.etape===1){
-        ouvrirLoggiaAvecCallback(function(){ montrerBulleRouge(newV,NOMS,ICONES); });
-      } else {
-        montrerBulleRouge(newV,NOMS,ICONES);
-      }
-    }, 1200);
-  }, 1500);
+      // PHASE 3 : pointillés un par un
+      allumerChemin(newV + 1, isPMR, function(){
+
+        // PHASE 4 : après pointillés → overlay ou bulle rouge
+        setTimeout(function(){
+          majBoutonBas();
+          if(newV >= NOMS.length){ setTimeout(lancerAnimationTresor,500); return; }
+
+          function afficherBulleRouge(){
+            montrerBulleRouge(newV, NOMS, ICONES);
+          }
+
+          if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===1){
+            ouvrirJosephAvecCallback(afficherBulleRouge);
+          } else if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===2){
+            ouvrirSalonAvecCallback(afficherBulleRouge);
+          } else if(s && s.phase==='commun' && s.etape===3){
+            ouvrirCouloirAvecCallback(afficherBulleRouge);
+          } else if(s && (s.parcours==='enfants'||s.parcours==='famille') && s.phase==='classique' && s.etape===1){
+            ouvrirLoggiaAvecCallback(afficherBulleRouge);
+          } else {
+            afficherBulleRouge();
+          }
+        }, 300);
+      });
+
+    }, 1800);
+  }
+}
+
+function montrerBulleRouge(idx, NOMS, ICONES) {
+  if(idx >= NOMS.length) return;
+  var curC = document.getElementById('c'+idx);
+  var tn2  = document.getElementById('t'+idx+'n');
+  var tl2  = document.getElementById('t'+idx+'l');
+  if(curC){
+    curC.setAttribute('fill','#3a0808'); curC.setAttribute('stroke','#8a2020');
+    curC.style.animation = 'pulseRouge 2s ease-in-out infinite';
+    if(tn2){tn2.setAttribute('fill','#dd4444');tn2.textContent=ICONES[idx]||'✦';}
+    if(tl2){tl2.setAttribute('fill','#aa3030');tl2.textContent=NOMS[idx];}
+  }
 }
 
 function montrerBulleRouge(idx, NOMS, ICONES) {
