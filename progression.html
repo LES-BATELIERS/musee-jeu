@@ -1088,7 +1088,18 @@ window.onload = function() {
     window.history.replaceState({}, '', 'progression.html');
     var msgSpec=localStorage.getItem('messageSpecial');
     if(msgSpec){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},5000);}
-    setTimeout(animerReussite, 100);
+    // Attendre que le SVG soit rendu avant de lancer l'animation
+    function attendreSVG(tentative) {
+      var c0 = document.getElementById('c0');
+      if (c0 && c0.getBoundingClientRect().width > 0) {
+        animerReussite();
+      } else if (tentative < 20) {
+        setTimeout(function(){ attendreSVG(tentative+1); }, 100);
+      } else {
+        animerReussite(); // lancer quand même après 2s
+      }
+    }
+    attendreSVG(0);
   } else {
     // MODE NORMAL : renderAll + restaurer état
     localStorage.removeItem('messageSpecial');
