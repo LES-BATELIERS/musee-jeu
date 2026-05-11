@@ -781,14 +781,15 @@ function allumerChemin(idx, isPMR, callback) {
 function animerReussite() {
   const NOMS = getNoms();
   const ICONES = getIcones();
-  const newV = getValidated(); // nombre de bulles validées (ex: 2 après perroquet)
+  const newV = getValidated() - 1; // bulle qu'on vient de réussir (0=guide, 1=perroquet...)
+  // newV = index de la bulle réussie, newV+1 = prochaine bulle à allumer
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
   var isPMR = s && s.parcours === 'pmr';
 
   lancerJingle();
 
-  // Bulles 0..newV-2 → vertes instantanément + leurs chemins allumés
-  for (var i = 0; i < newV - 1; i++) {
+  // Bulles 0..newV-1 → vertes instantanément + leurs chemins allumés
+  for (var i = 0; i < newV; i++) {
     var ci = document.getElementById('c'+i);
     var tni = document.getElementById('t'+i+'n');
     var tli = document.getElementById('t'+i+'l');
@@ -798,15 +799,15 @@ function animerReussite() {
     allumerCheminInstant(i+1, isPMR); // chemin i → i+1
   }
 
-  // Bulle newV-1 = celle qu'on vient de réussir → pulse rouge→vert
-  var prevC = document.getElementById('c'+(newV-1));
-  var tn    = document.getElementById('t'+(newV-1)+'n');
-  var tl    = document.getElementById('t'+(newV-1)+'l');
+  // Bulle newV = celle qu'on vient de réussir → pulse rouge→vert
+  var prevC = document.getElementById('c'+newV);
+  var tn    = document.getElementById('t'+newV+'n');
+  var tl    = document.getElementById('t'+newV+'l');
   if(!prevC) return;
 
   prevC.setAttribute('fill','#3a0808'); prevC.setAttribute('stroke','#8a2020');
-  if(tn){tn.setAttribute('fill','#dd4444'); tn.textContent=ICONES[newV-1]||'✦';}
-  if(tl){tl.setAttribute('fill','#aa3030'); tl.textContent=NOMS[newV-1];}
+  if(tn){tn.setAttribute('fill','#dd4444'); tn.textContent=ICONES[newV]||'✦';}
+  if(tl){tl.setAttribute('fill','#aa3030'); tl.textContent=NOMS[newV];}
 
   // Pulse rouge
   var pulse = setInterval(function(){
