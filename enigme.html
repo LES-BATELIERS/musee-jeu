@@ -690,6 +690,8 @@ localStorage.removeItem('messageSpecial');
       if (etapeData.videoBonneReponse) {
         chargerVideo('videoFeedback', etapeData.videoBonneReponse);
         // Message personnalisé si défini dans la question, sinon message par défaut
+        console.log('questionData:', JSON.stringify(questionData));
+        console.log('messageBonneReponse:', questionData ? questionData.messageBonneReponse : 'undefined');
         var msgSpecial = questionData.messageBonneReponse || '';
         localStorage.removeItem('messageSpecial');
         var msgHtml = '<span class="feedback-ok">✅ Bravo ! Bonne réponse !</span>';
