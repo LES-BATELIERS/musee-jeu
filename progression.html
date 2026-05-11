@@ -839,13 +839,20 @@ function animerReussite() {
           montrerBulleRouge(newV, NOMS, ICONES);
         }
 
-        if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===1){
+        // newV = index de la bulle qu'on vient de réussir
+        // 0=Guide, 1=Perroquet, 2=Joseph, 3=HSalon, 4=H1759...
+        var parcours = s ? s.parcours : 'enfants';
+        if(newV === 1 && parcours !== 'enfants'){
+          // Fini Perroquet (famille/PMR) → mini jeu Grand Salon → Joseph II
           ouvrirJosephAvecCallback(afficherBulleRouge);
-        } else if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===2){
+        } else if(newV === 2 && parcours !== 'enfants'){
+          // Fini Joseph II (famille/PMR) → mini jeu Salon Rouge
           ouvrirSalonAvecCallback(afficherBulleRouge);
-        } else if(s && s.phase==='commun' && s.etape===3){
+        } else if(newV === 3){
+          // Fini HSalon → mini jeu Couloir
           ouvrirCouloirAvecCallback(afficherBulleRouge);
-        } else if(s && (s.parcours==='enfants'||s.parcours==='famille') && s.phase==='classique' && s.etape===1){
+        } else if(newV === 4 && (parcours === 'enfants' || parcours === 'famille')){
+          // Fini H1759 classique → mini jeu Loggia → Licorne
           ouvrirLoggiaAvecCallback(afficherBulleRouge);
         } else {
           afficherBulleRouge();
