@@ -1081,10 +1081,8 @@ function toggleZoomCarte() {
 // ── ONLOAD ──
 window.onload = function() {
   initParcours();
-  renderAll();
-  majBoutonBas();
 
-  // Afficher décos selon parcours
+  // Décos selon parcours
   var s2 = typeof GAME !== 'undefined' ? GAME.getSession() : null;
   if (s2 && s2.parcours==='pmr') {
     var dc = document.getElementById('decoClassique');
@@ -1100,24 +1098,22 @@ window.onload = function() {
     if(btn)btn.classList.add('actif');
   }
 
-  // Message spécial
-  var msgSpec=localStorage.getItem('messageSpecial');
-  if(msgSpec && mode==='reussi'){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},1200);}
-
   var sLoad = typeof GAME!=='undefined' ? GAME.getSession() : null;
   var isPMRLoad = sLoad && sLoad.parcours==='pmr';
   var vLoad = getValidated();
 
-  // Vider messageSpecial si on n'arrive pas d'une réussite
-  if (mode !== 'reussi') {
-    localStorage.removeItem('messageSpecial');
-  }
-
   if (mode==='reussi') {
-    // Nettoyer l'URL pour éviter re-progression au refresh
+    // MODE REUSSI : ne pas appeler renderAll, laisser animerReussite tout gérer
     window.history.replaceState({}, '', 'progression.html');
+    // Message spécial après animation
+    var msgSpec=localStorage.getItem('messageSpecial');
+    if(msgSpec){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},4000);}
     animerReussite();
   } else {
+    // MODE NORMAL : renderAll + restaurer état
+    localStorage.removeItem('messageSpecial');
+    renderAll();
+    majBoutonBas();
     // Refresh normal : restaurer l'état visuel complet
     var NOMS2 = getNoms();
     var ICONES2 = getIcones();
