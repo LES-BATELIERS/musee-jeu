@@ -74,7 +74,7 @@ const PARCOURS = {
           texte: "Imagine que tu arrives à l'école et tu dis à ta maîtresse : 'Je suis pas en retard, j'ai décidé que l'école commence à midi !' Elle va dire quoi ? Avant, chaque ville faisait exactement ça ! Qui a eu l'idée d'inventer une heure pour tout le monde ?",
           choix: ["Les maîtresses", "Les humains", "Les pizzas"],
           bonne: 1,
-          messageBonneReponse: "Des siècles pour s'entendre sur une référence commune. Et pourtant aujourd'hui encore, la Chine impose une seule heure pour un pays qui devrait en avoir 5... Si l'heure n'est qu'une convention inventée par l'homme, alors peut-être que le temps lui-même n'est pas ce qu'on croit. Einstein disait : 'La distinction entre passé, présent et futur n'est qu'une illusion, aussi tenace soit-elle.'"
+          messageBonneReponse: "Tu sais quoi ? Avant, chaque ville avait sa propre heure ! Comme si chaque maison décidait toute seule. C'est les grandes personnes qui ont tout mis à la même heure pour que les trains arrivent à l'heure. L'heure sur ta montre ? C'est une idée qu'on a inventée ensemble !"
         },
         famille: {
           texte: "Avant 1884, chaque ville vivait à sa propre heure. Mais les trains allaient trop vite — impossible de faire des horaires quand chaque ville avait son propre temps ! Alors 25 nations signèrent un accord à Washington, choisissant Greenwich comme référence mondiale. Le temps a toujours existé... mais l'heure sur ta montre ?",
