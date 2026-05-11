@@ -102,7 +102,8 @@ const PARCOURS = {
         famille: {
           texte: "L'horloge du salon rouge bat comme un cœur mécanique. Marcel Proust écrivait que 'le temps perdu' ne l'est jamais vraiment — il vit dans nos souvenirs. Comment appelle-t-on en littérature le procédé qui consiste à raconter des événements passés dans un récit au présent ?",
           choix: ["L'analepse", "La métaphore", "L'ellipse"],
-          bonne: 0        }
+          bonne: 0
+        }
       },
       indice: "Trouve l'horloge près d'un escalier !"
     },
