@@ -803,10 +803,17 @@ localStorage.removeItem('messageSpecial');
     }
 
     document.getElementById('indiceTexte').textContent = indice;
-    // Lire l'index sauvegardé au moment du scan
-    var idxRedir = parseInt(localStorage.getItem('idxBulleReussie') || '0');
+    // Stocker les infos nécessaires pour l'animation
+    var sRedir = GAME.getSession();
+    var totalCommunR = PARCOURS.commun ? PARCOURS.commun.length : 5;
+    var idxR = 0;
+    if (sRedir.phase === 'commun')    idxR = sRedir.etape - 1;
+    if (sRedir.phase === 'classique') idxR = totalCommunR + sRedir.etape - 1;
+    if (sRedir.phase === 'pmr')       idxR = totalCommunR + sRedir.etape - 1;
+    if (idxR < 0) idxR = 0;
+    localStorage.setItem('idxBulleReussie', String(idxR));
     setTimeout(function() {
-      window.location.href = 'progression.html?mode=reussi&etape=' + idxRedir;
+      window.location.href = 'progression.html?mode=reussi';
     }, 1500);
     afficherEcran('ecranIndice');
   }
