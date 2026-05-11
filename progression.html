@@ -661,15 +661,17 @@ function getIcones() { if (typeof GAME==='undefined') return ICONES_CLASSIQUE; r
 
 // ── VALIDATION ──
 function getValidated() {
-  if (typeof GAME === 'undefined') return 0;
+  if (typeof GAME === 'undefined' || typeof PARCOURS === 'undefined') return 0;
   var s = GAME.getSession();
   if (!s || !s.parcours) return 0;
   var totalCommun = PARCOURS.commun ? PARCOURS.commun.length : 5;
-  var etapesPassees = 0;
-  if (s.phase === 'commun')    etapesPassees = s.etape;
-  if (s.phase === 'classique') etapesPassees = totalCommun + s.etape;
-  if (s.phase === 'pmr')       etapesPassees = totalCommun + s.etape;
-  return etapesPassees;
+  var idx = 0;
+  if (s.phase === 'commun')    idx = s.etape;
+  if (s.phase === 'classique') idx = totalCommun + s.etape;
+  if (s.phase === 'pmr')       idx = totalCommun + s.etape;
+  // Si l'indice est affiché, on a validé cette étape
+  var indiceAffiche = localStorage.getItem('indiceAffiche') === '1';
+  return indiceAffiche ? idx + 1 : idx;
 }
 function setValidated(n){ /* calculé depuis GAME, pas besoin de stocker */ }
 
@@ -869,15 +871,6 @@ function animerReussite() {
     }
   }
 }
-
-    if(tl2){tl2.setAttribute('fill','#aa3030');tl2.textContent=NOMS[idx];}
-  }
-}
-
-    if(tl2){tl2.setAttribute('fill','#aa3030');tl2.textContent=NOMS[idx];}
-  }
-}
-
 function lancerAnimationTresor() {
   const jingle=document.getElementById('jingleCertificat');
   if(jingle){jingle.currentTime=29;jingle.play();}
@@ -1092,13 +1085,10 @@ window.onload = function() {
   var vLoad = getValidated();
 
   if (mode==='reussi') {
-    // MODE REUSSI : ne pas appeler renderAll, laisser animerReussite tout gérer
     window.history.replaceState({}, '', 'progression.html');
-    // Message spécial après animation
     var msgSpec=localStorage.getItem('messageSpecial');
     if(msgSpec){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},5000);}
-    // Délai pour que le SVG soit complètement rendu
-    setTimeout(animerReussite, 300);
+    setTimeout(animerReussite, 100);
   } else {
     // MODE NORMAL : renderAll + restaurer état
     localStorage.removeItem('messageSpecial');
