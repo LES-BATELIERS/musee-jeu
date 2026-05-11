@@ -676,13 +676,7 @@ function setValidated(n){ /* calculé depuis GAME, pas besoin de stocker */ }
 // ── MODE ──
 const params = new URLSearchParams(window.location.search);
 const mode = params.get('mode') || '';
-const etapeReussieParam = (function(){
-  var fromLS = parseInt(localStorage.getItem('bulleReussie'));
-  var fromURL = parseInt(params.get('etape'));
-  if (!isNaN(fromLS) && fromLS >= 0) { localStorage.removeItem('bulleReussie'); return fromLS; }
-  if (!isNaN(fromURL) && fromURL >= 0) return fromURL;
-  return -1;
-})();
+const etapeReussieParam = parseInt(params.get('etape') || '-1');
 
 // ── RENDER ──
 function updateEtape(i, NOMS, v) {

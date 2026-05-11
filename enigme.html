@@ -372,14 +372,13 @@ localStorage.removeItem('messageSpecial');
     if (session.indiceAffiche && idEtape && idEtape !== '0') {
       // Vérifier que le QR scanné correspond bien à l'étape suivante attendue
       if (GAME.peutAcceder(idEtape)) {
-        // Sauvegarder l'index de la bulle réussie AVANT validerEtape()
+        // Sauvegarder l'index AVANT validerEtape()
         var sAvantValid = GAME.getSession();
         var totalCommunPre = PARCOURS.commun ? PARCOURS.commun.length : 5;
         var indexAvant = 0;
         if (sAvantValid.phase === 'commun')    indexAvant = sAvantValid.etape;
         if (sAvantValid.phase === 'classique') indexAvant = totalCommunPre + sAvantValid.etape;
         if (sAvantValid.phase === 'pmr')       indexAvant = totalCommunPre + sAvantValid.etape;
-        localStorage.setItem('bulleReussie', indexAvant);
         GAME.validerEtape();
         session = GAME.getSession();
         // Continuer normalement pour charger la nouvelle énigme
@@ -804,11 +803,9 @@ localStorage.removeItem('messageSpecial');
 
     document.getElementById('indiceTexte').textContent = indice;
     // Calculer l'index de la bulle sur la carte (position globale)
-    // Lire l'index sauvegardé AVANT validerEtape()
-    var indexBulleReussie = parseInt(localStorage.getItem('bulleReussie') || '0');
     // Rediriger vers le plan avec animation après 1.5s
     setTimeout(function() {
-      window.location.href = 'progression.html?mode=reussi&etape=' + indexBulleReussie;
+      window.location.href = 'progression.html?mode=reussi&etape=' + indexAvant;
     }, 1500);
     afficherEcran('ecranIndice');
   }
