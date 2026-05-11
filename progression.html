@@ -781,13 +781,13 @@ function allumerChemin(idx, isPMR, callback) {
 function animerReussite() {
   const NOMS = getNoms();
   const ICONES = getIcones();
-  const newV = getValidated();
+  const newV = getValidated(); // nombre de bulles validées (ex: 2 après perroquet)
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
   var isPMR = s && s.parcours === 'pmr';
 
   lancerJingle();
 
-  // Bulles avant newV-1 → déjà vertes instantanément
+  // Bulles 0..newV-2 → vertes instantanément + leurs chemins allumés
   for (var i = 0; i < newV - 1; i++) {
     var ci = document.getElementById('c'+i);
     var tni = document.getElementById('t'+i+'n');
@@ -795,58 +795,59 @@ function animerReussite() {
     if(ci){ci.setAttribute('fill','#003010');ci.setAttribute('stroke','#00992e');ci.style.animation='';}
     if(tni){tni.setAttribute('fill','#00dd44');tni.textContent=ICONES[i]||'✦';}
     if(tli){tli.setAttribute('fill','#00aa33');tli.textContent=NOMS[i];}
+    allumerCheminInstant(i+1, isPMR); // chemin i → i+1
   }
 
-  // Bulle newV-1 = celle qu'on vient de réussir → pulse rouge
+  // Bulle newV-1 = celle qu'on vient de réussir → pulse rouge→vert
   var prevC = document.getElementById('c'+(newV-1));
   var tn    = document.getElementById('t'+(newV-1)+'n');
   var tl    = document.getElementById('t'+(newV-1)+'l');
-  if(prevC && tn && tl) {
-    prevC.setAttribute('fill','#3a0808'); prevC.setAttribute('stroke','#8a2020');
-    tn.setAttribute('fill','#dd4444'); tn.textContent = ICONES[newV-1]||'✦';
-    tl.setAttribute('fill','#aa3030'); tl.textContent = NOMS[newV-1];
+  if(!prevC) return;
 
-    var pulse = setInterval(function(){
-      var f = prevC.getAttribute('fill');
-      prevC.setAttribute('fill', f==='#3a0808' ? '#6a1010' : '#3a0808');
-    }, 300);
+  prevC.setAttribute('fill','#3a0808'); prevC.setAttribute('stroke','#8a2020');
+  if(tn){tn.setAttribute('fill','#dd4444'); tn.textContent=ICONES[newV-1]||'✦';}
+  if(tl){tl.setAttribute('fill','#aa3030'); tl.textContent=NOMS[newV-1];}
 
-    // PHASE 2 (1.8s) : devient verte
-    setTimeout(function(){
-      clearInterval(pulse);
-      prevC.setAttribute('fill','#003010'); prevC.setAttribute('stroke','#00992e');
-      prevC.style.animation = '';
-      tn.setAttribute('fill','#00dd44');
-      tl.setAttribute('fill','#00aa33');
+  // Pulse rouge
+  var pulse = setInterval(function(){
+    var f = prevC.getAttribute('fill');
+    prevC.setAttribute('fill', f==='#3a0808' ? '#6a1010' : '#3a0808');
+  }, 300);
 
-      // PHASE 3 : pointillés un par un
-      allumerChemin(newV + 1, isPMR, function(){
+  // PHASE 2 (1.8s) : bulle verte
+  setTimeout(function(){
+    clearInterval(pulse);
+    prevC.setAttribute('fill','#003010'); prevC.setAttribute('stroke','#00992e');
+    if(tn) tn.setAttribute('fill','#00dd44');
+    if(tl) tl.setAttribute('fill','#00aa33');
 
-        // PHASE 4 : après pointillés → overlay ou bulle rouge
-        setTimeout(function(){
-          majBoutonBas();
-          if(newV >= NOMS.length){ setTimeout(lancerAnimationTresor,500); return; }
+    // PHASE 3 : pointillés newV-1 → newV (chemin depuis la bulle réussie)
+    allumerChemin(newV, isPMR, function(){
 
-          function afficherBulleRouge(){
-            montrerBulleRouge(newV, NOMS, ICONES);
-          }
+      // PHASE 4 : overlay ou bulle rouge
+      setTimeout(function(){
+        majBoutonBas();
+        if(newV >= NOMS.length){ setTimeout(lancerAnimationTresor,500); return; }
 
-          if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===1){
-            ouvrirJosephAvecCallback(afficherBulleRouge);
-          } else if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===2){
-            ouvrirSalonAvecCallback(afficherBulleRouge);
-          } else if(s && s.phase==='commun' && s.etape===3){
-            ouvrirCouloirAvecCallback(afficherBulleRouge);
-          } else if(s && (s.parcours==='enfants'||s.parcours==='famille') && s.phase==='classique' && s.etape===1){
-            ouvrirLoggiaAvecCallback(afficherBulleRouge);
-          } else {
-            afficherBulleRouge();
-          }
-        }, 300);
-      });
+        function afficherBulleRouge(){
+          montrerBulleRouge(newV, NOMS, ICONES);
+        }
 
-    }, 1800);
-  }
+        if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===1){
+          ouvrirJosephAvecCallback(afficherBulleRouge);
+        } else if(s && s.parcours!=='enfants' && s.phase==='commun' && s.etape===2){
+          ouvrirSalonAvecCallback(afficherBulleRouge);
+        } else if(s && s.phase==='commun' && s.etape===3){
+          ouvrirCouloirAvecCallback(afficherBulleRouge);
+        } else if(s && (s.parcours==='enfants'||s.parcours==='famille') && s.phase==='classique' && s.etape===1){
+          ouvrirLoggiaAvecCallback(afficherBulleRouge);
+        } else {
+          afficherBulleRouge();
+        }
+      }, 200);
+    });
+
+  }, 1800);
 }
 
 function montrerBulleRouge(idx, NOMS, ICONES) {
