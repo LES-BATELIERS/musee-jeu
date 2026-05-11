@@ -55,7 +55,7 @@ const PARCOURS = {
           texte: "Savais-tu que le Dr Emoto a découvert qu'il n'existe jamais deux cristaux d'eau identiques — comme les flocons de neige, chacun est unique et porte sa propre histoire. Ces deux abbés sur le mur aussi sont uniques... mais l'un d'eux cache un secret. Quelque chose a été ajouté sur son portrait après sa mort. Sauras-tu trouver quoi ?",
           choix: ["Un chapeau", "Une croix", "Une chemise"],
           bonne: 1,
-          messageBonneReponse: "Autant de litres d'eau en toi... sensibles à chaque mot, chaque musique, chaque pensée, chaque émotion. Peut-être que prendre soin de ce que tu penses et écoutes, c'est déjà prendre soin de toi."
+          messageBonneReponse: "Pas deux flocons identiques... pas deux êtres identiques non plus. Ce que tu écoutes, ce qu'on te dit, ce que tu ressens — tout cela te façonne doucement. Prendre soin de ses pensées, c'est déjà prendre soin de soi."
         }
       },
       indice: "Trouve Joseph II dans le musée pour continuer !"
@@ -78,8 +78,7 @@ const PARCOURS = {
         famille: {
           texte: "Avant 1884, chaque ville vivait à sa propre heure. Mais les trains allaient trop vite — impossible de faire des horaires quand chaque ville avait son propre temps ! Alors 25 nations signèrent un accord à Washington, choisissant Greenwich comme référence mondiale. Le temps a toujours existé... mais l'heure sur ta montre ?",
           choix: ["C'est une loi de la nature", "C'est une convention humaine", "C'est une force cosmique"],
-          bonne: 1,
-          messageBonneReponse: "Des siècles pour s'entendre sur une référence commune. Et pourtant aujourd'hui encore, la Chine impose une seule heure pour un pays qui devrait en avoir 5... Si l'heure n'est qu'une convention inventée par l'homme — une histoire qu'on se raconte ensemble — alors peut-être que le temps lui-même n'est pas ce qu'on croit. Einstein disait : 'La distinction entre passé, présent et futur n'est qu'une illusion, aussi tenace soit-elle.'"
+          bonne: 1
         }
       },
       indice: "Trouve l'Horloge du Salon rouge dans le musée !"
@@ -96,13 +95,14 @@ const PARCOURS = {
       questions: {
         enfant: {
           texte: "Cette horloge tourne depuis des siècles. Un poète a dit : 'Le temps, c'est ce qui empêche que tout arrive en même temps.' Qu'est-ce qui mesure le temps dans la nature, sans avoir besoin d'une horloge ?",
-          choix: ["Les saisons", "Les horloges", "Les livres"],
-          bonne: 0
+          choix: ["Le chant du coq", "Les ronflements du perroquet", "Les saisons"],
+          bonne: 2
         },
         famille: {
           texte: "L'horloge du salon rouge bat comme un cœur mécanique. Marcel Proust écrivait que 'le temps perdu' ne l'est jamais vraiment — il vit dans nos souvenirs. Comment appelle-t-on en littérature le procédé qui consiste à raconter des événements passés dans un récit au présent ?",
           choix: ["L'analepse", "La métaphore", "L'ellipse"],
-          bonne: 0
+          bonne: 0,
+          messageBonneReponse: "Des siècles pour s'entendre sur une référence commune. Et pourtant aujourd'hui encore, la Chine impose une seule heure pour un pays qui devrait en avoir 5... Si l'heure n'est qu'une convention inventée par l'homme — une histoire qu'on se raconte ensemble — alors peut-être que le temps lui-même n'est pas ce qu'on croit. Einstein disait : 'La distinction entre passé, présent et futur n'est qu'une illusion, aussi tenace soit-elle.'"
         }
       },
       indice: "Trouve l'horloge près d'un escalier !"
@@ -124,7 +124,8 @@ const PARCOURS = {
             videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
             texte: "Je vis dans le désert et j'ai une bosse. Qui suis-je ?",
             choix: ["Le dromadaire", "Le chameau", "La tortue"],
-            bonne: 0
+            bonne: 0,
+            messageBonneReponse: "Bien joué ! Maintenant trouve le dromadaire à cet étage du musée..."
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
@@ -138,13 +139,14 @@ const PARCOURS = {
             videoIntro: "https://www.youtube.com/embed/PdtngomiHzk",
             texte: "Mon premier est le baldaquin suspendu au-dessus du trône royal.\nMon deuxième, c'est ce que fait un serf pour son seigneur.\nMon tout est le royaume du dromadaire.",
             choix: ["Dessert", "Désert", "Désaccord"],
-            bonne: 1
+            bonne: 1,
+            messageBonneReponse: "Bien joué ! Maintenant trouve le dromadaire à cet étage du musée..."
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
-            texte: "Mon premier est la plus haute carte du jeu.\nMon deuxième, c'est quand la quantité dépasse la limite.\nMon troisième est le mot qui désigne tous les êtres humains.\nMon tout se cache dans le jardin du musée, les yeux tournés vers le ciel.\nSaurais-tu le retrouver ?",
-            choix: ["Royauté", "Astronome", "Damnation"],
-            bonne: 1
+            texte: "Mon premier est celui que tous les joueurs de cartes rêvent de tenir en main.\nMon deuxième envahit ce qui devrait rester raisonnable.\nMon troisième, ni femme ni enfant, désigne pourtant toute notre humanité.\nMon tout observe le ciel depuis le jardin du musée, les yeux levés vers l'infini.",
+            choix: ["Cartographe", "Astrologue", "Astronome"],
+            bonne: 2
           }
         }
       },
@@ -238,7 +240,7 @@ const PARCOURS = {
           texte: "Le Putti Astronome te confie un secret en 3 clés :\n\n① Les anciens découpaient l'année en 13 lunes de 28 jours — il restait 1 seul jour sans nom, hors du temps.\n\n② Septembre vient de 'septem' (7), Octobre d'octo (8), Novembre de 'novem' (9), Décembre de 'decem' (10).\n\n③ Si Décembre était jadis le 10e mois, quel jour mystérieux marquait la fin de l'ancienne année ?",
           choix: ["Le 1er janvier", "Le 1er mars", "Le 1er avril"],
           bonne: 2,
-          messageBonneReponse: "Le poisson d'avril n'est pas une blague — c'est le souvenir d'un jour sans nom, hors du temps..."
+          messageBonneReponse: "Le poisson d'avril n'est pas une blague — c'est le souvenir d'un jour sans nom, hors du temps... Maintenant cherche le Vieux Gardien dans la serre — pas celle du jardin, mais celle qui se cache à l'intérieur du musée."
         }
       },
       indice: "Trouve le Vieux Gardien dans le musée !"
@@ -255,9 +257,9 @@ const PARCOURS = {
       questions: {
         unique: {
           texte: "Le Vieux Gardien sait que les mots ont un poids. Victor Hugo écrivait : 'La musique, c'est du bruit qui pense.' Si les mots sont des vibrations et que notre corps est une caisse de résonance, comment appelle-t-on la figure de style qui donne une vie, une âme à une chose inanimée ?",
-          choix: ["La métaphore", "La personnification", "L'allégorie"],
+          choix: ["L'hyperbole", "La personnification", "L'allégorie"],
           bonne: 1,
-          messageBonneReponse: "Les mots vibrent. La musique guérit. Et si chaque mélodie entendue, chaque mot reçu depuis ta naissance, avait doucement dessiné les contours de qui tu es ?"
+          messageBonneReponse: "Les mots vibrent. La musique guérit. Et si chaque mélodie entendue, chaque mot reçu depuis ta naissance, avait doucement dessiné les contours de qui tu es ?\n\nCherche maintenant dans cette même pièce... la Lampe Magique ✨"
         }
       },
       indice: "Trouve la Lampe magique dans le musée !"
