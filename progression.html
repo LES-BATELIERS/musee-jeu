@@ -1096,8 +1096,9 @@ window.onload = function() {
     window.history.replaceState({}, '', 'progression.html');
     // Message spécial après animation
     var msgSpec=localStorage.getItem('messageSpecial');
-    if(msgSpec){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},4000);}
-    animerReussite();
+    if(msgSpec){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},5000);}
+    // Délai pour que le SVG soit complètement rendu
+    setTimeout(animerReussite, 300);
   } else {
     // MODE NORMAL : renderAll + restaurer état
     localStorage.removeItem('messageSpecial');
