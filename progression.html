@@ -712,6 +712,9 @@ function initParcours() {
 
 function renderAll() {
   const NOMS = getNoms();
+  // En mode reussi, on ne veut pas que renderAll écrase l'animation
+  // On saute renderAll si animerReussite va s'en charger
+  if (mode === 'reussi') return;
   const v = getValidated();
   for (var i=0;i<8;i++) updateEtape(i, NOMS, v);
   majBoutonBas();
