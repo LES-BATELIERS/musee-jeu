@@ -294,6 +294,19 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
   </div>
 </div>
 
+<!-- Overlay Licorne → Lampe Magique -->
+<div id="overlayLampe" class="joseph-overlay">
+  <div class="joseph-card">
+    <div class="joseph-etape">✦ Indice ✦</div>
+    <div class="joseph-texte">
+      Tu avances bien, aventurier !<br><br>
+      Suis les <strong style="color:#c8a842;">indications sur les feuilles</strong> dans le musée...<br><br>
+      Elles te guideront vers la <strong style="color:#c8a842;">cour</strong> 🌿
+    </div>
+    <button class="joseph-btn" style="border-color:#00aa33;color:#00aa33;" onclick="fermerLampe()">J'ai trouvé la cour ! ✦</button>
+  </div>
+</div>
+
 <!-- Overlay trésor -->
 <div id="tresorOverlay">
   <div class="tresor-titre">🏆</div>
@@ -846,6 +859,9 @@ function animerReussite() {
   } else if(newV === 5 && (parcours==='enfants'||parcours==='famille')){
     // Vient de finir Dromadaire classique → indice Loggia pour Licorne
     setTimeout(function(){ ouvrirLoggiaAvecCallback(apresOverlay); }, 1200);
+  } else if(newV === 6 && (parcours==='enfants'||parcours==='famille')){
+    // Vient de finir Licorne → indice vers la Lampe Magique (cour)
+    setTimeout(function(){ ouvrirLampeAvecCallback(apresOverlay); }, 1200);
   } else {
     setTimeout(apresOverlay, 800);
   }
@@ -1014,6 +1030,10 @@ function loggiaEtape(n) {
   });
 }
 function fermerLoggia() { document.getElementById('overlayLoggia').classList.remove('visible'); appellerCallback(); }
+
+function ouvrirLampeAvecCallback(cb) { pendingCallback = cb; ouvrirLampe(); }
+function ouvrirLampe() { document.getElementById('overlayLampe').classList.add('visible'); }
+function fermerLampe() { document.getElementById('overlayLampe').classList.remove('visible'); appellerCallback(); }
 
 // ── PRÉNOM ──
 function demanderPrenom() {
