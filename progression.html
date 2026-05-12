@@ -332,84 +332,76 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
 <div id="carteWrap">
 <svg id="carte" viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Image de fond de la carte -->
+  <!-- Image de fond -->
   <image href="img/carte-fond.jpg" x="0" y="0" width="360" height="540" preserveAspectRatio="xMidYMid meet"/>
 
-  <!-- Chemins verts animés (par dessus l'image) -->
+  <!-- Chemins verts animés -->
   <g id="cheminsClassique">
-    <path d="M72,76 C90,110 180,105 245,120" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cv01" stroke-linecap="round"/>
-    <path d="M245,120 C210,155 160,170 130,228" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cv12" stroke-linecap="round"/>
-    <path d="M130,228 C180,250 240,260 252,270" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cv23" stroke-linecap="round"/>
-    <path d="M252,270 C220,310 160,320 120,336" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cv34" stroke-linecap="round"/>
-    <path d="M120,336 C180,355 240,365 252,370" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cv45" stroke-linecap="round"/>
-    <path d="M252,370 C210,405 155,415 120,433" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cv56" stroke-linecap="round"/>
-    <path d="M120,433 C160,460 200,468 174,490" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cv67" stroke-linecap="round"/>
-    <path d="M174,490 C174,510 174,520 174,530" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cv78" stroke-linecap="round"/>
+    <path d="M73,97 C120,120 190,130 249,158" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cv01" stroke-linecap="round"/>
+    <path d="M249,158 C200,185 140,200 76,224" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cv12" stroke-linecap="round"/>
+    <path d="M76,224 C150,245 210,258 249,276" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cv23" stroke-linecap="round"/>
+    <path d="M249,276 C200,300 155,315 106,329" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cv34" stroke-linecap="round"/>
+    <path d="M106,329 C165,348 220,360 263,370" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cv45" stroke-linecap="round"/>
+    <path d="M263,370 C210,400 150,418 85,438" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cv56" stroke-linecap="round"/>
+    <path d="M85,438 C120,460 160,475 183,493" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cv67" stroke-linecap="round"/>
+    <path d="M183,493 C183,510 183,520 183,530" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cv78" stroke-linecap="round"/>
   </g>
-
-  <!-- PMR (même chemins) -->
   <g id="cheminsPMR" style="display:none">
-    <path d="M72,76 C90,110 180,105 245,120" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cpv01" stroke-linecap="round"/>
-    <path d="M245,120 C210,155 160,170 130,228" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cpv12" stroke-linecap="round"/>
-    <path d="M130,228 C180,250 240,260 252,270" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cpv23" stroke-linecap="round"/>
-    <path d="M252,270 C220,310 160,320 120,336" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cpv34" stroke-linecap="round"/>
-    <path d="M120,336 C180,355 240,365 252,370" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cpv45" stroke-linecap="round"/>
-    <path d="M252,370 C210,405 155,415 120,433" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cpv56" stroke-linecap="round"/>
-    <path d="M120,433 C160,460 200,468 174,490" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cpv67" stroke-linecap="round"/>
-    <path d="M174,490 C174,510 174,520 174,530" fill="none" stroke="#00cc44" stroke-width="2.5" stroke-dasharray="8 6" stroke-dashoffset="0" opacity="0" id="cpv78" stroke-linecap="round"/>
+    <path d="M73,97 C120,120 190,130 249,158" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cpv01" stroke-linecap="round"/>
+    <path d="M249,158 C200,185 140,200 76,224" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cpv12" stroke-linecap="round"/>
+    <path d="M76,224 C150,245 210,258 249,276" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cpv23" stroke-linecap="round"/>
+    <path d="M249,276 C200,300 155,315 106,329" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cpv34" stroke-linecap="round"/>
+    <path d="M106,329 C165,348 220,360 263,370" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cpv45" stroke-linecap="round"/>
+    <path d="M263,370 C210,400 150,418 85,438" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cpv56" stroke-linecap="round"/>
+    <path d="M85,438 C120,460 160,475 183,493" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cpv67" stroke-linecap="round"/>
+    <path d="M183,493 C183,510 183,520 183,530" fill="none" stroke="#00cc44" stroke-width="2" stroke-dasharray="8 6" opacity="0" id="cpv78" stroke-linecap="round"/>
   </g>
 
-  <!-- BULLES sur les personnages -->
-  <!-- c0 Le Guide — haut gauche -->
-  <circle id="c0" cx="72" cy="76" r="26" fill="#1c1005" stroke="#5a3008" stroke-width="2.5" opacity="0.88"/>
-  <text id="t0n" x="72" y="83" text-anchor="middle" font-size="16">🗝️</text>
-  <text id="t0l" x="72" y="112" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#5a3008" letter-spacing="1">???</text>
+  <!-- BULLES — r=18, sans labels -->
+  <circle id="c0" cx="73"  cy="97"  r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2" opacity="0.9"/>
+  <text id="t0n" x="73"  y="103" text-anchor="middle" font-size="13">🗝️</text>
+  <text id="t0l" x="73"  y="103" text-anchor="middle" font-size="0" fill="transparent">???</text>
 
-  <!-- c1 Le Perroquet — haut droit -->
-  <circle id="c1" cx="248" cy="118" r="26" fill="#1c1005" stroke="#5a3008" stroke-width="2.5" opacity="0.88"/>
-  <text id="t1n" x="248" y="125" text-anchor="middle" font-size="16" fill="#5a3008">?</text>
-  <text id="t1l" x="248" y="154" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#5a3008" letter-spacing="1">???</text>
+  <circle id="c1" cx="249" cy="158" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2" opacity="0.9"/>
+  <text id="t1n" x="249" y="164" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  <text id="t1l" x="249" y="164" text-anchor="middle" font-size="0" fill="transparent">???</text>
 
-  <!-- c2 Joseph II — milieu gauche -->
-  <circle id="c2" cx="80" cy="228" r="26" fill="#1c1005" stroke="#5a3008" stroke-width="2.5" opacity="0.88"/>
-  <text id="t2n" x="80" y="235" text-anchor="middle" font-size="16" fill="#5a3008">?</text>
-  <text id="t2l" x="80" y="264" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#5a3008" letter-spacing="1">???</text>
+  <circle id="c2" cx="76"  cy="224" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2" opacity="0.9"/>
+  <text id="t2n" x="76"  y="230" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  <text id="t2l" x="76"  y="230" text-anchor="middle" font-size="0" fill="transparent">???</text>
 
-  <!-- c3 Horloge Salon Rouge — milieu droit -->
-  <circle id="c3" cx="270" cy="268" r="26" fill="#1c1005" stroke="#5a3008" stroke-width="2.5" opacity="0.88"/>
-  <text id="t3n" x="270" y="275" text-anchor="middle" font-size="16" fill="#5a3008">?</text>
-  <text id="t3l" x="270" y="304" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#5a3008" letter-spacing="1">???</text>
+  <circle id="c3" cx="249" cy="276" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2" opacity="0.9"/>
+  <text id="t3n" x="249" y="282" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  <text id="t3l" x="249" y="282" text-anchor="middle" font-size="0" fill="transparent">???</text>
 
-  <!-- c4 Horloge Figée — milieu bas gauche -->
-  <circle id="c4" cx="80" cy="336" r="26" fill="#1c1005" stroke="#5a3008" stroke-width="2.5" opacity="0.88"/>
-  <text id="t4n" x="80" y="343" text-anchor="middle" font-size="16" fill="#5a3008">?</text>
-  <text id="t4l" x="80" y="372" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#5a3008" letter-spacing="1">???</text>
+  <circle id="c4" cx="106" cy="329" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2" opacity="0.9"/>
+  <text id="t4n" x="106" y="335" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  <text id="t4l" x="106" y="335" text-anchor="middle" font-size="0" fill="transparent">???</text>
 
-  <!-- c5 Dromadaire — milieu bas droit -->
-  <circle id="c5" cx="265" cy="366" r="26" fill="#1c1005" stroke="#5a3008" stroke-width="2.5" opacity="0.88"/>
-  <text id="t5n" x="265" y="373" text-anchor="middle" font-size="16" fill="#5a3008">?</text>
-  <text id="t5l" x="265" y="402" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#5a3008" letter-spacing="1">???</text>
+  <circle id="c5" cx="263" cy="370" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2" opacity="0.9"/>
+  <text id="t5n" x="263" y="376" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  <text id="t5l" x="263" y="376" text-anchor="middle" font-size="0" fill="transparent">???</text>
 
-  <!-- c6 Licorne — bas gauche -->
-  <circle id="c6" cx="82" cy="433" r="26" fill="#1c1005" stroke="#5a3008" stroke-width="2.5" opacity="0.88"/>
-  <text id="t6n" x="82" y="440" text-anchor="middle" font-size="16" fill="#5a3008">?</text>
-  <text id="t6l" x="82" y="469" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#5a3008" letter-spacing="1">???</text>
+  <circle id="c6" cx="85"  cy="438" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2" opacity="0.9"/>
+  <text id="t6n" x="85"  y="444" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  <text id="t6l" x="85"  y="444" text-anchor="middle" font-size="0" fill="transparent">???</text>
 
-  <!-- c7 Lampe Magique — bas centre -->
-  <circle id="c7" cx="174" cy="490" r="26" fill="#1c1005" stroke="#5a3008" stroke-width="2.5" opacity="0.88"/>
-  <text id="t7n" x="174" y="497" text-anchor="middle" font-size="16" fill="#5a3008">?</text>
-  <text id="t7l" x="174" y="522" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#5a3008" letter-spacing="1">???</text>
+  <circle id="c7" cx="183" cy="493" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2" opacity="0.9"/>
+  <text id="t7n" x="183" y="499" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  <text id="t7l" x="183" y="499" text-anchor="middle" font-size="0" fill="transparent">???</text>
 
-  <!-- Trésor — bas -->
-  <g transform="translate(174,532)">
-    <rect x="-30" y="-18" width="60" height="36" rx="5" fill="#3a1a00" stroke="#c8a842" stroke-width="2.2" id="tresorRect"/>
-    <rect x="-30" y="-18" width="60" height="14" rx="3" fill="#4a2800" stroke="#c8a842" stroke-width="1"/>
-    <circle cx="0" cy="-11" r="3.5" fill="#c8a842"/>
-    <text x="0" y="8" text-anchor="middle" font-size="13">💎</text>
-    <text x="0" y="26" text-anchor="middle" font-size="7" fill="#c8a842" letter-spacing="2" font-family="Georgia,serif">TRÉSOR</text>
+  <!-- Trésor -->
+  <g transform="translate(183,528)">
+    <rect x="-28" y="-16" width="56" height="32" rx="4" fill="#3a1a00" stroke="#c8a842" stroke-width="2" id="tresorRect"/>
+    <rect x="-28" y="-16" width="56" height="12" rx="3" fill="#4a2800" stroke="#c8a842" stroke-width="1"/>
+    <circle cx="0" cy="-10" r="3" fill="#c8a842"/>
+    <text x="0" y="6" text-anchor="middle" font-size="11">💎</text>
+    <text x="0" y="22" text-anchor="middle" font-size="6" fill="#c8a842" letter-spacing="2" font-family="Georgia,serif">TRÉSOR</text>
   </g>
 
 </svg>
+
+
 
 
 </div>
