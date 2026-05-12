@@ -814,7 +814,26 @@ function appellerCallback() {
   if (pendingCallback) { var cb = pendingCallback; pendingCallback = null; cb(); }
 }
 
+var musiqueOverlay = null;
+function demarrerMusiqueOverlay() {
+  try {
+    if (musiqueOverlay) { musiqueOverlay.pause(); musiqueOverlay = null; }
+    musiqueOverlay = new Audio('audio/_FREE__JID_x_Kendrick_Lamar_x_J__Cole_Type_Beat.mp3');
+    musiqueOverlay.loop = true;
+    musiqueOverlay.volume = 0.2;
+    musiqueOverlay.play().catch(function(){});
+  } catch(e) {}
+}
+function arreterMusiqueOverlay() {
+  if (musiqueOverlay) {
+    musiqueOverlay.pause();
+    musiqueOverlay.currentTime = 0;
+    musiqueOverlay = null;
+  }
+}
+
 function ouvrirJoseph() {
+  demarrerMusiqueOverlay();
   document.getElementById('overlayJoseph').classList.add('visible');
   josephEtape(1);
   ['choixA','choixB','choixC'].forEach(function(id){var b=document.getElementById(id);if(b){b.classList.remove('grise','bon');}});
@@ -837,9 +856,10 @@ function josephChoix(choix) {
     document.getElementById('choix'+choix).classList.add('grise');
   }
 }
-function fermerJoseph() { document.getElementById('overlayJoseph').classList.remove('visible'); lancerJingle(); appellerCallback(); }
+function fermerJoseph() { arreterMusiqueOverlay(); document.getElementById('overlayJoseph').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 function ouvrirSalon() {
+  demarrerMusiqueOverlay();
   document.getElementById('overlaySalon').classList.add('visible');
   salonEtape(1);
   ['schoixA','schoixB','schoixC','schoixD','schoixE','schoixF'].forEach(function(id){var b=document.getElementById(id);if(b){b.classList.remove('grise','bon');}});
@@ -871,9 +891,10 @@ function salonChoix2(choix) {
     document.getElementById('schoix'+choix).classList.add('grise');
   }
 }
-function fermerSalon() { document.getElementById('overlaySalon').classList.remove('visible'); lancerJingle(); appellerCallback(); }
+function fermerSalon() { arreterMusiqueOverlay(); document.getElementById('overlaySalon').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 function ouvrirCouloir() {
+  demarrerMusiqueOverlay();
   document.getElementById('overlayCouloir').classList.add('visible');
   couloirEtape(1);
 }
@@ -890,9 +911,10 @@ function couloirEtape(n) {
     if(p){p.classList.remove('actif','fait');if(i<n)p.classList.add('fait');if(i===n)p.classList.add('actif');}
   });
 }
-function fermerCouloir() { document.getElementById('overlayCouloir').classList.remove('visible'); lancerJingle(); appellerCallback(); }
+function fermerCouloir() { arreterMusiqueOverlay(); document.getElementById('overlayCouloir').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 function ouvrirLoggia() {
+  demarrerMusiqueOverlay();
   document.getElementById('overlayLoggia').classList.add('visible');
   loggiaEtape(1);
 }
@@ -904,11 +926,11 @@ function loggiaEtape(n) {
     if(p){p.classList.remove('actif','fait');if(i<n)p.classList.add('fait');if(i===n)p.classList.add('actif');}
   });
 }
-function fermerLoggia() { document.getElementById('overlayLoggia').classList.remove('visible'); lancerJingle(); appellerCallback(); }
+function fermerLoggia() { arreterMusiqueOverlay(); document.getElementById('overlayLoggia').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 function ouvrirLampeAvecCallback(cb) { pendingCallback = cb; ouvrirLampe(); }
-function ouvrirLampe() { document.getElementById('overlayLampe').classList.add('visible'); }
-function fermerLampe() { document.getElementById('overlayLampe').classList.remove('visible'); lancerJingle(); appellerCallback(); }
+function ouvrirLampe() { demarrerMusiqueOverlay(); document.getElementById('overlayLampe').classList.add('visible'); }
+function fermerLampe() { arreterMusiqueOverlay(); document.getElementById('overlayLampe').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 // ── PRÉNOM ──
 function demanderPrenom() {
