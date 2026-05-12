@@ -627,19 +627,19 @@ function animerReussite() {
   if(newV === 1){
     // Vient de finir Perroquet → indice pour trouver Joseph II (Grand Salon)
     // Pour tous les parcours (enfant, famille, PMR)
-    setTimeout(function(){ ouvrirJosephAvecCallback(apresOverlay); }, 1200);
+    setTimeout(function(){ ouvrirJosephAvecCallback(apresOverlay); }, 0);
   } else if(newV === 2){
     // Vient de finir Joseph → indice pour trouver H.Salon Rouge
-    setTimeout(function(){ ouvrirSalonAvecCallback(apresOverlay); }, 1200);
+    setTimeout(function(){ ouvrirSalonAvecCallback(apresOverlay); }, 0);
   } else if(newV === 3){
     // Vient de finir H.Salon → indice Couloir pour H.1759
-    setTimeout(function(){ ouvrirCouloirAvecCallback(apresOverlay); }, 1200);
+    setTimeout(function(){ ouvrirCouloirAvecCallback(apresOverlay); }, 0);
   } else if(newV === 5 && (parcours==='enfants'||parcours==='famille')){
     // Vient de finir Dromadaire classique → indice Loggia pour Licorne
-    setTimeout(function(){ ouvrirLoggiaAvecCallback(apresOverlay); }, 1200);
+    setTimeout(function(){ ouvrirLoggiaAvecCallback(apresOverlay); }, 0);
   } else if(newV === 6 && (parcours==='enfants'||parcours==='famille')){
     // Vient de finir Licorne → indice vers la Lampe Magique (cour)
-    setTimeout(function(){ ouvrirLampeAvecCallback(apresOverlay); }, 1200);
+    setTimeout(function(){ ouvrirLampeAvecCallback(apresOverlay); }, 0);
   } else {
     // Pas d'overlay — lancer le jingle directement
     lancerJingle();
