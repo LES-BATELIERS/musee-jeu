@@ -761,7 +761,13 @@ localStorage.removeItem('messageSpecial');
   var indiceDejaAffiche = false;
   function apresReponse() {
     if (bonneReponse) {
+      // Lancer le jingle dès le clic sur Continuer
       if (!indiceDejaAffiche) {
+        try {
+          var jingle = new Audio('audio/JINGLE PARCOURS INTERRACTIF VSG.mp3');
+          jingle.volume = 0.8;
+          jingle.play().catch(function(){});
+        } catch(e) {}
         indiceDejaAffiche = true;
         afficherIndice();
       }
