@@ -822,6 +822,12 @@ localStorage.removeItem('messageSpecial');
     document.getElementById('indiceTexte').textContent = indice;
     // Passer l'index dans l'URL directement
     var idxFinal = parseInt(localStorage.getItem('idxBulleReussie') || '0');
+    // Lancer le jingle avant la redirection
+    try {
+      var jingle = new Audio('audio/JINGLE_PARCOURS_INTERRACTIF_VSG.mp3');
+      jingle.volume = 0.8;
+      jingle.play().catch(function(){});
+    } catch(e) {}
     setTimeout(function() {
       window.location.href = 'progression.html?mode=reussi&etape=' + idxFinal;
     }, 1500);
