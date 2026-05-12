@@ -962,6 +962,7 @@ window.onload = function() {
   if (mode==='reussi') {
     var msgSpec=localStorage.getItem('messageSpecial');
     if(msgSpec){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},5000);}
+    lancerJingle();
     setTimeout(function(){
       window.history.replaceState({}, '', 'progression.html');
       animerReussite();
