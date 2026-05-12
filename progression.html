@@ -821,6 +821,7 @@ function demarrerMusiqueOverlay() {
     musiqueOverlay = new Audio('audio/_FREE__JID_x_Kendrick_Lamar_x_J__Cole_Type_Beat.mp3');
     musiqueOverlay.loop = true;
     musiqueOverlay.volume = 0.2;
+    musiqueOverlay.currentTime = 1.4;
     musiqueOverlay.play().catch(function(){});
   } catch(e) {}
 }
