@@ -962,14 +962,12 @@ window.onload = function() {
   var vLoad = getValidated();
 
   if (mode==='reussi') {
-    window.history.replaceState({}, '', 'progression.html');
     var msgSpec=localStorage.getItem('messageSpecial');
     if(msgSpec){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},5000);}
-    console.log('[NB] mode=reussi, etapeReussieParam='+etapeReussieParam);
     setTimeout(function(){
-      console.log('[NB] lancement animerReussite');
+      window.history.replaceState({}, '', 'progression.html');
       animerReussite();
-    }, 500);
+    }, 300);
   } else {
     // MODE NORMAL : renderAll + restaurer état
     localStorage.removeItem('messageSpecial');
