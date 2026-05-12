@@ -589,8 +589,6 @@ function animerReussite() {
   var isPMR  = s && s.parcours === 'pmr';
   var parcours = s ? s.parcours : 'enfants';
 
-  lancerJingle();
-
   // Étape 1 : mettre toutes les bulles 0..newV en vert instantanément
   for (var i = 0; i <= newV; i++) {
     var ci  = document.getElementById('c'+i);
