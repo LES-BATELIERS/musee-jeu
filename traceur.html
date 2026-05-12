@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Traceur courbes</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#111; font-family:Georgia,serif; color:#f0d080; }
+h1 { text-align:center; padding:8px; font-size:13px; letter-spacing:2px; color:#c8a842; }
+p.info { text-align:center; font-size:10px; color:#8a8070; padding:3px 8px; line-height:1.5; }
+#wrap { position:relative; display:block; }
+#carte { width:100%; display:block; cursor:crosshair; }
+svg#overlay { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+#controls { display:flex; gap:6px; padding:8px; justify-content:center; flex-wrap:wrap; }
+.btn { padding:7px 12px; background:#3a1a00; color:#f0d080; border:1px solid #c8a842; border-radius:6px; cursor:pointer; font-size:11px; font-family:Georgia,serif; }
+.btn:hover { background:#5a2a08; }
+#tension-wrap { display:flex; align-items:center; gap:6px; padding:4px 8px; justify-content:center; }
+#tension-wrap label { font-size:11px; color:#c8a842; }
+#tension { width:100px; }
+#output { background:#1a1a1a; padding:10px; font-size:10px; font-family:monospace; color:#00cc44; word-break:break-all; min-height:50px; }
+</style>
+</head>
+<body>
+<h1>✦ Traceur de courbes ✦</h1>
+<p class="info">Clique le long des pointillés de la carte.<br>Ajuste la <b style="color:#c8a842">tension</b> pour plus ou moins de courbe.</p>
+
+<div id="wrap">
+  <img id="carte" src="img/carte-fond.jpg" draggable="false"/>
+  <svg id="overlay" viewBox="0 0 360 540">
+    <g id="points"></g>
+    <path id="chemin" fill="none" stroke="#ff6600" stroke-width="2" stroke-dasharray="7,4" opacity="0.9"/>
+  </svg>
+</div>
+
+<div id="tension-wrap">
+  <label>Tension courbe :</label>
+  <input type="range" id="tension" min="0" max="1" step="0.05" value="0.4" oninput="updatePath()"/>
+  <span id="tensionVal" style="font-size:11px;color:#c8a842">0.4</span>
+</div>
+
+<div id="controls">
+  <button class="btn" onclick="annuler()">↩ Annuler</button>
+  <button class="btn" onclick="effacer()">🗑 Effacer</button>
+  <button class="btn" onclick="copyPath()">📋 Copier SVG</button>
+</div>
+<div id="output">Clique sur la carte pour commencer...</div>
+
+<script>
+const img = document.getElementById('carte');
+const cheminEl = document.getElementById('chemin');
+const pointsEl = document.getElementById('points');
+const vW = 360, vH = 540;
+let pts = [];
+
+function getPos(cx, cy) {
+  const r = img.getBoundingClientRect();
+  return {
+    x: Math.round((cx - r.left) * vW / r.width),
+    y: Math.round((cy - r.top)  * vH / r.height)
+  };
+}
+
+img.addEventListener('click', e => { addPt(getPos(e.clientX, e.clientY)); });
+img.addEventListener('touchend', e => {
+  e.preventDefault();
+  const t = e.changedTouches[0];
+  addPt(getPos(t.clientX, t.clientY));
+}, {passive:false});
+
+function addPt(p) {
+  pts.push(p);
+  // Cercle
+  const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  c.setAttribute('cx',p.x); c.setAttribute('cy',p.y); c.setAttribute('r','4');
+  c.setAttribute('fill','#ff6600'); c.setAttribute('stroke','#fff'); c.setAttribute('stroke-width','1.2');
+  c.setAttribute('id','pt'+(pts.length-1));
+  // Numéro
+  const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+  t.setAttribute('x',p.x+6); t.setAttribute('y',p.y-5);
+  t.setAttribute('font-size','8'); t.setAttribute('fill','#ff8844');
+  t.setAttribute('id','ptl'+(pts.length-1));
+  t.textContent = pts.length;
+  pointsEl.appendChild(c);
+  pointsEl.appendChild(t);
+  updatePath();
+}
+
+// Catmull-Rom → courbes lisses passant par tous les points
+function catmullRomToBezier(points, tension) {
+  if (points.length < 2) return '';
+  if (points.length === 2) return `M${points[0].x},${points[0].y} L${points[1].x},${points[1].y}`;
+
+  let d = `M${points[0].x},${points[0].y}`;
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[Math.max(i-1, 0)];
+    const p1 = points[i];
+    const p2 = points[i+1];
+    const p3 = points[Math.min(i+2, points.length-1)];
+
+    const cp1x = Math.round(p1.x + (p2.x - p0.x) * tension);
+    const cp1y = Math.round(p1.y + (p2.y - p0.y) * tension);
+    const cp2x = Math.round(p2.x - (p3.x - p1.x) * tension);
+    const cp2y = Math.round(p2.y - (p3.y - p1.y) * tension);
+
+    d += ` C${cp1x},${cp1y} ${cp2x},${cp2y} ${p2.x},${p2.y}`;
+  }
+  return d;
+}
+
+function updatePath() {
+  const tension = parseFloat(document.getElementById('tension').value);
+  document.getElementById('tensionVal').textContent = tension.toFixed(2);
+  if (pts.length < 2) { cheminEl.setAttribute('d',''); document.getElementById('output').textContent = 'Pose au moins 2 points...'; return; }
+  const d = catmullRomToBezier(pts, tension);
+  cheminEl.setAttribute('d', d);
+  document.getElementById('output').textContent = d;
+}
+
+function annuler() {
+  if (!pts.length) return;
+  pts.pop();
+  const last = pts.length;
+  ['pt','ptl'].forEach(pfx => { const el = document.getElementById(pfx+last); if(el) pointsEl.removeChild(el); });
+  updatePath();
+}
+
+function effacer() {
+  pts = [];
+  pointsEl.innerHTML = '';
+  cheminEl.setAttribute('d','');
+  document.getElementById('output').textContent = 'Effacé.';
+}
+
+function copyPath() {
+  const txt = document.getElementById('output').textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ Copié !';
+    setTimeout(() => btn.textContent = '📋 Copier SVG', 2000);
+  });
+}
+</script>
+</body>
+</html>
