@@ -500,7 +500,7 @@ function initParcours() {
   if (typeof GAME==='undefined') return;
   const s = GAME.getSession();
   if (!s.parcours) return;
-  document.getElementById('carteParcours').textContent = '~ parcours '+s.parcours+' ~';
+  var cp = document.getElementById('carteParcours'); if(cp) cp.textContent = '~ parcours '+s.parcours+' ~';
   if (s.parcours==='pmr') {
     document.getElementById('cheminsPMR').style.display='';
     document.getElementById('cheminsClassique').style.display='none';
@@ -966,10 +966,9 @@ window.onload = function() {
     if(msgSpec){setTimeout(function(){ouvrirMsgSpecial(msgSpec);},5000);}
     setTimeout(function(){
       window.history.replaceState({}, '', 'progression.html');
-      initParcours();
-      renderAll();
       animerReussite();
     }, 300);
+  } else {
     // MODE NORMAL : renderAll + restaurer état
     localStorage.removeItem('messageSpecial');
     renderAll();
