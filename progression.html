@@ -468,8 +468,10 @@ function setValidated(n){ /* calculé depuis GAME, pas besoin de stocker */ }
 const params = new URLSearchParams(window.location.search);
 const mode = params.get('mode') || '';
 const etapeReussieParam = (function(){
-  var ls = localStorage.getItem('idxBulleReussie');
-  if (ls !== null) { return parseInt(ls); }
+  var fromURL = parseInt(params.get('etape'));
+  if (!isNaN(fromURL) && fromURL >= 0) return fromURL;
+  var fromLS = parseInt(localStorage.getItem('idxBulleReussie'));
+  if (!isNaN(fromLS) && fromLS >= 0) return fromLS;
   return -1;
 })();
 
