@@ -547,8 +547,8 @@ function josephEtape(n) {
   for(var i=1;i<=3;i++){ var pt=document.getElementById('jp'+i); if(pt){ pt.className='joseph-point'+(i<n?' fait':i===n?' actif':''); } }
 }
 function josephChoix(c) {
-  ['A','B','C'].forEach(function(x){ var el=document.getElementById('choix'+x); if(el) el.className='joseph-choix'+(x===c?'':(x==='B'?' bon':' grise')); });
-  if(c==='B'){ var s=document.getElementById('josephSucces'); if(s) s.style.display=''; }
+  ['A','B','C'].forEach(function(x){ var el=document.getElementById('choix'+x); if(el) el.className='joseph-choix'+(x===c?'':(x==='C'?' bon':' grise')); });
+  if(c==='C'){ var s=document.getElementById('josephSucces'); if(s) s.style.display=''; }
 }
 function salonEtape(n) {
   for(var i=1;i<=4;i++){ var el=document.getElementById('salonEtape'+i); if(el) el.style.display=(i===n?'':'none'); }
