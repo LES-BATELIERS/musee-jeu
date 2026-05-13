@@ -276,6 +276,41 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
   <text id="t7n" x="183" y="499" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
   <text id="t7l" x="183" y="512" text-anchor="middle" font-size="0" fill="transparent">???</text>
 
+  <!-- BULLES PMR -->
+  <g id="bullesPMR" style="display:none">
+    <circle cx="89" cy="87" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp0" cx="89" cy="87" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp0n" x="89" y="93" text-anchor="middle" font-size="13">🗝️</text>
+
+    <circle cx="254" cy="95" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp1" cx="254" cy="95" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp1n" x="254" y="101" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="85" cy="211" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp2" cx="85" cy="211" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp2n" x="85" y="217" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="266" cy="224" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp3" cx="266" cy="224" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp3n" x="266" y="230" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="85" cy="319" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp4" cx="85" cy="319" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp4n" x="85" y="325" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="257" cy="345" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp5" cx="257" cy="345" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp5n" x="257" y="351" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="75" cy="448" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp6" cx="75" cy="448" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp6n" x="75" y="454" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="181" cy="476" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp7" cx="181" cy="476" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp7n" x="181" y="482" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  </g>
+
   <g transform="translate(183,528)">
     <rect x="-28" y="-16" width="56" height="32" rx="4" fill="#3a1a00" stroke="#c8a842" stroke-width="2" id="tresorRect"/>
     <rect x="-28" y="-16" width="56" height="12" rx="3" fill="#4a2800" stroke="#c8a842" stroke-width="1"/>
@@ -691,6 +726,8 @@ function initParcours() {
     var imgP=document.getElementById('imgPMR');
     if(imgC) imgC.style.display='none';
     if(imgP) imgP.style.display='';
+    var bP=document.getElementById('bullesPMR');
+    if(bP) bP.style.display='';
   }
 }
 
