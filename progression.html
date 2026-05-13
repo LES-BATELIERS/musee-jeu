@@ -728,6 +728,15 @@ function initParcours() {
     if(imgP) imgP.style.display='';
     var bP=document.getElementById('bullesPMR');
     if(bP) bP.style.display='';
+    // Masquer toutes les bulles classiques
+    for(var i=0;i<8;i++){
+      var bc=document.getElementById('c'+i);
+      var tn=document.getElementById('t'+i+'n');
+      var tl=document.getElementById('t'+i+'l');
+      if(bc) bc.style.display='none';
+      if(tn) tn.style.display='none';
+      if(tl) tl.style.display='none';
+    }
   }
 }
 
