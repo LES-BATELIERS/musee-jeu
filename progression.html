@@ -625,23 +625,16 @@ function animerReussite() {
   // newV = index de la bulle qu'on vient de réussir
   // overlay = indice pour TROUVER la bulle suivante
   if(newV === 1){
-    // Vient de finir Perroquet → indice pour trouver Joseph II (Grand Salon)
-    // Pour tous les parcours (enfant, famille, PMR)
-    setTimeout(function(){ ouvrirJosephAvecCallback(apresOverlay); }, 500);
+    afficherBoutonContinuer(function(){ ouvrirJosephAvecCallback(apresOverlay); });
   } else if(newV === 2){
-    // Vient de finir Joseph → indice pour trouver H.Salon Rouge
-    setTimeout(function(){ ouvrirSalonAvecCallback(apresOverlay); }, 500);
+    afficherBoutonContinuer(function(){ ouvrirSalonAvecCallback(apresOverlay); });
   } else if(newV === 3){
-    // Vient de finir H.Salon → indice Couloir pour H.1759
-    setTimeout(function(){ ouvrirCouloirAvecCallback(apresOverlay); }, 500);
+    afficherBoutonContinuer(function(){ ouvrirCouloirAvecCallback(apresOverlay); });
   } else if(newV === 5 && (parcours==='enfants'||parcours==='famille')){
-    // Vient de finir Dromadaire classique → indice Loggia pour Licorne
-    setTimeout(function(){ ouvrirLoggiaAvecCallback(apresOverlay); }, 500);
+    afficherBoutonContinuer(function(){ ouvrirLoggiaAvecCallback(apresOverlay); });
   } else if(newV === 6 && (parcours==='enfants'||parcours==='famille')){
-    // Vient de finir Licorne → indice vers la Lampe Magique (cour)
-    setTimeout(function(){ ouvrirLampeAvecCallback(apresOverlay); }, 500);
+    afficherBoutonContinuer(function(){ ouvrirLampeAvecCallback(apresOverlay); });
   } else {
-    // Pas d'overlay — lancer le jingle directement
     lancerJingle();
     setTimeout(apresOverlay, 800);
   }
@@ -793,6 +786,23 @@ function fermerMsgSpecial() {
   var overlay=document.getElementById('overlayMsgSpecial');
   if(overlay)overlay.classList.remove('visible');
   localStorage.removeItem('messageSpecial');
+}
+
+function afficherBoutonContinuer(callback) {
+  var btn = document.getElementById('btnContinuerAventure');
+  if (!btn) {
+    btn = document.createElement('button');
+    btn.id = 'btnContinuerAventure';
+    btn.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:999;padding:14px 32px;background:#1a0c00;color:#c8a842;border:1px solid #c8a842;border-radius:8px;font-family:Georgia,serif;font-size:14px;letter-spacing:2px;cursor:pointer;';
+    btn.textContent = '✦ Continuer l\'aventure ✦';
+    document.body.appendChild(btn);
+  }
+  btn.style.display = 'block';
+  btn.onclick = function() {
+    btn.style.display = 'none';
+    demarrerMusiqueOverlay();
+    callback();
+  };
 }
 
 function ouvrirJosephAvecCallback(cb) {
