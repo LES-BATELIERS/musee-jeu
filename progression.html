@@ -563,12 +563,12 @@ function ouvrirLampeAvecCallback(cb)  { pendingCallback=cb; ouvrirLampe(); }
 function ouvrirJoseph()  { document.getElementById('overlayJoseph').classList.add('visible'); }
 function ouvrirSalon()   { document.getElementById('overlaySalon').classList.add('visible'); }
 function ouvrirCouloir() {
-  var isPMR = typeof GAME!=='undefined' && GAME.getSession && GAME.getSession().parcours==='pmr';
+  // Réinitialiser à l'étape 1
+  document.getElementById('couloirEtape1').style.display='';
+  document.getElementById('couloirEtape2Classic').style.display='none';
+  document.getElementById('couloirEtape2PMR').style.display='none';
+  document.getElementById('couloirEtape3').style.display='none';
   document.getElementById('overlayCouloir').classList.add('visible');
-  if (isPMR) {
-    document.getElementById('couloirEtape2Classic').style.display='none';
-    document.getElementById('couloirEtape2PMR').style.display='';
-  }
 }
 function ouvrirLoggia() { document.getElementById('overlayLoggia').classList.add('visible'); }
 function ouvrirLampe()  { document.getElementById('overlayLampe').classList.add('visible'); }
