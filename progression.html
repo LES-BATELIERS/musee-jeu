@@ -586,27 +586,31 @@ function fermerMsgSpecial() {
 }
 
 // ── SCANNER ──
-var html5Qr = null;
+var html5QrCode = null;
+var scannerOuvert = false;
+var detected = false;
 function ouvrirScanner() {
   var v = getValidated(), NOMS = getNoms();
   if (v >= NOMS.length) { demanderPrenom(); return; }
   document.getElementById('scannerWrap').classList.add('ouvert');
-  if (!html5Qr) html5Qr = new Html5Qrcode('qr-reader');
-  html5Qr.start({facingMode:'environment'},{fps:10,qrbox:220},function(txt){ html5Qr.stop(); fermerScanner(); traiterQR(txt); },function(){}).catch(function(){});
+  document.getElementById('btnScanner').textContent='✕ Fermer le scanner';
+  scannerOuvert=true; detected=false;
+  if (!html5QrCode) html5QrCode = new Html5Qrcode('qr-reader');
+  html5QrCode.start({facingMode:'environment'},{fps:10,qrbox:{width:250,height:250}},
+    function(decodedText){ if(!detected){detected=true;fermerScanner();traiterQR(decodedText);} },
+    function(){}
+  ).catch(function(){ document.getElementById('scanMsg').textContent='Caméra non disponible.'; });
 }
-function fermerScanner() { document.getElementById('scannerWrap').classList.remove('ouvert'); if(html5Qr){ html5Qr.stop().catch(function(){}); } }
+function fermerScanner() {
+  document.getElementById('scannerWrap').classList.remove('ouvert');
+  document.getElementById('btnScanner').textContent='✦ Scanner le prochain QR code';
+  scannerOuvert=false;
+  if(html5QrCode){ html5QrCode.stop().catch(function(){}); }
+}
 function traiterQR(url) {
-  // L'URL du QR code est directement l'URL de enigme.html
-  // On redirige directement vers cette URL
-  if (url.indexOf('enigme.html') >= 0) {
-    window.location.href = url;
-    return;
+  if(url.includes('enigme.html') || url.includes('?etape=')) {
+    window.location.href=url;
   }
-  // Extraire le paramètre etape
-  var m = url.match(/[?&]etape=([^&]+)/);
-  if (m) { window.location.href = 'enigme.html?etape='+m[1]; return; }
-  // Fallback direct
-  window.location.href = url;
 }
 
 // ── PRENOM & CERTIFICAT ──
