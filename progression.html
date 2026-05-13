@@ -560,8 +560,18 @@ function ouvrirCouloirAvecCallback(cb){ pendingCallback=cb; ouvrirCouloir(); }
 function ouvrirLoggiaAvecCallback(cb) { pendingCallback=cb; ouvrirLoggia(); }
 function ouvrirLampeAvecCallback(cb)  { pendingCallback=cb; ouvrirLampe(); }
 
-function ouvrirJoseph()  { document.getElementById('overlayJoseph').classList.add('visible'); }
-function ouvrirSalon()   { document.getElementById('overlaySalon').classList.add('visible'); }
+function ouvrirJoseph() {
+  josephEtape(1);
+  document.getElementById('josephSucces').style.display='none';
+  ['choixA','choixB','choixC'].forEach(function(id){ var b=document.getElementById(id); if(b){ b.className='joseph-choix'; }});
+  document.getElementById('overlayJoseph').classList.add('visible');
+}
+function ouvrirSalon() {
+  salonEtape(1);
+  document.getElementById('salonSucces').style.display='none';
+  ['schoixA','schoixB','schoixC','schoixD','schoixE','schoixF'].forEach(function(id){ var b=document.getElementById(id); if(b){ b.className='joseph-choix'; }});
+  document.getElementById('overlaySalon').classList.add('visible');
+}
 function ouvrirCouloir() {
   // Réinitialiser à l'étape 1
   document.getElementById('couloirEtape1').style.display='';
@@ -570,7 +580,10 @@ function ouvrirCouloir() {
   document.getElementById('couloirEtape3').style.display='none';
   document.getElementById('overlayCouloir').classList.add('visible');
 }
-function ouvrirLoggia() { document.getElementById('overlayLoggia').classList.add('visible'); }
+function ouvrirLoggia() {
+  loggiaEtape(1);
+  document.getElementById('overlayLoggia').classList.add('visible');
+}
 function ouvrirLampe()  { document.getElementById('overlayLampe').classList.add('visible'); }
 
 function fermerJoseph()  { arreterMusiqueOverlay(); document.getElementById('overlayJoseph').classList.remove('visible'); lancerJingle(); appellerCallback(); }
@@ -624,23 +637,21 @@ function salonChoix2(choix) {
   }
 }
 function couloirEtape(n) {
-  [1,2,3].forEach(function(i) {
-    var e = document.getElementById('couloirEtape'+i);
-    if (e) e.style.display = i === n ? 'block' : 'none';
-    var p = document.getElementById('cp'+i);
-    if (p) {
-      p.classList.remove('actif','fait');
-      if (i < n) p.classList.add('fait');
-      if (i === n) p.classList.add('actif');
-    }
+  var isPMR = typeof GAME!=='undefined' && GAME.getSession && GAME.getSession().parcours==='pmr';
+  // Masquer tout
+  document.getElementById('couloirEtape1').style.display='none';
+  document.getElementById('couloirEtape2Classic').style.display='none';
+  document.getElementById('couloirEtape2PMR').style.display='none';
+  document.getElementById('couloirEtape3').style.display='none';
+  // Afficher la bonne étape
+  if(n===1) document.getElementById('couloirEtape1').style.display='block';
+  if(n===2) document.getElementById(isPMR?'couloirEtape2PMR':'couloirEtape2Classic').style.display='block';
+  if(n===3) document.getElementById('couloirEtape3').style.display='block';
+  // Points de progression
+  [1,2,3].forEach(function(i){
+    var p=document.getElementById('cp'+i);
+    if(p){ p.classList.remove('actif','fait'); if(i<n) p.classList.add('fait'); if(i===n) p.classList.add('actif'); }
   });
-  if(n===2){
-    var isPMR=typeof GAME!=='undefined'&&GAME.getSession&&GAME.getSession().parcours==='pmr';
-    var c2c=document.getElementById('couloirEtape2Classic');
-    var c2p=document.getElementById('couloirEtape2PMR');
-    if(c2c) c2c.style.display=isPMR?'none':'block';
-    if(c2p) c2p.style.display=isPMR?'block':'none';
-  }
 }
 function loggiaEtape(n) {
   [1,2,3,4].forEach(function(i){
