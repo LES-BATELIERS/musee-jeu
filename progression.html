@@ -836,6 +836,7 @@ function arreterMusiqueOverlay() {
 }
 
 function ouvrirJoseph() {
+  var j=document.getElementById('jingleParcours'); if(j){j.pause();j.currentTime=0;}
   demarrerMusiqueOverlay();
   document.getElementById('overlayJoseph').classList.add('visible');
   josephEtape(1);
@@ -862,6 +863,7 @@ function josephChoix(choix) {
 function fermerJoseph() { arreterMusiqueOverlay(); document.getElementById('overlayJoseph').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 function ouvrirSalon() {
+  var j=document.getElementById('jingleParcours'); if(j){j.pause();j.currentTime=0;}
   demarrerMusiqueOverlay();
   document.getElementById('overlaySalon').classList.add('visible');
   salonEtape(1);
@@ -897,6 +899,7 @@ function salonChoix2(choix) {
 function fermerSalon() { arreterMusiqueOverlay(); document.getElementById('overlaySalon').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 function ouvrirCouloir() {
+  var j=document.getElementById('jingleParcours'); if(j){j.pause();j.currentTime=0;}
   demarrerMusiqueOverlay();
   document.getElementById('overlayCouloir').classList.add('visible');
   couloirEtape(1);
@@ -917,6 +920,7 @@ function couloirEtape(n) {
 function fermerCouloir() { arreterMusiqueOverlay(); document.getElementById('overlayCouloir').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 function ouvrirLoggia() {
+  var j=document.getElementById('jingleParcours'); if(j){j.pause();j.currentTime=0;}
   demarrerMusiqueOverlay();
   document.getElementById('overlayLoggia').classList.add('visible');
   loggiaEtape(1);
@@ -932,7 +936,7 @@ function loggiaEtape(n) {
 function fermerLoggia() { arreterMusiqueOverlay(); document.getElementById('overlayLoggia').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 function ouvrirLampeAvecCallback(cb) { pendingCallback = cb; ouvrirLampe(); }
-function ouvrirLampe() { demarrerMusiqueOverlay(); document.getElementById('overlayLampe').classList.add('visible'); }
+function ouvrirLampe() { var j=document.getElementById('jingleParcours'); if(j){j.pause();j.currentTime=0;} demarrerMusiqueOverlay(); document.getElementById('overlayLampe').classList.add('visible'); }
 function fermerLampe() { arreterMusiqueOverlay(); document.getElementById('overlayLampe').classList.remove('visible'); lancerJingle(); appellerCallback(); }
 
 // ── PRÉNOM ──
