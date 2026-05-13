@@ -251,6 +251,7 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
     <path d="M131,487 C127,493 123,486 123,490 C123,494 121,494 131,497 C141,500 137,497 149,498 C161,499 152,499 161,500 C170,501 167,501 171,501" fill="none" stroke="#00cc44" stroke-width="3.5" stroke-dasharray="8 6" opacity="0" id="cpv78" stroke-linecap="round"/>
   </g>
 
+  <g id="bullesClassique">
   <circle cx="73" cy="97" r="21" fill="#000000" opacity="0.55"/><circle id="c0" cx="73" cy="97" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
   <text id="t0n" x="73" y="103" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
   <text id="t0l" x="73" y="116" text-anchor="middle" font-size="0" fill="transparent">???</text>
@@ -275,6 +276,7 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
   <circle cx="183" cy="493" r="21" fill="#000000" opacity="0.55"/><circle id="c7" cx="183" cy="493" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
   <text id="t7n" x="183" y="499" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
   <text id="t7l" x="183" y="512" text-anchor="middle" font-size="0" fill="transparent">???</text>
+  </g>
 
   <!-- BULLES PMR -->
   <g id="bullesPMR" style="display:none">
@@ -728,15 +730,9 @@ function initParcours() {
     if(imgP) imgP.style.display='';
     var bP=document.getElementById('bullesPMR');
     if(bP) bP.style.display='';
-    // Masquer toutes les bulles classiques
-    for(var i=0;i<8;i++){
-      var bc=document.getElementById('c'+i);
-      var tn=document.getElementById('t'+i+'n');
-      var tl=document.getElementById('t'+i+'l');
-      if(bc) bc.style.display='none';
-      if(tn) tn.style.display='none';
-      if(tl) tl.style.display='none';
-    }
+    // Masquer tout le groupe de bulles classiques (ombres incluses)
+    var bC=document.getElementById('bullesClassique');
+    if(bC) bC.style.display='none';
   }
 }
 
