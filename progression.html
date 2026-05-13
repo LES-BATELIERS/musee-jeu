@@ -7,9 +7,9 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:100vh; }
-#carteWrap { width:100%; display:flex; justify-content:center; padding:16px 0 8px; }
-#carte { max-width:420px; width:100%; transition:transform 0.3s ease; transform-origin:top center; }
-#carte.zoome { transform:scale(2); }
+#carteWrap { width:100%; display:flex; justify-content:center; padding:16px 0 8px; overflow-x:auto; }
+#carte { max-width:420px; width:100%; transition:transform 0.3s ease; transform-origin:top left; }
+#carte.zoome { transform:scale(2); margin-right:100%; }
 #scannerSection { text-align:center; padding:16px 16px 24px; }
 .btn-scanner { background:transparent; border:1px solid #5a3810; border-radius:8px; padding:14px 28px; color:#8a6030; font-family:Georgia,serif; font-size:13px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; width:100%; max-width:420px; }
 .btn-scanner:hover { border-color:#c8a842; color:#c8a842; }
@@ -49,8 +49,8 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
 #flecheScrollProg { display:flex; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:9998; flex-direction:column; align-items:center; gap:3px; cursor:pointer; animation:clignote 0.9s ease-in-out infinite; }
 #flecheScrollProg svg { width:36px; height:36px; }
 #flecheScrollProg span { font-size:9px; color:#cc3333; letter-spacing:2px; text-transform:uppercase; font-family:Georgia,serif; }
-#btnZoomCarte { position:fixed; bottom:80px; right:14px; z-index:9998; background:rgba(10,10,10,0.9); border:1px solid #c8a842; border-radius:50%; width:42px; height:42px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.4); }
-#btnZoomCarte.actif { border-color:#c8a842; background:rgba(200,168,66,0.1); animation:clignote 0.9s ease-in-out infinite; }
+#btnZoomCarte { position:fixed; bottom:80px; right:14px; z-index:99999; background:rgba(10,10,10,0.95); border:1px solid #c8a842; border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 2px 12px rgba(0,0,0,0.6); touch-action:manipulation; }
+#btnZoomCarte.actif { border-color:#c8a842; background:rgba(200,168,66,0.2); animation:clignote 0.9s ease-in-out infinite; }
 @keyframes clignote { 0%,100%{opacity:1} 50%{opacity:0.2} }
 @keyframes pulseRouge { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 @keyframes pulseVert { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
