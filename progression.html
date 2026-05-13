@@ -642,7 +642,11 @@ function animerReussite() {
 
 function lancerAnimationTresor() {
   const jingle=document.getElementById('jingleCertificat');
-  if(jingle){jingle.currentTime=29;jingle.play().catch(function(){});}
+  if(jingle){
+    jingle.currentTime=36.4;
+    jingle.play().catch(function(){});
+    setTimeout(function(){ jingle.pause(); jingle.currentTime=0; }, 5600);
+  }
 
   // Créer le canvas d'explosion sur la carte
   var coffreEl = document.getElementById('tresorRect');
