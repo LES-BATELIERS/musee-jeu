@@ -325,6 +325,17 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
 
 <div id="scannerSection">
   <button class="btn-scanner" id="btnScanner" onclick="ouvrirScanner()">✦ Scanner le prochain QR code</button>
+  <button class="btn-scanner" onclick="confirmerRecommencer()" style="margin-top:10px;border-color:#3a2020;color:#6a3030;font-size:11px;padding:10px;">↺ Recommencer depuis le début</button>
+</div>
+
+<!-- Overlay confirmation recommencer -->
+<div id="overlayRecommencer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:999999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;">
+  <div style="background:#0e0e0e;border:1px solid #8a2020;border-radius:12px;padding:28px 24px;max-width:340px;width:100%;text-align:center;font-family:Georgia,serif;">
+    <div style="font-size:0.6rem;letter-spacing:4px;color:#cc3333;text-transform:uppercase;margin-bottom:16px;">⚠ Attention</div>
+    <div style="font-size:1rem;color:#f0ead8;line-height:1.8;margin-bottom:24px;">Tu vas perdre toute ta progression...<br><br><strong style="color:#cc3333;">Es-tu vraiment sûr(e) de vouloir recommencer ?</strong></div>
+    <button onclick="confirmerOui()" style="width:100%;background:transparent;border:1px solid #cc3333;border-radius:8px;padding:12px;color:#cc3333;font-family:Georgia,serif;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-bottom:10px;">Oui, recommencer ↺</button>
+    <button onclick="fermerRecommencer()" style="width:100%;background:transparent;border:1px solid #3a3530;border-radius:8px;padding:12px;color:#8a8070;font-family:Georgia,serif;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Non, continuer l'aventure ✦</button>
+  </div>
 </div>
 
 <div id="scannerWrap">
@@ -714,6 +725,23 @@ function validerPrenom() {
     setTimeout(function(){ jingle.pause(); jingle.currentTime=0; }, 5600);
   }
   window.location.href='victoire.html?prenom='+encodeURIComponent(p)+'&parcours='+parcours+'&score='+score;
+}
+
+// ── RECOMMENCER ──
+function confirmerRecommencer() {
+  var o = document.getElementById('overlayRecommencer');
+  if(o) o.style.display='flex';
+}
+function fermerRecommencer() {
+  var o = document.getElementById('overlayRecommencer');
+  if(o) o.style.display='none';
+}
+function confirmerOui() {
+  if(typeof GAME !== 'undefined') GAME.reset();
+  localStorage.removeItem('idxBulleReussie');
+  localStorage.removeItem('messageSpecial');
+  localStorage.removeItem('zoomCarte');
+  window.location.href = 'index.html';
 }
 
 // ── ZOOM CARTE ──
