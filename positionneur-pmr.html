@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Positionneur PMR</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#111; font-family:Georgia,serif; color:#f0d080; }
+h1 { text-align:center; padding:10px; font-size:13px; letter-spacing:2px; color:#c8a842; }
+p.info { text-align:center; font-size:11px; color:#8a8070; padding:4px; }
+#wrap { position:relative; display:block; }
+#carte { width:100%; display:block; }
+.bulle {
+  position:absolute; width:44px; height:44px; border-radius:50%;
+  background:#1c1005; border:2.5px solid #c8a842;
+  cursor:grab; display:flex; align-items:center; justify-content:center;
+  font-size:18px; user-select:none; transform:translate(-50%,-50%);
+  box-shadow:0 2px 8px rgba(0,0,0,0.6);
+}
+.bulle:active { cursor:grabbing; border-color:#fff; }
+#controls { display:flex; gap:8px; padding:8px; justify-content:center; flex-wrap:wrap; }
+.btn { padding:8px 16px; background:#3a1a00; color:#f0d080; border:1px solid #c8a842; border-radius:6px; cursor:pointer; font-size:12px; font-family:Georgia,serif; }
+#output { background:#1a1a1a; padding:12px; font-size:11px; font-family:monospace; color:#00cc44; word-break:break-all; min-height:60px; }
+</style>
+</head>
+<body>
+<h1>✦ Positionneur PMR ✦</h1>
+<p class="info">Glisse les bulles sur les personnages</p>
+<div id="wrap">
+  <img id="carte" src="img/carte-pmr.png" draggable="false"/>
+</div>
+<div id="controls">
+  <button class="btn" onclick="copyCoords()">📋 Copier les coordonnées</button>
+</div>
+<div id="output">Déplace les bulles puis copie les coordonnées...</div>
+
+<script>
+const bulles = [
+  { id:'c0', emoji:'🗝️', label:'Guide',        x:72,  y:97  },
+  { id:'c1', emoji:'🦜', label:'Perroquet',    x:249, y:158 },
+  { id:'c2', emoji:'👑', label:'Joseph II',    x:76,  y:224 },
+  { id:'c3', emoji:'🕐', label:'H.Salon',      x:249, y:276 },
+  { id:'c4', emoji:'⏳', label:'H.Figée',      x:106, y:329 },
+  { id:'c5', emoji:'🔭', label:'Putti',        x:263, y:370 },
+  { id:'c6', emoji:'👴', label:'Gardien',      x:85,  y:438 },
+  { id:'c7', emoji:'✨', label:'Lampe',        x:183, y:493 },
+];
+
+const img = document.getElementById('carte');
+const wrap = document.getElementById('wrap');
+const vW = 360, vH = 540;
+let positions = bulles.map(b => ({ id:b.id, xPct: b.x/vW, yPct: b.y/vH }));
+
+function createBulles() {
+  bulles.forEach((b, i) => {
+    const div = document.createElement('div');
+    div.className = 'bulle';
+    div.id = 'bulle-'+b.id;
+    div.textContent = b.emoji;
+    div.title = b.label;
+    wrap.appendChild(div);
+    updatePos(i);
+    makeDraggable(div, i);
+  });
+  updateOutput();
+}
+
+function updatePos(i) {
+  const iW = img.offsetWidth, iH = img.offsetHeight;
+  const x = positions[i].xPct * iW;
+  const y = positions[i].yPct * iH;
+  const div = document.getElementById('bulle-'+bulles[i].id);
+  div.style.left = x + 'px';
+  div.style.top  = y + 'px';
+}
+
+function makeDraggable(el, i) {
+  let startX, startY, startLeft, startTop;
+  function onStart(ex, ey) {
+    startX = ex; startY = ey;
+    startLeft = positions[i].xPct * img.offsetWidth;
+    startTop  = positions[i].yPct * img.offsetHeight;
+    el.style.zIndex = 99;
+  }
+  function onMove(ex, ey) {
+    const dx = ex - startX, dy = ey - startY;
+    const newX = Math.max(0, Math.min(img.offsetWidth,  startLeft + dx));
+    const newY = Math.max(0, Math.min(img.offsetHeight, startTop  + dy));
+    positions[i].xPct = newX / img.offsetWidth;
+    positions[i].yPct = newY / img.offsetHeight;
+    updatePos(i);
+    updateOutput();
+  }
+  function onEnd() { el.style.zIndex = ''; }
+  el.addEventListener('mousedown', e => { e.preventDefault(); onStart(e.clientX, e.clientY); document.addEventListener('mousemove', mm); document.addEventListener('mouseup', mu); });
+  const mm = e => onMove(e.clientX, e.clientY);
+  const mu = () => { onEnd(); document.removeEventListener('mousemove', mm); document.removeEventListener('mouseup', mu); };
+  el.addEventListener('touchstart', e => { e.preventDefault(); onStart(e.touches[0].clientX, e.touches[0].clientY); }, {passive:false});
+  el.addEventListener('touchmove',  e => { e.preventDefault(); onMove(e.touches[0].clientX, e.touches[0].clientY); }, {passive:false});
+  el.addEventListener('touchend', onEnd);
+}
+
+function updateOutput() {
+  const lines = bulles.map((b, i) => {
+    const cx = Math.round(positions[i].xPct * vW);
+    const cy = Math.round(positions[i].yPct * vH);
+    return `${b.id} (${b.label}): cx="${cx}" cy="${cy}"`;
+  });
+  document.getElementById('output').textContent = lines.join('\n');
+}
+
+function copyCoords() {
+  navigator.clipboard.writeText(document.getElementById('output').textContent).then(() => {
+    event.target.textContent = '✓ Copié !';
+    setTimeout(() => event.target.textContent = '📋 Copier les coordonnées', 2000);
+  });
+}
+
+img.onload = createBulles;
+if (img.complete) createBulles();
+window.addEventListener('resize', () => bulles.forEach((_, i) => updatePos(i)));
+</script>
+</body>
+</html>
