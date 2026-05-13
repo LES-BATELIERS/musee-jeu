@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Test PMR</title>
+<style>
+body { background:#111; font-family:Georgia,serif; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; gap:16px; }
+.btn { padding:16px 32px; border-radius:8px; font-size:16px; cursor:pointer; font-family:Georgia,serif; letter-spacing:2px; border:1px solid #c8a842; background:#1a0c00; color:#c8a842; width:300px; text-align:center; }
+.btn:hover { background:#3a1a00; }
+h2 { color:#c8a842; letter-spacing:3px; }
+</style>
+</head>
+<body>
+<h2>✦ TEST CARTE ✦</h2>
+
+<button class="btn" onclick="tester('pmr', 0)">🔭 PMR — Étape Guide (début)</button>
+<button class="btn" onclick="tester('pmr', 1)">🔭 PMR — Après Perroquet</button>
+<button class="btn" onclick="tester('pmr', 2)">🔭 PMR — Après Joseph II</button>
+<button class="btn" onclick="tester('pmr', 3)">🔭 PMR — Après H.Salon</button>
+
+<hr style="border-color:#3a3530;width:300px;margin:8px 0">
+
+<button class="btn" style="border-color:#5a8a30;color:#5a8a30;" onclick="tester('famille', 0)">🦜 Famille — Étape Guide</button>
+<button class="btn" style="border-color:#5a8a30;color:#5a8a30;" onclick="tester('famille', 1)">🦜 Famille — Après Perroquet</button>
+<button class="btn" style="border-color:#5a8a30;color:#5a8a30;" onclick="tester('famille', 2)">🦜 Famille — Après Joseph II</button>
+
+<script>
+function tester(parcours, etape) {
+  localStorage.setItem('parcours', parcours);
+  localStorage.setItem('phase', 'commun');
+  localStorage.setItem('etape', String(etape));
+  localStorage.setItem('indiceAffiche', '1');
+  localStorage.setItem('erreurs', '0');
+  localStorage.setItem('totalErreurs', '0');
+  window.location.href = 'progression.html?mode=reussi&etape=' + etape;
+}
+</script>
+</body>
+</html>
