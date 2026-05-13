@@ -822,6 +822,12 @@ localStorage.removeItem('messageSpecial');
     document.getElementById('indiceTexte').textContent = indice;
     // Passer l'index dans l'URL directement
     var idxFinal = parseInt(localStorage.getItem('idxBulleReussie') || '0');
+    // Son de réussite
+    try {
+      var sonReussite = new Audio('audio/Réussite_enigme.mp3');
+      sonReussite.volume = 0.8;
+      sonReussite.play().catch(function(){});
+    } catch(e) {}
     // Lancer le jingle avant la redirection
     try {
       var jingle = new Audio('audio/JINGLE_PARCOURS_INTERRACTIF_VSG.mp3');
