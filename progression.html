@@ -800,8 +800,8 @@ function afficherBoutonContinuer(callback) {
   btn.style.display = 'block';
   btn.onclick = function() {
     btn.style.display = 'none';
-    demarrerMusiqueOverlay();
     callback();
+    setTimeout(demarrerMusiqueOverlay, 200);
   };
 }
 
