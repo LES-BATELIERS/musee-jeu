@@ -765,6 +765,13 @@ localStorage.removeItem('messageSpecial');
         // Lancer le jingle au clic Continuer
 
         indiceDejaAffiche = true;
+        // Lancer musique overlay dès le clic Continuer
+        try {
+          var mOverlay = new Audio('audio/_FREE__JID_x_Kendrick_Lamar_x_J__Cole_Type_Beat.mp3');
+          mOverlay.volume = 0.2;
+          mOverlay.currentTime = 1.4;
+          mOverlay.play().catch(function(){});
+        } catch(e) {}
         afficherIndice();
       }
       // Si indice déjà affiché, la redirection auto est en cours — ne rien faire
