@@ -543,36 +543,74 @@ function fermerLampe()   { arreterMusiqueOverlay(); document.getElementById('ove
 
 // ── MINI-JEUX ──
 function josephEtape(n) {
-  for(var i=1;i<=3;i++){ var el=document.getElementById('josephEtape'+i); if(el) el.style.display=(i===n?'':'none'); }
-  for(var i=1;i<=3;i++){ var pt=document.getElementById('jp'+i); if(pt){ pt.className='joseph-point'+(i<n?' fait':i===n?' actif':''); } }
+  [1,2,3].forEach(function(i){
+    var e=document.getElementById('josephEtape'+i);
+    if(e) e.style.display=i===n?'block':'none';
+    var p=document.getElementById('jp'+i);
+    if(p){p.classList.remove('actif','fait');if(i<n)p.classList.add('fait');if(i===n)p.classList.add('actif');}
+  });
 }
-function josephChoix(c) {
-  ['A','B','C'].forEach(function(x){ var el=document.getElementById('choix'+x); if(el) el.className='joseph-choix'+(x===c?'':(x==='C'?' bon':' grise')); });
-  if(c==='C'){ var s=document.getElementById('josephSucces'); if(s) s.style.display=''; }
+function josephChoix(choix) {
+  if(choix==='C'){
+    document.getElementById('choix'+choix).classList.add('bon');
+    ['choixA','choixB'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.add('grise');});
+    document.getElementById('josephSucces').style.display='block';
+  } else {
+    document.getElementById('choix'+choix).classList.add('grise');
+  }
 }
 function salonEtape(n) {
-  for(var i=1;i<=4;i++){ var el=document.getElementById('salonEtape'+i); if(el) el.style.display=(i===n?'':'none'); }
-  for(var i=1;i<=4;i++){ var pt=document.getElementById('sp'+i); if(pt){ pt.className='joseph-point'+(i<n?' fait':i===n?' actif':''); } }
+  [1,2,3,4].forEach(function(i){
+    var e=document.getElementById('salonEtape'+i);
+    if(e) e.style.display=i===n?'block':'none';
+    var p=document.getElementById('sp'+i);
+    if(p){p.classList.remove('actif','fait');if(i<n)p.classList.add('fait');if(i===n)p.classList.add('actif');}
+  });
 }
-function salonChoix1(c) {
-  ['A','B','C'].forEach(function(x){ var el=document.getElementById('schoix'+x); if(el) el.className='joseph-choix'+(x===c?'':(x==='B'?' bon':' grise')); });
-  if(c==='B') setTimeout(function(){ salonEtape(3); },800);
+function salonChoix1(choix) {
+  if(choix==='C'){
+    document.getElementById('schoix'+choix).classList.add('bon');
+    ['schoixA','schoixB'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.add('grise');});
+    setTimeout(function(){salonEtape(3);},800);
+  } else {
+    document.getElementById('schoix'+choix).classList.add('grise');
+  }
 }
-function salonChoix2(c) {
-  ['D','E','F'].forEach(function(x){ var el=document.getElementById('schoix'+x); if(el) el.className='joseph-choix'+(x===c?'':(x==='F'?' bon':' grise')); });
-  if(c==='F'){ var s=document.getElementById('salonSucces'); if(s) s.style.display=''; }
+function salonChoix2(choix) {
+  if(choix==='F'){
+    document.getElementById('schoix'+choix).classList.add('bon');
+    ['schoixD','schoixE'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.add('grise');});
+    document.getElementById('salonSucces').style.display='block';
+  } else {
+    document.getElementById('schoix'+choix).classList.add('grise');
+  }
 }
 function couloirEtape(n) {
-  document.getElementById('couloirEtape1').style.display=(n===1?'':'none');
-  var c2c=document.getElementById('couloirEtape2Classic'), c2p=document.getElementById('couloirEtape2PMR');
-  if(n===2){ var isPMR=typeof GAME!=='undefined'&&GAME.getSession&&GAME.getSession().parcours==='pmr'; if(c2c) c2c.style.display=isPMR?'none':''; if(c2p) c2p.style.display=isPMR?'':'none'; }
-  else { if(c2c) c2c.style.display='none'; if(c2p) c2p.style.display='none'; }
-  document.getElementById('couloirEtape3').style.display=(n===3?'':'none');
-  for(var i=1;i<=3;i++){ var pt=document.getElementById('cp'+i); if(pt){ pt.className='joseph-point'+(i<n?' fait':i===n?' actif':''); } }
+  [1,2,3].forEach(function(i) {
+    var e = document.getElementById('couloirEtape'+i);
+    if (e) e.style.display = i === n ? 'block' : 'none';
+    var p = document.getElementById('cp'+i);
+    if (p) {
+      p.classList.remove('actif','fait');
+      if (i < n) p.classList.add('fait');
+      if (i === n) p.classList.add('actif');
+    }
+  });
+  if(n===2){
+    var isPMR=typeof GAME!=='undefined'&&GAME.getSession&&GAME.getSession().parcours==='pmr';
+    var c2c=document.getElementById('couloirEtape2Classic');
+    var c2p=document.getElementById('couloirEtape2PMR');
+    if(c2c) c2c.style.display=isPMR?'none':'block';
+    if(c2p) c2p.style.display=isPMR?'block':'none';
+  }
 }
 function loggiaEtape(n) {
-  for(var i=1;i<=4;i++){ var el=document.getElementById('loggiaEtape'+i); if(el) el.style.display=(i===n?'':'none'); }
-  for(var i=1;i<=4;i++){ var pt=document.getElementById('lp'+i); if(pt){ pt.className='joseph-point'+(i<n?' fait':i===n?' actif':''); } }
+  [1,2,3,4].forEach(function(i){
+    var e=document.getElementById('loggiaEtape'+i);
+    if(e) e.style.display=i===n?'block':'none';
+    var p=document.getElementById('lp'+i);
+    if(p){p.classList.remove('actif','fait');if(i<n)p.classList.add('fait');if(i===n)p.classList.add('actif');}
+  });
 }
 
 // ── MSG SPECIAL ──
