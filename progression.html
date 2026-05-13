@@ -596,12 +596,17 @@ function ouvrirScanner() {
 }
 function fermerScanner() { document.getElementById('scannerWrap').classList.remove('ouvert'); if(html5Qr){ html5Qr.stop().catch(function(){}); } }
 function traiterQR(url) {
+  // L'URL du QR code est directement l'URL de enigme.html
+  // On redirige directement vers cette URL
+  if (url.indexOf('enigme.html') >= 0) {
+    window.location.href = url;
+    return;
+  }
+  // Extraire le paramètre etape
   var m = url.match(/[?&]etape=([^&]+)/);
-  if (m) { window.location.href = 'enigme.html?etape='+encodeURIComponent(m[1]); return; }
-  // Fallback: URL complète du QR code
-  var u = new URL(url);
-  var etape = u.searchParams.get('etape') || u.searchParams.get('id') || '';
-  window.location.href = 'enigme.html?etape='+encodeURIComponent(etape);
+  if (m) { window.location.href = 'enigme.html?etape='+m[1]; return; }
+  // Fallback direct
+  window.location.href = url;
 }
 
 // ── PRENOM & CERTIFICAT ──
