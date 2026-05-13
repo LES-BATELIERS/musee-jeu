@@ -346,8 +346,10 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
     </filter>
   </defs>
 
-  <!-- Image de fond -->
-  <image href="img/carte-fond.jpg" x="0" y="0" width="360" height="540" preserveAspectRatio="xMidYMid meet"/>
+  <!-- Image de fond classique -->
+  <image id="imgClassique" href="img/carte-fond.jpg" x="0" y="0" width="360" height="540" preserveAspectRatio="xMidYMid meet"/>
+  <!-- Image de fond PMR -->
+  <image id="imgPMR" href="img/carte-pmr.png" x="0" y="0" width="360" height="540" preserveAspectRatio="xMidYMid meet" style="display:none"/>
 
   <!-- Chemins verts par dessus l'image -->
   <g id="cheminsClassique" filter="url(#glowVert)">
@@ -372,7 +374,8 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
     <path d="M127,479 C131,484 133,482 127,489 C121,496 117,489 112,497 C107,505 108,502 114,509 C120,516 122,512 127,514" fill="none" stroke="#00cc44" stroke-width="3.5" stroke-dasharray="8 6" opacity="0" id="cpv78" stroke-linecap="round"/>
   </g>
 
-  <!-- BULLES — sans fill/stroke fixes pour que JS puisse les contrôler -->
+  <!-- BULLES classiques -->
+  <g id="bullesClassique">
   <circle cx="73" cy="97" r="21" fill="#000000" opacity="0.55"/><circle id="c0" cx="73" cy="97" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
   <text id="t0n" x="73"  y="103" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
   <text id="t0l" x="73"  y="116" text-anchor="middle" font-size="0" fill="transparent">???</text>
@@ -404,6 +407,43 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
   <circle cx="183" cy="493" r="21" fill="#000000" opacity="0.55"/><circle id="c7" cx="183" cy="493" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
   <text id="t7n" x="183" y="499" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
   <text id="t7l" x="183" y="512" text-anchor="middle" font-size="0" fill="transparent">???</text>
+
+  </g><!-- fin bullesClassique -->
+
+  <!-- BULLES PMR — positions différentes, même style r=18 -->
+  <g id="bullesPMR" style="display:none">
+    <circle cx="93"  cy="112" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp0" cx="93"  cy="112" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp0n" x="93"  y="118" text-anchor="middle" font-size="13">🗝️</text>
+
+    <circle cx="258" cy="124" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp1" cx="258" cy="124" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp1n" x="258" y="130" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="84"  cy="237" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp2" cx="84"  cy="237" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp2n" x="84"  y="243" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="269" cy="254" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp3" cx="269" cy="254" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp3n" x="269" y="260" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="88"  cy="340" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp4" cx="88"  cy="340" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp4n" x="88"  y="346" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="261" cy="364" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp5" cx="261" cy="364" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp5n" x="261" y="370" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="74"  cy="479" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp6" cx="74"  cy="479" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp6n" x="74"  y="485" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+
+    <circle cx="181" cy="498" r="21" fill="#000000" opacity="0.55"/>
+    <circle id="cp7" cx="181" cy="498" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+    <text id="tp7n" x="181" y="504" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  </g>
 
   <!-- Trésor -->
   <g transform="translate(183,528)">
@@ -504,6 +544,12 @@ function initParcours() {
   if (s.parcours==='pmr') {
     document.getElementById('cheminsPMR').style.display='';
     document.getElementById('cheminsClassique').style.display='none';
+    var imgC=document.getElementById('imgClassique'), imgP=document.getElementById('imgPMR');
+    if(imgC) imgC.style.display='none';
+    if(imgP) imgP.style.display='';
+    var bC=document.getElementById('bullesClassique'), bP=document.getElementById('bullesPMR');
+    if(bC) bC.style.display='none';
+    if(bP) bP.style.display='';
   }
 }
 
