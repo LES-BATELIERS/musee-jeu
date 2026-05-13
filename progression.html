@@ -371,27 +371,29 @@ const mode = params.get('mode') || '';
 const etapeReussieParam = parseInt(params.get('etape') || '-1');
 
 // ── RENDER ──
-function updateEtape(i, NOMS, v) {
-  const c=document.getElementById('c'+i), tn=document.getElementById('t'+i+'n'), tl=document.getElementById('t'+i+'l');
+function updateEtape(i, NOMS, v, isPMR) {
+  var pfx  = isPMR ? 'cp' : 'c';
+  var tpfx = isPMR ? 'tp' : 't';
+  var c  = document.getElementById(pfx+i);
+  var tn = document.getElementById(tpfx+i+'n');
   if (!c) return;
   if (i < v) {
     c.setAttribute('fill','#003010'); c.setAttribute('stroke','#00992e'); c.style.animation='';
     if(tn){ tn.setAttribute('fill','#00dd44'); tn.textContent=getIcones()[i]||'✦'; }
-    if(tl){ tl.setAttribute('fill','#00aa33'); tl.textContent=NOMS[i]; tl.setAttribute('font-size','7'); }
   } else if (i === v) {
     c.setAttribute('fill','#3a0808'); c.setAttribute('stroke','#8a2020'); c.style.animation='pulseRouge 2s ease-in-out infinite';
     if(tn){ tn.setAttribute('fill','#dd4444'); tn.textContent=getIcones()[i]||'✦'; }
-    if(tl){ tl.setAttribute('fill','#aa3030'); tl.textContent=NOMS[i]; tl.setAttribute('font-size','7'); }
   } else {
     c.setAttribute('fill','#1c1005'); c.setAttribute('stroke','#c8a842'); c.style.animation='';
     if(tn){ tn.setAttribute('fill','#c8a842'); tn.textContent='?'; }
-    if(tl){ tl.setAttribute('fill','transparent'); tl.textContent='???'; tl.setAttribute('font-size','0'); }
   }
 }
 function renderAll() {
   if (mode==='reussi') return;
   var NOMS=getNoms(), v=getValidated();
-  for (var i=0;i<8;i++) updateEtape(i, NOMS, v);
+  var s=typeof GAME!=='undefined'?GAME.getSession():null;
+  var isPMR=s&&s.parcours==='pmr';
+  for (var i=0;i<8;i++) updateEtape(i, NOMS, v, isPMR);
   majBoutonBas();
 }
 function majBoutonBas() {
@@ -444,13 +446,13 @@ function animerReussite() {
   var parcours = s ? s.parcours : 'enfants';
 
   // Étape 1 : bulles 0..newV vertes instantanément
+  var pfx = isPMR ? 'cp' : 'c';
+  var tpfx = isPMR ? 'tp' : 't';
   for (var i = 0; i <= newV; i++) {
-    var ci  = document.getElementById('c'+i);
-    var tni = document.getElementById('t'+i+'n');
-    var tli = document.getElementById('t'+i+'l');
+    var ci  = document.getElementById(pfx+i);
+    var tni = document.getElementById(tpfx+i+'n');
     if(ci){ ci.setAttribute('fill','#003010'); ci.setAttribute('stroke','#00992e'); ci.style.animation=''; }
     if(tni){ tni.setAttribute('fill','#00dd44'); tni.textContent=ICONES[i]||'✦'; }
-    if(tli){ tli.setAttribute('fill','#00aa33'); tli.setAttribute('font-size','7'); tli.textContent=NOMS[i]; }
     allumerCheminInstant(i+1, isPMR);
   }
   majBoutonBas();
@@ -459,13 +461,11 @@ function animerReussite() {
   // Étape 2 : bouton continuer → overlay → pointillés + bulle rouge
   function apresOverlay() {
     allumerChemin(newV+1, isPMR, function(){
-      var bN  = document.getElementById('c'+(newV+1));
-      var tn2 = document.getElementById('t'+(newV+1)+'n');
-      var tl2 = document.getElementById('t'+(newV+1)+'l');
+      var bN  = document.getElementById(pfx+(newV+1));
+      var tn2 = document.getElementById(tpfx+(newV+1)+'n');
       if(!bN) return;
       bN.setAttribute('fill','#3a0808'); bN.setAttribute('stroke','#8a2020');
       if(tn2){ tn2.setAttribute('fill','#dd4444'); tn2.textContent=ICONES[newV+1]||'✦'; }
-      if(tl2){ tl2.setAttribute('fill','#aa3030'); tl2.textContent=NOMS[newV+1]; }
       var q=0;
       function pulse(){ q++; bN.setAttribute('fill',q%2===0?'#3a0808':'#6a1010'); if(q<999)setTimeout(pulse,350); }
       pulse();
@@ -755,8 +755,11 @@ window.onload = function() {
     renderAll();
     majBoutonBas();
     var NOMS2=getNoms(), ICONES2=getIcones(), v2=getValidated();
-    for(var i=0;i<v2;i++) allumerCheminInstant(i+1, false);
-    var curC=document.getElementById('c'+v2);
+    var s3=typeof GAME!=='undefined'?GAME.getSession():null;
+    var isPMR3=s3&&s3.parcours==='pmr';
+    var pfx3=isPMR3?'cp':'c';
+    for(var i=0;i<v2;i++) allumerCheminInstant(i+1, isPMR3);
+    var curC=document.getElementById(pfx3+v2);
     if(curC){ curC.style.animation='pulseRouge 2s ease-in-out infinite'; }
   }
 };
