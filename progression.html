@@ -719,12 +719,14 @@ function validerPrenom() {
   var parcours = s ? s.parcours : 'enfants';
   var score = getValidated();
   var jingle=document.getElementById('jingleCertificat');
+  var url='victoire.html?prenom='+encodeURIComponent(p)+'&parcours='+parcours+'&score='+score;
   if(jingle){
     jingle.currentTime=36.4;
     jingle.play().catch(function(){});
-    setTimeout(function(){ jingle.pause(); jingle.currentTime=0; }, 5600);
+    setTimeout(function(){ window.location.href=url; }, 5600);
+  } else {
+    window.location.href=url;
   }
-  window.location.href='victoire.html?prenom='+encodeURIComponent(p)+'&parcours='+parcours+'&score='+score;
 }
 
 // ── RECOMMENCER ──
