@@ -647,6 +647,7 @@ function fermerJoseph() {
   var ss=document.getElementById('scannerSection');
   if(cw) cw.style.display='';
   if(ss) ss.style.display='';
+  initParcours();
   lancerJingle();
   appellerCallback();
 }
@@ -655,7 +656,7 @@ function fermerSalon() {
   document.getElementById('overlaySalon').classList.remove('visible');
   var cw=document.getElementById('carteWrap'); var ss=document.getElementById('scannerSection');
   if(cw) cw.style.display=''; if(ss) ss.style.display='';
-  lancerJingle(); appellerCallback();
+  initParcours(); lancerJingle(); appellerCallback();
 }
 function fermerCouloir() {
   arreterMusiqueOverlay();
@@ -665,6 +666,7 @@ function fermerCouloir() {
   var ss=document.getElementById('scannerSection');
   if(cw) cw.style.display='';
   if(ss) ss.style.display='';
+  initParcours();
   lancerJingle();
   appellerCallback();
 }
@@ -676,6 +678,7 @@ function fermerLoggia() {
   var ss=document.getElementById('scannerSection');
   if(cw) cw.style.display='';
   if(ss) ss.style.display='';
+  initParcours();
   lancerJingle();
   appellerCallback();
 }
