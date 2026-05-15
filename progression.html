@@ -831,11 +831,18 @@ function initParcours() {
     var imgP=document.getElementById('imgPMR');
     if(imgC) imgC.style.display='none';
     if(imgP) imgP.style.display='';
+    // Afficher bulles PMR
     var bP=document.getElementById('bullesPMR');
-    if(bP) bP.style.display='';
-    // Masquer tout le groupe de bulles classiques (ombres incluses)
+    if(bP){ bP.style.display=''; bP.style.visibility='visible'; }
+    // Masquer bulles classiques
     var bC=document.getElementById('bullesClassique');
-    if(bC) bC.style.display='none';
+    if(bC){ bC.style.display='none'; }
+  } else {
+    // S'assurer que les bulles classiques sont visibles
+    var bC=document.getElementById('bullesClassique');
+    if(bC) bC.style.display='';
+    var bP=document.getElementById('bullesPMR');
+    if(bP) bP.style.display='none';
   }
 }
 
