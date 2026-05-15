@@ -503,21 +503,23 @@ function animerReussite() {
 }
 
 function ouverturDirecteOverlay(callback) {
-  // Masquer carte et boutons pendant l'overlay
-  var carteWrap = document.getElementById('carteWrap');
-  var scannerSection = document.getElementById('scannerSection');
-  if(carteWrap) carteWrap.style.display='none';
-  if(scannerSection) scannerSection.style.display='none';
-  // Lancer la musique et ouvrir l'overlay directement
-  try {
-    if (musiqueOverlay) { musiqueOverlay.pause(); musiqueOverlay = null; }
-    musiqueOverlay = new Audio('audio/(( MINIJEU )) FREE__JID_x_Kendrick_Lamar_x_J__Cole_Type_Beat.mp3');
-    musiqueOverlay.loop = true;
-    musiqueOverlay.volume = 0.7;
-    musiqueOverlay.currentTime = 1.4;
-    musiqueOverlay.play();
-  } catch(e) {}
-  setTimeout(function(){ callback(); }, 300);
+  // Laisser 800ms pour que les bulles s'animent (vert/rouge) avant de masquer la carte
+  setTimeout(function(){
+    var carteWrap = document.getElementById('carteWrap');
+    var scannerSection = document.getElementById('scannerSection');
+    if(carteWrap) carteWrap.style.display='none';
+    if(scannerSection) scannerSection.style.display='none';
+    // Lancer la musique et ouvrir l'overlay
+    try {
+      if (musiqueOverlay) { musiqueOverlay.pause(); musiqueOverlay = null; }
+      musiqueOverlay = new Audio('audio/(( MINIJEU )) FREE__JID_x_Kendrick_Lamar_x_J__Cole_Type_Beat.mp3');
+      musiqueOverlay.loop = true;
+      musiqueOverlay.volume = 0.7;
+      musiqueOverlay.currentTime = 1.4;
+      musiqueOverlay.play();
+    } catch(e) {}
+    setTimeout(function(){ callback(); }, 200);
+  }, 800);
 }
 
 function afficherBoutonContinuer(callback) {
