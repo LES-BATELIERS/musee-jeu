@@ -55,23 +55,7 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
 @keyframes pulseRouge { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 @keyframes pulseVert { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
 </style>
-<script>
-// Appliquer carte PMR immédiatement pour éviter le flash classique
-(function(){
-  try {
-    if(localStorage.getItem('parcours') === 'pmr'){
-      document.addEventListener('DOMContentLoaded', function(){
-        var imgC=document.getElementById('imgClassique'); if(imgC) imgC.style.display='none';
-        var imgP=document.getElementById('imgPMR'); if(imgP) imgP.style.display='';
-        var bC=document.getElementById('bullesClassique'); if(bC) bC.style.display='none';
-        var bP=document.getElementById('bullesPMR'); if(bP) bP.style.display='';
-        var cC=document.getElementById('cheminsClassique'); if(cC) cC.style.display='none';
-        var cP=document.getElementById('cheminsPMR'); if(cP) cP.style.display='';
-      });
-    }
-  } catch(e){}
-})();
-</script>
+
 </head>
 <body>
 
@@ -495,6 +479,13 @@ function animerReussite() {
     var ss=document.getElementById('scannerSection');
     if(cw) cw.style.display='';
     if(ss) ss.style.display='';
+    // S'assurer que les bons groupes de bulles sont visibles
+    if(isPMR){
+      var bP=document.getElementById('bullesPMR'); if(bP) bP.style.display='';
+      var bC=document.getElementById('bullesClassique'); if(bC) bC.style.display='none';
+      var cP=document.getElementById('cheminsPMR'); if(cP) cP.style.display='';
+      var cCl=document.getElementById('cheminsClassique'); if(cCl) cCl.style.display='none';
+    }
     // Mettre bulles 0..newV en vert instantanément
     for(var j=0;j<=newV;j++){
       var cj=document.getElementById(pfx+j);
