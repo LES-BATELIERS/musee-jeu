@@ -485,16 +485,33 @@ function animerReussite() {
     });
   }
 
+  // Allumer la bulle suivante en rouge AVANT l'overlay
+  function allumerBulleRouge() {
+    var bN  = document.getElementById(pfx+(newV+1));
+    var tn2 = document.getElementById(tpfx+(newV+1)+'n');
+    if(!bN) return;
+    bN.setAttribute('fill','#3a0808'); bN.setAttribute('stroke','#8a2020');
+    if(tn2){ tn2.setAttribute('fill','#dd4444'); tn2.textContent=ICONES[newV+1]||'✦'; }
+    var q=0;
+    function pulse(){ q++; bN.setAttribute('fill',q%2===0?'#3a0808':'#6a1010'); if(q<999)setTimeout(pulse,350); }
+    pulse();
+  }
+
   // Choisir overlay — ouverture directe sans passer par la carte
   if(newV===1){
+    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirJosephAvecCallback(apresOverlay); });
   } else if(newV===2){
+    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirSalonAvecCallback(apresOverlay); });
   } else if(newV===3){
+    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirCouloirAvecCallback(apresOverlay); });
   } else if(newV===5 && (parcours==='enfants'||parcours==='famille')){
+    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirLoggiaAvecCallback(apresOverlay); });
   } else if(newV===6 && (parcours==='enfants'||parcours==='famille')){
+    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirLampeAvecCallback(apresOverlay); });
   } else {
     lancerJingle();
