@@ -473,6 +473,20 @@ function animerReussite() {
 
   // Étape 2 : bouton continuer → overlay → pointillés + bulle rouge
   function apresOverlay() {
+    // Réafficher la carte avec les bulles déjà vertes
+    var cw=document.getElementById('carteWrap');
+    var ss=document.getElementById('scannerSection');
+    if(cw) cw.style.display='';
+    if(ss) ss.style.display='';
+    // Mettre bulles 0..newV en vert instantanément
+    for(var j=0;j<=newV;j++){
+      var cj=document.getElementById(pfx+j);
+      var tj=document.getElementById(tpfx+j+'n');
+      if(cj){ cj.setAttribute('fill','#003010'); cj.setAttribute('stroke','#00992e'); cj.style.animation=''; }
+      if(tj){ tj.setAttribute('fill','#00dd44'); tj.textContent=ICONES[j]||'✦'; }
+      allumerCheminInstant(j+1, isPMR);
+    }
+    // Puis animer le chemin vers la prochaine bulle et la mettre en rouge
     allumerChemin(newV+1, isPMR, function(){
       var bN  = document.getElementById(pfx+(newV+1));
       var tn2 = document.getElementById(tpfx+(newV+1)+'n');
@@ -485,33 +499,16 @@ function animerReussite() {
     });
   }
 
-  // Allumer la bulle suivante en rouge AVANT l'overlay
-  function allumerBulleRouge() {
-    var bN  = document.getElementById(pfx+(newV+1));
-    var tn2 = document.getElementById(tpfx+(newV+1)+'n');
-    if(!bN) return;
-    bN.setAttribute('fill','#3a0808'); bN.setAttribute('stroke','#8a2020');
-    if(tn2){ tn2.setAttribute('fill','#dd4444'); tn2.textContent=ICONES[newV+1]||'✦'; }
-    var q=0;
-    function pulse(){ q++; bN.setAttribute('fill',q%2===0?'#3a0808':'#6a1010'); if(q<999)setTimeout(pulse,350); }
-    pulse();
-  }
-
   // Choisir overlay — ouverture directe sans passer par la carte
   if(newV===1){
-    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirJosephAvecCallback(apresOverlay); });
   } else if(newV===2){
-    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirSalonAvecCallback(apresOverlay); });
   } else if(newV===3){
-    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirCouloirAvecCallback(apresOverlay); });
   } else if(newV===5 && (parcours==='enfants'||parcours==='famille')){
-    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirLoggiaAvecCallback(apresOverlay); });
   } else if(newV===6 && (parcours==='enfants'||parcours==='famille')){
-    allumerBulleRouge();
     ouverturDirecteOverlay(function(){ ouvrirLampeAvecCallback(apresOverlay); });
   } else {
     lancerJingle();
@@ -536,7 +533,7 @@ function ouverturDirecteOverlay(callback) {
       musiqueOverlay.play();
     } catch(e) {}
     setTimeout(function(){ callback(); }, 200);
-  }, 800);
+  }, 0);
 }
 
 function afficherBoutonContinuer(callback) {
