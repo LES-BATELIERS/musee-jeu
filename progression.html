@@ -778,6 +778,8 @@ function validerPrenom() {
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
   var parcours = s ? s.parcours : 'enfants';
   var score = getValidated();
+  // Sauvegarder le prénom dans localStorage pour victoire.html
+  localStorage.setItem('prenom', p);
   var jingle=document.getElementById('jingleCertificat');
   var url='victoire.html?prenom='+encodeURIComponent(p)+'&parcours='+parcours+'&score='+score;
   if(jingle){
