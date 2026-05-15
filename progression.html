@@ -485,21 +485,39 @@ function animerReussite() {
     });
   }
 
-  // Choisir overlay
+  // Choisir overlay — ouverture directe sans passer par la carte
   if(newV===1){
-    afficherBoutonContinuer(function(){ ouvrirJosephAvecCallback(apresOverlay); });
+    ouverturDirecteOverlay(function(){ ouvrirJosephAvecCallback(apresOverlay); });
   } else if(newV===2){
-    afficherBoutonContinuer(function(){ ouvrirSalonAvecCallback(apresOverlay); });
+    ouverturDirecteOverlay(function(){ ouvrirSalonAvecCallback(apresOverlay); });
   } else if(newV===3){
-    afficherBoutonContinuer(function(){ ouvrirCouloirAvecCallback(apresOverlay); });
+    ouverturDirecteOverlay(function(){ ouvrirCouloirAvecCallback(apresOverlay); });
   } else if(newV===5 && (parcours==='enfants'||parcours==='famille')){
-    afficherBoutonContinuer(function(){ ouvrirLoggiaAvecCallback(apresOverlay); });
+    ouverturDirecteOverlay(function(){ ouvrirLoggiaAvecCallback(apresOverlay); });
   } else if(newV===6 && (parcours==='enfants'||parcours==='famille')){
-    afficherBoutonContinuer(function(){ ouvrirLampeAvecCallback(apresOverlay); });
+    ouverturDirecteOverlay(function(){ ouvrirLampeAvecCallback(apresOverlay); });
   } else {
     lancerJingle();
     setTimeout(apresOverlay, 800);
   }
+}
+
+function ouverturDirecteOverlay(callback) {
+  // Masquer carte et boutons pendant l'overlay
+  var carteWrap = document.getElementById('carteWrap');
+  var scannerSection = document.getElementById('scannerSection');
+  if(carteWrap) carteWrap.style.display='none';
+  if(scannerSection) scannerSection.style.display='none';
+  // Lancer la musique et ouvrir l'overlay directement
+  try {
+    if (musiqueOverlay) { musiqueOverlay.pause(); musiqueOverlay = null; }
+    musiqueOverlay = new Audio('audio/(( MINIJEU )) FREE__JID_x_Kendrick_Lamar_x_J__Cole_Type_Beat.mp3');
+    musiqueOverlay.loop = true;
+    musiqueOverlay.volume = 0.7;
+    musiqueOverlay.currentTime = 1.4;
+    musiqueOverlay.play();
+  } catch(e) {}
+  setTimeout(function(){ callback(); }, 300);
 }
 
 function afficherBoutonContinuer(callback) {
@@ -597,11 +615,53 @@ function ouvrirLoggia() {
 }
 function ouvrirLampe()  { document.getElementById('overlayLampe').classList.add('visible'); }
 
-function fermerJoseph()  { arreterMusiqueOverlay(); document.getElementById('overlayJoseph').classList.remove('visible'); lancerJingle(); appellerCallback(); }
-function fermerSalon()   { arreterMusiqueOverlay(); document.getElementById('overlaySalon').classList.remove('visible'); lancerJingle(); appellerCallback(); }
-function fermerCouloir() { arreterMusiqueOverlay(); document.getElementById('overlayCouloir').classList.remove('visible'); lancerJingle(); appellerCallback(); }
-function fermerLoggia()  { arreterMusiqueOverlay(); document.getElementById('overlayLoggia').classList.remove('visible'); lancerJingle(); appellerCallback(); }
-function fermerLampe()   { arreterMusiqueOverlay(); document.getElementById('overlayLampe').classList.remove('visible'); lancerJingle(); appellerCallback(); }
+function fermerJoseph() {
+  arreterMusiqueOverlay();
+  document.getElementById('overlayJoseph').classList.remove('visible');
+  // Réafficher carte et scanner
+  var cw=document.getElementById('carteWrap');
+  var ss=document.getElementById('scannerSection');
+  if(cw) cw.style.display='';
+  if(ss) ss.style.display='';
+  lancerJingle();
+  appellerCallback();
+}
+function fermerSalon() {
+  arreterMusiqueOverlay();
+  document.getElementById('overlaySalon').classList.remove('visible');
+  var cw=document.getElementById('carteWrap'); var ss=document.getElementById('scannerSection');
+  if(cw) cw.style.display=''; if(ss) ss.style.display='';
+  lancerJingle(); appellerCallback();
+}
+function fermerCouloir() {
+  arreterMusiqueOverlay();
+  document.getElementById('overlayCouloir').classList.remove('visible');
+  // Réafficher carte et scanner
+  var cw=document.getElementById('carteWrap');
+  var ss=document.getElementById('scannerSection');
+  if(cw) cw.style.display='';
+  if(ss) ss.style.display='';
+  lancerJingle();
+  appellerCallback();
+}
+function fermerLoggia() {
+  arreterMusiqueOverlay();
+  document.getElementById('overlayLoggia').classList.remove('visible');
+  // Réafficher carte et scanner
+  var cw=document.getElementById('carteWrap');
+  var ss=document.getElementById('scannerSection');
+  if(cw) cw.style.display='';
+  if(ss) ss.style.display='';
+  lancerJingle();
+  appellerCallback();
+}
+function fermerLampe() {
+  arreterMusiqueOverlay();
+  document.getElementById('overlayLampe').classList.remove('visible');
+  var cw=document.getElementById('carteWrap'); var ss=document.getElementById('scannerSection');
+  if(cw) cw.style.display=''; if(ss) ss.style.display='';
+  lancerJingle(); appellerCallback();
+}
 
 // ── MINI-JEUX ──
 function josephEtape(n) {
