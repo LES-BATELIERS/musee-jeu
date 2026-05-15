@@ -44,17 +44,17 @@
       <path d="M72 90 Q85 95 100 90 Q115 95 128 90" fill="none" stroke="#2a2520" stroke-width="6" stroke-linecap="round"/>
     </svg>
 
-    <h1 style="font-family:'Cormorant Garamond',serif; font-weight:300; color:#c89090; font-size:1.6rem; letter-spacing:0.05em; margin-top:0.5rem;">
+    <h1 id="leurre-titre" style="font-family:'Cormorant Garamond',serif; font-weight:300; color:#c89090; font-size:1.6rem; letter-spacing:0.05em; margin-top:0.5rem;">
       Mauvaise piste !
     </h1>
 
-    <p style="color:#8a8070; font-size:0.9rem; line-height:1.9; margin: 0.8rem 0;">
+    <p id="leurre-msg1" style="color:#8a8070; font-size:0.9rem; line-height:1.9; margin: 0.8rem 0;">
       Même le gardien dort mieux que tu ne cherches.
     </p>
 
     <div class="separateur"></div>
 
-    <p style="color:#6b6355; font-size:0.82rem; line-height:1.8;">
+    <p id="leurre-msg2" style="color:#6b6355; font-size:0.82rem; line-height:1.8;">
       Ce QR code ne fait pas partie du parcours.<br>
       Continues à explorer... le bon se cache<br>quelque part dans le musée.
     </p>
@@ -62,6 +62,19 @@
     <button onclick="window.location.href='progression.html'" style="margin-top:1.2rem; background:transparent; border:1px solid #5a3810; border-radius:8px; padding:14px 28px; color:#8a6030; font-family:Georgia,serif; font-size:13px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; width:100%; max-width:320px;">
       ✦ Continuer mon aventure
     </button>
+
+    <script>
+    (function(){
+      var n = parseInt(localStorage.getItem('leurreCount') || '0') + 1;
+      localStorage.setItem('leurreCount', n);
+      if(n > 2){
+        document.getElementById('leurre-titre').textContent = 'Encore toi ?!';
+        document.getElementById('leurre-titre').style.color = '#cc4444';
+        document.getElementById('leurre-msg1').innerHTML = 'C\'est la <strong style="color:#c89090;">' + n + 'ème fois</strong> que tu tombes dans ce piège...<br>Le gardien commence à te reconnaître. 😅';
+        document.getElementById('leurre-msg2').innerHTML = 'Arrête de scanner au hasard !<br>Observe bien le musée — le bon QR code<br>se mérite. <strong style="color:#c8a842;">Reste concentré(e) sur l\'aventure.</strong>';
+      }
+    })();
+    </script>
 
   </div>
 
