@@ -71,7 +71,7 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/7KPVi6gNEc4", "https://www.youtube.com/embed/3jtGKUmHRJw"],
       questions: {
         enfant: {
-          texte: "Imagine que tu arrives à l'école et tu dis à ta maîtresse : 'Je suis pas en retard, j'ai décidé que l'école commence à midi !' Elle va dire quoi ? Avant, chaque ville faisait exactement ça ! Qui a eu l'idée d'inventer une heure pour tout le monde ?",
+          texte: "Imagine que tu arrives à l'école et tu dis à ta maîtresse : 'Je ne suis pas en retard, j'ai décidé que l'école commence à midi !' Elle va dire quoi ? Avant, chaque ville faisait exactement ça ! Qui a eu l'idée d'inventer une heure pour tout le monde ?",
           choix: ["Les maîtresses", "Les humains", "Les pizzas"],
           bonne: 1,
           messageBonneReponse: "Tu sais quoi ? Avant, chaque ville avait sa propre heure ! Comme si chaque maison décidait toute seule. C'est les grandes personnes qui ont tout mis à la même heure pour que les trains arrivent à l'heure. L'heure sur ta montre ? C'est une idée qu'on a inventée ensemble !"
@@ -173,8 +173,8 @@ const PARCOURS = {
       videsMauvaisesReponses: ["https://www.youtube.com/embed/ZrqXjjVA8NI", "https://www.youtube.com/embed/gsZglG5dbeY"],
       questions: {
         enfant: {
-          texte: "Pendant 200 ans, tout le monde a cru que Napoléon avait cassé le nez du Sphinx. Faux ! Des dessins datant d'avant lui le prouvent. Si 200 ans de mensonge peuvent exister... que faut-il faire face à une affirmation ?",
-          choix: ["La croire immédiatement", "La questionner", "L'ignorer"],
+          texte: "Pendant 200 ans, tout le monde a cru que Napoléon avait cassé le nez du Sphinx. Faux ! Des dessins datant d'avant lui le prouvent. Si 200 ans de fausses histoires peuvent exister... quelle serait la bonne attitude face à une affirmation ?",
+          choix: ["La croire immédiatement", "Se questionner", "L'ignorer"],
           bonne: 1,
           messageBonneReponse: "200 ans de mensonge sur le nez du Sphinx... Le doute est une force, pas une faiblesse. Questionner ce qu'on te dit, chercher les preuves, ne pas avaler tout ce qu'on te raconte — c'est une des choses les plus courageuses qu'un être humain puisse faire."
         },
