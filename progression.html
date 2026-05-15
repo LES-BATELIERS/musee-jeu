@@ -437,7 +437,10 @@ function allumerChemin(idx, isPMR, callback) {
   if (idx < 1 || idx > ids.length) { if(callback) callback(); return; }
   var path = document.getElementById(prefix + ids[idx-1]);
   if (!path) { if(callback) callback(); return; }
-  var total = path.getTotalLength ? path.getTotalLength() : 200;
+  // S'assurer que le groupe parent est visible pour getTotalLength
+  var grp = document.getElementById(isPMR ? 'cheminsPMR' : 'cheminsClassique');
+  if(grp) grp.style.display='';
+  var total = (path.getTotalLength ? path.getTotalLength() : 0) || 200;
   path.setAttribute('opacity','1');
   var dot = 0;
   function tick() {
