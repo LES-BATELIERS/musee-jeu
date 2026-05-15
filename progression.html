@@ -796,7 +796,7 @@ function fermerScanner() {
   if(html5QrCode){ html5QrCode.stop().catch(function(){}); }
 }
 function traiterQR(url) {
-  if(url.includes('enigme.html') || url.includes('?etape=')) {
+  if(url.includes('enigme.html') || url.includes('?etape=') || url.includes('leurre.html')) {
     window.location.href=url;
   }
 }
