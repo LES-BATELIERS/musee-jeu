@@ -476,9 +476,15 @@ localStorage.removeItem('messageSpecial');
         document.getElementById('splashMessage').textContent = "Prépare-toi... une nouvelle rencontre t'attend.";
         afficherEcran('ecranSplash');
       } else {
-        chargerVideo('videoPlayer', etapeData.videoIntro);
-        afficherEcran('ecranVideo');
-        demarrerMusique(etapeData.id);
+        // Guide : afficher tutoriel si première fois
+        if (etapeData.id === 'intro-guide' && !localStorage.getItem('tutorielVu')) {
+          var ov = document.getElementById('overlayTutoriel');
+          if(ov) ov.style.display='flex';
+        } else {
+          chargerVideo('videoPlayer', etapeData.videoIntro);
+          afficherEcran('ecranVideo');
+          demarrerMusique(etapeData.id);
+        }
       }
     } else {
       // Pas de vidéo intro → splash quand même pour déclencher la musique au clic
@@ -861,6 +867,15 @@ localStorage.removeItem('messageSpecial');
     }
   }
 
+  function fermerTutoriel() {
+    localStorage.setItem('tutorielVu', '1');
+    var ov = document.getElementById('overlayTutoriel');
+    if(ov) ov.style.display='none';
+    chargerVideo('videoPlayer', etapeData.videoIntro);
+    afficherEcran('ecranVideo');
+    demarrerMusique(etapeData.id);
+  }
+
   function afficherOrientation() {
     // Réutiliser ecranQuestion avec un message simple sans choix
     document.getElementById('personnageNom').textContent = etapeData.personnage;
@@ -1165,5 +1180,22 @@ document.addEventListener('touchstart', function(e) {
   dot.addEventListener('animationend', function() { dot.remove(); });
 }, { passive: true });
 </script>
+
+<!-- Overlay tutoriel premier lancement -->
+<div id="overlayTutoriel" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.97);z-index:999999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;font-family:Georgia,serif;">
+  <div style="background:#0e0e0e;border:1px solid #c8a842;border-radius:12px;padding:28px 24px;max-width:360px;width:100%;text-align:center;">
+    <div style="font-size:0.6rem;letter-spacing:4px;color:#c8a842;text-transform:uppercase;margin-bottom:16px;">✦ Bienvenue ✦</div>
+    <div style="font-size:1rem;color:#f0ead8;line-height:1.8;margin-bottom:24px;">
+      Durant cette aventure, tu rencontreras <strong style="color:#c8a842;">deux types d'épreuves</strong> :<br><br>
+      🎭 Des <strong style="color:#c8a842;">énigmes</strong> posées par les personnages du musée — réponds correctement pour avancer.<br><br>
+      🗺️ Des <strong style="color:#c8a842;">indices d'orientation</strong> pour te guider d'une salle à l'autre.<br><br>
+      Garde l'œil ouvert... et bonne chance !
+    </div>
+    <button onclick="fermerTutoriel()" style="width:100%;background:transparent;border:1px solid #c8a842;border-radius:8px;padding:12px;color:#c8a842;font-family:Georgia,serif;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">
+      Je suis prêt(e) ! ✦
+    </button>
+  </div>
+</div>
+
 </body>
 </html>
