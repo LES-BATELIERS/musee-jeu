@@ -336,6 +336,12 @@ localStorage.removeItem('messageSpecial');
   let musique = null; // musique active
 
   // ── Initialisation au chargement ──
+  // Bloquer le bouton retour
+  history.pushState(null, '', window.location.href);
+  window.addEventListener('popstate', function() {
+    history.pushState(null, '', window.location.href);
+  });
+
   window.onload = function() {
 
     session = GAME.getSession();
@@ -356,6 +362,8 @@ localStorage.removeItem('messageSpecial');
     }
     // Pas de parcours choisi → bloquer avec message
     if (!session.parcours) {
+      var ec2 = document.getElementById('ecranChargement');
+      if(ec2){ ec2.style.opacity='0'; ec2.style.display='none'; }
       var ob = document.getElementById('overlayPasCommence');
       if(ob) ob.style.display='flex';
       return;
@@ -857,8 +865,8 @@ localStorage.removeItem('messageSpecial');
   }
 
   function demarrerMusiqueEtLancerQuestion() {
-    if (etapeData && etapeData.orientation) {
-      // Étape avec orientation (ex: Licorne) → afficher message d'orientation
+    if (etapeData && etapeData.orientation && !questionData) {
+      // Étape avec orientation SEULEMENT (ex: Licorne) → afficher message d'orientation
       afficherOrientation();
     } else if (!questionData) {
       // Pas de question → aller direct à l'indice (ex: Lampe magique)
@@ -1212,9 +1220,7 @@ document.addEventListener('touchstart', function(e) {
     <button onclick="ouvrirScannerDepuisOverlay()" style="width:100%;background:transparent;border:1px solid #c8a842;border-radius:8px;padding:12px;color:#c8a842;font-family:Georgia,serif;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-bottom:10px;">
       ✦ Scanner un autre QR code
     </button>
-    <button onclick="window.location.href='index.html'" style="width:100%;background:transparent;border:1px solid #3a3530;border-radius:8px;padding:12px;color:#8a8070;font-family:Georgia,serif;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">
-      Retour à l'accueil
-    </button>
+
   </div>
 </div>
 
