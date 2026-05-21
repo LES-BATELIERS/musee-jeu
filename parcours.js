@@ -195,7 +195,7 @@ const PARCOURS = {
       videoIntro: "https://www.youtube.com/embed/Hbat1rxbXxE",
       videoBonneReponse: "https://www.youtube.com/embed/gXL6cRe0C5U",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/HPuIKFIwllM", "https://www.youtube.com/embed/WkustlPWb4A"],
-      orientation: "Suis les panneaux NUIT BLANCHE vers la Cour de la lumière du jour ✦",
+      orientation: "Suis les panneaux NUIT BLANCHE vers la Cour de la lumière du jour ✦\n\nCherche une porte dissimulée dans la pièce suivante.",
       indice: "Trouve la Lampe magique dans le musée !"
     },
 

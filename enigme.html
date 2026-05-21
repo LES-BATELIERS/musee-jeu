@@ -879,6 +879,7 @@ localStorage.removeItem('messageSpecial');
   function afficherOrientation() {
     // Réutiliser ecranQuestion avec un message simple sans choix
     document.getElementById('personnageNom').textContent = etapeData.personnage;
+    document.getElementById('questionTexte').style.whiteSpace = 'pre-line';
     document.getElementById('questionTexte').textContent = etapeData.orientation;
     document.getElementById('choixListe').innerHTML = '';
     // Masquer calculette
