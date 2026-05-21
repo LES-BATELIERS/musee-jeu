@@ -195,18 +195,7 @@ const PARCOURS = {
       videoIntro: "https://www.youtube.com/embed/Hbat1rxbXxE",
       videoBonneReponse: "https://www.youtube.com/embed/gXL6cRe0C5U",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/HPuIKFIwllM", "https://www.youtube.com/embed/WkustlPWb4A"],
-      questions: {
-        enfant: {
-          texte: "Mon bassin enchanté contient 10 litres d'eau de lune. Un mauvais sort y a percé un trou qui laisse couler 1 litre par minute. Dans combien de minutes mon bassin sera-t-il vide ?",
-          choix: ["5 minutes", "10 minutes", "15 minutes"],
-          bonne: 1
-        },
-        famille: {
-          texte: "La fontaine enchantée du château contient 360 litres. Une fissure magique laisse s'échapper 40 cl par seconde. En combien de minutes l'eau aura-t-elle entièrement disparu ?",
-          choix: ["10 minutes", "15 minutes", "20 minutes"],
-          bonne: 1
-        }
-      },
+      orientation: "Suis les panneaux NUIT BLANCHE vers la Cour de la lumière du jour ✦",
       indice: "Trouve la Lampe magique dans le musée !"
     },
 

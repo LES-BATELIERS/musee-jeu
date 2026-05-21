@@ -849,13 +849,37 @@ localStorage.removeItem('messageSpecial');
   }
 
   function demarrerMusiqueEtLancerQuestion() {
-    if (!questionData) {
+    if (etapeData && etapeData.orientation) {
+      // Étape avec orientation (ex: Licorne) → afficher message d'orientation
+      afficherOrientation();
+    } else if (!questionData) {
       // Pas de question → aller direct à l'indice (ex: Lampe magique)
       afficherIndice();
     } else {
       afficherQuestion();
       lancerCascade();
     }
+  }
+
+  function afficherOrientation() {
+    // Réutiliser ecranQuestion avec un message simple sans choix
+    document.getElementById('personnageNom').textContent = etapeData.personnage;
+    document.getElementById('questionTexte').textContent = etapeData.orientation;
+    document.getElementById('choixListe').innerHTML = '';
+    // Masquer calculette
+    var calcZone = document.getElementById('calcZone');
+    if (calcZone) calcZone.style.display = 'none';
+    // Ajouter bouton "J'y vais ✦"
+    var liste = document.getElementById('choixListe');
+    var btn = document.createElement('button');
+    btn.className = 'btn-choix';
+    btn.textContent = "J'y vais ✦";
+    btn.style.borderColor = '#00aa33';
+    btn.style.color = '#00dd44';
+    btn.onclick = function() { afficherIndice(); };
+    liste.appendChild(btn);
+    afficherEcran('ecranQuestion');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function lancerCascade() {
