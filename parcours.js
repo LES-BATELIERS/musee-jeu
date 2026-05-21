@@ -152,7 +152,7 @@ const PARCOURS = {
         }
       },
       indice: {
-        classique: "Trouve l'animal dans le musée !",
+        classique: "Trouve un animal dans le musée !",
         pmr: "Trouve le Putti Astronome dans le musée !"
       }
     }
