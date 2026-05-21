@@ -435,7 +435,7 @@ localStorage.removeItem('messageSpecial');
       const pctCheat = GAME.getProgression();
       document.getElementById('progressionFill').style.width = pctCheat + '%';
       document.getElementById('progressionLabel').textContent = 'Progression : ' + pctCheat + '%';
-      afficherEcran('ecranCheat');
+      window.location.href = 'leurre.html';
       return;
     }
 
