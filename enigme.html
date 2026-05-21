@@ -460,7 +460,7 @@ localStorage.removeItem('messageSpecial');
     // pour éviter que le bouton "Retour au jeu" de progression.html
     // ne déclenche validerEtape() sans scan de QR
 
-    questionData = etapeData.questions && etapeData.questions.enfant !== null
+    questionData = (!etapeData.orientation && etapeData.questions)
       ? GAME.getQuestion(etapeData, session)
       : null;
 
@@ -865,8 +865,8 @@ localStorage.removeItem('messageSpecial');
   }
 
   function demarrerMusiqueEtLancerQuestion() {
-    if (etapeData && etapeData.orientation && !questionData) {
-      // Étape avec orientation SEULEMENT (ex: Licorne) → afficher message d'orientation
+    if (etapeData && etapeData.orientation) {
+      // Étape avec orientation (ex: Licorne) → afficher message d'orientation
       afficherOrientation();
     } else if (!questionData) {
       // Pas de question → aller direct à l'indice (ex: Lampe magique)
