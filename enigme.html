@@ -279,6 +279,7 @@
 localStorage.removeItem('messageSpecial');
 </script>
 <script src="data/parcours.js?v=6"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script src="js/game.js?v=6"></script>
 <script>
 
@@ -353,9 +354,10 @@ localStorage.removeItem('messageSpecial');
     if (!session.indiceAffiche) {
       localStorage.removeItem('messageSpecial');
     }
-    // Pas de parcours choisi → retour accueil
+    // Pas de parcours choisi → bloquer avec message
     if (!session.parcours) {
-      window.location.href = 'index.html';
+      var ob = document.getElementById('overlayPasCommence');
+      if(ob) ob.style.display='flex';
       return;
     }
 
@@ -867,6 +869,22 @@ localStorage.removeItem('messageSpecial');
     }
   }
 
+  var html5QrCode = null;
+  function ouvrirScannerDepuisOverlay() {
+    var qrDiv = document.getElementById('qr-reader-overlay');
+    if(qrDiv) qrDiv.style.display='block';
+    if (!html5QrCode) html5QrCode = new Html5Qrcode('qr-reader-overlay');
+    html5QrCode.start(
+      {facingMode:'environment'},{fps:10,qrbox:{width:250,height:250}},
+      function(url){
+        html5QrCode.stop().catch(function(){});
+        if(qrDiv) qrDiv.style.display='none';
+        window.location.href = url;
+      },
+      function(){}
+    ).catch(function(){ if(qrDiv) qrDiv.textContent='Caméra non disponible'; });
+  }
+
   function fermerTutoriel() {
     localStorage.setItem('tutorielVu', '1');
     var ov = document.getElementById('overlayTutoriel');
@@ -1181,6 +1199,24 @@ document.addEventListener('touchstart', function(e) {
   dot.addEventListener('animationend', function() { dot.remove(); });
 }, { passive: true });
 </script>
+
+<!-- Overlay pas encore commencé -->
+<div id="overlayPasCommence" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.97);z-index:999999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;font-family:Georgia,serif;">
+  <div style="background:#0e0e0e;border:1px solid #8a2020;border-radius:12px;padding:28px 24px;max-width:360px;width:100%;text-align:center;">
+    <div style="font-size:0.6rem;letter-spacing:4px;color:#cc3333;text-transform:uppercase;margin-bottom:16px;">⚠ Pas si vite !</div>
+    <div style="font-size:1rem;color:#f0ead8;line-height:1.8;margin-bottom:24px;">
+      Ce n'est pas le bon QR code pour commencer...<br><br>
+      <strong style="color:#c8a842;">Cherche le QR code du Guide</strong> pour démarrer l'aventure !
+    </div>
+    <div id="qr-reader-overlay" style="width:100%;max-width:300px;margin:0 auto 12px;display:none;"></div>
+    <button onclick="ouvrirScannerDepuisOverlay()" style="width:100%;background:transparent;border:1px solid #c8a842;border-radius:8px;padding:12px;color:#c8a842;font-family:Georgia,serif;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-bottom:10px;">
+      ✦ Scanner un autre QR code
+    </button>
+    <button onclick="window.location.href='index.html'" style="width:100%;background:transparent;border:1px solid #3a3530;border-radius:8px;padding:12px;color:#8a8070;font-family:Georgia,serif;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">
+      Retour à l'accueil
+    </button>
+  </div>
+</div>
 
 <!-- Overlay tutoriel premier lancement -->
 <div id="overlayTutoriel" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.97);z-index:999999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;font-family:Georgia,serif;">
