@@ -195,13 +195,7 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
   </div>
 </div>
 
-<div id="overlayLampe" class="joseph-overlay">
-  <div class="joseph-card">
-    <div class="joseph-etape">✦ Indice ✦</div>
-    <div class="joseph-texte">Tu avances bien, aventurier(ère) !<br><br>Suis les <strong style="color:#c8a842;">indications sur les feuilles</strong> dans le musée...<br><br>Elles te guideront vers la <strong style="color:#c8a842;">cour</strong> 🌿</div>
-    <button class="joseph-btn" style="border-color:#00aa33;color:#00aa33;" onclick="fermerLampe()">J'ai trouvé(e) la cour ! ✦</button>
-  </div>
-</div>
+
 
 <div id="tresorOverlay">
   <div class="tresor-titre">🏆</div>
@@ -519,8 +513,6 @@ function animerReussite() {
     ouverturDirecteOverlay(function(){ ouvrirCouloirAvecCallback(apresOverlay); });
   } else if(newV===5 && (parcours==='enfants'||parcours==='famille')){
     ouverturDirecteOverlay(function(){ ouvrirLoggiaAvecCallback(apresOverlay); });
-  } else if(newV===6 && (parcours==='enfants'||parcours==='famille')){
-    ouverturDirecteOverlay(function(){ ouvrirLampeAvecCallback(apresOverlay); });
   } else {
     lancerJingle();
     setTimeout(apresOverlay, 800);
@@ -614,7 +606,6 @@ function ouvrirJosephAvecCallback(cb) { pendingCallback=cb; ouvrirJoseph(); }
 function ouvrirSalonAvecCallback(cb)  { pendingCallback=cb; ouvrirSalon(); }
 function ouvrirCouloirAvecCallback(cb){ pendingCallback=cb; ouvrirCouloir(); }
 function ouvrirLoggiaAvecCallback(cb) { pendingCallback=cb; ouvrirLoggia(); }
-function ouvrirLampeAvecCallback(cb)  { pendingCallback=cb; ouvrirLampe(); }
 
 function ouvrirJoseph() {
   josephEtape(1);
@@ -640,7 +631,6 @@ function ouvrirLoggia() {
   loggiaEtape(1);
   document.getElementById('overlayLoggia').classList.add('visible');
 }
-function ouvrirLampe()  { document.getElementById('overlayLampe').classList.add('visible'); }
 
 function fermerJoseph() {
   arreterMusiqueOverlay();
@@ -685,13 +675,7 @@ function fermerLoggia() {
   lancerJingle();
   appellerCallback();
 }
-function fermerLampe() {
-  arreterMusiqueOverlay();
-  document.getElementById('overlayLampe').classList.remove('visible');
-  var cw=document.getElementById('carteWrap'); var ss=document.getElementById('scannerSection');
-  if(cw) cw.style.display=''; if(ss) ss.style.display='';
-  lancerJingle(); appellerCallback();
-}
+
 
 // ── MINI-JEUX ──
 function josephEtape(n) {
