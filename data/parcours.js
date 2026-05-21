@@ -126,7 +126,7 @@ const PARCOURS = {
             texte: "Je vis dans le désert et j'ai une bosse. Qui suis-je ?",
             choix: ["Le dromadaire", "Le chameau", "La tortue"],
             bonne: 0,
-            messageBonneReponse: "Bien joué ! Maintenant trouve le dromadaire à cet étage du musée..."
+            messageBonneReponse: "Bien joué ! Maintenant cherche un animal à l'étage !"
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
@@ -141,7 +141,7 @@ const PARCOURS = {
             texte: "Mon premier est le baldaquin suspendu au-dessus du trône royal.\nMon deuxième, c'est ce que fait un serf pour son seigneur.\nMon tout est le royaume du dromadaire.",
             choix: ["Dessert", "Désert", "Désaccord"],
             bonne: 1,
-            messageBonneReponse: "Bien joué ! Maintenant trouve le dromadaire à cet étage du musée..."
+            messageBonneReponse: "Bien joué ! Maintenant cherche un animal à l'étage !"
           },
           pmr: {
             videoIntro: "https://www.youtube.com/embed/Mszn8vFvuxA",
@@ -152,7 +152,7 @@ const PARCOURS = {
         }
       },
       indice: {
-        classique: "Trouve le Dromadaire dans le musée !",
+        classique: "Trouve un animal dans le musée !",
         pmr: "Trouve le Putti Astronome dans le musée !"
       }
     }
@@ -195,18 +195,7 @@ const PARCOURS = {
       videoIntro: "https://www.youtube.com/embed/Hbat1rxbXxE",
       videoBonneReponse: "https://www.youtube.com/embed/gXL6cRe0C5U",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/HPuIKFIwllM", "https://www.youtube.com/embed/WkustlPWb4A"],
-      questions: {
-        enfant: {
-          texte: "Mon bassin enchanté contient 10 litres d'eau de lune. Un mauvais sort y a percé un trou qui laisse couler 1 litre par minute. Dans combien de minutes mon bassin sera-t-il vide ?",
-          choix: ["5 minutes", "10 minutes", "15 minutes"],
-          bonne: 1
-        },
-        famille: {
-          texte: "La fontaine enchantée du château contient 360 litres. Une fissure magique laisse s'échapper 40 cl par seconde. En combien de minutes l'eau aura-t-elle entièrement disparu ?",
-          choix: ["10 minutes", "15 minutes", "20 minutes"],
-          bonne: 1
-        }
-      },
+      orientation: "Suis les panneaux NUIT BLANCHE vers la Cour de la lumière du jour ✦\n\nCherche une porte dissimulée dans la pièce suivante.",
       indice: "Trouve la Lampe magique dans le musée !"
     },
 
