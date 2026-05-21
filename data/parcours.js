@@ -152,7 +152,7 @@ const PARCOURS = {
         }
       },
       indice: {
-        classique: "Trouve un animal dans le musée !",
+        classique: "Trouve un animal à l'étage du musée !",
         pmr: "Trouve le Putti Astronome dans le musée !"
       }
     }
@@ -195,7 +195,8 @@ const PARCOURS = {
       videoIntro: "https://www.youtube.com/embed/Hbat1rxbXxE",
       videoBonneReponse: "https://www.youtube.com/embed/gXL6cRe0C5U",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/HPuIKFIwllM", "https://www.youtube.com/embed/WkustlPWb4A"],
-      orientation: "Suis les panneaux NUIT BLANCHE vers la Cour de la lumière du jour ✦\n\nCherche une porte dissimulée dans la pièce suivante.",
+      orientationHTML: true,
+      orientation: "Suis les panneaux NUIT BLANCHE vers la Cour de la lumière du jour ✦<br><br>Cherche une porte dissimulée dans la pièce suivante.<br><br><div style='background:#ffffff;border:2px solid #6a4410;border-radius:8px;padding:16px 14px;margin:12px 0;'><div style='border:1px dashed #8a6020;border-radius:4px;padding:12px;'><div style='font-size:16px;font-weight:bold;color:#1e0e04;letter-spacing:3px;margin-bottom:2px;'>NUIT BLANCHE</div><div style='font-size:11px;font-style:italic;color:#5a3808;letter-spacing:2px;margin-bottom:14px;'>Lumière du jour</div><div style='width:80%;margin:0 auto 12px;height:1px;background:#6a4410;'></div><div style='display:flex;align-items:stretch;'><div style='flex:1;text-align:center;padding-right:10px;border-right:1px dashed #8a6020;'><div style='font-size:10px;background:#1e0e04;color:#ffffff;letter-spacing:2px;padding:3px 8px;border-radius:3px;margin-bottom:8px;display:inline-block;'>D'abord</div><div style='font-size:20px;font-weight:bold;color:#1e0e04;margin-bottom:6px;'>Par ici</div><div style='font-size:14px;font-style:italic;color:#5a3808;'>(7 pas)</div></div><div style='display:flex;align-items:center;padding:0 10px;color:#6a4410;font-size:20px;'>→</div><div style='flex:1;text-align:center;padding-left:10px;'><div style='font-size:10px;background:#5a3808;color:#ffffff;letter-spacing:2px;padding:3px 8px;border-radius:3px;margin-bottom:8px;display:inline-block;'>Ensuite</div><div style='font-size:20px;font-weight:bold;color:#1e0e04;margin-bottom:6px;'>Par là</div><div style='font-size:14px;font-style:italic;color:#5a3808;'>(8 pas)</div></div></div></div></div>",
       indice: "Trouve la Lampe magique dans le musée !"
     },
 
