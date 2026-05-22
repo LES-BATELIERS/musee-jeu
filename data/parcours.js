@@ -153,7 +153,7 @@ const PARCOURS = {
       },
       indice: {
         classique: "Trouve un animal à l'étage du musée !",
-        pmr: "Trouve le Putti Astronome dans le musée !"
+        pmr: "Cherche le Putti dans la cour du jardin !"
       }
     }
   ],
