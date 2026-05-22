@@ -20,6 +20,7 @@ h2 { color:#c8a842; letter-spacing:3px; }
 
 <hr style="border-color:#3a3530;width:300px;margin:8px 0">
 <button class="btn" style="border-color:#aa44aa;color:#aa44aa;" onclick="testerLicorne()">🦄 Tester la Licorne directement</button>
+<button class="btn" style="border-color:#6688aa;color:#6688aa;" onclick="testerGardien()">👴 PMR — Tester overlay Gardien</button>
 
 <button class="btn" style="border-color:#5a8a30;color:#5a8a30;" onclick="tester('famille', 0)">🦜 Famille — Étape Guide</button>
 <button class="btn" style="border-color:#5a8a30;color:#5a8a30;" onclick="tester('famille', 1)">🦜 Famille — Après Perroquet</button>
@@ -44,6 +45,16 @@ function testerLicorne() {
   localStorage.setItem('erreurs', '0');
   localStorage.setItem('totalErreurs', '0');
   window.location.href = 'enigme.html?etape=licorne-classique';
+}
+
+function testerGardien() {
+  localStorage.setItem('parcours', 'pmr');
+  localStorage.setItem('phase', 'pmr');
+  localStorage.setItem('etape', '1');
+  localStorage.setItem('indiceAffiche', '1');
+  localStorage.setItem('erreurs', '0');
+  localStorage.setItem('totalErreurs', '0');
+  window.location.href = 'progression.html?mode=reussi&etape=5';
 }
 </script>
 </body>
