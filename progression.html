@@ -197,12 +197,12 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
 
 
 
-<!-- Overlay Gardien PMR -->
+<!-- Overlay Gardien PMR + Classique -->
 <div id="overlayGardien" class="joseph-overlay">
   <div class="joseph-card">
     <div class="joseph-etape">✦ Indice ✦</div>
     <div class="joseph-texte">
-      Bien joué ! Maintenant suis le panneau<br><strong style="color:#c8a842;">NUIT BLANCHE</strong> affiché dans la cour<br>pour trouver le Vieux Gardien.
+      Suis les panneaux <strong style="color:#c8a842;">NUIT BLANCHE</strong> vers la Cour de la lumière du jour — le Vieux Gardien t'y attend !
     </div>
     <div style="background:#f5e090;border:2px solid #6a4410;border-radius:8px;padding:14px;margin-bottom:20px;">
       <div style="border:1px dashed #8a6020;border-radius:4px;padding:12px;">
@@ -215,7 +215,7 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
         </div>
         <div style="width:80%;margin:8px auto 14px;height:1px;background:#6a4410;"></div>
         <div style="font-size:18px;font-weight:bold;color:#1e0e04;margin-bottom:12px;text-align:center;">Avancez vers le<br>Vieux Gardien</div>
-        <svg width='70' height='28' viewBox='0 0 80 32' xmlns='http://www.w3.org/2000/svg' style='display:block;margin:0 auto;'><line x1='78' y1='16' x2='10' y2='16' stroke='#1e0e04' stroke-width='3' stroke-linecap='round'/><line x1='10' y1='16' x2='26' y2='4' stroke='#1e0e04' stroke-width='3' stroke-linecap='round'/><line x1='10' y1='16' x2='26' y2='28' stroke='#1e0e04' stroke-width='3' stroke-linecap='round'/></svg>
+        
       </div>
     </div>
     <button class="joseph-btn" style="border-color:#00aa33;color:#00dd44;" onclick="fermerGardien()">J'y vais ✦</button>
@@ -548,6 +548,8 @@ function animerReussite() {
     ouverturDirecteOverlay(function(){ ouvrirCouloirAvecCallback(apresOverlay); });
   } else if(newV===5 && (parcours==='enfants'||parcours==='famille')){
     ouverturDirecteOverlay(function(){ ouvrirLoggiaAvecCallback(apresOverlay); });
+  } else if(newV===6 && (parcours==='enfants'||parcours==='famille')){
+    ouverturDirecteOverlay(function(){ ouvrirGardienAvecCallback(apresOverlay); });
   } else if(newV===5 && parcours==='pmr'){
     ouverturDirecteOverlay(function(){ ouvrirGardienAvecCallback(apresOverlay); });
   } else {
