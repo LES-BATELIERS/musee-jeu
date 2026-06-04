@@ -257,6 +257,8 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
     <path d="M159,323 C150,333 157,325 156,337 C155,349 155,344 157,354 C159,364 149,353 162,361 C175,369 173,365 189,374 C205,383 199,374 201,384" fill="none" stroke="#00cc44" stroke-width="3.5" stroke-dasharray="8 6" opacity="0" id="cv45" stroke-linecap="round"/>
     <path d="M189,374 C205,383 199,374 201,384 C203,394 205,390 193,399 C181,408 182,397 171,407 C160,417 163,414 165,425 C167,436 173,425 176,435 C179,445 181,440 172,449 C163,458 165,452 153,458 C141,464 149,459 141,464" fill="none" stroke="#00cc44" stroke-width="3.5" stroke-dasharray="8 6" opacity="0" id="cv56" stroke-linecap="round"/>
     <path d="M153,458 C141,464 149,459 141,464 C133,469 140,469 133,471 C126,473 129,468 123,470 C117,472 115,473 117,477 C119,481 123,474 127,479 C131,484 133,482 127,489" fill="none" stroke="#00cc44" stroke-width="3.5" stroke-dasharray="8 6" opacity="0" id="cv67" stroke-linecap="round"/>
+    <path d="M113,428 L165,447 L210,435 L235,455 L245,439" fill="none" stroke="#00cc44" stroke-width="3.5" stroke-dasharray="8 6" opacity="0" id="cv67b" stroke-linecap="round"/>
+    <path d="M247,468 L229,476 L204,479 L193,478" fill="none" stroke="#00cc44" stroke-width="3.5" stroke-dasharray="8 6" opacity="0" id="cv7b8" stroke-linecap="round"/>
     <path d="M127,479 C131,484 133,482 127,489 C121,496 117,489 112,497 C107,505 108,502 114,509 C120,516 122,512 127,514" fill="none" stroke="#00cc44" stroke-width="3.5" stroke-dasharray="8 6" opacity="0" id="cv78" stroke-linecap="round"/>
   </g>
 
@@ -293,6 +295,10 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
   <circle cx="85" cy="438" r="21" fill="#000000" opacity="0.55"/><circle id="c6" cx="85" cy="438" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
   <text id="t6n" x="85" y="444" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
   <text id="t6l" x="85" y="457" text-anchor="middle" font-size="0" fill="transparent">???</text>
+  <circle cx="259" cy="447" r="21" fill="#000000" opacity="0.55"/><circle id="c6b" cx="259" cy="447" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
+  <text id="t6bn" x="259" y="453" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
+  <text id="t6bl" x="259" y="466" text-anchor="middle" font-size="0" fill="transparent">???</text>
+
   <circle cx="183" cy="493" r="21" fill="#000000" opacity="0.55"/><circle id="c7" cx="183" cy="493" r="18" fill="#1c1005" stroke="#c8a842" stroke-width="2"/>
   <text id="t7n" x="183" y="499" text-anchor="middle" font-size="13" fill="#c8a842">?</text>
   <text id="t7l" x="183" y="512" text-anchor="middle" font-size="0" fill="transparent">???</text>
@@ -371,9 +377,9 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
 // ── NOMS & ICONES ──
 function getNoms() {
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
-  if (!s) return ['Guide','Perroquet','Joseph II','H.Salon','H.1759','Dromadaire','Licorne','Lampe'];
+  if (!s) return ['Guide','Perroquet','Joseph II','H.Salon','H.1759','Dromadaire','Licorne','Gardien','Lampe'];
   var PARCOURS_DATA = typeof PARCOURS !== 'undefined' ? PARCOURS : null;
-  if (!PARCOURS_DATA) return ['Guide','Perroquet','Joseph II','H.Salon','H.1759','Dromadaire','Licorne','Lampe'];
+  if (!PARCOURS_DATA) return ['Guide','Perroquet','Joseph II','H.Salon','H.1759','Dromadaire','Licorne','Gardien','Lampe'];
   var commun = (PARCOURS_DATA.commun||[]).map(function(e){ return e.personnage; });
   var spec = s.parcours==='pmr' ? (PARCOURS_DATA.pmr||[]) : (PARCOURS_DATA.classique||[]);
   var specN = spec.map(function(e){ return e.personnage; });
@@ -383,7 +389,7 @@ function getIcones() {
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
   var p = s ? s.parcours : 'enfants';
   if (p==='pmr') return ['🗝️','🦜','👑','🕐','⏳','🔭','👴','✨'];
-  return ['🗝️','🦜','👑','🕐','⏳','🐪','🦄','✨'];
+  return ['🗝️','🦜','👑','🕐','⏳','🐪','🦄','👻','✨'];
 }
 function getValidated() {
   var s = typeof GAME !== 'undefined' ? GAME.getSession() : null;
@@ -407,8 +413,12 @@ const etapeReussieParam = parseInt(params.get('etape') || '-1');
 function updateEtape(i, NOMS, v, isPMR) {
   var pfx  = isPMR ? 'cp' : 'c';
   var tpfx = isPMR ? 'tp' : 't';
-  var c  = document.getElementById(pfx+i);
-  var tn = document.getElementById(tpfx+i+'n');
+  // Mapping pour le parcours classique avec Gardien (9 étapes)
+  var cid  = (!isPMR && i === 7) ? 'c6b'  : pfx+i;
+  var tnid = (!isPMR && i === 7) ? 't6bn' : tpfx+i+'n';
+  var cid2 = (!isPMR && i === 8) ? 'c7'   : ((!isPMR && i === 7) ? 'c6b' : pfx+i);
+  var c  = document.getElementById(i===7&&!isPMR ? 'c6b' : (i===8&&!isPMR ? 'c7' : pfx+i));
+  var tn = document.getElementById(i===7&&!isPMR ? 't6bn' : (i===8&&!isPMR ? 't7n' : tpfx+i+'n'));
   if (!c) return;
   if (i < v) {
     c.setAttribute('fill','#003010'); c.setAttribute('stroke','#00992e'); c.style.animation='';
@@ -444,7 +454,7 @@ function majBoutonBas() {
 // ── ANIMATIONS CHEMIN ──
 function allumerCheminInstant(idx, isPMR) {
   var prefix = isPMR ? 'cpv' : 'cv';
-  var ids = ['01','12','23','34','45','56','67','78'];
+  var ids = isPMR ? ['01','12','23','34','45','56','67','78'] : ['01','12','23','34','45','56','67b','7b8','78'];
   if (idx < 1 || idx > ids.length) return;
   var path = document.getElementById(prefix + ids[idx-1]);
   if (path) { path.setAttribute('opacity','1'); }
@@ -452,7 +462,7 @@ function allumerCheminInstant(idx, isPMR) {
 
 function allumerChemin(idx, isPMR, callback) {
   var prefix = isPMR ? 'cpv' : 'cv';
-  var ids = ['01','12','23','34','45','56','67','78'];
+  var ids = isPMR ? ['01','12','23','34','45','56','67','78'] : ['01','12','23','34','45','56','67b','7b8','78'];
   if (idx < 1 || idx > ids.length) { if(callback) callback(); return; }
   var path = document.getElementById(prefix + ids[idx-1]);
   if (!path) { if(callback) callback(); return; }
