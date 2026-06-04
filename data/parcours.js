@@ -200,6 +200,25 @@ const PARCOURS = {
       indice: "Trouve la Lampe magique dans le musée !"
     },
 
+    // ÉTAPE 7C — Vieux Gardien Fantôme (classique)
+    {
+      id: "gardien-classique",
+      station: "Vieux Gardien",
+      personnage: "Le Vieux Gardien",
+      videoIntro: "https://www.youtube.com/embed/lPqw2nYo3E0",
+      videoBonneReponse: "https://www.youtube.com/embed/5o630es4POU",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/nmFzb3SOXEY", "https://www.youtube.com/embed/XIhGVUl-r5c"],
+      questions: {
+        unique: {
+          texte: "Le Vieux Gardien sait que les mots ont un poids. Victor Hugo écrivait : 'La musique, c'est du bruit qui pense.' Si les mots sont des vibrations et que notre corps est une caisse de résonance, comment appelle-t-on la figure de style qui donne une vie, une âme à une chose inanimée ?",
+          choix: ["L'hyperbole", "La personnification", "L'allégorie"],
+          bonne: 1,
+          messageBonneReponse: "Les mots vibrent. La musique guérit. Et si chaque mélodie entendue, chaque mot reçu depuis ta naissance, avait doucement dessiné les contours de qui tu es ?\n\nCherche maintenant dans cette même pièce... la Lampe Magique ✨"
+        }
+      },
+      indice: "Trouve la Lampe magique dans le musée !"
+    },
+
     // ÉTAPE FINALE — Lampe magique (classique)
     {
       id: "lampe-magique",

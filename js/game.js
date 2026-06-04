@@ -12,7 +12,8 @@ const GAME = {
       etape:          parseInt(localStorage.getItem('etape') || '0'),
       erreurs:        parseInt(localStorage.getItem('erreurs') || '0'),
       phase:          localStorage.getItem('phase') || 'commun', // commun | classique | pmr
-      indiceAffiche:  localStorage.getItem('indiceAffiche') === '1'
+      indiceAffiche:  localStorage.getItem('indiceAffiche') === '1',
+      totalErreurs:   parseInt(localStorage.getItem('totalErreurs') || '0')
     };
   },
 
@@ -23,6 +24,7 @@ const GAME = {
     localStorage.setItem('erreurs',       data.erreurs);
     localStorage.setItem('phase',         data.phase);
     localStorage.setItem('indiceAffiche', data.indiceAffiche ? '1' : '0');
+    localStorage.setItem('totalErreurs',  data.totalErreurs || 0);
   },
 
   // --- Réinitialiser ---
@@ -32,6 +34,7 @@ const GAME = {
     localStorage.removeItem('erreurs');
     localStorage.removeItem('phase');
     localStorage.removeItem('indiceAffiche');
+    localStorage.removeItem('totalErreurs');
   },
 
   // --- Récupérer l'étape courante ---
@@ -57,7 +60,7 @@ const GAME = {
     // IDs réservés au parcours PMR
     const etapesPMR = ['putti-astrologue', 'cadran-solaire', 'vieux-gardien'];
     // IDs réservés au parcours classique
-    const etapesClassique = ['dromadaire', 'licorne-classique'];
+    const etapesClassique = ['dromadaire', 'licorne-classique', 'gardien-classique'];
 
     // Un joueur PMR ne peut pas accéder aux étapes classiques
     if (s.parcours === 'pmr' && etapesClassique.includes(idEtape)) return false;
@@ -136,6 +139,7 @@ const GAME = {
   ajouterErreur() {
     const s = this.getSession();
     s.erreurs = s.erreurs + 1;
+    s.totalErreurs = (s.totalErreurs || 0) + 1;
     this.saveSession(s);
     return s.erreurs;
   },
