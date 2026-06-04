@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Traceur — Vieux Gardien Classique</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; }
+h1 { text-align:center; padding:12px; font-size:14px; color:#c8a842; letter-spacing:2px; }
+#info { text-align:center; font-size:11px; color:#6b6355; padding:4px; letter-spacing:1px; }
+#wrap { display:flex; justify-content:center; padding:8px; }
+#canvasWrap { position:relative; display:inline-block; }
+canvas { display:block; cursor:crosshair; }
+#controls { text-align:center; padding:12px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+button { background:transparent; border:1px solid #c8a842; border-radius:6px; padding:8px 16px; color:#c8a842; font-family:Georgia,serif; font-size:11px; letter-spacing:1px; cursor:pointer; }
+button:hover { background:rgba(200,168,66,0.1); }
+button.active { background:rgba(200,168,66,0.2); }
+#output { background:#111; border:1px solid #3a3530; border-radius:8px; margin:12px; padding:12px; font-size:11px; color:#8a8070; font-family:monospace; white-space:pre-wrap; max-height:200px; overflow-y:auto; }
+#coords { position:fixed; bottom:10px; right:10px; background:#111; border:1px solid #3a3530; padding:6px 10px; font-size:11px; color:#c8a842; border-radius:4px; }
+</style>
+</head>
+<body>
+<h1>✦ TRACEUR — Vieux Gardien (Parcours Classique) ✦</h1>
+<div id="info">MODE : <span id="modeLabel">BULLE (clic gauche = placer bulle Gardien)</span></div>
+
+<div id="controls">
+  <button id="btnBulle" class="active" onclick="setMode('bulle')">📍 Placer bulle Gardien</button>
+  <button id="btnChemin" onclick="setMode('chemin')">✏️ Tracer chemin Licorne→Gardien</button>
+  <button id="btnChemin2" onclick="setMode('chemin2')">✏️ Tracer chemin Gardien→Lampe</button>
+  <button id="btnUndo" onclick="undo()">↩ Annuler dernier point</button>
+  <button id="btnReset" onclick="resetAll()">🗑 Tout effacer</button>
+  <button id="btnExport" onclick="exportData()">📋 Copier résultat</button>
+</div>
+
+<div id="wrap"><div id="canvasWrap">
+  <canvas id="c"></canvas>
+</div></div>
+
+<div id="output">Les données apparaîtront ici après avoir placé la bulle et tracé les chemins...</div>
+<div id="coords">x:0 y:0</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const img = new Image();
+img.src = 'img/carte-fond.jpg';
+
+// Positions existantes pour référence
+const bullesExistantes = [
+  {id:'c0', cx:73,  cy:97,  label:'Guide',     color:'#00aa33'},
+  {id:'c1', cx:249, cy:158, label:'Perroquet',  color:'#00aa33'},
+  {id:'c2', cx:76,  cy:224, label:'Joseph II',  color:'#00aa33'},
+  {id:'c3', cx:249, cy:276, label:'H.Salon',    color:'#00aa33'},
+  {id:'c4', cx:106, cy:329, label:'H.Figée',    color:'#00aa33'},
+  {id:'c5', cx:263, cy:370, label:'Dromadaire', color:'#00aa33'},
+  {id:'c6', cx:85,  cy:438, label:'Licorne',    color:'#c8a842'},
+  {id:'c7', cx:183, cy:493, label:'Lampe',      color:'#cc3333'},
+];
+
+let mode = 'bulle';
+let bulle = null;
+let chemin1 = []; // Licorne → Gardien
+let chemin2 = []; // Gardien → Lampe
+let scale = 1;
+
+img.onload = function() {
+  scale = Math.min(window.innerWidth * 0.9 / 360, 600 / 540);
+  canvas.width  = Math.round(360 * scale);
+  canvas.height = Math.round(540 * scale);
+  draw();
+};
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+  // Bulles existantes
+  bullesExistantes.forEach(b => {
+    const x = b.cx * scale, y = b.cy * scale;
+    ctx.beginPath(); ctx.arc(x, y, 18*scale, 0, Math.PI*2);
+    ctx.fillStyle = b.color + '33'; ctx.fill();
+    ctx.strokeStyle = b.color; ctx.lineWidth = 2*scale; ctx.stroke();
+    ctx.fillStyle = b.color; ctx.font = `bold ${9*scale}px Georgia`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(b.label, x, y);
+  });
+
+  // Chemin Licorne→Gardien
+  if (chemin1.length > 1) {
+    ctx.beginPath();
+    ctx.moveTo(chemin1[0].x*scale, chemin1[0].y*scale);
+    chemin1.forEach(p => ctx.lineTo(p.x*scale, p.y*scale));
+    ctx.strokeStyle = '#00cc44'; ctx.lineWidth = 3*scale;
+    ctx.setLineDash([8*scale, 6*scale]); ctx.stroke(); ctx.setLineDash([]);
+  }
+  chemin1.forEach(p => {
+    ctx.beginPath(); ctx.arc(p.x*scale, p.y*scale, 3*scale, 0, Math.PI*2);
+    ctx.fillStyle = '#00cc44'; ctx.fill();
+  });
+
+  // Chemin Gardien→Lampe
+  if (chemin2.length > 1) {
+    ctx.beginPath();
+    ctx.moveTo(chemin2[0].x*scale, chemin2[0].y*scale);
+    chemin2.forEach(p => ctx.lineTo(p.x*scale, p.y*scale));
+    ctx.strokeStyle = '#ffaa00'; ctx.lineWidth = 3*scale;
+    ctx.setLineDash([8*scale, 6*scale]); ctx.stroke(); ctx.setLineDash([]);
+  }
+  chemin2.forEach(p => {
+    ctx.beginPath(); ctx.arc(p.x*scale, p.y*scale, 3*scale, 0, Math.PI*2);
+    ctx.fillStyle = '#ffaa00'; ctx.fill();
+  });
+
+  // Bulle Gardien
+  if (bulle) {
+    const x = bulle.x*scale, y = bulle.y*scale;
+    ctx.beginPath(); ctx.arc(x, y, 21*scale, 0, Math.PI*2);
+    ctx.fillStyle = '#000000'; ctx.globalAlpha=0.55; ctx.fill(); ctx.globalAlpha=1;
+    ctx.beginPath(); ctx.arc(x, y, 18*scale, 0, Math.PI*2);
+    ctx.fillStyle = '#1c1005'; ctx.fill();
+    ctx.strokeStyle = '#cc3333'; ctx.lineWidth = 2.5*scale; ctx.stroke();
+    ctx.fillStyle = '#cc3333'; ctx.font = `bold ${10*scale}px Georgia`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('GARDIEN', x, y);
+  }
+}
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn' + m.charAt(0).toUpperCase() + m.slice(1)).classList.add('active');
+  const labels = {
+    bulle: 'BULLE (clic = placer bulle Gardien)',
+    chemin: 'CHEMIN 1 — Licorne → Gardien (vert)',
+    chemin2: 'CHEMIN 2 — Gardien → Lampe (orange)'
+  };
+  document.getElementById('modeLabel').textContent = labels[m];
+}
+
+canvas.addEventListener('click', function(e) {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.round((e.clientX - rect.left) / scale);
+  const y = Math.round((e.clientY - rect.top) / scale);
+  if (mode === 'bulle') { bulle = {x, y}; }
+  else if (mode === 'chemin') { chemin1.push({x, y}); }
+  else if (mode === 'chemin2') { chemin2.push({x, y}); }
+  draw(); updateOutput();
+});
+
+canvas.addEventListener('mousemove', function(e) {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.round((e.clientX - rect.left) / scale);
+  const y = Math.round((e.clientY - rect.top) / scale);
+  document.getElementById('coords').textContent = `x:${x} y:${y}`;
+});
+
+function undo() {
+  if (mode === 'chemin' && chemin1.length) chemin1.pop();
+  else if (mode === 'chemin2' && chemin2.length) chemin2.pop();
+  else if (mode === 'bulle') bulle = null;
+  draw(); updateOutput();
+}
+
+function resetAll() {
+  bulle = null; chemin1 = []; chemin2 = [];
+  draw(); updateOutput();
+}
+
+function pathData(pts) {
+  if (!pts.length) return '';
+  let d = `M${pts[0].x},${pts[0].y}`;
+  for (let i=1; i<pts.length; i++) d += ` L${pts[i].x},${pts[i].y}`;
+  return d;
+}
+
+function updateOutput() {
+  let out = '';
+  if (bulle) out += `Bulle Gardien: cx="${bulle.x}" cy="${bulle.y}"\n`;
+  if (chemin1.length) out += `\nChemin Licorne→Gardien:\n${pathData(chemin1)}\n`;
+  if (chemin2.length) out += `\nChemin Gardien→Lampe:\n${pathData(chemin2)}\n`;
+  document.getElementById('output').textContent = out || 'Commence par placer la bulle Gardien...';
+}
+
+function exportData() {
+  updateOutput();
+  const text = document.getElementById('output').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    document.getElementById('btnExport').textContent = '✓ Copié !';
+    setTimeout(() => document.getElementById('btnExport').textContent = '📋 Copier résultat', 2000);
+  });
+}
+</script>
+</body>
+</html>
