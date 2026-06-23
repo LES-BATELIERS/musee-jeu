@@ -16,11 +16,11 @@ const PARCOURS = {
       id: "intro-guide",
       station: "Introduction",
       personnage: "Le Guide",
-      videoIntro: "https://www.youtube.com/embed/DvsH159e45U",
-      videoBonneReponse: "https://www.youtube.com/embed/ky7wWCBApX0",
+      videoIntro: "https://www.youtube.com/embed/HWwyUq4lEmg",
+      videoBonneReponse: "https://www.youtube.com/embed/TYqv954NzZw",
       videsMauvaisesReponses: [
-        "https://www.youtube.com/embed/bfCclIsJEjQ",
-        "https://www.youtube.com/embed/r8XTB6Rm1_s"
+        "https://www.youtube.com/embed/5IHO2TvvLv0",
+        "https://www.youtube.com/embed/v3L4kFjkwbY"
       ],
       questions: {
         enfant: {
@@ -42,8 +42,8 @@ const PARCOURS = {
       id: "perroquet",
       station: "Le Perroquet",
       personnage: "Le Perroquet",
-      videoIntro: "https://www.youtube.com/embed/qSrEyoz7WVk",
-      videoBonneReponse: "https://www.youtube.com/embed/GHS-yI8CC-0",
+      videoIntro: "https://www.youtube.com/embed/Ryy5N-4JnzU",
+      videoBonneReponse: "https://www.youtube.com/embed/9DizWRKYg1Y",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/xb8puGSgPrM", "https://www.youtube.com/embed/MYPDx5FAsYg"],
       questions: {
         enfant: {
@@ -66,8 +66,8 @@ const PARCOURS = {
       id: "joseph-ii",
       station: "Joseph II",
       personnage: "Joseph II",
-      videoIntro: "https://www.youtube.com/embed/H9Ioq9c6tpk",
-      videoBonneReponse: "https://www.youtube.com/embed/p_XxCOi5duM",
+      videoIntro: "https://www.youtube.com/embed/X8rRSOiTeFo",
+      videoBonneReponse: "https://www.youtube.com/embed/zMcr0KEGME8",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/7KPVi6gNEc4", "https://www.youtube.com/embed/3jtGKUmHRJw"],
       questions: {
         enfant: {
@@ -91,8 +91,8 @@ const PARCOURS = {
       id: "horloge-salon-rouge",
       station: "L'Horloge (Salon rouge)",
       personnage: "L'Horloge",
-      videoIntro: "https://www.youtube.com/embed/H-fkIpErUb8",
-      videoBonneReponse: "https://www.youtube.com/embed/DOnVAWFW8Ys",
+      videoIntro: "https://www.youtube.com/embed/jU2dS_UW3xE",
+      videoBonneReponse: "https://www.youtube.com/embed/7TZM--ajy9E",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/aKXXWSDq7oY", "https://www.youtube.com/embed/yL_dN8YHTg4"],
       questions: {
         enfant: {
@@ -168,8 +168,8 @@ const PARCOURS = {
       id: "dromadaire",
       station: "Le Dromadaire",
       personnage: "Le Dromadaire",
-      videoIntro: "https://www.youtube.com/embed/mSrgRkJqS7A",
-      videoBonneReponse: "https://www.youtube.com/embed/v0KDlA0U-bQ",
+      videoIntro: "https://www.youtube.com/embed/KH1b97V-6tY",
+      videoBonneReponse: "https://www.youtube.com/embed/D_fV4I-mf8I",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/ZrqXjjVA8NI", "https://www.youtube.com/embed/gsZglG5dbeY"],
       questions: {
         enfant: {
@@ -192,9 +192,9 @@ const PARCOURS = {
       id: "licorne-classique",
       station: "La Licorne",
       personnage: "La Licorne",
-      videoIntro: "https://www.youtube.com/embed/Hbat1rxbXxE",
-      videoBonneReponse: "https://www.youtube.com/embed/gXL6cRe0C5U",
-      videsMauvaisesReponses: ["https://www.youtube.com/embed/HPuIKFIwllM", "https://www.youtube.com/embed/WkustlPWb4A"],
+      videoIntro: "https://www.youtube.com/embed/3Lw53DtkZNo",
+      videoBonneReponse: "https://www.youtube.com/embed/U94rz744R8s",
+      videsMauvaisesReponses: ["https://www.youtube.com/embed/bnnmfyoh2zE", "https://www.youtube.com/embed/7-Zs-PQM-nQ"],
             orientationHTML: true,
       orientation: "Suis les panneaux NUIT BLANCHE vers la Cour de la lumière du jour ✦<br><br>Cherche une porte dissimulée dans la pièce suivante.<div style='background:#f5e090;border:2px solid #6a4410;border-radius:8px;padding:16px;margin-top:16px;'><div style='border:1px dashed #8a6020;border-radius:4px;padding:14px;'><div style='display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:6px;margin-left:-22px;'><svg width='44' height='44' viewBox='0 0 44 44' xmlns='http://www.w3.org/2000/svg'><circle cx='22' cy='22' r='9' fill='none' stroke='#1e0e04' stroke-width='2'/><circle cx='22' cy='22' r='4' fill='#1e0e04'/><line x1='22' y1='5' x2='22' y2='10' stroke='#1e0e04' stroke-width='2.2' stroke-linecap='round'/><line x1='22' y1='34' x2='22' y2='39' stroke='#1e0e04' stroke-width='2.2' stroke-linecap='round'/><line x1='5' y1='22' x2='10' y2='22' stroke='#1e0e04' stroke-width='2.2' stroke-linecap='round'/><line x1='34' y1='22' x2='39' y2='22' stroke='#1e0e04' stroke-width='2.2' stroke-linecap='round'/><line x1='9.5' y1='9.5' x2='13' y2='13' stroke='#1e0e04' stroke-width='2.2' stroke-linecap='round'/><line x1='31' y1='31' x2='34.5' y2='34.5' stroke='#1e0e04' stroke-width='2.2' stroke-linecap='round'/><line x1='34.5' y1='9.5' x2='31' y2='13' stroke='#1e0e04' stroke-width='2.2' stroke-linecap='round'/><line x1='13' y1='31' x2='9.5' y2='34.5' stroke='#1e0e04' stroke-width='2.2' stroke-linecap='round'/></svg><div style='text-align:center;'><div style='font-size:20px;font-weight:bold;color:#1e0e04;letter-spacing:3px;'>NUIT BLANCHE</div><div style='font-size:11px;font-style:italic;color:#5a3808;letter-spacing:2px;'>Lumière du jour</div></div></div><div style='width:80%;margin:10px auto;height:1px;background:#6a4410;'></div><div style='position:relative;'><div style='position:absolute;left:50%;top:0;bottom:0;width:0;border-left:1px dashed #8a6020;transform:translateX(-50%);'></div><div style='display:flex;margin-bottom:12px;position:relative;z-index:1;'><div style='flex:1;text-align:center;'><span style='font-size:10px;background:#1e0e04;color:#f5e090;letter-spacing:2px;padding:3px 10px;border-radius:3px;'>D'abord</span></div><div style='flex:1;text-align:center;'><span style='font-size:10px;background:#5a3808;color:#f5e090;letter-spacing:2px;padding:3px 10px;border-radius:3px;'>Ensuite</span></div></div><div style='display:flex;align-items:center;position:relative;z-index:1;'><div style='flex:1;text-align:center;padding-right:16px;'><div style='font-size:22px;font-weight:bold;color:#1e0e04;margin-bottom:8px;'>Par ici</div><svg width='60' height='28' viewBox='0 0 60 28' xmlns='http://www.w3.org/2000/svg'><line x1='2' y1='14' x2='50' y2='14' stroke='#1e0e04' stroke-width='2.5' stroke-linecap='round'/><line x1='50' y1='14' x2='38' y2='4' stroke='#1e0e04' stroke-width='2.5' stroke-linecap='round'/><line x1='50' y1='14' x2='38' y2='24' stroke='#1e0e04' stroke-width='2.5' stroke-linecap='round'/></svg><div style='font-size:13px;font-style:italic;color:#5a3808;margin-top:6px;'>(7 pas)</div></div><div style='flex:1;text-align:center;padding-left:16px;'><div style='font-size:22px;font-weight:bold;color:#1e0e04;margin-bottom:8px;'>Par là</div><svg width='60' height='28' viewBox='0 0 60 28' xmlns='http://www.w3.org/2000/svg'><line x1='58' y1='14' x2='10' y2='14' stroke='#1e0e04' stroke-width='2.5' stroke-linecap='round'/><line x1='10' y1='14' x2='22' y2='4' stroke='#1e0e04' stroke-width='2.5' stroke-linecap='round'/><line x1='10' y1='14' x2='22' y2='24' stroke='#1e0e04' stroke-width='2.5' stroke-linecap='round'/></svg><div style='font-size:13px;font-style:italic;color:#5a3808;margin-top:6px;'>(8 pas)</div></div></div></div></div></div>",
       indice: "Trouve la Lampe magique dans le musée !"
@@ -206,7 +206,7 @@ const PARCOURS = {
       station: "Vieux Gardien",
       personnage: "Le Vieux Gardien",
       videoIntro: "https://www.youtube.com/embed/lPqw2nYo3E0",
-      videoBonneReponse: "https://www.youtube.com/embed/5o630es4POU",
+      videoBonneReponse: "https://www.youtube.com/embed/WMC0tQMeBQY",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/nmFzb3SOXEY", "https://www.youtube.com/embed/XIhGVUl-r5c"],
       questions: {
         unique: {
@@ -242,8 +242,8 @@ const PARCOURS = {
       id: "putti-astrologue",
       station: "Putti Astronome",
       personnage: "Le Putti Astronome",
-      videoIntro: "https://www.youtube.com/embed/zC-Bogb-qnE",
-      videoBonneReponse: "https://www.youtube.com/embed/7c3sRBsYq4c",
+      videoIntro: "https://www.youtube.com/embed/UyaPgja_xyY",
+      videoBonneReponse: "https://www.youtube.com/embed/WMC0tQMeBQY",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/8PJ2i8IUlfs", "https://www.youtube.com/embed/x4LXD4nxfOA"],
       questions: {
         unique: {
@@ -262,7 +262,7 @@ const PARCOURS = {
       station: "Vieux Gardien",
       personnage: "Le Vieux Gardien",
       videoIntro: "https://www.youtube.com/embed/lPqw2nYo3E0",
-      videoBonneReponse: "https://www.youtube.com/embed/5o630es4POU",
+      videoBonneReponse: "https://www.youtube.com/embed/WMC0tQMeBQY",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/nmFzb3SOXEY", "https://www.youtube.com/embed/XIhGVUl-r5c"],
       questions: {
         unique: {
