@@ -460,7 +460,7 @@ localStorage.removeItem('messageSpecial');
     // pour éviter que le bouton "Retour au jeu" de progression.html
     // ne déclenche validerEtape() sans scan de QR
 
-    questionData = (!etapeData.orientation && etapeData.questions)
+    questionData = (etapeData.questions)
       ? GAME.getQuestion(etapeData, session)
       : null;
 
@@ -778,10 +778,13 @@ localStorage.removeItem('messageSpecial');
   function apresReponse() {
     if (bonneReponse) {
       if (!indiceDejaAffiche) {
-        // Lancer le jingle au clic Continuer
-
         indiceDejaAffiche = true;
-        afficherIndice();
+        // Si l'étape a une orientation (ex: Licorne) → afficher l'overlay d'orientation
+        if (etapeData && etapeData.orientation) {
+          afficherOrientation();
+        } else {
+          afficherIndice();
+        }
       }
       // Si indice déjà affiché, la redirection auto est en cours — ne rien faire
     } else {
@@ -865,10 +868,7 @@ localStorage.removeItem('messageSpecial');
   }
 
   function demarrerMusiqueEtLancerQuestion() {
-    if (etapeData && etapeData.orientation) {
-      // Étape avec orientation (ex: Licorne) → afficher message d'orientation
-      afficherOrientation();
-    } else if (!questionData) {
+    if (!questionData) {
       // Pas de question → aller direct à l'indice (ex: Lampe magique)
       afficherIndice();
     } else {
