@@ -923,7 +923,11 @@ localStorage.removeItem('messageSpecial');
     btn.textContent = "J'y vais ✦";
     btn.style.borderColor = '#00aa33';
     btn.style.color = '#00dd44';
-    btn.onclick = function() { afficherIndice(); };
+    btn.onclick = function() {
+      var dbg = GAME.getSession();
+      console.log('[J_y_vais] phase='+dbg.phase+' etape='+dbg.etape+' indiceAffiche='+dbg.indiceAffiche);
+      afficherIndice();
+    };
     liste.appendChild(btn);
     afficherEcran('ecranQuestion');
     window.scrollTo({ top: 0, behavior: 'smooth' });
