@@ -58,9 +58,9 @@ const GAME = {
     console.log('[peutAcceder] idEtape='+idEtape+' phase='+s.phase+' etape='+s.etape+' indiceAffiche='+s.indiceAffiche+' parcours='+s.parcours);
 
     // IDs réservés au parcours PMR
-    const etapesPMR = ['putti-astrologue', 'cadran-solaire', 'vieux-gardien'];
+    const etapesPMR = ['putti-astrologue', 'cadran-solaire'];
     // IDs réservés au parcours classique
-    const etapesClassique = ['dromadaire', 'licorne-classique', 'gardien-classique'];
+    const etapesClassique = ['dromadaire', 'licorne-classique'];
 
     // Un joueur PMR ne peut pas accéder aux étapes classiques
     if (s.parcours === 'pmr' && etapesClassique.includes(idEtape)) return false;
