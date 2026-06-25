@@ -115,8 +115,8 @@ const PARCOURS = {
       id: "horloge-1759",
       station: "Horloge 1759",
       personnage: "L'Horloge 1759",
-      videoIntro: "",
-      videoBonneReponse: "https://www.youtube.com/embed/hnr4sP3YQwI",
+      videoIntro: "https://www.youtube.com/embed/hnr4sP3YQwI",
+      videoBonneReponse: "https://www.youtube.com/embed/WMC0tQMeBQY",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/ngJ-VgshEnY", "https://www.youtube.com/embed/CJXDBvwUgOI"],
       bifurcation: true,
       questions: {
@@ -257,7 +257,7 @@ const PARCOURS = {
       station: "Putti Astronome",
       personnage: "Le Putti Astronome",
       videoIntro: "https://www.youtube.com/embed/UyaPgja_xyY",
-      videoBonneReponse: "https://www.youtube.com/embed/WMC0tQMeBQY",
+      videoBonneReponse: "https://www.youtube.com/embed/7c3sRBsYq4c",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/8PJ2i8IUlfs", "https://www.youtube.com/embed/x4LXD4nxfOA"],
       questions: {
         unique: {
