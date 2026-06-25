@@ -216,7 +216,7 @@ const PARCOURS = {
 
     // ÉTAPE 7C — Vieux Gardien Fantôme (classique)
     {
-      id: "gardien-classique",
+      id: "gardien",
       station: "Vieux Gardien",
       personnage: "Le Vieux Gardien",
       videoIntro: "https://www.youtube.com/embed/lPqw2nYo3E0",
@@ -272,7 +272,7 @@ const PARCOURS = {
 
     // ÉTAPE 7P — Vieux Gardien
     {
-      id: "vieux-gardien",
+      id: "gardien",
       station: "Vieux Gardien",
       personnage: "Le Vieux Gardien",
       videoIntro: "https://www.youtube.com/embed/lPqw2nYo3E0",
