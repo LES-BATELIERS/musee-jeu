@@ -781,6 +781,7 @@ localStorage.removeItem('messageSpecial');
         indiceDejaAffiche = true;
         // Si l'étape a une orientation (ex: Licorne) → afficher l'overlay d'orientation
         if (etapeData && etapeData.orientation) {
+          GAME.avancer();
           afficherOrientation();
         } else {
           afficherIndice();
