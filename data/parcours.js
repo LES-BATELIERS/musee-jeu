@@ -220,7 +220,7 @@ const PARCOURS = {
       station: "Vieux Gardien",
       personnage: "Le Vieux Gardien",
       videoIntro: "https://www.youtube.com/embed/lPqw2nYo3E0",
-      videoBonneReponse: "https://www.youtube.com/embed/WMC0tQMeBQY",
+      videoBonneReponse: "https://www.youtube.com/embed/5o630es4POU",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/nmFzb3SOXEY", "https://www.youtube.com/embed/XIhGVUl-r5c"],
       questions: {
         unique: {
@@ -276,7 +276,7 @@ const PARCOURS = {
       station: "Vieux Gardien",
       personnage: "Le Vieux Gardien",
       videoIntro: "https://www.youtube.com/embed/lPqw2nYo3E0",
-      videoBonneReponse: "https://www.youtube.com/embed/WMC0tQMeBQY",
+      videoBonneReponse: "https://www.youtube.com/embed/5o630es4POU",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/nmFzb3SOXEY", "https://www.youtube.com/embed/XIhGVUl-r5c"],
       questions: {
         unique: {
