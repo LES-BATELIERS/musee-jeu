@@ -278,7 +278,7 @@
 // Force suppression de tout ancien messageSpecial au démarrage
 localStorage.removeItem('messageSpecial');
 </script>
-<script src="data/parcours.js?v=8"></script>
+<script src="data/parcours.js?v=9"></script>
 <script src="js/html5-qrcode.min.js"></script>
 <script src="js/game.js?v=6"></script>
 <script>
@@ -924,7 +924,27 @@ localStorage.removeItem('messageSpecial');
     btn.textContent = "J'y vais ✦";
     btn.style.borderColor = '#00aa33';
     btn.style.color = '#00dd44';
-    btn.onclick = function() { afficherIndice(); };
+    btn.onclick = function() {
+      // GAME.avancer() déjà appelé dans apresReponse — on redirige directement
+      var s = GAME.getSession();
+      var totalCommun = PARCOURS.commun ? PARCOURS.commun.length : 5;
+      var idx = 0;
+      if (s.phase === 'commun')    idx = s.etape - 1;
+      if (s.phase === 'classique') idx = totalCommun + s.etape - 1;
+      if (s.phase === 'pmr')       idx = totalCommun + s.etape - 1;
+      localStorage.setItem('idxBulleReussie', String(idx));
+      try {
+        var son = new Audio('audio/Réussite_enigme.mp3');
+        son.volume = 0.8; son.play().catch(function(){});
+      } catch(e) {}
+      try {
+        var jingle = new Audio('audio/JINGLE_PARCOURS_INTERRACTIF_VSG.mp3');
+        jingle.volume = 0.8; jingle.play().catch(function(){});
+      } catch(e) {}
+      setTimeout(function() {
+        window.location.href = 'progression.html?mode=reussi&etape=' + idx;
+      }, 1500);
+    };
     liste.appendChild(btn);
     afficherEcran('ecranQuestion');
     window.scrollTo({ top: 0, behavior: 'smooth' });
