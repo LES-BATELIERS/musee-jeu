@@ -197,6 +197,19 @@ body { background:#0a0a0a; color:#f0ead8; font-family:Georgia,serif; min-height:
 
 
 
+<!-- Overlay fin Gardien PMR -->
+<div id="overlayFinGardienPMR" class="joseph-overlay">
+  <div class="joseph-card">
+    <div class="joseph-etape">✦ Indice ✦</div>
+    <div class="joseph-texte">
+      Bien joué ! Le Vieux Gardien t'a livré son secret...<br><br>
+      Maintenant cherche dans <strong style="color:#c8a842;">cette même salle</strong> un dernier QR code caché.<br><br>
+      Il te mènera vers la conclusion de cette aventure !
+    </div>
+    <button class="joseph-btn" style="border-color:#00aa33;color:#00dd44;" onclick="fermerFinGardienPMR()">Je cherche ! ✦</button>
+  </div>
+</div>
+
 <!-- Overlay Gardien PMR + Classique -->
 <div id="overlayGardien" class="joseph-overlay">
   <div class="joseph-card">
@@ -551,6 +564,8 @@ function animerReussite() {
     ouverturDirecteOverlay(function(){ ouvrirGardienAvecCallback(apresOverlay); });
   } else if(newV===5 && parcours==='pmr'){
     ouverturDirecteOverlay(function(){ ouvrirGardienAvecCallback(apresOverlay); });
+  } else if(newV===6 && parcours==='pmr'){
+    ouverturDirecteOverlay(function(){ ouvrirFinGardienPMRAvecCallback(apresOverlay); });
   } else {
     lancerJingle();
     setTimeout(apresOverlay, 800);
@@ -644,6 +659,16 @@ function ouvrirJosephAvecCallback(cb) { pendingCallback=cb; ouvrirJoseph(); }
 function ouvrirSalonAvecCallback(cb)  { pendingCallback=cb; ouvrirSalon(); }
 function ouvrirCouloirAvecCallback(cb){ pendingCallback=cb; ouvrirCouloir(); }
 function ouvrirLoggiaAvecCallback(cb) { pendingCallback=cb; ouvrirLoggia(); }
+
+function ouvrirFinGardienPMRAvecCallback(cb) { pendingCallback=cb; ouvrirFinGardienPMR(); }
+function ouvrirFinGardienPMR() { document.getElementById('overlayFinGardienPMR').classList.add('visible'); }
+function fermerFinGardienPMR() {
+  arreterMusiqueOverlay();
+  document.getElementById('overlayFinGardienPMR').classList.remove('visible');
+  var cw=document.getElementById('carteWrap'); var ss=document.getElementById('scannerSection');
+  if(cw) cw.style.display=''; if(ss) ss.style.display='';
+  initParcours(); lancerJingle(); appellerCallback();
+}
 
 function ouvrirGardienAvecCallback(cb) { pendingCallback=cb; ouvrirGardien(); }
 function ouvrirGardien() {
