@@ -256,7 +256,7 @@ const PARCOURS = {
       id: "putti-astrologue",
       station: "Putti Astronome",
       personnage: "Le Putti Astronome",
-      videoIntro: "https://www.youtube.com/embed/UyaPgja_xyY",
+      videoIntro: "https://www.youtube.com/embed/zC-Bogb-qnE",
       videoBonneReponse: "https://www.youtube.com/embed/7c3sRBsYq4c",
       videsMauvaisesReponses: ["https://www.youtube.com/embed/8PJ2i8IUlfs", "https://www.youtube.com/embed/x4LXD4nxfOA"],
       questions: {
