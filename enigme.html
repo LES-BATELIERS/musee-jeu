@@ -703,7 +703,11 @@ localStorage.removeItem('messageSpecial');
       } catch(e) {}
 
       if (etapeData.videoBonneReponse) {
-        chargerVideo('videoFeedback', etapeData.videoBonneReponse);
+        var vbr = etapeData.videoBonneReponse;
+        if (typeof vbr === 'object') {
+          vbr = (session.parcours === 'pmr') ? vbr.pmr : vbr.classique;
+        }
+        chargerVideo('videoFeedback', vbr);
         // Message personnalisé si défini dans la question, sinon message par défaut
         console.log('questionData:', JSON.stringify(questionData));
         console.log('messageBonneReponse:', questionData ? questionData.messageBonneReponse : 'undefined');
