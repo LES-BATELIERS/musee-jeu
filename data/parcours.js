@@ -182,7 +182,7 @@ const PARCOURS = {
           messageBonneReponse: "200 ans de mensonge sur le nez du Sphinx... Le doute est une force, pas une faiblesse. Questionner ce qu'on te dit, chercher les preuves, ne pas avaler tout ce qu'on te raconte — c'est une des choses les plus courageuses qu'un être humain puisse faire."
         },
         famille: {
-          texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. Certains historiens pensent qu'il fut volontairement détruit pour effacer les traits noirs africains du visage. George Orwell écrivait : 'Celui qui contrôle le passé contrôle l'avenir.' De quel procédé parle-t-il ?",
+          texte: "Le Sphinx de Gizeh a le nez cassé. Napoléon a été accusé — sans la moindre preuve — mais des gravures datant d'avant son passage montrent qu'il manquait déjà. George Orwell écrivait : 'Celui qui contrôle le passé contrôle l'avenir.' De quel procédé parle-t-il ?",
           choix: ["La légende", "La réécriture de l'histoire", "La mythologie"],
           bonne: 1
         }
